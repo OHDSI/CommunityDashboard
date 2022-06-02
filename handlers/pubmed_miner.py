@@ -844,7 +844,7 @@ def pushAuthorSummary(authorSummaryTable, key_dict:dict, containerName):
 
         
         
-def retrieveAuthorSummaryTable(key_dict: dict, containerName):
+def generateAuthorSummaryTable(key_dict: dict, containerName):
     """
     Retrieves the data as a dataframe
     
@@ -962,11 +962,10 @@ def main():
             result = authorSummary(currentSummary)
             pushAuthorSummary(result, key_dict, 'pubmed_author')
         if(numNewArticles > 0):
-            currentAuthorSummaryTable = retrieveAuthorSummaryTable(key_dict, 'pubmed_author')
+            currentAuthorSummaryTable = generateAuthorSummaryTable(key_dict, 'pubmed_author')
             asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[10]).T
             checkAuthorRecord(finalTable, asOfThisYear)
             pushAuthorSummary(currentAuthorSummaryTable, key_dict, 'pubmed_author')
-
         print("Update complete.")
     else:
         print("No updates were performed.")

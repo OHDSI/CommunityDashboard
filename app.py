@@ -29,6 +29,8 @@ def create_app():
 
     @app.route('/update_all', methods=['GET'])
     def update_all():
+        """End point to run the miners to update data sources
+        """
         youtube_miner.main()
         pubmed_miner.main()
         return 
