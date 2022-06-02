@@ -33,7 +33,7 @@ def create_app():
         """
         youtube_miner.main()
         pubmed_miner.main()
-        return 
+        return render_template('home.html')
 
     return app
 
