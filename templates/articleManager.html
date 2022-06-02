@@ -1,0 +1,268 @@
+
+
+<html>
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>OHDSI Article Manager</title>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename = 'favicon.ico') }}">
+        <style>
+            .main {
+              margin-left: 20px; /* Same as the width of the sidenav */
+            }
+            .footer {
+              margin-left: 320px; /* Same as the width of the sidenav */
+            }
+            .sidenav {
+              height: 100%;
+              width: 320px;
+              position: fixed;
+              z-index: 1;
+              top: 0;
+              left: 0;
+              background-color: #20425A;
+              overflow-x: hidden;
+              padding-top: 15%;
+            }
+      
+            .sidenav a {
+              padding: 6px 6px 6px 32px;
+              text-decoration: none;
+              font-size: 25px;
+              font-family: 'Saira Extra Condensed';
+              color: #fff;
+              display: block;
+            }
+      
+            .sidenav a:hover {
+              color: #f1f1f1;
+            }
+          </style>
+        
+    </head>
+
+        
+
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <div>
+            <nav class="navbar navbar-expand-lg" style="background-color: #20425A; color: #f1f1f1;">
+                <a>
+                  <span class="d-none d-lg-block">
+                    <img class="img-fluid mx-auto mb-2" style="width: 250px; height: 60px; padding-left: 0px; padding-right: 20px;" src="/static/ohdsi_logo.png" alt="">
+                  </span>
+                </a>
+                <a class="navbar-brand" href="/" style="color: #f1f1f1;"> OHDSI Engine of Impact</a>
+                <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto" >
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/" style="color: #f1f1f1;">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#" style="color: #f1f1f1;">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #f1f1f1;">
+                        Dashboards
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/publication_dashboard/">OHDSI Publication Tracker</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/education_dashboard/">OHDSI Education Content Tracker</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#"  style="color: #f1f1f1;">About Us</a>
+                    </li>
+                  </ul>
+                  <div class="btn-group ml-auto dropleft">
+                      <a class="nav-link" href="/auth/sign_in"  style="color: #f1f1f1;">Sign In</a>
+                  </div>
+                </div>
+            </nav>
+        </div>
+        <div class="main" style="padding-left: 0px; padding-right: 5px; font-family: 'Saira Extra Condensed'; color: #20425A;">
+            <br />
+            <br />
+            <h2 >Add New Article(s)</h2>
+            <form method="post" id="insert_form">
+            <div class="form-group">
+                <!-- <label>Enter PubMed ID/Article Title</label> -->
+                <input type="text" name="articleIdentifier" id="articleIdentifier" class="form-control" placeholder="Enter PubMed ID/Article Title">
+            </div>
+            <div class="row">
+                <div class="form-group" style="width: 200px; padding-left: 15px;">
+                    <label>Select Container</label>
+                    <select name="containerChoice" id="containerChoice" class="form-control">
+                        <option value="pubmed">PubMed</option>
+                        <option value="pubmed_ignore">PubMed Ignore</option>
+                    </select>
+                </div>
+                <div id = "insertResult" class = "column" style="padding-top: 40px; padding-left: 10px;"></div>
+            </div>
+            <div class="form-group">
+                <input type="submit" name="Add Article" id="addArticle" class="btn btn-success" value="Add Article" />
+            </div>
+            </form>
+            <br />
+            <h2 >Remove Article</h2>
+            <form method="delete" id="delete_form">
+                <div class="form-group">
+                    <!-- <label>Enter PubMed ID/Article Title</label> -->
+                    <input type="text" name="articleIDToRemove" id="articleIDToRemove" class="form-control" placeholder="Enter PubMed ID/Article Title">
+                </div>
+                <div class="row">
+                    <div class="form-group" style="width: 200px; padding-left: 15px;">
+                        <label>Select Container</label>
+                        <select name="containerWithArticle" id="containerWithArticle" class="form-control">
+                            <option value="pubmed">PubMed</option>
+                            <option value="pubmed_ignore">PubMed Ignore</option>
+                        </select>
+                    </div>
+                    <div id = "removalResult" class = "column" style="padding-top: 40px; padding-left: 10px;"></div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" name="Remove Article" id="removeArticle" class="btn btn-success" value="Remove Article" style="background-color: #20425A;">
+                    
+                </div>
+            </form>
+            
+            <br />
+            <h2 >Move to the Ignore Container (maintain tracking until manuscript is verified</h2>
+            <form method="post" id="move_form">
+                <div class="form-group">
+                    <input type="text" name="articleMove" id="articleMove" class="form-control" placeholder="Enter PubMed ID/Article Title">
+                </div>
+                <div class="row">
+                    <div class="form-group" style="width: 200px; padding-left: 15px;">
+                        <input type="submit" name="Move Article" id="moveArticle" class="btn btn-success" value="Move Article" />
+                    </div>
+                    <div id = "moveResult" class = "column" style="padding-top: 10px; padding-left: 0px;"></div>
+                </div>
+                
+            </form>
+        </div>
+        <script>
+            $(document).ready(function () {
+                
+                $('#search_text').keyup(function(){
+                    var search = $(this).val();
+                    if(search != ''){
+                    load_data(search);
+                }else{
+                    load_data();
+                }
+                });
+                $(document).on("change", "#search_filter", function () {
+                    $('#hidden_value').val($('#search_filter').val());
+                    var query = $('#hidden_value').val();
+                    load_data(query);
+                });
+
+            $('#insert_form').on('submit', function(event){
+                event.preventDefault();
+                if($('#articleIdentifier').val() == '') {
+                    $('#insertResult').html("Please Enter Article PubMed ID/Title");
+                    setTimeout(() => {
+                        $('#insertResult').html("");
+                    }, 2000);
+                    return false;
+                }else if($('#containerChoice').val() == ''){
+                    alert("Select Container");
+                    return false;
+                }else{
+                    $.ajax({
+                        url:"/insert",
+                        method:"POST",
+                        data:$(this).serialize(),
+                        success:function(data)
+                        {
+                            $('#insertResult').html(data);
+                            setTimeout(() => {
+                                $('#insertResult').html("");
+                            }, 2000);
+                            $('#insert_form')[0].reset();
+                        }
+                    });
+                }
+                });
+
+                $('#delete_form').on('submit', function(event){
+                event.preventDefault();
+                if($('#articleIDToRemove').val() == '') {
+                    $('#removalResult').html("Please Enter Article PubMed ID/Title");
+                    setTimeout(() => {
+                        $('#removalResult').html("");
+                    }, 2000);
+                    return false;
+                }else if($('#containerWithArticle').val() == ''){
+                    $('#removalresult').html("Select Container");
+                    return false;
+                }else{
+                    $.ajax({
+                        url:"/remove_article",
+                        method:"DELETE",
+                        data:$(this).serialize(),
+                        success:function(data)
+                        {
+                            $('#removalResult').html(data);
+                            setTimeout(() => {
+                                $('#removalResult').html("");
+                            }, 2000);
+                            $('#delete_form')[0].reset();
+                        }
+                    });
+                }
+                });
+
+                $('#move_form').on('submit', function(event){
+                event.preventDefault();
+                if($('#articleMove').val() == '') {
+                    $('#moveResult').html("Please Enter Article PubMed ID/Title");
+                    setTimeout(() => {
+                        $('#moveResult').html("");
+                    }, 2000);
+                    return false;
+                }else{
+                    $.ajax({
+                        url:"/moveToContainer",
+                        method:"POST",
+                        data:$(this).serialize(),
+                        success:function(data)
+                        {
+                            $('#moveResult').html(data);
+                            setTimeout(() => {
+                                $('#moveResult').html("");
+                            }, 2000);
+                            $('#move_form')[0].reset();
+                        }
+                    });
+                }
+                });
+                            
+            });
+        </script>
+        
+
+        <style>
+            
+            .scroll{
+                width: 700px;
+                height: 600px;
+                overflow-y: scroll;
+                padding-left: 0%;
+            }
+        
+        </style>
+
+    </body>
+</html>

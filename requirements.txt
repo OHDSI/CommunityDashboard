@@ -1,0 +1,20 @@
+# DO NOT include azure-functions-worker in this file
+# The Python Worker is managed by Azure Functions platform
+# Manually managing azure-functions-worker may cause unexpected issues
+
+azure-functions
+azure-cosmos
+google-api-python-client
+google-search-results  #https://github.com/serpapi/google-search-results-python
+oauth2client
+pandas
+biopython >= 1.22.3
+xmltodict >= 0.12.0
+levenshtein >= 0.18.1
+fuzzywuzzy >= 0.18.0
+plotly >= 5.6.0
+dash >= 2.3.1
+Flask-Session>=0.4.0
+dash-bootstrap-components>=1.1.0
+pytest
+git+https://github.com/azure-samples/ms-identity-python-samples-common

@@ -1,0 +1,9 @@
+{% block content %}
+Choose a paper : ??? 
+    <SELECT name="search_filter" id="search_filter" class="form-control">
+        <option value="">Select Option</option>';
+        {% for c in cityList %}
+            <OPTION value={{c}}>{{c}}</option>
+        {% endfor %}
+    </SELECT>
+{% endblock %}

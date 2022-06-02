@@ -1,0 +1,22 @@
+<h3>{{numArticle}} Records Found</h3>
+<table class="table table-striped custab">
+    <thead>
+        <tr>
+            <th>PubMed ID</th>
+            <th>Title</th>
+            <th>First Author</th>
+            <th>Publication Year</th>
+            <th>Citation Count</th>
+        </tr>
+    </thead>
+  <tbody>
+    {% for row in articleList %}  
+    <tr>
+        <td>{{row.pubmedID}}</td>
+        <td> <a href="{{'https://pubmed.ncbi.nlm.nih.gov/' + row.pubmedID}}" target="_blank"> {{row.title}} </a> </td>
+        <td>{{(row.firstAuthor[1:]).replace("'","")}}</td>
+        <td>{{row.pubYear}}</td>
+        <td>{{row.trackingChanges[-1].numCitations}}</td>
+    </tr>
+    {% endfor %} 
+  </tbody>

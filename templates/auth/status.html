@@ -1,0 +1,47 @@
+{% extends 'content.html' %}
+
+{% block body %}
+    <div class="card">
+        <h5 class="card-header">
+            {{ "You're signed in, " + g.identity_context_data.username + "!" if g.identity_context_data.authenticated else "You're not signed in."}}
+            
+        </h5>
+        <div class="card-body">
+            <p class="card-text">
+                {% if g.identity_context_data.authenticated %}
+                Click here to get your <a class="btn btn-info p-1" href="{{ url_for('token_details') }}">ID Token Details</a>
+                {% else %}
+                    Use the button on the top right to sign in. <br/>
+                    Attempts to get your <a href="{{ url_for('token_details') }}">ID Token Details</a> should result in a 401 error.
+                {% endif %}            </p>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% if g.identity_context_data.authenticated == false %}
+        <div id="wrapper">
+            <!-- the MS_ID_WEB key is configurable in the config file -->
+            {% set app_cfg = config.get('MS_ID_WEB_CONFIGS') %}
+            {% set client_id = app_cfg.client.client_id %}
+            {% set aad_link="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Authentication/appId/" ~ client_id ~ "/isMSAApp/" %}
+            <div id="left">
+                <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"></path></svg>
+            </div>
+            <div id="right">
+                Have you updated your app's <em>redirect URI</em> on <a target="_blank" href={{ aad_link }}>Azure Portal</a>?
+                <br>
+                <strong>redirect_uri</strong>: {{ ms_id_url_for('aad_redirect', _external=True) }}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+
+    
