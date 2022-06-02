@@ -955,7 +955,7 @@ def main():
             del finalTable['level_0']
 
         #update the current records
-        makeCSVJSON(finalTable, key_dict)
+        makeCSVJSON(finalTable, key_dict, 'pubmed', True)
         
         if(getTimeOfLastUpdate(key_dict)[0:2] + getTimeOfLastUpdate(key_dict)[5:10] != dateMY):
             currentSummary = retrieveAsTable(key_dict, True, 'pubmed')
