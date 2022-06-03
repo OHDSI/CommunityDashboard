@@ -8,7 +8,7 @@ from dash import Dash, dcc, html, Input, Output, State
 from flask import Flask
 from flask_session import Session
 from flask import Flask, current_app, flash, jsonify, make_response, redirect, request, render_template, send_file, Blueprint, url_for, redirect
-from . import youtube_miner
+from . import youtube_miner, youtube_dash
 
 def configure_routes(app,youtubeDashApp):
     @app.route('/education_dashboard/', methods = ['POST', 'GET'])
@@ -39,7 +39,7 @@ def configure_routes(app,youtubeDashApp):
         # df['yr']=df['Date Published'].dt.year
         # df['Duration'] = education.convert_time(df['Duration'])
         df['Duration'] = df.apply(lambda x: x['Duration'][2:], axis = 1)
-        df['Duration'] = df.apply(lambda x: youtube_miner.convert_time(x['Duration']), axis = 1)
+        df['Duration'] = df.apply(lambda x: youtube_dash.convert_time(x['Duration']), axis = 1)
 
         from plotly.subplots import make_subplots
         import plotly.graph_objects as go

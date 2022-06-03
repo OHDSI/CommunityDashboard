@@ -54,7 +54,7 @@ def build_education_dash():
     df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
     # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
     df['Duration'] = df.apply(lambda x: convert_time(x['Duration']), axis = 1)
-    print(df['Duration'])
+    # print(df['Duration'])
     df['yr']=df['Date Published'].dt.year
     
 

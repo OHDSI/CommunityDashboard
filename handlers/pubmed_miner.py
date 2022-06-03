@@ -1,6 +1,4 @@
 from azure.cosmos import CosmosClient,PartitionKey
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 from oauth2client.tools import argparser
 # import key_vault as kv
 from . import key_vault as kv
@@ -844,7 +842,7 @@ def pushAuthorSummary(authorSummaryTable, key_dict:dict, containerName):
 
         
         
-def retrieveAuthorSummaryTable(key_dict: dict, containerName):
+def generateAuthorSummaryTable(key_dict: dict, containerName):
     """
     Retrieves the data as a dataframe
     
@@ -955,18 +953,17 @@ def main():
             del finalTable['level_0']
 
         #update the current records
-        makeCSVJSON(finalTable, key_dict)
+        makeCSVJSON(finalTable, key_dict, 'pubmed', True)
         
         if(getTimeOfLastUpdate(key_dict)[0:2] + getTimeOfLastUpdate(key_dict)[5:10] != dateMY):
             currentSummary = retrieveAsTable(key_dict, True, 'pubmed')
             result = authorSummary(currentSummary)
             pushAuthorSummary(result, key_dict, 'pubmed_author')
         if(numNewArticles > 0):
-            currentAuthorSummaryTable = retrieveAuthorSummaryTable(key_dict, 'pubmed_author')
+            currentAuthorSummaryTable = generateAuthorSummaryTable(key_dict, 'pubmed_author')
             asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[10]).T
             checkAuthorRecord(finalTable, asOfThisYear)
             pushAuthorSummary(currentAuthorSummaryTable, key_dict, 'pubmed_author')
-
         print("Update complete.")
     else:
         print("No updates were performed.")

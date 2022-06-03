@@ -237,7 +237,7 @@ def configure_routes(app,pubmedDashApp):
                         return jsonify("This article already exists in the other container. Please verify." )
                 else:
                     
-                    articleTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = articleTable.apply(lambda x: getGoogleScholarCitation(x, secret_api_key), axis = 1, result_type='expand')
+                    articleTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = articleTable.apply(lambda x: pubmed_miner.getGoogleScholarCitation(x, secret_api_key), axis = 1, result_type='expand')
                     articleTable = articleTable.reset_index()
                     if ('index' in articleTable.columns):
                         del articleTable['index']

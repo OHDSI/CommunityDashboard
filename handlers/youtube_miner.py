@@ -1,7 +1,7 @@
 
 from azure.cosmos import CosmosClient,PartitionKey
-from apiclient.discovery import build
-from apiclient.errors import HttpError
+from googleapiclient.discovery import build # googleapiclient. not apiclient
+from googleapiclient.errors import HttpError
 from oauth2client.tools import argparser
 import pandas as pd
 import datetime
