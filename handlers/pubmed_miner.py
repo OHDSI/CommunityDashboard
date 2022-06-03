@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 import json
 import re
-from serpapi.google_search_results  import GoogleSearch
+from serpapi  import GoogleSearch
 import csv
 import Levenshtein as lev
 from fuzzywuzzy import fuzz, process

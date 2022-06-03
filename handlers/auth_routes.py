@@ -6,6 +6,12 @@ from flask import Flask, current_app, flash, jsonify, make_response, redirect, r
 
 
 def configure_routes(app):
+    """Add the routes for authorization functions
+    Parameters
+    ---
+    * app - Ojbect for the application session
+    Returns app
+    """
     secure_client_credential=None
     aad_configuration = AADConfig.parse_json('aadconfig.json')
     AADConfig.sanity_check_configs(aad_configuration)
