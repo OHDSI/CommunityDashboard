@@ -559,7 +559,7 @@ def getExistingIDandSearchStr(key_dict: dict, containerName):
 
     return result
 
-def retrieveAsTable(key_dict: dict, beforeCalculateCitationChanges: bool, containerName):
+def retrieveAsTable(key_dict: dict, fullRecord: bool, containerName):
     """
     Retrieves the data as a dataframe
     
@@ -569,20 +569,21 @@ def retrieveAsTable(key_dict: dict, beforeCalculateCitationChanges: bool, contai
     creationDate, affiliation, locID, countryOfPub, language = [],[],[],[],[]
     grantNum, fullAuthor, meshT, source, fullAuthorEdited = [],[],[],[],[]
     firstAuthor, pubYear, titleAuthorStr, datePulled = [],[],[],[]
-    if(beforeCalculateCitationChanges == False):
-        foundInGooScholar, numCitations , levenProb, fullAuthorGooScholar, googleScholarLink = [],[],[],[],[]
+    foundInGooScholar, numCitations , levenProb, fullAuthorGooScholar, googleScholarLink = [],[],[],[],[]
 
     colNames = ['pmcID', 'pubmedID', 'nlmID', 'journalTitle', 'title',
            'creationDate', 'affiliation', 'locID', 'countryOfPub', 'language',
            'grantNum', 'fullAuthor', 'meshT', 'source', 'fullAuthorEdited',
            'firstAuthor', 'pubYear', 'titleAuthorStr', 'datePulled',
             'foundInGooScholar','numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']
-    if(beforeCalculateCitationChanges):
-        colNames = colNames[0:19]
 
     for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
-
-        for i in range(len(item['data']['trackingChanges'])):
+        lastIndex = len(item['data']['trackingChanges']) - 1
+        if(fullRecord == False):
+            startIndex = lastIndex
+        else:
+            startIndex = 0
+        for i in range(startIndex, lastIndex + 1):
             pmcID.append(item['data']['pmcID'])
             pubmedID.append(item['data']['pubmedID'])
             nlmID.append(item['data']['nlmID'])
@@ -604,30 +605,19 @@ def retrieveAsTable(key_dict: dict, beforeCalculateCitationChanges: bool, contai
             firstAuthor.append(item['data']['firstAuthor'])
             pubYear.append(item['data']['pubYear'])
             titleAuthorStr.append(item['data']['titleAuthorStr'])
+            
             datePulled.append(item['data']['trackingChanges'][i]['datePulled'])
+            foundInGooScholar.append(item['data']['foundInGooScholar'])
+            numCitations.append(item['data']['trackingChanges'][i]['numCitations'])
+            levenProb.append(item['data']['levenProb'])
+            fullAuthorGooScholar.append(item['data']['fullAuthorGooScholar'])
+            googleScholarLink.append(item['data']['googleScholarLink'])
 
-            if(beforeCalculateCitationChanges == False):
-                foundInGooScholar.append(item['data']['foundInGooScholar'])
-                numCitations.append(item['data']['trackingChanges'][i]['numCitations'])
-                levenProb.append(item['data']['levenProb'])
-                fullAuthorGooScholar.append(item['data']['fullAuthorGooScholar'])
-                googleScholarLink.append(item['data']['googleScholarLink'])
-            if(beforeCalculateCitationChanges == True):
-                break
-
-        if(beforeCalculateCitationChanges == False):
-            df = pd.DataFrame([pmcID, pubmedID, nlmID, journalTitle, title, creationDate, affiliation, 
+        df = pd.DataFrame([pmcID, pubmedID, nlmID, journalTitle, title, creationDate, affiliation, 
                                locID, countryOfPub, language, grantNum, fullAuthor, meshT, source, 
                                fullAuthorEdited, firstAuthor, pubYear, titleAuthorStr, datePulled,
                                foundInGooScholar, numCitations, levenProb, fullAuthorGooScholar, googleScholarLink]).T
-        else:
-            df = pd.DataFrame([pmcID, pubmedID, nlmID, journalTitle, title, creationDate, affiliation, 
-                               locID, countryOfPub, language, grantNum, fullAuthor, meshT, source, 
-                               fullAuthorEdited, firstAuthor, pubYear, titleAuthorStr, datePulled]).T
         df.columns = colNames
-        
-        if(beforeCalculateCitationChanges == True):
-            df['datePulled'] = date.datetime.now().strftime("%m-%d-%Y")
     return df
 
 def moveItemToIgnoreContainer(key_dict: dict, pmIDList, fromContainerName: str, toContainerName: str):
@@ -696,6 +686,10 @@ def includeMissingCurrentArticles(table, key_dict: dict):
     return outputTable
 
 def findUniqueAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
+    """
+    finds unique authors regardless of authorship
+    
+    """
 #     container = init_cosmos(key_dict, containerName)
 #     placeHolder = []
 #     placeHolderMatch = []
@@ -741,6 +735,10 @@ def findUniqueAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
     return placeHolder
 
 def findUniqueFirstAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
+    """
+    uses levenshtein fuzzy matching to find unique first authors, not unique authors (besides first authors)
+    
+    """
     indexStartQ = 1
     indexEndQ = 0
     indexC = 0
@@ -782,6 +780,10 @@ def findUniqueFirstAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
     return placeHolder
 
 def authorSummary(authorDf):
+    """
+    Creates author summary table from the articles
+    
+    """
     authorDf['firstAuthor'] = authorDf.apply(lambda x: x['firstAuthor'].replace("'", ""), axis = 1)
     authorDf = authorDf.groupby(['pubYear'])['fullAuthor'].apply(', '.join).reset_index()
     firstAuthorDf = authorDf.groupby(['pubYear'])['firstAuthor'].apply(', '.join).reset_index()
@@ -814,78 +816,34 @@ def authorSummary(authorDf):
     
     return(finalAuthorDf)
 
-def pushAuthorSummary(authorSummaryTable, key_dict:dict, containerName):
-    d_timeseries = defaultdict(list)    
-    #format table into dictionary
-    for row in range(0,len(authorSummaryTable['pubYear'])):
-        d_authorInfo = {}
-        for k in authorSummaryTable.columns:  
-            if (k in ['pubYear', 'numberNewFirstAuthors', 'cumulativeFirstAuthors',
-                      'numberNewAuthors', 'cumulativeAuthors']):
-                d_authorInfo[k] = int(authorSummaryTable[k][row])
-            elif( k in ['uniqueFirstAuthors', 'uniqueAuthors']):
-                d_authorInfo[k] = list(authorSummaryTable[k][row])
-            elif( k in ['firstAuthor', 'fullAuthor', 'cleanFullAuthors']):
-                d_authorInfo[k] = str(authorSummaryTable[k][row])
-
-        yr = authorSummaryTable['pubYear'][row]
-        d_timeseries[str(yr)].append(d_authorInfo) 
-
-    d_timeseries = dict(d_timeseries)
-    container = init_cosmos(key_dict, containerName)
-    for k, v in d_timeseries.items(): 
-        container.upsert_item({
-                'id': k,
-                'authorSummary': v
-            }
-        )
-
-        
-        
-def generateAuthorSummaryTable(key_dict: dict, containerName):
+def pushTableToDB(summaryTable, key_dict:dict, containerName, idName):
     """
-    Retrieves the data as a dataframe
+    pushes summary table to CosmosDB and store as a single object.
     
     """
     container = init_cosmos(key_dict, containerName)
-    pubYear, firstAuthor, uniqueFirstAuthors, numberNewFirstAuthors = [],[],[],[]
-    cumulativeFirstAuthors, fullAuthor, cleanFullAuthors= [],[],[]
-    uniqueAuthors, numberNewAuthors, cumulativeAuthors = [],[],[]
-
-    colNames = ['pubYear', 'firstAuthor', 'uniqueFirstAuthors', 'numberNewFirstAuthors',
-               'cumulativeFirstAuthors', 'fullAuthor', 'cleanFullAuthors',
-               'uniqueAuthors', 'numberNewAuthors', 'cumulativeAuthors']
-
     for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
+        if(item['id'] == idName):
+            print("Specified ID Name already exists. Updating...")
+    results = {}
+    results['data'] = summaryTable.to_json()
+    results['id'] = idName
+    container.upsert_item(body = results)
 
-        pubYear.append(item['authorSummary'][0]['pubYear'])
-        firstAuthor.append(item['authorSummary'][0]['firstAuthor'])
-        uniqueFirstAuthors.append(item['authorSummary'][0]['uniqueFirstAuthors'])
-        numberNewFirstAuthors.append(item['authorSummary'][0]['numberNewFirstAuthors'])
-
-        cumulativeFirstAuthors.append(item['authorSummary'][0]['cumulativeFirstAuthors'])
-        fullAuthor.append(item['authorSummary'][0]['fullAuthor'])
-        cleanFullAuthors.append(item['authorSummary'][0]['cleanFullAuthors'])
-
-        uniqueAuthors.append(item['authorSummary'][0]['uniqueAuthors'])
-        numberNewAuthors.append(item['authorSummary'][0]['numberNewAuthors'])
-        cumulativeAuthors.append(item['authorSummary'][0]['cumulativeAuthors'])
         
-        df = pd.DataFrame([pubYear, firstAuthor, uniqueFirstAuthors, numberNewFirstAuthors,
-                           cumulativeFirstAuthors, fullAuthor, cleanFullAuthors,
-                          uniqueAuthors, numberNewAuthors, cumulativeAuthors]).T
         
-        df.columns = colNames
-
-    #Send resulting author table to dashboard container
-    result_container=init_cosmos(key_dict,'dashboard')
-    results={}
-    results['data']=df.to_json()
-    results['id']='pubmed_authors'
-    result_container.upsert_item(body=results)
-        
-#         df['datePulled'] = date.datetime.now().strftime("%m-%d-%Y")
-    return df
+def retrieveAuthorSummaryTable(key_dict: dict, containerName, selectedID):
+    """
+    Retrieves the author data as a dataframe
+    
+    """
+    container = init_cosmos(key_dict, containerName)
+    for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
+        if(item['id'] == selectedID):
+            authorSum = json.dumps(item['data'], indent = True)
+            authorSum = json.loads(authorSum)
+            outputDf = pd.DataFrame(pd.read_json(authorSum))
+            return outputDf
 
 def checkAuthorRecord(newArticleTable, currentAuthorSummary):
     for row in range(0,newArticleTable.shape[0]):
@@ -954,16 +912,18 @@ def main():
 
         #update the current records
         makeCSVJSON(finalTable, key_dict, 'pubmed', True)
+        #also cache the table as an object
+        asOfDate = retrieveAsTable(key_dict, False, 'pubmed')
+        pushTableToDB(asOfDate, key_dict, 'dashboard', 'pubmed_articles')
         
         if(getTimeOfLastUpdate(key_dict)[0:2] + getTimeOfLastUpdate(key_dict)[5:10] != dateMY):
-            currentSummary = retrieveAsTable(key_dict, True, 'pubmed')
-            result = authorSummary(currentSummary)
-            pushAuthorSummary(result, key_dict, 'pubmed_author')
+            result = authorSummary(key_dict, 'pubmed')
+            pushTableToDB(result, key_dict, 'dashboard', 'pubmed_authors')
         if(numNewArticles > 0):
-            currentAuthorSummaryTable = generateAuthorSummaryTable(key_dict, 'pubmed_author')
+            currentAuthorSummaryTable = retrieveAuthorSummaryTable(key_dict, 'dashboard', 'pubmed_authors')
             asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[10]).T
             checkAuthorRecord(finalTable, asOfThisYear)
-            pushAuthorSummary(currentAuthorSummaryTable, key_dict, 'pubmed_author')
+            pushTableToDB(currentAuthorSummaryTable, key_dict, 'dashboard', 'pubmed_authors')
         print("Update complete.")
     else:
         print("No updates were performed.")
