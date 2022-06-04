@@ -1,4 +1,3 @@
-from tkinter import E
 import dash
 import dash_bootstrap_components as dbc
 import ast

@@ -6,9 +6,8 @@ from handlers import key_vault, pubmed_dash, pubmed_miner, pubmed_routes, youtub
 from dash.dash_table.Format import Format, Group
 import dash_bootstrap_components as dbc
 
-def create_app():
-    app = Flask(__name__)
-    Session(app) # init the serverside session for the app: this is required due to large cookie size
+def create_app(app):
+    #Session(app) # init the serverside session for the app: this is required due to large cookie size
     SESSION_TYPE = "filesystem"
     SESSION_STATE = None
     
@@ -36,7 +35,5 @@ def create_app():
         return render_template('home.html')
 
     return app
-
-if __name__ == '__main__':
-    app=create_app()
-    app.run(debug=True)
+app = Flask(__name__)
+app=create_app(app)

@@ -5,7 +5,7 @@
 azure-functions
 azure-cosmos
 google-api-python-client #For youtube data API
-google-search-results  #For serpapi API https://github.com/serpapi/google-search-results-python
+google-search-results == 2.4.1  #For serpapi API https://github.com/serpapi/google-search-results-python
 oauth2client
 pandas
 biopython >= 1.22.3
