@@ -21,7 +21,6 @@ def create_app(app):
     youtube_routes.configure_routes(app, youtubeDashApp)
 
     @app.route('/')
-    @app.route('/sign_in_status')
     def index():
         return render_template('home.html')
 
