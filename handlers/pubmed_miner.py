@@ -398,9 +398,9 @@ def getGoogleScholarCitation(row, serp_api_key):
         dictArticlesToMatch = serpApiExtract(appendedResults)
     strOptions = dictArticlesToMatch['titleAuthorStr'].keys()
     if(len(strOptions) == 0):
-        result = ["NA", "NA", "NA", "NA", "NA"]
+        result = ["NA", 0, 0, "NA", "NA"]
         return result
-    
+
     elif(len(strOptions) == 1):
         title = list(dictArticlesToMatch['titleAuthorStr'].values())[0]
         levenP = fuzz.token_set_ratio(searchTitle, list(dictArticlesToMatch['titleAuthorStr'].keys())[0])
@@ -502,7 +502,7 @@ def makeCSVJSON(table, key_dict: dict, containerChosen: str, forUpdate: bool):
                 else:
                     d_trackingChanges[k] = int(float(table[k][row]))
 
-
+                    
         id = "PMID: " + str(int(float(table['pubmedID'][row])))
         if(id in data.keys()):    
             if((id in d_timeseries.keys()) == False):
