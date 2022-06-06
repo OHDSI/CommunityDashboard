@@ -1,7 +1,6 @@
 .venv
 .vscode
-.__pycache__
-/tests/__pycache__
-/handlers/__pycache__
+__pycache__/
+/handlers/__pycache__/
 handlers/key_vault.py
 aadconfig.json
