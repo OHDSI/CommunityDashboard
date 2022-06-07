@@ -120,7 +120,7 @@ def build_pubs_dash():
     #     row=1, col=2
     #     )
     # fig.update_layout(showlegend=False, font_family="Saira Extra Condensed")
-    df1['Publication']=df1.apply(lambda row:"[{}](http://pubmed.gov/{})".format(row.Title,row['PubMed ID']),axis=1)
+    df1['Publication']=df1.apply(lambda row:"[{}](https://pubmed.gov/{})".format(row.Title,row['PubMed ID']),axis=1)
     cols=['PubMed ID', 'Creation Date','Authors','Publication','Journal','MeSH Terms', 'Citation Count']
     layout= html.Div([
                 dcc.Interval(
