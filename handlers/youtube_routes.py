@@ -5,6 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from dash import Dash, dcc, html, Input, Output, State
+from flask import render_template
 from . import youtube_miner, youtube_dash
 
 def configure_routes(app,youtubeDashApp):
@@ -78,13 +79,10 @@ def configure_routes(app,youtubeDashApp):
                 
             secondary_y='Secondary'
         )
-
         # Add figure title
         fig.update_layout(title_text="<b> YouTube Analysis </b>", title_x=0.5, showlegend=False)
-
         # Set x-axis title
         fig.update_xaxes(title_text="Year")
-
         # Set y-axes titles
         fig.update_yaxes(
             title_text="Content Hours Created", 
