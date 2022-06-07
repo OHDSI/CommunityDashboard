@@ -866,7 +866,7 @@ def checkAuthorRecord(newArticleTable, currentAuthorSummary):
             if((item in list(currentAuthorSummary['uniqueAuthors'])[0]) == False):
                 list(currentAuthorSummary['uniqueAuthors'])[0].append(item)
 
-def main():
+def update_data():
     #initialize the cosmos db dictionary
     key_dict = kv.get_key_dict()
     dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
@@ -928,5 +928,3 @@ def main():
     else:
         print("No updates were performed.")
 
-# if __name__ == '__main__':
-#     main()

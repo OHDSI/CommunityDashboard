@@ -23,6 +23,11 @@ def convert_time(time_str):
 
 
 def build_education_dash():
+    """Builds Dash Dashboard for education page
+
+    Returns:
+        layout: object for Dash
+    """
     container_name='youtube'
     key_dict = key_vault.get_key_dict()
     container=pubmed_miner.init_cosmos(key_dict, container_name)
@@ -57,7 +62,6 @@ def build_education_dash():
     # print(df['Duration'])
     df['yr']=df['Date Published'].dt.year
     
-
     from plotly.subplots import make_subplots
     import plotly.graph_objects as go
     fig = make_subplots(rows=1, cols=2,
