@@ -6,7 +6,7 @@ from plotly.subplots import make_subplots
 from dash import Dash, dcc, html, Input, Output, State
 from flask import Flask
 from flask_session import Session
-from flask import Flask, current_app, flash, jsonify, make_response, redirect, request, render_template, send_file, Blueprint, url_for, redirect
+from flask import Flask, jsonify, render_template, request
 from . import pubmed_miner, key_vault
 from azure.cosmos import CosmosClient, PartitionKey
 

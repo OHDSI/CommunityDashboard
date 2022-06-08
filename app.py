@@ -14,11 +14,13 @@ def create_app(app):
     pubmedDashApp.layout= pubmed_dash.build_pubs_dash
     youtubeDashApp = Dash(__name__, server=app, url_base_pathname='/educ_dashboard/', external_stylesheets=external_stylesheets)
     youtubeDashApp.layout= youtube_dash.build_education_dash
+
     pubmed_routes.configure_routes(app, pubmedDashApp)
     youtube_routes.configure_routes(app, youtubeDashApp)
 
     @app.route('/')
     def index():
+        """Main route for the application"""
         return render_template('home.html')
 
     @app.route('/update_all', methods=['GET'])
@@ -31,3 +33,4 @@ def create_app(app):
     return app
 app = Flask(__name__)
 app=create_app(app)
+
