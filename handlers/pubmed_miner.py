@@ -1,6 +1,5 @@
 from azure.cosmos import CosmosClient,PartitionKey
 from oauth2client.tools import argparser
-# import key_vault as kv
 from . import key_vault as kv
 from Bio import Entrez, Medline #http://biopython.org/DIST/docs/tutorial/Tutorial.html#sec%3Aentrez-specialized-parsers
 import xmltodict #https://marcobonzanini.com/2015/01/12/searching-pubmed-with-python/
@@ -11,14 +10,12 @@ import numpy as np
 import json
 import re
 from serpapi  import GoogleSearch
-import csv
 import Levenshtein as lev
 from fuzzywuzzy import fuzz, process
 from os.path import exists
 from pprint import pprint
 from collections import defaultdict, Counter
 from dateutil.parser import *
-import ast
 
 def init_cosmos(key_dict: dict, container_name:str):
     """Initialize the Cosmos client
@@ -502,7 +499,7 @@ def makeCSVJSON(table, key_dict: dict, containerChosen: str, forUpdate: bool):
                 else:
                     d_trackingChanges[k] = int(float(table[k][row]))
 
-                    
+
         id = "PMID: " + str(int(float(table['pubmedID'][row])))
         if(id in data.keys()):    
             if((id in d_timeseries.keys()) == False):

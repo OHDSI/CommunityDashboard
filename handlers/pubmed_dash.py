@@ -1,4 +1,3 @@
-import dash
 import dash_bootstrap_components as dbc
 import ast
 from dash import dcc, html, dash_table
