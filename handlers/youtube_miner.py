@@ -15,6 +15,7 @@ from . import key_vault as kv
     Update the cosmos db with new counts
 3. Look for new videos
 """
+
 def init_cosmos(key_dict: dict, container_name:str):
     """Initialize the Cosmos client
     Parameters
@@ -199,7 +200,7 @@ def sort_new_videos(key_dict:dict,candidate_list:list):
             container_ignore.upsert_item(body=item)
     return
 
-def main():
+def update_data():
     key_dict=kv.get_key_dict()
     ignore_list=get_existing_ids(key_dict)
     search_qry="OHDSI"
@@ -208,6 +209,4 @@ def main():
     sort_new_videos(key_dict,candidate_list)
     update_video_stats(key_dict)
 
-if __name__ == '__main__':
-    main()
 
