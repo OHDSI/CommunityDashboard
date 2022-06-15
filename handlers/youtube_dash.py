@@ -28,7 +28,7 @@ def build_education_dash():
     """
     container_name='youtube'
     key_dict = key_vault.get_key_dict()
-    container=pubmed_miner.init_cosmos(key_dict, container_name)
+    container=pubmed_miner.init_cosmos(container_name)
     query = "SELECT * FROM c"
     items = list(container.query_items(
         query=query,

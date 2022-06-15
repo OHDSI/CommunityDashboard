@@ -7,20 +7,13 @@ from dash import Dash, dcc, html, Input, Output, State
 from flask import Flask
 from flask_session import Session
 from flask import Flask, jsonify, render_template, request
-from . import pubmed_miner, key_vault
+from . import pubmed_miner, key_vault as kv
 from azure.cosmos import CosmosClient, PartitionKey
 
 
-def configure_routes(app,pubmedDashApp):
-    key_dict = key_vault.get_key_dict()
-    endpoint = key_dict['AZURE_ENDPOINT']
-    azure_key = key_dict['AZURE_KEY']
-    secret_api_key = key_dict['SERPAPI_KEY']
-    #CosmosDB Connection
-    client = CosmosClient(endpoint, azure_key)
-    database_name = 'ohdsi-impact-engine'
-    container = pubmed_miner.init_cosmos(key_dict, 'pubmed')
-    container_ignore = pubmed_miner.init_cosmos(key_dict, 'pubmed_ignore')
+def configure_routes(app,pubmedDashApp):   
+    container = pubmed_miner.init_cosmos('pubmed')
+    container_ignore = pubmed_miner.init_cosmos('pubmed_ignore')
 
     @app.route('/publication_dashboard/', methods = ['POST', 'GET'])
     def dashboard():
@@ -115,7 +108,7 @@ def configure_routes(app,pubmedDashApp):
     def update_author_bar(all_rows_data, slctd_row_indices, slct_rows_names, slctd_rows,
                 order_of_rows_indices, order_of_rows_names, actv_cell, slctd_cell):
         #currentAuthorSummaryTable = pubmed_miner.retrieveAuthorSummaryTable(key_dict, 'pubmed_author')
-        results_container=pubmed_miner.init_cosmos(key_dict,'dashboard')
+        results_container=pubmed_miner.init_cosmos('dashboard')
         query="SELECT * FROM c where c.id = 'pubmed_authors'"
         items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
         currentAuthorSummaryTable=pd.read_json(items[0]['data'])
