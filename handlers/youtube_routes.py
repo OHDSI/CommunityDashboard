@@ -9,12 +9,12 @@ from flask import render_template
 from . import youtube_miner, youtube_dash
 
 def configure_routes(app,youtubeDashApp):
-    @app.route('/education_dashboard/', methods = ['POST', 'GET'])
+    @app.route('/youtube_dashboard/', methods = ['POST', 'GET'])
     def dashboard_education():
-        return render_template("education_dashboard.html")
+        return render_template("youtube_dashboard.html")
 
 
-    @app.route('/educ_dashboard', methods = ['POST', 'GET'])
+    @app.route('/youtube_dash', methods = ['POST', 'GET'])
     def dash_app_education():
         return youtubeDashApp.index()
 
