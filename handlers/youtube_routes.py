@@ -9,12 +9,12 @@ from flask import render_template
 from . import youtube_miner, youtube_dash
 
 def configure_routes(app,youtubeDashApp):
-    @app.route('/education_dashboard/', methods = ['POST', 'GET'])
+    @app.route('/youtube_dashboard/', methods = ['POST', 'GET'])
     def dashboard_education():
-        return render_template("education_dashboard.html")
+        return render_template("youtube_dashboard.html")
 
 
-    @app.route('/educ_dashboard', methods = ['POST', 'GET'])
+    @app.route('/youtube_dash', methods = ['POST', 'GET'])
     def dash_app_education():
         return youtubeDashApp.index()
 
@@ -36,8 +36,12 @@ def configure_routes(app,youtubeDashApp):
         df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
         # df['yr']=df['Date Published'].dt.year
         # df['Duration'] = education.convert_time(df['Duration'])
-        df['Duration'] = df.apply(lambda x: x['Duration'][2:], axis = 1)
-        df['Duration'] = df.apply(lambda x: youtube_dash.convert_time(x['Duration']), axis = 1)
+        # df['Duration'] = df.apply(lambda x: x['Duration'][2:], axis = 1)
+        # df['Duration'] = df.apply(lambda x: youtube_dash.convert_time(x['Duration']), axis = 1)
+        print(df['Length'])
+        df['Duration'] = df.apply(lambda x: int(x['Length'][0:2]) * 3600 + \
+                                    int(x['Length'][3:5]) * 60 + \
+                                        int(x['Length'][6:8]), axis = 1)
 
         from plotly.subplots import make_subplots
         import plotly.graph_objects as go
@@ -45,7 +49,8 @@ def configure_routes(app,youtubeDashApp):
         #                     subplot_titles=("Youtube Hours Created","Cumulative Hrs Watched"))
         df4=df.groupby('yr').Duration.sum().reset_index()
         df4.columns=['Year','SumSeconds']
-        df4['Hrs Created']=df4['SumSeconds'].dt.days*24 + df4['SumSeconds'].dt.seconds/3600
+        # df4['Hrs Created']=df4['SumSeconds'].dt.days*24 + df4['SumSeconds'].dt.seconds/3600
+        df4['Hrs Created']=df4['SumSeconds']/3600
         fig = make_subplots(specs=[[{"secondary_y": True}]])
 
         # Add traces

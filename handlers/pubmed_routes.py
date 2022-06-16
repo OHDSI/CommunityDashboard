@@ -7,20 +7,13 @@ from dash import Dash, dcc, html, Input, Output, State
 from flask import Flask
 from flask_session import Session
 from flask import Flask, jsonify, render_template, request
-from . import pubmed_miner, key_vault
+from . import pubmed_miner, key_vault as kv
 from azure.cosmos import CosmosClient, PartitionKey
 
 
-def configure_routes(app,pubmedDashApp):
-    key_dict = key_vault.get_key_dict()
-    endpoint = key_dict['AZURE_ENDPOINT']
-    azure_key = key_dict['AZURE_KEY']
-    secret_api_key = key_dict['SERPAPI_KEY']
-    #CosmosDB Connection
-    client = CosmosClient(endpoint, azure_key)
-    database_name = 'ohdsi-impact-engine'
-    container = pubmed_miner.init_cosmos(key_dict, 'pubmed')
-    container_ignore = pubmed_miner.init_cosmos(key_dict, 'pubmed_ignore')
+def configure_routes(app,pubmedDashApp):   
+    container = pubmed_miner.init_cosmos('pubmed')
+    container_ignore = pubmed_miner.init_cosmos('pubmed_ignore')
 
     @app.route('/publication_dashboard/', methods = ['POST', 'GET'])
     def dashboard():
@@ -114,8 +107,8 @@ def configure_routes(app,pubmedDashApp):
     )
     def update_author_bar(all_rows_data, slctd_row_indices, slct_rows_names, slctd_rows,
                 order_of_rows_indices, order_of_rows_names, actv_cell, slctd_cell):
-        #currentAuthorSummaryTable = pubmed_miner.retrieveAuthorSummaryTable(key_dict, 'pubmed_author')
-        results_container=pubmed_miner.init_cosmos(key_dict,'dashboard')
+        #currentAuthorSummaryTable = pubmed_miner.retrieveAuthorSummaryTable('pubmed_author')
+        results_container=pubmed_miner.init_cosmos('dashboard')
         query="SELECT * FROM c where c.id = 'pubmed_authors'"
         items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
         currentAuthorSummaryTable=pd.read_json(items[0]['data'])
@@ -181,10 +174,14 @@ def configure_routes(app,pubmedDashApp):
         #     countIgnore += 1
         #     listHolderIgnore.append(item['data']['title'])
         # return render_template("index.html",articles=listHolder )
+        if kv.key['PASS_KEY']!=request.args.get('pass_key'):
+            return "Not authorized to access this page"
         return render_template("articleManager.html")
 
     @app.route("/fetchrecords",methods=["POST","GET"])
     def fetchrecords():
+        if kv.key['PASS_KEY']!=request.args.get('pass_key'):
+            return "Not authorized to access this page"
         count = 0
         listHolder = []
         if request.method == 'POST':
@@ -209,15 +206,17 @@ def configure_routes(app,pubmedDashApp):
 
     @app.route("/insert",methods=["POST","GET"])
     def insert():
+        if kv.key['PASS_KEY']!=request.args.get('pass_key'): #Need to add hidden field for POST condition
+            return "Not authorized to access this page"
         dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
         if request.method == 'POST':
             
             searchArticles = request.form['articleIdentifier']
             designatedContainer = request.form['containerChoice']
             numNewArticles = 0
-            containerArticles = pubmed_miner.getExistingIDandSearchStr(key_dict, designatedContainer)
+            containerArticles = pubmed_miner.getExistingIDandSearchStr(designatedContainer)
 
-            secret_api_key = key_dict['SERPAPI_KEY'] #SERPAPI key
+            secret_api_key = kv.key['SERPAPI_KEY'] #SERPAPI key
             articleTable = pubmed_miner.getPMArticles(searchArticles)
             articleTable = articleTable[articleTable['pubYear'] > 2010]
             try:
@@ -228,7 +227,7 @@ def configure_routes(app,pubmedDashApp):
 
                 specifiedArticle = articleTable['pubmedID'][0]
                 articleTable = articleTable[articleTable.pubmedID.notnull()]
-                articleTable, numNewArticles = pubmed_miner.identifyNewArticles(articleTable, key_dict)
+                articleTable, numNewArticles = pubmed_miner.identifyNewArticles(articleTable)
 
                 if(numNewArticles == 0):
                     if(specifiedArticle in containerArticles[0]):
@@ -243,9 +242,9 @@ def configure_routes(app,pubmedDashApp):
                         del articleTable['index']
 
                     #update the current records
-                    # makeCSVJSON(finalTable, key_dict)
+                    # makeCSVJSON(finalTable)
                     #update the current records
-                    pubmed_miner.makeCSVJSON(articleTable, key_dict, designatedContainer, False)
+                    pubmed_miner.makeCSVJSON(articleTable, designatedContainer, False)
 
 
                     return jsonify("" + str(numNewArticles) + " new article(s) added successfully")
@@ -257,7 +256,7 @@ def configure_routes(app,pubmedDashApp):
         if request.method == 'DELETE':
             searchArticles = request.form['articleIDToRemove']
             designatedContainer = request.form['containerWithArticle']
-            containerArticles = pubmed_miner.getExistingIDandSearchStr(key_dict, designatedContainer)
+            containerArticles = pubmed_miner.getExistingIDandSearchStr( designatedContainer)
             # print(searchArticles)
             # print(designatedContainer)
             if(designatedContainer == "pubmed_ignore"):
@@ -282,14 +281,14 @@ def configure_routes(app,pubmedDashApp):
     def moveToContainer():
         if(request.method == 'POST'):
             articleToMove = request.form['articleMove']
-            containerArticles = pubmed_miner.getExistingIDandSearchStr(key_dict, 'pubmed')
-            ignoreArticles = pubmed_miner.getExistingIDandSearchStr(key_dict, 'pubmed_ignore')
+            containerArticles = pubmed_miner.getExistingIDandSearchStr('pubmed')
+            ignoreArticles = pubmed_miner.getExistingIDandSearchStr( 'pubmed_ignore')
 
             if(articleToMove in containerArticles[0]):
-                pubmed_miner.moveItemToIgnoreContainer(key_dict, [articleToMove], 'pubmed', 'pubmed_ignore')
+                pubmed_miner.moveItemToIgnoreContainer( [articleToMove], 'pubmed', 'pubmed_ignore')
                 return jsonify("Article moved to the ignore container.")
             elif(articleToMove in ignoreArticles[0]):
-                pubmed_miner.moveItemToIgnoreContainer(key_dict, [articleToMove], 'pubmed_ignore', 'pubmed')
+                pubmed_miner.moveItemToIgnoreContainer( [articleToMove], 'pubmed_ignore', 'pubmed')
                 return jsonify("Article moved to the pubmed article container.")
             else:
                 return jsonify("Article is not in the database. Add it first.")

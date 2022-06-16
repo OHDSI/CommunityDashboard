@@ -17,17 +17,17 @@ from pprint import pprint
 from collections import defaultdict, Counter
 from dateutil.parser import *
 
-def init_cosmos(key_dict: dict, container_name:str):
+def init_cosmos(container_name:str):
     """Initialize the Cosmos client
     Parameters
     ---
     * container_name : str - Name of azure container in cosmos db
     Returns container for cosmosclient
     """
-    endpoint = key_dict['AZURE_ENDPOINT']
-    azure_key = key_dict['AZURE_KEY']
+    endpoint = kv.key['AZURE_ENDPOINT']
+    azure_key = kv.key['AZURE_KEY']
     client = CosmosClient(endpoint, azure_key)
-    database_name = 'ohdsi-impact-engine'
+    database_name = kv.key['DB_NAME']
     database = client.create_database_if_not_exists(id=database_name)
     container = database.create_container_if_not_exists(
         id=container_name, 
@@ -42,7 +42,7 @@ def pubmedAPI(searchQuery):
     For each of the search terms (searchQuery), search on pubmed and pmc databases
     Convert the results into a dataframe
     """
-    Entrez.email = 'sliu197@jhmi.edu' #personal email address for Pubmed to reach out if necessary
+    Entrez.email = kv.key['ENTREZ_EMAIL'] #personal email address for Pubmed to reach out if necessary
     paramEutils = { 'usehistory':'Y' } #using cache
     queryList = searchQuery
     dbList = ['pubmed', 'pmc'] #Search through all databases of interest 'nlmcatalog', 'ncbisearch' 
@@ -410,12 +410,12 @@ def getGoogleScholarCitation(row, serp_api_key):
         result = [title, dictArticlesToMatch['citationInfo'][title], result[1], dictArticlesToMatch['fullAuthorInfo'][title], dictArticlesToMatch['googleScholarLink'][title]]
         return result
 
-def getLastUpdatedCitations(key_dict: dict, containerName):
+def getLastUpdatedCitations(containerName):
     """
     Called in trackCitationChanges()
     Retrieve the number of citation for each article from the most recent update.
     """
-    container = init_cosmos(key_dict, containerName)
+    container = init_cosmos(containerName)
     lastUpdateResults = {'citationInfo': {}}
     numCitation = 0
     for item in container.query_items(query=str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
@@ -424,7 +424,7 @@ def getLastUpdatedCitations(key_dict: dict, containerName):
         lastUpdateResults['citationInfo'][title] = numCitation
     return lastUpdateResults
 
-def trackCitationChanges(table, key_dict: dict):
+def trackCitationChanges(table):
     """
     Called in main()
     Calculate the change in the number of citations
@@ -439,9 +439,9 @@ def trackCitationChanges(table, key_dict: dict):
         retrievalResults['citationInfo'][table['title'][row]] = int(table['numCitations'][row])
     table['additionalCitationCount'] = 0
     #retrieve the counts from the last update
-    lastUpdateResults = getLastUpdatedCitations(key_dict, 'pubmed')
-    for key in (getLastUpdatedCitations(key_dict, 'pubmed_ignore')['citationInfo']):
-        lastUpdateResults['citationInfo'][key] = getLastUpdatedCitations(key_dict, 'pubmed_ignore')['citationInfo'][key]
+    lastUpdateResults = getLastUpdatedCitations('pubmed')
+    for key in (getLastUpdatedCitations('pubmed_ignore')['citationInfo']):
+        lastUpdateResults['citationInfo'][key] = getLastUpdatedCitations('pubmed_ignore')['citationInfo'][key]
     for key in retrievalResults['citationInfo']:
         if(key in lastUpdateResults.keys()):
             table.loc[table['title'] == key, 'additionalCitationCount'] = retrievalResults['citationInfo'][key] - lastUpdateResults['citationInfo'][key]
@@ -449,29 +449,29 @@ def trackCitationChanges(table, key_dict: dict):
             table.loc[table['title'] == key, 'additionalCitationCount'] = 0
     return table
 
-def fetchCurrentDataAndUpdate(key_dict: dict, containerName):
+def fetchCurrentDataAndUpdate(containerName):
     """
     Called in makeCSVJSON()
     Retrieve all existing records and add in updates
     """
-    container = init_cosmos(key_dict, containerName)
+    container = init_cosmos(containerName)
     result = defaultdict(list)
     for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
         result[item['id']] = item['data']
     return result
 
 
-def makeCSVJSON(table, key_dict: dict, containerChosen: str, forUpdate: bool):
+def makeCSVJSON(table, containerChosen: str, forUpdate: bool):
     """
     Called in main()
     Add new records to the existing records and update container
     """
-    container = init_cosmos(key_dict, 'pubmed')
-    container_ignore = init_cosmos(key_dict, 'pubmed_ignore')
-    container_chosen = init_cosmos(key_dict, containerChosen)
+    container = init_cosmos( 'pubmed')
+    container_ignore = init_cosmos( 'pubmed_ignore')
+    container_chosen = init_cosmos( containerChosen)
     if(forUpdate):
-        data = fetchCurrentDataAndUpdate(key_dict, 'pubmed')
-        data_ignore = fetchCurrentDataAndUpdate(key_dict, 'pubmed_ignore')
+        data = fetchCurrentDataAndUpdate( 'pubmed')
+        data_ignore = fetchCurrentDataAndUpdate('pubmed_ignore')
         for key in data_ignore:
             data[key] = data_ignore[key]
     else: 
@@ -511,7 +511,7 @@ def makeCSVJSON(table, key_dict: dict, containerChosen: str, forUpdate: bool):
     
     data = dict(data)
     #for articles in the ignore list, add to the ignore container; otherwise, add to the pubmed container
-    ignore_list = getExistingIDandSearchStr(key_dict, 'pubmed_ignore')[0]
+    ignore_list = getExistingIDandSearchStr( 'pubmed_ignore')[0]
     for k, v in data.items(): 
         if(k[6:len(k)] in ignore_list):
             container_ignore.upsert_item({
@@ -527,25 +527,25 @@ def makeCSVJSON(table, key_dict: dict, containerChosen: str, forUpdate: bool):
                 }
             )
 
-def getTimeOfLastUpdate(key_dict: dict):
+def getTimeOfLastUpdate():
     """
     Called in main()
     Not every article has the same last date of update. Find the most recent among all articles. 
     """
-    container = init_cosmos(key_dict, 'pubmed')
+    container = init_cosmos('pubmed')
     dateOfLastUpdate = "01-01-2022"
     for item in container.query_items(query='SELECT * FROM beta', enable_cross_partition_query=True):
         if(dateOfLastUpdate < item['data']['trackingChanges'][len(item['data']['trackingChanges'])-1]['datePulled']):
             dateOfLastUpdate = item['data']['trackingChanges'][len(item['data']['trackingChanges'])-1]['datePulled']
     return dateOfLastUpdate
 
-def getExistingIDandSearchStr(key_dict: dict, containerName):
+def getExistingIDandSearchStr(containerName):
     """
     Called in main()
     Get a list of PMIDs and a list of title-author search strings
     Two outputs
     """
-    container = init_cosmos(key_dict, containerName)
+    container = init_cosmos( containerName)
     result = []
     exisitingIDs = []
     exisitingTitleAuthorStr = []
@@ -556,12 +556,12 @@ def getExistingIDandSearchStr(key_dict: dict, containerName):
 
     return result
 
-def retrieveAsTable(key_dict: dict, fullRecord: bool, containerName):
+def retrieveAsTable( fullRecord: bool, containerName):
     """
     Retrieves the data as a dataframe
     
     """
-    container = init_cosmos(key_dict, containerName)
+    container = init_cosmos( containerName)
     pmcID, pubmedID, nlmID, journalTitle, title = [],[],[],[],[]
     creationDate, affiliation, locID, countryOfPub, language = [],[],[],[],[]
     grantNum, fullAuthor, meshT, source, fullAuthorEdited = [],[],[],[],[]
@@ -617,17 +617,17 @@ def retrieveAsTable(key_dict: dict, fullRecord: bool, containerName):
         df.columns = colNames
     return df
 
-def moveItemToIgnoreContainer(key_dict: dict, pmIDList, fromContainerName: str, toContainerName: str):
+def moveItemToIgnoreContainer( pmIDList, fromContainerName: str, toContainerName: str):
     """
     Moves one or many articles from one container to another
     
     """
-    fromContainer = init_cosmos(key_dict, fromContainerName)
-    toContainer = init_cosmos(key_dict, toContainerName)
+    fromContainer = init_cosmos( fromContainerName)
+    toContainer = init_cosmos( toContainerName)
     for i in range(len(pmIDList)):
         pmID = pmIDList[i]
         #check if the article exists in the current container.
-        checkID = getExistingIDandSearchStr(key_dict, fromContainerName)[0]
+        checkID = getExistingIDandSearchStr(fromContainerName)[0]
         if(str("" + pmID) in checkID):
             #move out of current container to another container
             for item in fromContainer.query_items( query = str('SELECT * FROM ' + fromContainerName), enable_cross_partition_query=True):
@@ -645,13 +645,13 @@ def moveItemToIgnoreContainer(key_dict: dict, pmIDList, fromContainerName: str, 
         else:
             print("" + pmID + " is not in this container. Check the direction of migration.")
             
-def identifyNewArticles(table, key_dict: dict):
+def identifyNewArticles(table):
     """
     Called in main()
     Identify new articles for a limited search. Used to search for new articles on a daily basis. 
     """
-    trueArticles = getExistingIDandSearchStr(key_dict, 'pubmed')
-    ignoreArticles = getExistingIDandSearchStr(key_dict, 'pubmed_ignore')
+    trueArticles = getExistingIDandSearchStr('pubmed')
+    ignoreArticles = getExistingIDandSearchStr('pubmed_ignore')
     allExistingIDs = list(np.append(trueArticles[0], ignoreArticles[0]))
     newArticles = list(set(list(table['pubmedID'])) - set(allExistingIDs))
     if(len(newArticles) > 0):
@@ -663,15 +663,15 @@ def identifyNewArticles(table, key_dict: dict):
 
     return result
 
-def includeMissingCurrentArticles(table, key_dict: dict):
+def includeMissingCurrentArticles(table):
     """
     Called in main()
     For the 27 articles that were added in manually (any other manually added articles in the future), 
     we need to do add them to the total list of articles to search for. 
 
     """
-    trueArticles = getExistingIDandSearchStr(key_dict, 'pubmed')
-    ignoreArticles = getExistingIDandSearchStr(key_dict, 'pubmed_ignore')
+    trueArticles = getExistingIDandSearchStr('pubmed')
+    ignoreArticles = getExistingIDandSearchStr('pubmed_ignore')
     allExistingIDs = list(np.append(trueArticles[0], ignoreArticles[0]))
     missingArticles = list(set(allExistingIDs) - set(list(table['pubmedID'])))
     outputTable = getPMArticles(missingArticles)
@@ -687,7 +687,7 @@ def findUniqueAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
     finds unique authors regardless of authorship
     
     """
-#     container = init_cosmos(key_dict, containerName)
+#     container = init_cosmos(containerName)
 #     placeHolder = []
 #     placeHolderMatch = []
     indexStart = 1
@@ -813,12 +813,12 @@ def authorSummary(authorDf):
     
     return(finalAuthorDf)
 
-def pushTableToDB(summaryTable, key_dict:dict, containerName, idName):
+def pushTableToDB(summaryTable, containerName, idName):
     """
     pushes summary table to CosmosDB and store as a single object.
     
     """
-    container = init_cosmos(key_dict, containerName)
+    container = init_cosmos(containerName)
     for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
         if(item['id'] == idName):
             print("Specified ID Name already exists. Updating...")
@@ -829,12 +829,12 @@ def pushTableToDB(summaryTable, key_dict:dict, containerName, idName):
 
         
         
-def retrieveAuthorSummaryTable(key_dict: dict, containerName, selectedID):
+def retrieveAuthorSummaryTable(containerName, selectedID):
     """
     Retrieves the author data as a dataframe
     
     """
-    container = init_cosmos(key_dict, containerName)
+    container = init_cosmos(containerName)
     for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
         if(item['id'] == selectedID):
             authorSum = json.dumps(item['data'], indent = True)
@@ -865,9 +865,8 @@ def checkAuthorRecord(newArticleTable, currentAuthorSummary):
 
 def update_data():
     #initialize the cosmos db dictionary
-    key_dict = kv.get_key_dict()
     dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
-    secret_api_key = key_dict['SERPAPI_KEY'] #SERPAPI key
+    secret_api_key = kv.key['SERPAPI_KEY'] #SERPAPI key
     
     #search terms/strings
     searchAll = ['ohdsi', 'omop', 'Observational Medical Outcomes Partnership Common Data Model', \
@@ -876,17 +875,17 @@ def update_data():
     
     #first search pubmed
     finalTable = getPMArticles(searchAll)
-    finalTable = includeMissingCurrentArticles(finalTable, key_dict)
+    finalTable = includeMissingCurrentArticles(finalTable)
     finalTable = finalTable[finalTable['pubYear'] > 2010]
     numNewArticles = 0
     #check if an update has already been performed this month
-    if(getTimeOfLastUpdate(key_dict)[0:2] + getTimeOfLastUpdate(key_dict)[5:10] == dateMY):
-        print("Already updated this month on " + getTimeOfLastUpdate(key_dict))
+    if(getTimeOfLastUpdate()[0:2] + getTimeOfLastUpdate()[5:10] == dateMY):
+        print("Already updated this month on " + getTimeOfLastUpdate())
         print("Identifying new articles...")
         #check if an update has already been performed today
-        if(getTimeOfLastUpdate(key_dict) != str("" + date.datetime.now().strftime("%m-%d-%Y"))):
+        if(getTimeOfLastUpdate() != str("" + date.datetime.now().strftime("%m-%d-%Y"))):
             #if not search and filter for new articles
-            finalTable, numNewArticles = identifyNewArticles(finalTable, key_dict)
+            finalTable, numNewArticles = identifyNewArticles(finalTable)
             #if no new articles are found. End the update/script.
             if(numNewArticles == 0):
                 print("" + str(numNewArticles) + " new articles found. Update is not needed." )
@@ -898,9 +897,9 @@ def update_data():
         print("First update of the month.")
 
     #if it is the first update of the month, or if new articles have been found within the same month, upsert those articles
-    if((getTimeOfLastUpdate(key_dict)[0:2] + getTimeOfLastUpdate(key_dict)[5:10] != dateMY) or (numNewArticles > 0)):
+    if((getTimeOfLastUpdate()[0:2] + getTimeOfLastUpdate()[5:10] != dateMY) or (numNewArticles > 0)):
         #search google scholar and create 4 new columns
-        finalTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = finalTable.apply(lambda x: getGoogleScholarCitation(x, key_dict['SERPAPI_KEY']), axis = 1, result_type='expand')
+        finalTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = finalTable.apply(lambda x: getGoogleScholarCitation(x, kv.key['SERPAPI_KEY']), axis = 1, result_type='expand')
         finalTable = finalTable.reset_index()
         if ('index' in finalTable.columns):
             del finalTable['index']
@@ -908,19 +907,19 @@ def update_data():
             del finalTable['level_0']
 
         #update the current records
-        makeCSVJSON(finalTable, key_dict, 'pubmed', True)
+        makeCSVJSON(finalTable, 'pubmed', True)
         #also cache the table as an object
-        asOfDate = retrieveAsTable(key_dict, False, 'pubmed')
-        pushTableToDB(asOfDate, key_dict, 'dashboard', 'pubmed_articles')
+        asOfDate = retrieveAsTable( False, 'pubmed')
+        pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
         
-        if(getTimeOfLastUpdate(key_dict)[0:2] + getTimeOfLastUpdate(key_dict)[5:10] != dateMY):
-            result = authorSummary(key_dict, 'pubmed')
-            pushTableToDB(result, key_dict, 'dashboard', 'pubmed_authors')
+        if(getTimeOfLastUpdate()[0:2] + getTimeOfLastUpdate()[5:10] != dateMY):
+            result = authorSummary( 'pubmed')
+            pushTableToDB(result, 'dashboard', 'pubmed_authors')
         if(numNewArticles > 0):
-            currentAuthorSummaryTable = retrieveAuthorSummaryTable(key_dict, 'dashboard', 'pubmed_authors')
+            currentAuthorSummaryTable = retrieveAuthorSummaryTable( 'dashboard', 'pubmed_authors')
             asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[10]).T
             checkAuthorRecord(finalTable, asOfThisYear)
-            pushTableToDB(currentAuthorSummaryTable, key_dict, 'dashboard', 'pubmed_authors')
+            pushTableToDB(currentAuthorSummaryTable, 'dashboard', 'pubmed_authors')
         print("Update complete.")
     else:
         print("No updates were performed.")
