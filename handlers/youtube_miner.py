@@ -16,7 +16,7 @@ from . import key_vault as kv
 3. Look for new videos
 """
 
-def init_cosmos(key_dict: dict, container_name:str):
+def init_cosmos(container_name:str):
     """Initialize the Cosmos client
     Parameters
     ---
@@ -24,8 +24,8 @@ def init_cosmos(key_dict: dict, container_name:str):
 
     Returns container for cosmosclient
     """
-    endpoint = key_dict['AZURE_ENDPOINT']
-    azure_key = key_dict['AZURE_KEY']
+    endpoint = kv.key['AZURE_ENDPOINT']
+    azure_key = kv.key['AZURE_KEY']
     client = CosmosClient(endpoint, azure_key)
     database_name = 'ohdsi-impact-engine'
     database = client.create_database_if_not_exists(id=database_name)
@@ -52,7 +52,7 @@ def response_test(response: dict):
                     return True
     return False
 
-def video_details(key_dict: dict,video_id: str):
+def video_details(video_id: str):
     """
     Takes a video_id and returns details like duration and viewcount
     This function queries the Youtube Data api 
@@ -61,7 +61,6 @@ def video_details(key_dict: dict,video_id: str):
     Parameters
     ----------
     * video_id : str - youtube unique id for video
-    * api_key: dict - api developer key_dict
 
     Returns
     -------
@@ -75,8 +74,8 @@ def video_details(key_dict: dict,video_id: str):
     * publishedAt: str - date the video was published
 
     """
-    youtube = build(key_dict['YOUTUBE_API_SERVICE_NAME'], key_dict['YOUTUBE_API_VERSION']\
-        ,developerKey=key_dict['YOUTUBE_DEVELOPER_KEY'])
+    youtube = build(kv.key['YOUTUBE_API_SERVICE_NAME'], kv.key['YOUTUBE_API_VERSION']\
+        ,developerKey=kv.key['YOUTUBE_DEVELOPER_KEY'])
     """use youtube data api to get details on a video"""
     video={}
     response = youtube.videos().list(part='statistics, snippet, contentDetails', \
@@ -91,13 +90,12 @@ def video_details(key_dict: dict,video_id: str):
         video['publishedAt']=response['items'][0]['snippet']['publishedAt']
     return video
 
-def update_video_stats(key_dict: dict):
+def update_video_stats():
     """Queries youtube api based upon list of items in azure cosmos db youtube container
 
-    Args:
-        api_key ([dict]): api key_dict to access youtube api
+
     """
-    container=init_cosmos(key_dict,'youtube')
+    container=init_cosmos('youtube')
     query = "SELECT * FROM c"
     items = list(container.query_items(
         query=query,
@@ -108,7 +106,7 @@ def update_video_stats(key_dict: dict):
         month_checked=datetime.datetime.strptime(item['lastChecked'], "%Y-%m-%d").month
         if month_checked != this_month:
             #print("updating item {}".format(item['id']))
-            updates=video_details(key_dict,item['id'])
+            updates=video_details(item['id'])
             if len(updates)>0: # Case where video_details turns up empty
                 today='{}'.format(datetime.date.today())
                 item['counts'].append({'checkedOn':today,'viewCount':updates['viewCount']})
@@ -116,15 +114,15 @@ def update_video_stats(key_dict: dict):
                 container.upsert_item(body=item)
     return
 
-def get_existing_ids(key_dict: dict):
+def get_existing_ids():
     """queries the azure containers for all the ids the system already knows about
 
     parameters
-    * key_dict: dict Dictionary of configuration information
+
     Returns:
         ids: list of unique id's of videos from youtube
     """
-    container=init_cosmos(key_dict,'youtube') 
+    container=init_cosmos('youtube') 
     query = "SELECT * FROM c"
     ids=[]
     items = list(container.query_items(
@@ -132,7 +130,7 @@ def get_existing_ids(key_dict: dict):
         enable_cross_partition_query=True))
     for item in items:
         ids.append(item['id'])
-    container_ignore=init_cosmos(key_dict,'youtube_ignore')
+    container_ignore=init_cosmos('youtube_ignore')
     query = "SELECT * FROM c"
     items = list(container_ignore.query_items(
         query=query,
@@ -141,7 +139,7 @@ def get_existing_ids(key_dict: dict):
         ids.append(item['id'])
     return ids
 
-def youtube_search(key_dict:dict,q: str, max_results:int =50,order:str ="relevance"):
+def youtube_search(q: str, max_results:int =50,order:str ="relevance"):
     """
     Take q as a search string to find all hits with youtube api to look for new videos.
 
@@ -153,7 +151,6 @@ def youtube_search(key_dict:dict,q: str, max_results:int =50,order:str ="relevan
     * q : str - query string for search
     * max_results: int - number of results to return in each page
     * order: str - relevance algorithm to run the search 
-    * key_dict: dict - api key_dict for youtube access
 
     Returns
     -------
@@ -161,8 +158,8 @@ def youtube_search(key_dict:dict,q: str, max_results:int =50,order:str ="relevan
     title and videoId.
 
     """
-    youtube = build(key_dict['YOUTUBE_API_SERVICE_NAME'], key_dict['YOUTUBE_API_VERSION']\
-        ,developerKey=key_dict['YOUTUBE_DEVELOPER_KEY'])
+    youtube = build(kv.key['YOUTUBE_API_SERVICE_NAME'], kv.key['YOUTUBE_API_VERSION']\
+        ,developerKey=kv.key['YOUTUBE_DEVELOPER_KEY'])
     request = youtube.search().list(
         q=q, type="video", order = order,
         part="id,snippet", # Part signifies the different types of data you want 
@@ -176,17 +173,17 @@ def youtube_search(key_dict:dict,q: str, max_results:int =50,order:str ="relevan
         request=youtube.search().list_next(request, activities_doc)
     return id_list
 
-def sort_new_videos(key_dict:dict,candidate_list:list):
+def sort_new_videos(candidate_list:list):
     """ Take a list of candidate video ids
     - get the video details
     - if the video channel is OHDSI, add to youtube
     - otherwise add to ignore
     """
     today='{}'.format(datetime.date.today())
-    container=init_cosmos(key_dict,'youtube') 
-    container_ignore=init_cosmos(key_dict,'youtube_ignore') 
+    container=init_cosmos('youtube') 
+    container_ignore=init_cosmos('youtube_ignore') 
     for candidate in candidate_list:
-        video=video_details(key_dict,candidate)
+        video=video_details(candidate)
         if video['channelTitle'][:5]=='OHDSI':
             item={'id':candidate,'title':video['title'],'duration':video['duration']\
                 ,'channelId':video['channelId'],'channelTitle':video['channelTitle'],\
@@ -201,12 +198,11 @@ def sort_new_videos(key_dict:dict,candidate_list:list):
     return
 
 def update_data():
-    key_dict=kv.get_key_dict()
-    ignore_list=get_existing_ids(key_dict)
+    ignore_list=get_existing_ids()
     search_qry="OHDSI"
-    search_list=youtube_search(key_dict,search_qry)
+    search_list=youtube_search(search_qry)
     candidate_list=list(set(search_list)-set(ignore_list))
-    sort_new_videos(key_dict,candidate_list)
-    update_video_stats(key_dict)
+    sort_new_videos(candidate_list)
+    update_video_stats()
 
 

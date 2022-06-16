@@ -27,7 +27,6 @@ def build_education_dash():
         layout: object for Dash
     """
     container_name='youtube'
-    key_dict = key_vault.get_key_dict()
     container=pubmed_miner.init_cosmos(container_name)
     query = "SELECT * FROM c"
     items = list(container.query_items(

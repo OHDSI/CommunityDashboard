@@ -424,7 +424,7 @@ def getLastUpdatedCitations(containerName):
         lastUpdateResults['citationInfo'][title] = numCitation
     return lastUpdateResults
 
-def trackCitationChanges(table, key_dict: dict):
+def trackCitationChanges(table):
     """
     Called in main()
     Calculate the change in the number of citations
@@ -439,9 +439,9 @@ def trackCitationChanges(table, key_dict: dict):
         retrievalResults['citationInfo'][table['title'][row]] = int(table['numCitations'][row])
     table['additionalCitationCount'] = 0
     #retrieve the counts from the last update
-    lastUpdateResults = getLastUpdatedCitations(key_dict, 'pubmed')
-    for key in (getLastUpdatedCitations(key_dict, 'pubmed_ignore')['citationInfo']):
-        lastUpdateResults['citationInfo'][key] = getLastUpdatedCitations(key_dict, 'pubmed_ignore')['citationInfo'][key]
+    lastUpdateResults = getLastUpdatedCitations('pubmed')
+    for key in (getLastUpdatedCitations('pubmed_ignore')['citationInfo']):
+        lastUpdateResults['citationInfo'][key] = getLastUpdatedCitations('pubmed_ignore')['citationInfo'][key]
     for key in retrievalResults['citationInfo']:
         if(key in lastUpdateResults.keys()):
             table.loc[table['title'] == key, 'additionalCitationCount'] = retrievalResults['citationInfo'][key] - lastUpdateResults['citationInfo'][key]
@@ -687,7 +687,7 @@ def findUniqueAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
     finds unique authors regardless of authorship
     
     """
-#     container = init_cosmos(key_dict, containerName)
+#     container = init_cosmos(containerName)
 #     placeHolder = []
 #     placeHolderMatch = []
     indexStart = 1
@@ -875,7 +875,7 @@ def update_data():
     
     #first search pubmed
     finalTable = getPMArticles(searchAll)
-    finalTable = includeMissingCurrentArticles(finalTable, key_dict)
+    finalTable = includeMissingCurrentArticles(finalTable)
     finalTable = finalTable[finalTable['pubYear'] > 2010]
     numNewArticles = 0
     #check if an update has already been performed this month
@@ -899,7 +899,7 @@ def update_data():
     #if it is the first update of the month, or if new articles have been found within the same month, upsert those articles
     if((getTimeOfLastUpdate()[0:2] + getTimeOfLastUpdate()[5:10] != dateMY) or (numNewArticles > 0)):
         #search google scholar and create 4 new columns
-        finalTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = finalTable.apply(lambda x: getGoogleScholarCitation(x, key_dict['SERPAPI_KEY']), axis = 1, result_type='expand')
+        finalTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = finalTable.apply(lambda x: getGoogleScholarCitation(x, kv.key['SERPAPI_KEY']), axis = 1, result_type='expand')
         finalTable = finalTable.reset_index()
         if ('index' in finalTable.columns):
             del finalTable['index']
