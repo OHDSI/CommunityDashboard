@@ -55,38 +55,40 @@ def build_education_dash():
     import plotly.express as px
     df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
     # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
+    # print(df['Duration'])
     df['Duration'] = df.apply(lambda x: convert_time(x['Duration']), axis = 1)
+    # print(type(df['Duration'][0]))
     # print(df['Duration'])
     df['yr']=df['Date Published'].dt.year
     
     from plotly.subplots import make_subplots
     import plotly.graph_objects as go
-    fig = make_subplots(rows=1, cols=2,
-                        subplot_titles=("Youtube Hours Created","Cumulative Hrs Watched"))
-    df4=df.groupby('yr').Duration.sum().reset_index()
-    df4.columns=['Year','SumSeconds']
-    df4['Hrs Created']=df4['SumSeconds'].dt.days*24+df4['SumSeconds'].dt.seconds/3600
-    fig.add_trace(
-        go.Bar(
-        x=df4['Year'],
-        y=df4['Hrs Created']),
-        row=1, col=1
-        )
+    # fig = make_subplots(rows=1, cols=2,
+    #                     subplot_titles=("Youtube Hours Created","Cumulative Hrs Watched"))
+    # df4=df.groupby('yr').Duration.sum().reset_index()
+    # df4.columns=['Year','SumSeconds']
+    # df4['Hrs Created']=df4['SumSeconds'].dt.days*24+df4['SumSeconds'].dt.seconds/3600
+    # fig.add_trace(
+    #     go.Bar(
+    #     x=df4['Year'],
+    #     y=df4['Hrs Created']),
+    #     row=1, col=1
+    #     )
     df['hrsWatched']=(df.Duration.dt.days*24+df.Duration.dt.seconds/3600)*df['Total Views']
-    df4=df.groupby('yr').hrsWatched.sum().reset_index()
-    df4.columns=['Year','HrsWatched']
-    df4['Cumulative Hrs Watched']=df4['HrsWatched'].cumsum()
-    fig.add_trace(
-        go.Line(
-        x=df4['Year'],
-        y=df4['Cumulative Hrs Watched']),
-        row=1, col=2
-        )
+    # df4=df.groupby('yr').hrsWatched.sum().reset_index()
+    # df4.columns=['Year','HrsWatched']
+    # df4['Cumulative Hrs Watched']=df4['HrsWatched'].cumsum()
+    # fig.add_trace(
+    #     go.Line(
+    #     x=df4['Year'],
+    #     y=df4['Cumulative Hrs Watched']),
+    #     row=1, col=2
+    #     )
     df['Date Published']=df['Date Published'].dt.strftime('%Y-%m-%d')
     df['Title']=df.apply(lambda row:"[{}](https://www.youtube.com/watch?v={})".format(row.Title,row.id),axis=1)
     df['Length'] = df.apply(lambda x: str(x['Duration'])[7:], axis = 1)
-
-    fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
+    del df['Duration']
+    # fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
     cols=['Title','Date Published','Length','Total Views','Recent Views']
     layout=html.Div([
                 dcc.Interval(
