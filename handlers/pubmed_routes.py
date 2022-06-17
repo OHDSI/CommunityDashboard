@@ -22,7 +22,7 @@ def configure_routes(app,pubmedDashApp):
         # return jsonify({'htmlresponse': render_template('publication_dashboard.html', dashHtml = pubmedDashApp)})
 
 
-    @app.route('/pub_dashboard', methods = ['POST', 'GET'])
+    @app.route('/pub_dash', methods = ['POST', 'GET'])
     def dash_app_pub():
         return pubmedDashApp.index()
 
@@ -112,7 +112,6 @@ def configure_routes(app,pubmedDashApp):
         query="SELECT * FROM c where c.id = 'pubmed_authors'"
         items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
         currentAuthorSummaryTable=pd.read_json(items[0]['data'])
-        
         currentAuthorSummaryTable = currentAuthorSummaryTable[['pubYear', 'numberNewFirstAuthors', 'cumulativeFirstAuthors', 'numberNewAuthors', 'cumulativeAuthors']]
         currentAuthorSummaryTable.columns = ['Year', 'New First Authors', 'Total First Authors', 'All New Authors', 'Total Authors']
 
@@ -160,6 +159,7 @@ def configure_routes(app,pubmedDashApp):
                         style={'width': '100%', 'padding-left': '50px'},
                         )
                 ]
+                
     @app.route('/articleManager')
     def articleManager():
         # count = 0
