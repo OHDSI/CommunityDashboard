@@ -3,11 +3,49 @@ from dash import dcc, html, dash_table
 import dash_bootstrap_components as dbc
 from . import key_vault, pubmed_miner
 import plotly.express as px
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
 def build_ehden_dash():
     results_container=pubmed_miner.init_cosmos('dashboard')
     query="SELECT * FROM c where c.id = 'ehden'"
     items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
+
+    df=pd.DataFrame(items[0]['data'][1]['users'])
+    df['year']=pd.to_numeric(df.year)
+    df=df[df.year!=1970]
+    df['number_of_users']=pd.to_numeric(df.number_of_users)
+    bar_fig1=px.bar(
+        data_frame=df,
+        x="year",
+        y='number_of_users')
+    bar_fig1.update_layout(
+        title={
+        'text': "Users by Year",
+        'y':0.9,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'})
+    bar_fig1.update_xaxes(type='category')
+
+    df=pd.DataFrame(items[0]['data'][3]['completions'])
+    df['year']=pd.to_numeric(df.year)
+    df=df[df.year!=1970]
+    df['completions']=pd.to_numeric(df.completions)
+    bar_fig2=px.bar(
+        data_frame=df,
+        x="year",
+        y='completions')
+    bar_fig2.update_layout(
+        title={
+        'text': "Course Completions by Year",
+        'y':0.9,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'})
+    bar_fig2.update_xaxes(type='category')
+
+
     df=pd.DataFrame(items[0]['data'][4]['course_stats'])
     df2=df[df.user_id!=None].groupby('course_id').max().reset_index()
     df2['course_created']=pd.to_datetime(df2.course_created)
@@ -27,7 +65,7 @@ def build_ehden_dash():
                 html.Br(),
                 html.Br(),
                 html.Br(),
-                html.H1("Ehden Analysis", 
+                html.H1("Ehden Learning Management System Analysis", 
                     style={
                         'font-family': 'Saira Extra Condensed',
                         'color': '#20425A',
@@ -35,7 +73,15 @@ def build_ehden_dash():
                         'text-align': 'center'
                     }
                 ),
-                
+                                            html.Div(children=
+                            [
+                                dbc.Row(
+                                    [
+                                        dbc.Col(dcc.Graph(id='bar-fig1',figure=bar_fig1), width = 6),
+                                        dbc.Col(dcc.Graph(id='bar-fig2',figure=bar_fig2), width = 6)
+                                    ]
+                                )
+                            ]),
                 html.Div(),
                 dash_table.DataTable(
                     id = 'datatable-interactivity',
