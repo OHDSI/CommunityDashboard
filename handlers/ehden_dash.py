@@ -15,10 +15,15 @@ def build_ehden_dash():
     df['year']=pd.to_numeric(df.year)
     df=df[df.year!=1970]
     df['number_of_users']=pd.to_numeric(df.number_of_users)
-    bar_fig1=px.bar(
-        data_frame=df,
-        x="year",
-        y='number_of_users')
+    bar_fig1=go.Figure()
+    bar_fig1.add_trace(
+        go.Bar(
+            x=df.year,
+            y=df.number_of_users,
+            marker=dict(color = '#20425A'),
+            showlegend=False
+        )
+    )
     bar_fig1.update_layout(
         title={
         'text': "Users by Year",
@@ -32,10 +37,15 @@ def build_ehden_dash():
     df['year']=pd.to_numeric(df.year)
     df=df[df.year!=1970]
     df['completions']=pd.to_numeric(df.completions)
-    bar_fig2=px.bar(
-        data_frame=df,
-        x="year",
-        y='completions')
+    bar_fig2=go.Figure()
+    bar_fig2.add_trace(
+        go.Bar(
+            x=df.year,
+            y=df.completions,
+            marker=dict(color = '#20425A'),
+            showlegend=False
+        )
+    )
     bar_fig2.update_layout(
         title={
         'text': "Course Completions by Year",
@@ -44,6 +54,7 @@ def build_ehden_dash():
         'xanchor': 'center',
         'yanchor': 'top'})
     bar_fig2.update_xaxes(type='category')
+    bar_fig2.update_yaxes(range=[0,1500])
 
 
     df=pd.DataFrame(items[0]['data'][4]['course_stats'])

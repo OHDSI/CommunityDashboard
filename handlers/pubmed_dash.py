@@ -39,16 +39,6 @@ def build_pubs_dash():
                     'MeSH Terms':item['data']['meshT']})
     df1=pd.DataFrame(data)   
 
-    # authorData=[]
-    # for item in author_items:
-    #     authorData.append({'Year':item['authorSummary']['pubYear'],
-    #                 'First Author Names':item['authorSummary']['uniqueFirstAuthors'],
-    #                 'New First Authors':item['authorSummary']['numberNewFirstAuthors'],
-    #                 'Total First Authors':item['authorSummary']['cumulativeFirstAuthors'],
-    #                 "New Authors' Names":item['authorSummary']['uniqueAuthors'],
-    #                 'All New Authors':item['authorSummary']['numberNewAuthors'],
-    #                 'Total Authors':item['authorSummary']['cumulativeAuthors']})
-
     #parse authors to set a limit on authors shown n_authors
     df1['authors']=""
     n_authors=3
@@ -112,10 +102,6 @@ def build_pubs_dash():
                 html.Div(
                     
                     children=[
-                            # html.Div(dcc.Input(id='input-on-submit', type='text', value = "")),
-                            # html.Button('Add Article', id='submit-val'),
-                            # html.Div(id='container-button-basic',
-                            #         children='Enter article PubMed ID or name'),
                             html.Br(),
                             html.Br(),
                             html.Br(),

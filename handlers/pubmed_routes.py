@@ -48,7 +48,6 @@ def configure_routes(app,pubmedDashApp):
         df3['cumulative']= round(df3['Citation Count'].cumsum(), 0) 
         df3.columns=['Year','citations','Count']
         fig = make_subplots(specs=[[{"secondary_y": True}]])
-
         # Add traces
         fig.add_trace(
             go.Bar(
