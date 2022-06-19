@@ -9,7 +9,7 @@ import pandas as pd
 def build_pubs_dash():
     container_name='pubmed'
     container_for_author_data='pubmed_author'
-    container=pubmed_miner.init_cosmos( container_name)
+    container=pubmed_miner.init_cosmos(container_name)
     container_author_data=pubmed_miner.init_cosmos( container_for_author_data)
 
     query = "SELECT * FROM c"
@@ -38,16 +38,6 @@ def build_pubs_dash():
                     'Publication Year':item['data']['pubYear'],
                     'MeSH Terms':item['data']['meshT']})
     df1=pd.DataFrame(data)   
-
-    # authorData=[]
-    # for item in author_items:
-    #     authorData.append({'Year':item['authorSummary']['pubYear'],
-    #                 'First Author Names':item['authorSummary']['uniqueFirstAuthors'],
-    #                 'New First Authors':item['authorSummary']['numberNewFirstAuthors'],
-    #                 'Total First Authors':item['authorSummary']['cumulativeFirstAuthors'],
-    #                 "New Authors' Names":item['authorSummary']['uniqueAuthors'],
-    #                 'All New Authors':item['authorSummary']['numberNewAuthors'],
-    #                 'Total Authors':item['authorSummary']['cumulativeAuthors']})
 
     #parse authors to set a limit on authors shown n_authors
     df1['authors']=""
@@ -101,23 +91,7 @@ def build_pubs_dash():
         
     from plotly.subplots import make_subplots
     import plotly.graph_objects as go
-    # fig = make_subplots(rows=1, cols=2,
-    #                     subplot_titles=("<b> Publications </b>","<b> Cumulative Citations </b>"))
-    # fig.add_trace(
-    #     go.Bar(
-    #     x=df2['Year'],
-    #     y=df2['Count'],
-    #     marker=dict(color = '#20425A')),
-    #     row=1, col=1
-    #     )
-    # fig.add_trace(
-    #     go.Line(
-    #     x=df3['Year'],
-    #     y=df3['Count'],
-    #     marker=dict(color = '#20425A')),
-    #     row=1, col=2
-    #     )
-    # fig.update_layout(showlegend=False, font_family="Saira Extra Condensed")
+
     df1['Publication']=df1.apply(lambda row:"[{}](https://pubmed.gov/{})".format(row.Title,row['PubMed ID']),axis=1)
     cols=['PubMed ID', 'Creation Date','Authors','Publication','Journal','MeSH Terms', 'Citation Count']
     layout= html.Div([
@@ -128,10 +102,6 @@ def build_pubs_dash():
                 html.Div(
                     
                     children=[
-                            # html.Div(dcc.Input(id='input-on-submit', type='text', value = "")),
-                            # html.Button('Add Article', id='submit-val'),
-                            # html.Div(id='container-button-basic',
-                            #         children='Enter article PubMed ID or name'),
                             html.Br(),
                             html.Br(),
                             html.Br(),
