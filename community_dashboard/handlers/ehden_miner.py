@@ -1,7 +1,7 @@
 from azure.cosmos import CosmosClient,PartitionKey
 import pandas as pd
 import datetime
-from . import pubmed_miner
+from community_dashboard.handlers import pubmed_miner
 import requests
 
 

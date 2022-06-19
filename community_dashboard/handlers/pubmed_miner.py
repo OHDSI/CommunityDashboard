@@ -1,6 +1,6 @@
 from azure.cosmos import CosmosClient,PartitionKey
 from oauth2client.tools import argparser
-from . import key_vault as kv
+from community_dashboard.handlers import key_vault as kv
 from Bio import Entrez, Medline #http://biopython.org/DIST/docs/tutorial/Tutorial.html#sec%3Aentrez-specialized-parsers
 import xmltodict #https://marcobonzanini.com/2015/01/12/searching-pubmed-with-python/
 import time
