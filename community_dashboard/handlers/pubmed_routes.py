@@ -171,8 +171,8 @@ def articleManager():
     #     countIgnore += 1
     #     listHolderIgnore.append(item['data']['title'])
     # return render_template("index.html",articles=listHolder )
-    if kv.key['PASS_KEY']!=request.args.get('pass_key'):
-        return "Not authorized to access this page"
+    # if kv.key['PASS_KEY']!=request.args.get('pass_key'):
+    #     return "Not authorized to access this page"
     return render_template("articleManager.html")
 
 @app.route("/fetchrecords",methods=["POST","GET"])
@@ -203,10 +203,12 @@ def fetchrecords():
 
 @app.route("/insert",methods=["POST","GET"])
 def insert():
-    if kv.key['PASS_KEY']!=request.args.get('pass_key'): #Need to add hidden field for POST condition
-        return "Not authorized to access this page"
+    # if kv.key['PASS_KEY']!=request.args.get('pass_key'): #Need to add hidden field for POST condition
+    #     return "Not authorized to access this page"
     dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
-    if request.method == 'POST':
+    if(request.method == 'POST' & kv.key['PASS_KEY']!= request.form['passKey']):
+        return "Not authorized to access this page"
+    elif (request.method == 'POST' ) :
         
         searchArticles = request.form['articleIdentifier']
         designatedContainer = request.form['containerChoice']
