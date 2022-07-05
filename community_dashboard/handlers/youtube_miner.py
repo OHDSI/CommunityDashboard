@@ -3,6 +3,7 @@ from azure.cosmos import CosmosClient,PartitionKey
 from googleapiclient.discovery import build # googleapiclient. not apiclient
 from googleapiclient.errors import HttpError
 from oauth2client.tools import argparser
+from community_dashboard.handlers.youtube_dash import convert_time
 import pandas as pd
 import datetime
 from community_dashboard.handlers import key_vault as kv
@@ -197,6 +198,41 @@ def sort_new_videos(candidate_list:list):
             container_ignore.upsert_item(body=item)
     return
 
+def diff_series(item_dict):
+    duration=convert_time(item_dict['duration'])
+    df=pd.DataFrame(item_dict['counts'])
+    df['checkedOn']=pd.to_datetime(df.checkedOn)
+    df['checkedOn']=df.checkedOn.dt.strftime('%Y-%m')
+    df['viewCount']=pd.to_numeric(df.viewCount)
+    df[item_dict['id']]=df.viewCount
+    df.drop(['viewCount'],axis=1,inplace=True)
+    df.set_index('checkedOn',inplace=True)
+    sr1=df[item_dict['id']].diff().fillna(0)
+    sr_duration=(sr1*duration.total_seconds())/3600
+    return sr_duration
+
+def update_monthly_dash():
+    """ Updates the dataframe in dashboard stored queries for montly analytics
+    """
+    container=init_cosmos('youtube') 
+    query = "SELECT * FROM c"
+    ids=[]
+    items = list(container.query_items(
+        query=query,
+        enable_cross_partition_query=True))
+    df=pd.DataFrame(diff_series(items[0]))
+    for item in items[1:]:
+        df=df.merge(diff_series(item),on='checkedOn',copy=True,how='outer')
+    df2=df.sum(axis=1).to_frame()
+    df2.reset_index(inplace=True)
+    df2.columns=['Date','Count']
+    container2=init_cosmos('dashboard')
+    results={}
+    results['data'] = df2[1:].sum(axis=1).to_json()
+    results['id'] = 'youtube_monthly'
+    container2.upsert_item(body = results)
+    return
+
 def update_data():
     ignore_list=get_existing_ids()
     search_qry="OHDSI"
@@ -204,5 +240,6 @@ def update_data():
     candidate_list=list(set(search_list)-set(ignore_list))
     sort_new_videos(candidate_list)
     update_video_stats()
+    update_monthly_dash()
 
 
