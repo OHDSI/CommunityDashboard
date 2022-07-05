@@ -179,6 +179,10 @@ def sort_new_videos(candidate_list:list):
     - get the video details
     - if the video channel is OHDSI, add to youtube
     - otherwise add to ignore
+    Args:
+        candidat_list (list): A list of youtube id's that are candidates for getting details
+
+  
     """
     today='{}'.format(datetime.date.today())
     container=init_cosmos('youtube') 
@@ -199,6 +203,14 @@ def sort_new_videos(candidate_list:list):
     return
 
 def diff_series(item_dict):
+    """ Generates a Differential from a series of monthly counts
+
+    Args:
+        item_dict (Dict): Dictionary of all the youtube items in CosmosDB
+
+    Returns:
+        sr_duation Pandas Series: A series with an index of yyyy-mm monthly dates with totals from the month before
+    """
     duration=convert_time(item_dict['duration'])
     df=pd.DataFrame(item_dict['counts'])
     df['checkedOn']=pd.to_datetime(df.checkedOn)
@@ -212,7 +224,7 @@ def diff_series(item_dict):
     return sr_duration
 
 def update_monthly_dash():
-    """ Updates the dataframe in dashboard stored queries for montly analytics
+    """ Updates the dataframe in dashboard stored queries for monthly analytics
     """
     container=init_cosmos('youtube') 
     query = "SELECT * FROM c"
