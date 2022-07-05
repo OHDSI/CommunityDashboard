@@ -279,9 +279,12 @@ def serpApiExtract(extractedResult):
             searchDict['googleScholarLink'][title] = "Link Not Available"
         else:
             numCitedBy = extractedResult['gScholarQResults'][0]['inline_links']['cited_by']['total']
-            googleScholarLink = extractedResult['gScholarQResults'][0]['inline_links']['versions']['link']
             searchDict['citationInfo'][title] = numCitedBy
-            searchDict['googleScholarLink'][title] = googleScholarLink
+            if(('versions' in extractedResult['gScholarQResults'][0]['inline_links'].keys())):
+                googleScholarLink = extractedResult['gScholarQResults'][0]['inline_links']['versions']['link']
+                searchDict['googleScholarLink'][title] = googleScholarLink
+            else:
+                searchDict['googleScholarLink'][title] = "Link Not Available"
 
         #find author(s) if it is populated
         if(('authors' in extractedResult['gScholarQResults'][0]['publication_info']) == False):
@@ -314,31 +317,36 @@ def serpApiExtract(extractedResult):
             #check if the keys under inline_links contain cited by, if not set to 0.
             if(('cited_by' in extractedResult['gScholarQResults'][i]['inline_links'].keys()) == False):
                 #check if it already exists
-                if(title in searchDict['citationInfo'].keys()):
-                    #if it does, do nothing, otherwise add it
-                    if(i+2 < len(extractedResult['gScholarQResults'])):
-                        i += 1
-                        title = extractedResult['gScholarQResults'][i]['title']
-                #otherwise, set to 0
-                else:
+                if((title in searchDict['citationInfo'].keys()) == False):
+                #     #if it does, do nothing, otherwise add it
+                #     if(i+2 < len(extractedResult['gScholarQResults'])):
+                #         i += 1
+                #         title = extractedResult['gScholarQResults'][i]['title']
+                # #otherwise, set to 0
+                # else:
                     searchDict['citationInfo'][title] = 0
                     searchDict['googleScholarLink'][title] = "Link Not Available"
             else:
-                if(title in searchDict['citationInfo'].keys()):
-                    if(searchDict['citationInfo'][title] > 0):
-                        if(i+2 < len(extractedResult['gScholarQResults'])):
-                            i += 1
-                            title = extractedResult['gScholarQResults'][i]['title']
-                    else:
-                        numCitedBy = extractedResult['gScholarQResults'][i]['inline_links']['cited_by']['total']
-                        googleScholarLink = extractedResult['gScholarQResults'][0]['inline_links']['versions']['link']
-                        searchDict['citationInfo'][title] = numCitedBy
-                        searchDict['googleScholarLink'][title] = googleScholarLink
-                else:
-                    numCitedBy = extractedResult['gScholarQResults'][i]['inline_links']['cited_by']['total']
+                # if((title in searchDict['citationInfo'].keys()) == False):
+                #     if(searchDict['citationInfo'][title] == 0):
+                #         # if(i+2 < len(extractedResult['gScholarQResults'])):
+                #         #     i += 1
+                #         #     title = extractedResult['gScholarQResults'][i]['title']
+                #     # else:
+                #         numCitedBy = extractedResult['gScholarQResults'][i]['inline_links']['cited_by']['total']
+                #         googleScholarLink = extractedResult['gScholarQResults'][0]['inline_links']['versions']['link']
+                #         searchDict['citationInfo'][title] = numCitedBy
+                #         searchDict['googleScholarLink'][title] = googleScholarLink
+                # else:
+                numCitedBy = extractedResult['gScholarQResults'][i]['inline_links']['cited_by']['total']
+                searchDict['citationInfo'][title] = numCitedBy
+
+                if(('versions' in extractedResult['gScholarQResults'][0]['inline_links'].keys())):
                     googleScholarLink = extractedResult['gScholarQResults'][0]['inline_links']['versions']['link']
-                    searchDict['citationInfo'][title] = numCitedBy
                     searchDict['googleScholarLink'][title] = googleScholarLink
+                else:
+                    searchDict['googleScholarLink'][title] = "Link Not Available"
+
 
             #find author(s) if it is populated
             if(('authors' in extractedResult['gScholarQResults'][i]['publication_info']) == False):
