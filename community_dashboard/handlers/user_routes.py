@@ -13,7 +13,7 @@ def update_all():
     """Run the miners to update data sources"""
     if kv.key['PASS_KEY']!=request.args.get('pass_key'):
         return "Not authorized to access this page"
-    youtube_miner.update_data()
     pubmed_miner.update_data()
     ehden_miner.update_data()
+    youtube_miner.update_data()
     return render_template('home.html')
