@@ -80,6 +80,7 @@ def build_education_dash():
     query="SELECT * FROM c where c.id = 'youtube_monthly'"
     items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
     df2=pd.read_json(items[0]['data'])
+    df2['Date']=pd.to_datetime(df2['Date']).dt.strftime('%Y-%m')
     bar_fig2=go.Figure()
     bar_fig2.add_trace(
         go.Bar(
@@ -105,7 +106,6 @@ def build_education_dash():
     del df['Duration']
     # fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
     cols=['Title','Date Published','Length','Total Views','Recent Views']
-
 
     layout=html.Div([
                 dcc.Interval(
