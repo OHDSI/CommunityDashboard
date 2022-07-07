@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 from . import key_vault, pubmed_miner
 import plotly.express as px
 import pandas as pd 
-
+from datetime import datetime, date
 def convert_time(time_str):
     """Takes time values from Youtube duration
         '8M12S' or '3H10M5S' 
@@ -37,6 +37,8 @@ def build_education_dash():
     for item in items:
         #Review the log of counts and find the last two and subtract them for recent views
         df=pd.DataFrame(item['counts']).sort_values('checkedOn',ascending=False).reset_index()
+        dateCheckedOn = str(date.today().replace(day=1))
+        dateCheckedOn = dateCheckedOn[5:len(dateCheckedOn)] + dateCheckedOn[4:5] + dateCheckedOn[0:4]
         total_views=int(df.viewCount[0])
         if len(df)==1:
             recent_views=int(df.viewCount[0])
@@ -52,6 +54,7 @@ def build_education_dash():
                     'channelTitle':item['channelTitle']}
                     )
     df=pd.DataFrame(videos)
+    
     import plotly.express as px
     df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
     # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
@@ -142,7 +145,15 @@ def build_education_dash():
                             ]
                         )
                     ]),
+                    # dcc.Graph(id='publications',figure=fig), 
+                    html.H6("Data as of: " + str(dateCheckedOn), 
+                        style={
+                            'font-family': 'Saira Extra Condensed',
+                            'color': '#20425A',
+                            'text-align': 'right'
 
+                        }
+                    ),
                     # dcc.Graph(id='videos',figure=fig), 
                     html.Div(),
                     dash_table.DataTable(
