@@ -75,15 +75,6 @@ def build_education_dash():
     #     row=1, col=1
     #     )
     df['hrsWatched']=(df.Duration.dt.days*24+df.Duration.dt.seconds/3600)*df['Total Views']
-    # df4=df.groupby('yr').hrsWatched.sum().reset_index()
-    # df4.columns=['Year','HrsWatched']
-    # df4['Cumulative Hrs Watched']=df4['HrsWatched'].cumsum()
-    # fig.add_trace(
-    #     go.Line(
-    #     x=df4['Year'],
-    #     y=df4['Cumulative Hrs Watched']),
-    #     row=1, col=2
-    #     )
 
     results_container=pubmed_miner.init_cosmos('dashboard')
     query="SELECT * FROM c where c.id = 'youtube_monthly'"
