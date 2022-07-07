@@ -11,7 +11,7 @@ def build_pubs_dash():
     container_for_author_data='pubmed_author'
     container=pubmed_miner.init_cosmos(container_name)
     container_author_data=pubmed_miner.init_cosmos( container_for_author_data)
-
+    dateLastUpdated = pubmed_miner.getTimeOfLastUpdate()
     query = "SELECT * FROM c"
     items = list(container.query_items(
         query=query,
@@ -127,6 +127,14 @@ def build_pubs_dash():
                             
                             
                             # dcc.Graph(id='publications',figure=fig), 
+                            html.H6("Data as of: " + str(dateLastUpdated), 
+                                style={
+                                    'font-family': 'Saira Extra Condensed',
+                                    'color': '#20425A',
+                                    'text-align': 'right'
+
+                                }
+                            ),
                             html.Div(id='my-output'),
                             dash_table.DataTable(
                                 id='datatable-interactivity',
@@ -170,6 +178,7 @@ def build_pubs_dash():
                                     'fontWeight': 'bold'
                                 }
                             )
+                            
                             
                     ], style={'padding-top': '0px', 'overflow-y': 'hidden'}
                 )
