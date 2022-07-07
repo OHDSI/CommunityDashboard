@@ -55,10 +55,7 @@ def build_education_dash():
     import plotly.express as px
     df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
     # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
-    # print(df['Duration'])
     df['Duration'] = df.apply(lambda x: convert_time(x['Duration']), axis = 1)
-    # print(type(df['Duration'][0]))
-    # print(df['Duration'])
     df['yr']=df['Date Published'].dt.year
     
     from plotly.subplots import make_subplots
@@ -84,12 +81,38 @@ def build_education_dash():
     #     y=df4['Cumulative Hrs Watched']),
     #     row=1, col=2
     #     )
+
+    results_container=pubmed_miner.init_cosmos('dashboard')
+    query="SELECT * FROM c where c.id = 'youtube_monthly'"
+    items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
+    df2=pd.read_json(items[0]['data'])
+    bar_fig2=go.Figure()
+    bar_fig2.add_trace(
+        go.Bar(
+            x=df2['Date'],
+            y=df2['Count'],
+            marker=dict(color = '#20425A'),
+            showlegend=False
+        )
+    )
+    bar_fig2.update_layout(
+        title={
+        'text': "Hours Viewed for each month",
+        'y':0.9,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'})
+    bar_fig2.update_xaxes(type='category')
+
+    # DataTable Prep
     df['Date Published']=df['Date Published'].dt.strftime('%Y-%m-%d')
     df['Title']=df.apply(lambda row:"[{}](https://www.youtube.com/watch?v={})".format(row.Title,row.id),axis=1)
     df['Length'] = df.apply(lambda x: str(x['Duration'])[7:], axis = 1)
     del df['Duration']
     # fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
     cols=['Title','Date Published','Length','Total Views','Recent Views']
+
+
     layout=html.Div([
                 dcc.Interval(
                     id='interval-component',
@@ -115,7 +138,7 @@ def build_education_dash():
                         dbc.Row(
                             [
                                 dbc.Col(html.Div(id='bar-container'), width = 6),
-                                dbc.Col(html.Div(id='line-container'), width = 6)
+                                dbc.Col(dcc.Graph(id='bar-fig2',figure=bar_fig2), width = 6)
                             ]
                         )
                     ]),

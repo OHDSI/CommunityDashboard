@@ -240,7 +240,7 @@ def update_monthly_dash():
     df2.columns=['Date','Count']
     container2=init_cosmos('dashboard')
     results={}
-    results['data'] = df2[1:].sum(axis=1).to_json()
+    results['data'] = df2[1:].to_json()
     results['id'] = 'youtube_monthly'
     container2.upsert_item(body = results)
     return
