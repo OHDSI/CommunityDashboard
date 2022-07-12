@@ -175,119 +175,138 @@ def articleManager():
     #     return "Not authorized to access this page"
     return render_template("articleManager.html")
 
-@app.route("/fetchrecords",methods=["POST","GET"])
-def fetchrecords():
-    if kv.key['PASS_KEY']!=request.args.get('pass_key'):
-        return "Not authorized to access this page"
-    count = 0
-    listHolder = []
-    if request.method == 'POST':
-        query = request.form['query']
+# @app.route("/fetchrecords",methods=["POST","GET"])
+# def fetchrecords():
+#     if kv.key['PASS_KEY']!=request.args.get('pass_key'):
+#         return "Not authorized to access this page"
+#     count = 0
+#     listHolder = []
+#     if request.method == 'POST':
+#         query = request.form['query']
 
-        if(query == ''):
-            for item in container.query_items( query='SELECT * FROM pubmed ORDER BY pubmed.data.pubYear DESC', enable_cross_partition_query=True):
-                count += 1
-                listHolder.append(item['data'])
+#         if(query == ''):
+#             for item in container.query_items( query='SELECT * FROM pubmed ORDER BY pubmed.data.pubYear DESC', enable_cross_partition_query=True):
+#                 count += 1
+#                 listHolder.append(item['data'])
 
-        elif((query != '') ):
-            search_text = "%" + request.form['query'] + "%"
-            for item in container.query_items( 'SELECT * FROM pubmed WHERE ((LOWER(pubmed.data.title) LIKE LOWER(@searchStr)) or \
-                                                                            (LOWER(pubmed.id) LIKE @searchStr) or \
-                                                                                (LOWER(pubmed.data.firstAuthor) LIKE LOWER(@searchStr)) ) ORDER BY pubmed.data.pubYear DESC',
-                                                [{"name": "@searchStr", "value": search_text}], enable_cross_partition_query=True
-                                                ):
-                count += 1
-                listHolder.append(item['data'])
-    # return jsonify("success")
-    return jsonify({'htmlresponse': render_template('response.html', articleList=listHolder, numArticle = count)})
+#         elif((query != '') ):
+#             search_text = "%" + request.form['query'] + "%"
+#             for item in container.query_items( 'SELECT * FROM pubmed WHERE ((LOWER(pubmed.data.title) LIKE LOWER(@searchStr)) or \
+#                                                                             (LOWER(pubmed.id) LIKE @searchStr) or \
+#                                                                                 (LOWER(pubmed.data.firstAuthor) LIKE LOWER(@searchStr)) ) ORDER BY pubmed.data.pubYear DESC',
+#                                                 [{"name": "@searchStr", "value": search_text}], enable_cross_partition_query=True
+#                                                 ):
+#                 count += 1
+#                 listHolder.append(item['data'])
+#     # return jsonify("success")
+#     return jsonify({'htmlresponse': render_template('response.html', articleList=listHolder, numArticle = count)})
 
-@app.route("/insert",methods=["POST","GET"])
+
+@app.route("/insert",methods=['POST'])
 def insert():
-    # if kv.key['PASS_KEY']!=request.args.get('pass_key'): #Need to add hidden field for POST condition
-    #     return "Not authorized to access this page"
-    dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
-    if(request.method == 'POST' & kv.key['PASS_KEY']!= request.form['passKey']):
-        return "Not authorized to access this page"
-    elif (request.method == 'POST' ) :
-        
-        searchArticles = request.form['articleIdentifier']
-        designatedContainer = request.form['containerChoice']
-        numNewArticles = 0
-        containerArticles = pubmed_miner.getExistingIDandSearchStr(designatedContainer)
+    if(request.method):
+        # print(request.form.keys())
+        print(request.form['passKeyHiddenInsert'])
+        # if kv.key['PASS_KEY']!=request.args.get('pass_key'): #Need to add hidden field for POST condition
+        #     return "Not authorized to access this page"
+        dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
+        if((request.method == 'POST') & (kv.key['PASS_KEY']!= request.form['passKeyHiddenInsert'])):
+            return "Not authorized to access this page"
+        elif ((request.method == 'POST') & (kv.key['PASS_KEY']== request.form['passKeyHiddenInsert'])) :
+            
+            searchArticles = request.form['articleIdentifier']
+            designatedContainer = request.form['containerChoice']
+            numNewArticles = 0
+            containerArticles = pubmed_miner.getExistingIDandSearchStr(designatedContainer)
 
-        secret_api_key = kv.key['SERPAPI_KEY'] #SERPAPI key
-        articleTable = pubmed_miner.getPMArticles(searchArticles)
-        articleTable = articleTable[articleTable['pubYear'] > 2010]
-        try:
-            specifiedArticle = articleTable['pubmedID'][0]
-        except KeyError:
-            return jsonify("This article may not be officially available in the system yet. Check back again...")
-        else:
-
-            specifiedArticle = articleTable['pubmedID'][0]
-            articleTable = articleTable[articleTable.pubmedID.notnull()]
-            articleTable, numNewArticles = pubmed_miner.identifyNewArticles(articleTable)
-
-            if(numNewArticles == 0):
-                if(specifiedArticle in containerArticles[0]):
-                    return jsonify("This article already exists in the '" + str(designatedContainer) + "' container. Please verify." )
-                else:
-                    return jsonify("This article already exists in the other container. Please verify." )
+            secret_api_key = kv.key['SERPAPI_KEY'] #SERPAPI key
+            articleTable = pubmed_miner.getPMArticles(searchArticles)
+            articleTable = articleTable[articleTable['pubYear'] > 2010]
+            try:
+                specifiedArticle = articleTable['pubmedID'][0]
+            except KeyError:
+                return jsonify("This article may not be officially available in the system yet. Check back again...")
             else:
-                
-                articleTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = articleTable.apply(lambda x: pubmed_miner.getGoogleScholarCitation(x, secret_api_key), axis = 1, result_type='expand')
-                articleTable = articleTable.reset_index()
-                if ('index' in articleTable.columns):
-                    del articleTable['index']
 
-                #update the current records
-                # makeCSVJSON(finalTable)
-                #update the current records
-                pubmed_miner.makeCSVJSON(articleTable, designatedContainer, False)
+                specifiedArticle = articleTable['pubmedID'][0]
+                articleTable = articleTable[articleTable.pubmedID.notnull()]
+                articleTable, numNewArticles = pubmed_miner.identifyNewArticles(articleTable)
+
+                if(numNewArticles == 0):
+                    if(specifiedArticle in containerArticles[0]):
+                        return jsonify("This article already exists in the '" + str(designatedContainer) + "' container. Please verify." )
+                    else:
+                        return jsonify("This article already exists in the other container. Please verify." )
+                else:
+                    
+                    articleTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = articleTable.apply(lambda x: pubmed_miner.getGoogleScholarCitation(x, secret_api_key), axis = 1, result_type='expand')
+                    articleTable = articleTable.reset_index()
+                    if ('index' in articleTable.columns):
+                        del articleTable['index']
+
+                    #update the current records
+                    # makeCSVJSON(finalTable)
+                    #update the current records
+                    pubmed_miner.makeCSVJSON(articleTable, designatedContainer, False)
 
 
-                return jsonify("" + str(numNewArticles) + " new article(s) added successfully")
+                    return jsonify("" + str(numNewArticles) + " new article(s) added successfully")
 
 
 @app.route('/remove_article', methods=['DELETE'])
 def remove_article():
-    
-    if request.method == 'DELETE':
-        searchArticles = request.form['articleIDToRemove']
-        designatedContainer = request.form['containerWithArticle']
-        containerArticles = pubmed_miner.getExistingIDandSearchStr( designatedContainer)
-        # print(searchArticles)
-        # print(designatedContainer)
-        if(designatedContainer == "pubmed_ignore"):
-            if(searchArticles in containerArticles[0]):
-                for item in container_ignore.query_items( 'SELECT * FROM pubmed_ignore', enable_cross_partition_query=True):
-                    if(item['id'] == ("PMID: " + str(searchArticles))):
-                        container_ignore.delete_item(item=item, partition_key=item['id'])
+    if(request.method == 'DELETE'):
+        # print(request.form.keys())
+        print(request.form['passKeyHiddenDelete'])
+        # if kv.key['PASS_KEY']!=request.args.get('pass_key'): #Need to add hidden field for POST condition
+        #     return "Not authorized to access this page"
+        dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
+        if((request.method == 'DELETE') & (kv.key['PASS_KEY']!= request.form['passKeyHiddenDelete'])):
+            return "Not authorized to access this page"
+        elif ((request.method == 'DELETE') & (kv.key['PASS_KEY']== request.form['passKeyHiddenDelete'])) :
+            searchArticles = request.form['articleIDToRemove']
+            designatedContainer = request.form['containerWithArticle']
+            containerArticles = pubmed_miner.getExistingIDandSearchStr( designatedContainer)
+            # print(searchArticles)
+            # print(designatedContainer)
+            if(designatedContainer == "pubmed_ignore"):
+                if(searchArticles in containerArticles[0]):
+                    for item in container_ignore.query_items( 'SELECT * FROM pubmed_ignore', enable_cross_partition_query=True):
+                        if(item['id'] == ("PMID: " + str(searchArticles))):
+                            container_ignore.delete_item(item=item, partition_key=item['id'])
+                else:
+                    return jsonify('Article does not exist in this container.')
             else:
-                return jsonify('Article does not exist in this container.')
-        else:
-            if(searchArticles in containerArticles[0]):
-                for item in container.query_items( 'SELECT * FROM pubmed', enable_cross_partition_query=True):
-                    if(item['id'] == ("PMID: " + str(searchArticles))):
-                        container.delete_item(item=item, partition_key=item['id'])
-            else: 
-                return jsonify('Article does not exist in this container.')
+                if(searchArticles in containerArticles[0]):
+                    for item in container.query_items( 'SELECT * FROM pubmed', enable_cross_partition_query=True):
+                        if(item['id'] == ("PMID: " + str(searchArticles))):
+                            container.delete_item(item=item, partition_key=item['id'])
+                else: 
+                    return jsonify('Article does not exist in this container.')
 
-        return jsonify('Article removed.')
+            return jsonify('Article removed.')
 
     
 @app.route('/moveToContainer', methods=['POST'])
 def moveToContainer():
     if(request.method == 'POST'):
-        articleToMove = request.form['articleMove']
-        containerArticles = pubmed_miner.getExistingIDandSearchStr('pubmed')
-        ignoreArticles = pubmed_miner.getExistingIDandSearchStr( 'pubmed_ignore')
+        # print(request.form.keys())
+        # print(request.form['passKeyHidden'])
+        # if kv.key['PASS_KEY']!=request.args.get('pass_key'): #Need to add hidden field for POST condition
+        #     return "Not authorized to access this page"
+        dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
+        if((request.method == 'POST') & (kv.key['PASS_KEY']!= request.form['passKeyHiddenMove'])):
+            return "Not authorized to access this page"
+        elif ((request.method == 'POST') & (kv.key['PASS_KEY']== request.form['passKeyHiddenMove'])) :
+            articleToMove = request.form['articleMove']
+            containerArticles = pubmed_miner.getExistingIDandSearchStr('pubmed')
+            ignoreArticles = pubmed_miner.getExistingIDandSearchStr( 'pubmed_ignore')
 
-        if(articleToMove in containerArticles[0]):
-            pubmed_miner.moveItemToIgnoreContainer( [articleToMove], 'pubmed', 'pubmed_ignore')
-            return jsonify("Article moved to the ignore container.")
-        elif(articleToMove in ignoreArticles[0]):
-            pubmed_miner.moveItemToIgnoreContainer( [articleToMove], 'pubmed_ignore', 'pubmed')
-            return jsonify("Article moved to the pubmed article container.")
-        else:
-            return jsonify("Article is not in the database. Add it first.")
+            if(articleToMove in containerArticles[0]):
+                pubmed_miner.moveItemToIgnoreContainer( [articleToMove], 'pubmed', 'pubmed_ignore')
+                return jsonify("Article moved to the ignore container.")
+            elif(articleToMove in ignoreArticles[0]):
+                pubmed_miner.moveItemToIgnoreContainer( [articleToMove], 'pubmed_ignore', 'pubmed')
+                return jsonify("Article moved to the pubmed article container.")
+            else:
+                return jsonify("Article is not in the database. Add it first.")
