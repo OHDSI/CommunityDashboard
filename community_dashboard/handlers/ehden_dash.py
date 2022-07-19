@@ -5,6 +5,13 @@ from . import key_vault, pubmed_miner
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+import ast
+
+def get_author_names(items):
+    output=""
+    for item in items:
+        output +=", " + item['firstname'] + " " + item['lastname']
+    return output[1:]
 
 def build_ehden_dash():
     results_container=pubmed_miner.init_cosmos('dashboard')
@@ -58,14 +65,16 @@ def build_ehden_dash():
 
 
     df=pd.DataFrame(items[0]['data'][4]['course_stats'])
-    df2=df[df.user_id!=None].groupby('course_id').max().reset_index()
-    df2['course_created']=pd.to_datetime(df2.course_created)
-    df2.sort_values('course_created',ascending=False,inplace=True)
+
+
+    df2=df.groupby('course_id').max().reset_index()
+    df2['authors']=df2.teachers.apply(get_author_names)
+    df2['course_started']=pd.to_datetime(df2.course_started)
     df2['course_fullname']=df2.apply(lambda row:"[{}](https://academy.ehden.eu/course/view.php?id={})".format(row.course_fullname,row.course_id),axis=1)
     df2['completions']=pd.to_numeric(df2.completions)
     df2['started']=pd.to_numeric(df2.started)
-    df2.drop(['course_id','user_id','author'],axis=1,inplace=True)
-
+    df2.drop(['course_id','teachers'],axis=1,inplace=True)
+    df2.sort_values('course_started',ascending=False,inplace=True)
     layout=html.Div([
             dcc.Interval(
                 id='interval-component',
