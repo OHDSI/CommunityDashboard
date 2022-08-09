@@ -920,6 +920,7 @@ def update_data():
         asOfDate = retrieveAsTable( False, 'pubmed')
         pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
         
+        #update new authors
         if(getTimeOfLastUpdate()[0:2] + getTimeOfLastUpdate()[5:10] != dateMY):
             result = authorSummary( 'pubmed')
             pushTableToDB(result, 'dashboard', 'pubmed_authors')
