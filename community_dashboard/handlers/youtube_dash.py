@@ -28,12 +28,18 @@ def build_education_dash():
     """
     container_name='youtube'
     container=pubmed_miner.init_cosmos(container_name)
+    container_transcripts=pubmed_miner.init_cosmos("transcripts")
     query = "SELECT * FROM c"
     items = list(container.query_items(
         query=query,
         enable_cross_partition_query=True
     ))
+    transcript_items = list(container_transcripts.query_items(
+        query=query,
+        enable_cross_partition_query=True
+    ))
     videos=[]
+    transcriptsDict = []
     for item in items:
         #Review the log of counts and find the last two and subtract them for recent views
         df=pd.DataFrame(item['counts']).sort_values('checkedOn',ascending=False).reset_index()
@@ -54,7 +60,17 @@ def build_education_dash():
                     'channelTitle':item['channelTitle']}
                     )
     df=pd.DataFrame(videos)
-    
+
+    for transcript in transcript_items:
+        transcriptsDict.append({
+            'id':transcript['id'],
+            'Transcript':transcript['data'][0]['transcript'],
+            'SciSpacy Mesh':transcript['data'][0]['meshTermspacy'],
+            'Start Char':transcript['data'][0]['startChar'],
+            'End Char':transcript['data'][0]['endChar'],
+        })
+    df_transcripts = pd.DataFrame(transcriptsDict) 
+
     import plotly.express as px
     df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
     # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
@@ -101,11 +117,14 @@ def build_education_dash():
 
     # DataTable Prep
     df['Date Published']=df['Date Published'].dt.strftime('%Y-%m-%d')
+    # df['Title']=df.apply(lambda row:"[{}](https://www.youtube.com/watch?v={})".format(row.Title,row.id),axis=1)
     df['Title']=df.apply(lambda row:"[{}](https://www.youtube.com/watch?v={})".format(row.Title,row.id),axis=1)
     df['Length'] = df.apply(lambda x: str(x['Duration'])[7:], axis = 1)
     del df['Duration']
     # fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
-    cols=['Title','Date Published','Length','Total Views','Recent Views']
+    df = pd.merge(df, df_transcripts, how = 'left', left_on= 'id', right_on = 'id')
+    df['SciSpacy Mesh']=df.apply(lambda row:"[{}](/transcripts?id={})".format(row['SciSpacy Mesh'], row.id),axis=1)
+    cols=['Title','Date Published','Length','Total Views','Recent Views', 'SciSpacy Mesh']
 
     layout=html.Div([
                 dcc.Interval(

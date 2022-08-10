@@ -5,9 +5,39 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from dash import Dash, dcc, html, Input, Output, State
-from flask import render_template
+from flask import Flask, jsonify, render_template, request, render_template_string
 from community_dashboard.handlers import youtube_miner, youtube_dash
 from community_dashboard import app, youtubeDashApp
+from community_dashboard.handlers import pubmed_miner, key_vault as kv
+import re
+
+transcriptContainer = pubmed_miner.init_cosmos('transcripts')
+
+@app.route('/transcripts', methods = ['GET'])
+def transcripts():
+    # find and highlight all matching mesh terms in a new page 
+    #example: http://127.0.0.1:5000/transcripts?id=5jZhZmzl0Co
+    transcriptID = request.args.get('id', None)
+    transcript = ''
+    for item in transcriptContainer.query_items( query='SELECT * FROM transcripts', enable_cross_partition_query=True):
+        if(item['id'] == request.args.get('id', None)):
+            if((isinstance(item['data'][0]['meshTermspacy'], type(None)) == False)):
+                transcript = item['data'][0]['transcript']
+                listOfTerms = []
+                #highlight all instances
+                for i in range(0, len(item['data'][0]['startChar'])):
+                    start = int(item['data'][0]['startChar'][i])
+                    end = int(item['data'][0]['endChar'][i])
+                    # print(transcript)
+                    targetString = transcript[start:end+1]
+                    listOfTerms = np.append(listOfTerms, targetString)
+                for term in listOfTerms:
+                    transcript = re.sub((term + "|" + term.upper() + "|" + term.lower() + "|" + term.capitalize()), ('<mark>' + term + '</mark>'), transcript)
+                del transcriptID
+            else:
+                transcript = "No Mesh Terms Identified"
+    return render_template_string(str(transcript))
+
 
 @app.route('/youtube_dashboard/', methods = ['POST', 'GET'])
 def dashboard_education():
@@ -34,7 +64,7 @@ def youtubeupdate_bar(all_rows_data, slctd_row_indices, slct_rows_names, slctd_r
             order_of_rows_indices, order_of_rows_names, actv_cell, slctd_cell):
     df = pd.DataFrame(all_rows_data)
     df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
-    print(df['Length'])
+    # print(df['Length'])
     df['Duration'] = df.apply(lambda x: int(x['Length'][0:2]) * 3600 + \
                                 int(x['Length'][3:5]) * 60 + \
                                     int(x['Length'][6:8]), axis = 1)
