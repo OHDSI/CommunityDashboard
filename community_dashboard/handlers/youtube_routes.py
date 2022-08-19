@@ -25,29 +25,32 @@ def transcripts():
             parameters = [{ "name":"@id", "value": transcriptID }], 
             enable_cross_partition_query=True):
         if(item['id'] == request.args.get('id', None)):
-            if((isinstance(item['data'][0]['meshTermspacy'], type(None)) == False)):
-
+            if((isinstance(item['data'][0]['snomedNames'], type(None)) == False) & \
+                (isinstance(item['data'][0]['umlsStartChar'], type(None)) == False) & \
+                    ((((list(set(item['data'][0]['snomedNames']))[0] == "No Mapping Found") & (len(list(set(item['data'][0]['snomedNames']))) == 1)) == False)) ):
+                    # (((len(item['data'][0]['snomedNames']) == 1 )& (item['data'][0]['snomedNames'][0] == "No Mapping Found")) == False)):
+                # print(list(set(item['data'][0]['snomedNames']))[0])
                 #get full transcript
                 transcript = item['data'][0]['transcript']
 
                 #identify list of meshterms
                 lsTerms = []
                 lsOccurenceTimes = []
-                meshTermsLength = len(item['data'][0]['startChar'])
-                for i in range(0, meshTermsLength):
+                umlsTermsLength = len(item['data'][0]['umlsStartChar'])
+                for i in range(0, umlsTermsLength):
+                    if(item['data'][0]['snomedNames'][i] != "No Mapping Found"):
 
-                    #extract the string from the transcript based on positions
-                    start = int(item['data'][0]['startChar'][i])
-                    end = int(item['data'][0]['endChar'][i]) - 1
-                    targetString = transcript[start:end+1]
-                    lsTerms = np.append(lsTerms, targetString)
+                        #extract the string from the transcript based on positions
+                        start = int(item['data'][0]['umlsStartChar'][i])
+                        end = int(item['data'][0]['umlsEndChar'][i]) - 1
+                        targetString = transcript[start:end+1]
+                        lsTerms = np.append(lsTerms, targetString)
 
-                
                 #highlight all instances
                 for term in lsTerms:
                     transcript = re.sub((term + "|" + term.upper() + "|" + term.lower() + "|" + term.capitalize()), ('<mark>' + term + '</mark>'), transcript)
                 
-
+                # print(lsTerms)
                 #find all the highlighted instances
                 markStart = [i for i in range(len(transcript)) if transcript.startswith("<mark>", i)]
                 markEnd = [i + 7 for i in range(len(transcript)) if transcript.startswith("</mark>", i)]
@@ -115,7 +118,7 @@ def transcripts():
 
                 # del transcriptID
             else:
-                transcript = "No Mesh Terms Identified"
+                transcript = "No SNOMED Terms Identified"
     return render_template_string(str(transcript))
 
 

@@ -3,6 +3,7 @@ import dash_bootstrap_components as dbc
 from . import key_vault, pubmed_miner
 import plotly.express as px
 import pandas as pd 
+import numpy as np
 from datetime import datetime, date
 def convert_time(time_str):
     """Takes time values from Youtube duration
@@ -65,12 +66,15 @@ def build_education_dash():
         transcriptsDict.append({
             'id':transcript['id'],
             'Transcript':transcript['data'][0]['transcript'],
-            'SciSpacy Mesh':transcript['data'][0]['meshTermspacy'],
-            'Start Char':transcript['data'][0]['startChar'],
-            'End Char':transcript['data'][0]['endChar'],
+            'SNOMED Terms':transcript['data'][0]['snomedNames'],
+            'Start Char':transcript['data'][0]['umlsStartChar'],
+            'End Char':transcript['data'][0]['umlsEndChar'],
         })
     df_transcripts = pd.DataFrame(transcriptsDict) 
-
+    df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: ([i for i in x['SNOMED Terms'] if ((i != "No Mapping Found") & (i != "Sodium-22"))]), axis = 1)
+    df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if len(x['SNOMED Terms']) == 0 else x['SNOMED Terms'], axis = 1)
+    # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if x['SNOMED Terms'] == '' else x['SNOMED Terms'], axis = 1)
+    
     import plotly.express as px
     df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
     # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
@@ -123,8 +127,8 @@ def build_education_dash():
     del df['Duration']
     # fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
     df = pd.merge(df, df_transcripts, how = 'left', left_on= 'id', right_on = 'id')
-    df['SciSpacy Mesh']=df.apply(lambda row:"[{}](/transcripts?id={})".format(row['SciSpacy Mesh'], row.id),axis=1)
-    cols=['Title','Date Published','Length','Total Views','Recent Views', 'SciSpacy Mesh']
+    df['SNOMED Terms']=df.apply(lambda row:"[{}](/transcripts?id={})".format(row['SNOMED Terms'], row.id),axis=1)
+    cols=['Title','Date Published','Length','Total Views','Recent Views', 'SNOMED Terms']
 
     layout=html.Div([
                 dcc.Interval(
