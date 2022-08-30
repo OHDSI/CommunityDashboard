@@ -72,6 +72,7 @@ def build_ehden_dash():
     df2['course_fullname']=df2.apply(lambda row:"[{}](https://academy.ehden.eu/course/view.php?id={})".format(row.course_fullname,row.course_id),axis=1)
     df2['completions']=pd.to_numeric(df2.completions)
     df2['started']=pd.to_numeric(df2.started)
+    df2['course_started']=df2.course_started.dt.strftime('%Y/%m/%d')
     df2=df2[df2.started!=0]
     df2.drop(['course_id','teachers'],axis=1,inplace=True)
     df2.sort_values('course_started',ascending=False,inplace=True)
