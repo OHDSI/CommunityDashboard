@@ -119,6 +119,8 @@ def transcripts():
                 # del transcriptID
             else:
                 transcript = "No SNOMED Terms Identified"
+    if(transcript == ""):
+        transcript = "To be updated soon..."
     return render_template_string(str(transcript))
 
 

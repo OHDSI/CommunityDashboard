@@ -185,7 +185,7 @@
                     $('#insertResult').html("Please Enter Article PubMed ID/Title");
                     setTimeout(() => {
                         $('#insertResult').html("");
-                    }, 2000);
+                    }, 4000);
                     return false;
                 }else if($('#containerChoice').val() == ''){
                     alert("Select Container");
@@ -203,7 +203,7 @@
                             $('#insertResult').html(data);
                             setTimeout(() => {
                                 $('#insertResult').html("");
-                            }, 2000);
+                            }, 4000);
                             $('#insert_form')[0].reset();
                         }
                     });
@@ -217,7 +217,7 @@
                         $('#removalResult').html("Please Enter Article PubMed ID/Title");
                         setTimeout(() => {
                             $('#removalResult').html("");
-                        }, 2000);
+                        }, 4000);
                         return false;
                     }else if($('#containerWithArticle').val() == ''){
                         $('#removalresult').html("Select Container");
@@ -235,7 +235,7 @@
                                 $('#removalResult').html(data);
                                 setTimeout(() => {
                                     $('#removalResult').html("");
-                                }, 2000);
+                                }, 4000);
                                 $('#delete_form')[0].reset();
                             }
                         });
@@ -249,7 +249,7 @@
                         $('#moveResult').html("Please Enter Article PubMed ID/Title");
                         setTimeout(() => {
                             $('#moveResult').html("");
-                        }, 2000);
+                        }, 4000);
                         return false;
                     }else if($('#passKey').val() == ''){
                         alert("Enter Valid Passkey");
@@ -264,7 +264,7 @@
                                 $('#moveResult').html(data);
                                 setTimeout(() => {
                                     $('#moveResult').html("");
-                                }, 2000);
+                                }, 4000);
                                 $('#move_form')[0].reset();
                             }
                         });

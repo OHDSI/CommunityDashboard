@@ -122,19 +122,44 @@
 
     }
 
+    .center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
   </style>
     
   <div>
-    <div class="w-100">
+    <div class="w-100" style="overflow-y:auto; height: 1000px;">
         <h2 class="mb-0">
-            <br/>
-            <div style="text-align: center; padding-top: 100px;">
+            <div style="text-align: center; padding-top: 50px;">
                 <span style="font-family: 'Saira Extra Condensed'; color: #20425A; font-size: 28pt;"> <b>Welcome to the OHDSI Community Dashboard</b> </span>
             </div>
             <br/>
         </h2>
-        <div style="text-align: center;">
+        <div style="text-align: center;" >
             <span style="font-family: 'Saira Extra Condensed'; color: #20425A; font-size: 14pt;"> 
+              <table class="center">
+                <thead>
+                    <tr>
+                        <th style="width: 300px;">PubMed Manuscripts using OHDSI</th>
+                        <th style="width: 300px;">YouTube Videos</th>
+                        <th style="width: 300px;">Ehden Courses</th>
+                        <th style="width: 300px;">Working Groups</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>367 (1500+ authors)</td>
+                        <td>603 (200k+ hours watched)</td>
+                        <td>18 (2200+ course completions)</td>
+                        <td>28 (3000+ members)</td>
+                    </tr>
+                  </tbody>
+              </table>
+
+              <br/>
+              <br/>
               Observational Health Data Sciences and Informatics (OHDSI) is an open science community. 
               OHDSI's mission is to improve health by empowering a community to collaboratively generate the evidence that promotes better health decisions and better care.  
               The OHDSI Community Dashboard is a tool to highlight the progress we are making toward this mission and the collective accomplishments and impact of our community. 
@@ -149,9 +174,13 @@
               <a href="/youtube_dashboard/">Youtube dashboard</a>: Youtube Tracking leverages the Google Youtube Data API and highlights videos released across the OHDSI Youtube Channels. 
               These videos are intended to serve two purposes.  The first is these videos provide users a great source of training on learning
                how to conduct observational research.  The second purpose is to keep our community aware of the latest activities within our open science community.
-              <br><br>
-            </span>
+               <br><br>
+                
+              </span>
+
+            
         </div> 
+        
     </div>
 </div>
 

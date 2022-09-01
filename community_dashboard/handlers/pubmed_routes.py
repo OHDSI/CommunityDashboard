@@ -221,7 +221,7 @@ def insert():
 
             secret_api_key = kv.key['SERPAPI_KEY'] #SERPAPI key
             articleTable = pubmed_miner.getPMArticles(searchArticles)
-            articleTable = articleTable[articleTable['pubYear'] > 2010]
+            # articleTable = articleTable[articleTable['pubYear'] > 2010]
             try:
                 specifiedArticle = articleTable['pubmedID'][0]
             except KeyError:

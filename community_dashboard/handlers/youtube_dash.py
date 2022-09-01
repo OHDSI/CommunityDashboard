@@ -67,6 +67,7 @@ def build_education_dash():
             'id':transcript['id'],
             'Transcript':transcript['data'][0]['transcript'],
             'SNOMED Terms':transcript['data'][0]['snomedNames'],
+            'SNOMED Terms (n)':transcript['data'][0]['termFreq'],
             'Start Char':transcript['data'][0]['umlsStartChar'],
             'End Char':transcript['data'][0]['umlsEndChar'],
         })
@@ -127,8 +128,8 @@ def build_education_dash():
     del df['Duration']
     # fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
     df = pd.merge(df, df_transcripts, how = 'left', left_on= 'id', right_on = 'id')
-    df['SNOMED Terms']=df.apply(lambda row:"[{}](/transcripts?id={})".format(row['SNOMED Terms'], row.id),axis=1)
-    cols=['Title','Date Published','Length','Total Views','Recent Views', 'SNOMED Terms']
+    df['SNOMED Terms (n)']=df.apply(lambda row:"[{}](/transcripts?id={})".format(row['SNOMED Terms (n)'], row.id),axis=1)
+    cols=['Title','Date Published','Length','Total Views','Recent Views', 'SNOMED Terms (n)']
 
     layout=html.Div([
                 dcc.Interval(
