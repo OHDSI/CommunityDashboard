@@ -113,7 +113,7 @@ def build_education_dash():
     )
     bar_fig2.update_layout(
         title={
-        'text': "Hours Viewed for each month",
+        'text': "<b>Hours Viewed for each month</b>",
         'y':0.9,
         'x':0.5,
         'xanchor': 'center',
@@ -139,13 +139,28 @@ def build_education_dash():
                 html.Div(
                     children=[
                     html.Br(),
-                    html.Br(),
-                    html.Br(),
+
                     html.H1("YouTube Analysis", 
                         style={
                             'font-family': 'Saira Extra Condensed',
                             'color': '#20425A',
                             'fontWeight': 'bold',
+                            'text-align': 'center'
+
+                        }
+                    ),
+                    html.Div("Youtube Tracking leverages the Google YouTube Data API and \
+                            highlights videos released across the OHDSI Youtube Channels. \
+                            These videos are intended to serve two purposes: 1) \
+                            provide users a great source of training on learning \
+                            how to conduct observational research. 2) \
+                            keep our community aware of the latest activities within our open science community.", 
+                        style={
+                            'width': '70%',
+                            'margin-left': '15%',
+                            'font-family': 'Saira Extra Condensed',
+                            'color': '#20425A',
+                            'fontSize': '14pt',
                             'text-align': 'center'
 
                         }

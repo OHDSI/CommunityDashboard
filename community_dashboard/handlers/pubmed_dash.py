@@ -103,8 +103,7 @@ def build_pubs_dash():
                     
                     children=[
                             html.Br(),
-                            html.Br(),
-                            html.Br(),
+
                             html.H1("Publication Analysis", 
                                 style={
                                     'font-family': 'Saira Extra Condensed',
@@ -114,7 +113,26 @@ def build_pubs_dash():
 
                                 }
                             ),
-                            
+                            html.Div("PubMed Publication Tracking highlights scholarship generated \
+                                    using the OMOP Common Data Model, OHDSI tools, or the OHDSI network. \
+                                    These publications represent scientific accomplishments across areas of \
+                                    data standards, methodological research, open-source development, \
+                                    and clinical applications. We provide the resource \
+                                    to search and browse the catalogue of OHDSI-related publications by date, \
+                                    author, title, journal, and MeSH terms. We monitor the impact of our community \
+                                    using summary statistics (number of publications and citations), \
+                                    and the growth and diversity of our community with the number of \
+                                    distinct authors.", 
+                                style={
+                                    'width': '70%',
+                                    'margin-left': '15%',
+                                    'font-family': 'Saira Extra Condensed',
+                                    'color': '#20425A',
+                                    'fontSize': '14pt',
+                                    'text-align': 'center'
+
+                                }
+                            ),
                             html.Div(children=
                             [
                                 dbc.Row(
