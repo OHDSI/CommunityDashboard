@@ -125,7 +125,7 @@ def transcripts():
 
 
 @app.route('/youtube_dashboard/', methods = ['POST', 'GET'])
-def dashboard_education():
+def dashboard_youtube():
     return render_template("youtube_dashboard.html")
 
 

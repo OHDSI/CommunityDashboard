@@ -1,6 +1,6 @@
 from dash import dcc, html, dash_table
 import dash_bootstrap_components as dbc
-from . import key_vault, pubmed_miner
+from . import pubmed_miner
 import plotly.express as px
 import pandas as pd 
 import numpy as np
@@ -41,11 +41,12 @@ def build_education_dash():
     ))
     videos=[]
     transcriptsDict = []
+    dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
     for item in items:
         #Review the log of counts and find the last two and subtract them for recent views
         df=pd.DataFrame(item['counts']).sort_values('checkedOn',ascending=False).reset_index()
-        dateCheckedOn = str(date.today().replace(day=1))
-        dateCheckedOn = dateCheckedOn[5:len(dateCheckedOn)] + dateCheckedOn[4:5] + dateCheckedOn[0:4]
+        # dateCheckedOn = str(date.today().replace(day=1))
+        # dateCheckedOn = dateCheckedOn[5:len(dateCheckedOn)] + dateCheckedOn[4:5] + dateCheckedOn[0:4]
         total_views=int(df.viewCount[0])
         if len(df)==1:
             recent_views=int(df.viewCount[0])

@@ -15,6 +15,7 @@ def get_author_names(items):
 
 def build_ehden_dash():
     results_container=pubmed_miner.init_cosmos('dashboard')
+    dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
     query="SELECT * FROM c where c.id = 'ehden'"
     items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
     df=pd.DataFrame(items[0]['data'][1]['users'])
@@ -103,6 +104,15 @@ def build_ehden_dash():
                                     ]
                                 )
                             ]),
+                # dcc.Graph(id='publications',figure=fig), 
+                html.H6("Data as of: " + str(dateCheckedOn), 
+                    style={
+                        'font-family': 'Saira Extra Condensed',
+                        'color': '#20425A',
+                        'text-align': 'right'
+
+                    }
+                ),
                 html.Div(),
                 dash_table.DataTable(
                     id = 'datatable-interactivity',

@@ -1,9 +1,10 @@
+from datetime import datetime, date
 from numpy import double
 from community_dashboard import app
-from community_dashboard.handlers import key_vault as kv, pubmed_miner, youtube_miner,ehden_miner
+from community_dashboard.handlers import key_vault as kv, pubmed_miner, youtube_miner, ehden_miner
 from flask import Flask, jsonify, render_template, request
 import json
-from azure.cosmos import CosmosClient,PartitionKey
+from azure.cosmos import CosmosClient, PartitionKey
 
 def init_cosmos(container_name:str):
     """Initialize the Cosmos client
@@ -99,8 +100,12 @@ def index():
                 'totalCourses': totalCourses,
                 'totalCompletions': totalCompletions}
 
+    #data as of
+    dateCheckedOn = str(date.today().replace(day=1))
+    dateCheckedOn = dateCheckedOn[5:len(dateCheckedOn)] + dateCheckedOn[4:5] + dateCheckedOn[0:4]
 
-    return render_template('home.html', liveTable = liveTable)
+
+    return render_template('home.html', liveTable = liveTable, dateCheckedOn = dateCheckedOn)
 
 @app.route('/update_all', methods=['GET'])
 def update_all():
