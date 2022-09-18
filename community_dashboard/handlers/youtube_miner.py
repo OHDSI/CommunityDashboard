@@ -245,6 +245,39 @@ def update_monthly_dash():
     container2.upsert_item(body = results)
     return
 
+def update_yearly_dash():
+    """ 
+    Updates the dataframe in dashboard stored queries for yearly analytics
+    """
+    container_dashboard = init_cosmos('dashboard')
+    container_youtube = init_cosmos('youtube')
+    query = "SELECT * FROM c"
+    items = list(container_youtube.query_items(
+        query=query,
+        enable_cross_partition_query=True
+    ))
+    videos=[]
+    for item in items:
+        df=pd.DataFrame(item['counts']).sort_values('checkedOn',ascending=False).reset_index()
+        total_views=int(df.viewCount[0])
+        videos.append({'id':item['id'],
+                    'Title':item['title'],
+                    'Duration':item['duration'],
+                    'Date Published':pd.to_datetime(item['publishedAt']),
+                    'Total Views':total_views,
+                    'channelTitle':item['channelTitle']}
+                    )
+    df=pd.DataFrame(videos)
+    df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
+    # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
+    df['Duration'] = df.apply(lambda x: convert_time(x['Duration']), axis = 1)
+    df['yr']=df['Date Published'].dt.year
+
+    df['hrsWatched']=(df.Duration.dt.days*24+df.Duration.dt.seconds/3600)*df['Total Views']
+
+    yrlyTotal = pd.DataFrame(df.groupby('yr')['hrsWatched'].sum())
+    container_dashboard.upsert_item({'id': 'youtube_annual', 'data': yrlyTotal.to_dict()})
+
 def update_data():
     ignore_list=get_existing_ids()
     search_qry="OHDSI"
@@ -253,5 +286,5 @@ def update_data():
     sort_new_videos(candidate_list)
     update_video_stats()
     update_monthly_dash()
-
+    update_yearly_dash()
 
