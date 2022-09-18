@@ -59,12 +59,9 @@ def index():
         totalArticles = numberFormatter(totalArticles)
 
     for item in container_dashboard.query_items(query='SELECT * FROM dashboard WHERE dashboard.id=@id',
-                parameters = [{ "name":"@id", "value": "youtube_monthly" }], 
+                parameters = [{ "name":"@id", "value": "youtube_annual" }], 
                 enable_cross_partition_query=True):
-        monthlyCounts = json.loads(item['data'])['Count']
-        for i in monthlyCounts.keys():
-            totalHoursWatched += monthlyCounts[i]
-        totalHoursWatched = numberFormatter(totalHoursWatched)
+        totalHoursWatched = item['data']
 
     videoIDs = []
     for item in container_youtube.query_items( query='SELECT * FROM youtube', enable_cross_partition_query=True):
@@ -101,9 +98,7 @@ def index():
                 'totalCompletions': totalCompletions}
 
     #data as of
-    dateCheckedOn = str(date.today().replace(day=1))
-    dateCheckedOn = dateCheckedOn[5:len(dateCheckedOn)] + dateCheckedOn[4:5] + dateCheckedOn[0:4]
-
+    dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
 
     return render_template('home.html', liveTable = liveTable, dateCheckedOn = dateCheckedOn)
 

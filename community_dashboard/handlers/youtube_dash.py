@@ -5,6 +5,10 @@ import plotly.express as px
 import pandas as pd 
 import numpy as np
 from datetime import datetime, date
+import plotly.graph_objects as go
+
+import time
+
 def convert_time(time_str):
     """Takes time values from Youtube duration
         '8M12S' or '3H10M5S' 
@@ -27,6 +31,7 @@ def build_education_dash():
     Returns:
         layout: object for Dash
     """
+    
     container_name='youtube'
     container=pubmed_miner.init_cosmos(container_name)
     container_transcripts=pubmed_miner.init_cosmos("transcripts")
@@ -35,10 +40,13 @@ def build_education_dash():
         query=query,
         enable_cross_partition_query=True
     ))
-    transcript_items = list(container_transcripts.query_items(
-        query=query,
-        enable_cross_partition_query=True
-    ))
+    startTime = time.time()
+    # transcript_items = list(container_transcripts.query_items(
+    #     query=query,
+    #     enable_cross_partition_query=True
+    # ))
+    
+
     videos=[]
     transcriptsDict = []
     dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
@@ -62,40 +70,28 @@ def build_education_dash():
                     'channelTitle':item['channelTitle']}
                     )
     df=pd.DataFrame(videos)
-
-    for transcript in transcript_items:
+    endTime = time.time()
+    print(endTime - startTime)
+    for transcript in container_transcripts.query_items(
+        query=query,
+        enable_cross_partition_query=True
+    ):
         transcriptsDict.append({
             'id':transcript['id'],
-            'Transcript':transcript['data'][0]['transcript'],
-            'SNOMED Terms':transcript['data'][0]['snomedNames'],
             'SNOMED Terms (n)':transcript['data'][0]['termFreq'],
-            'Start Char':transcript['data'][0]['umlsStartChar'],
-            'End Char':transcript['data'][0]['umlsEndChar'],
+
         })
     df_transcripts = pd.DataFrame(transcriptsDict) 
-    df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: ([i for i in x['SNOMED Terms'] if ((i != "No Mapping Found") & (i != "Sodium-22"))]), axis = 1)
-    df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if len(x['SNOMED Terms']) == 0 else x['SNOMED Terms'], axis = 1)
+    # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: ([i for i in x['SNOMED Terms'] if ((i != "No Mapping Found") & (i != "Sodium-22"))]), axis = 1)
+    # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if len(x['SNOMED Terms']) == 0 else x['SNOMED Terms'], axis = 1)
     # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if x['SNOMED Terms'] == '' else x['SNOMED Terms'], axis = 1)
     
-    import plotly.express as px
+
     df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
     # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
     df['Duration'] = df.apply(lambda x: convert_time(x['Duration']), axis = 1)
     df['yr']=df['Date Published'].dt.year
     
-    from plotly.subplots import make_subplots
-    import plotly.graph_objects as go
-    # fig = make_subplots(rows=1, cols=2,
-    #                     subplot_titles=("Youtube Hours Created","Cumulative Hrs Watched"))
-    # df4=df.groupby('yr').Duration.sum().reset_index()
-    # df4.columns=['Year','SumSeconds']
-    # df4['Hrs Created']=df4['SumSeconds'].dt.days*24+df4['SumSeconds'].dt.seconds/3600
-    # fig.add_trace(
-    #     go.Bar(
-    #     x=df4['Year'],
-    #     y=df4['Hrs Created']),
-    #     row=1, col=1
-    #     )
     df['hrsWatched']=(df.Duration.dt.days*24+df.Duration.dt.seconds/3600)*df['Total Views']
 
     results_container=pubmed_miner.init_cosmos('dashboard')
@@ -126,11 +122,12 @@ def build_education_dash():
     # df['Title']=df.apply(lambda row:"[{}](https://www.youtube.com/watch?v={})".format(row.Title,row.id),axis=1)
     df['Title']=df.apply(lambda row:"[{}](https://www.youtube.com/watch?v={})".format(row.Title,row.id),axis=1)
     df['Length'] = df.apply(lambda x: str(x['Duration'])[7:], axis = 1)
-    del df['Duration']
+    # del df['Duration']
     # fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
     df = pd.merge(df, df_transcripts, how = 'left', left_on= 'id', right_on = 'id')
     df['SNOMED Terms (n)']=df.apply(lambda row:"[{}](/transcripts?id={})".format(row['SNOMED Terms (n)'], row.id),axis=1)
     cols=['Title','Date Published','Length','Total Views','Recent Views', 'SNOMED Terms (n)']
+    # del df_transcripts
 
     layout=html.Div([
                 dcc.Interval(

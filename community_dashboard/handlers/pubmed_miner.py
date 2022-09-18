@@ -45,7 +45,7 @@ def pubmedAPI(searchQuery):
     Entrez.email = kv.key['ENTREZ_EMAIL'] #personal email address for Pubmed to reach out if necessary
     paramEutils = { 'usehistory':'Y' } #using cache
     queryList = searchQuery
-    dbList = ['pubmed', 'pmc'] #Search through all databases of interest 'nlmcatalog', 'ncbisearch' 
+    dbList = ['pubmed'] #Search through all databases of interest 'nlmcatalog', 'ncbisearch' 
     articleList = [] #empty placeholder
     retMax = 1000 #number of results to return
     

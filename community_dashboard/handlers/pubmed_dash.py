@@ -8,19 +8,14 @@ import pandas as pd
 
 def build_pubs_dash():
     container_name='pubmed'
-    container_for_author_data='pubmed_author'
     container=pubmed_miner.init_cosmos(container_name)
-    container_author_data=pubmed_miner.init_cosmos( container_for_author_data)
     dateLastUpdated = pubmed_miner.getTimeOfLastUpdate()
     query = "SELECT * FROM c"
     items = list(container.query_items(
         query=query,
         enable_cross_partition_query=True
     ))
-    author_items = list(container_author_data.query_items(
-        query=query,
-        enable_cross_partition_query=True
-    ))
+
     data=[]
     for item in items:
         t=0
