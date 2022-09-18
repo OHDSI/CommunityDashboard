@@ -61,7 +61,9 @@ def index():
     for item in container_dashboard.query_items(query='SELECT * FROM dashboard WHERE dashboard.id=@id',
                 parameters = [{ "name":"@id", "value": "youtube_annual" }], 
                 enable_cross_partition_query=True):
-        totalHoursWatched = item['data']
+        yearlyCounts = item['data']['hrsWatched']
+        totalHoursWatched = sum(yearlyCounts.values())
+        totalHoursWatched = numberFormatter(totalHoursWatched)
 
     videoIDs = []
     for item in container_youtube.query_items( query='SELECT * FROM youtube', enable_cross_partition_query=True):
