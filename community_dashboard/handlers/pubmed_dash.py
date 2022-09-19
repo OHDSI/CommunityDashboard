@@ -86,7 +86,7 @@ def build_pubs_dash():
         
     from plotly.subplots import make_subplots
     import plotly.graph_objects as go
-
+    df1['SNOMED Terms (n)']=df1.apply(lambda row:"[{}](/abstracts?id={})".format(row['SNOMED Terms (n)'], row['PubMed ID']),axis=1)
     df1['Publication']=df1.apply(lambda row:"[{}](https://pubmed.gov/{})".format(row.Title,row['PubMed ID']),axis=1)
     cols=['PubMed ID', 'Creation Date','Authors','Publication','Journal','SNOMED Terms (n)', 'Citation Count']
     layout= html.Div([

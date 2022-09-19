@@ -7,6 +7,17 @@ from community_dashboard.handlers.youtube_dash import convert_time
 import pandas as pd
 import datetime
 from community_dashboard.handlers import key_vault as kv
+from collections import defaultdict
+#scispacy
+import numpy as np
+import spacy
+from scispacy.linking import EntityLinker
+from ratelimit import limits, RateLimitException, sleep_and_retry
+import requests
+
+#youtube transcript API
+from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api.formatters import JSONFormatter
 
 """ Steps
 1. Initialize the cosmos client
@@ -301,7 +312,7 @@ def pullNerMapTranscript(videoDict):
     
     newTranscriptsDict = defaultdict(list)
     #For each video, save the id, title, channel title, and transcript
-    videoID = item['id']
+    videoID = videoDict['id']
     #dictionary of videos stored as dictionaries with ID, title, channel, and transcript
     try:
         transcript = YouTubeTranscriptApi.get_transcript(videoID)

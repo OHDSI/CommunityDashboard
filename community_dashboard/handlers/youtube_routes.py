@@ -25,9 +25,12 @@ def transcripts():
             parameters = [{ "name":"@id", "value": transcriptID }], 
             enable_cross_partition_query=True):
         if(item['id'] == request.args.get('id', None)):
-            if((isinstance(item['data'][0]['snomedNames'], type(None)) == False) & \
+            if(item['data'][0]['transcript'] == 'TranscriptsDisabled'):
+                transcript = 'Transcripts Disabled. Please check back later...'
+            elif((isinstance(item['data'][0]['snomedNames'], type(None)) == False) & \
                 (isinstance(item['data'][0]['umlsStartChar'], type(None)) == False) & \
-                    ((((list(set(item['data'][0]['snomedNames']))[0] == "No Mapping Found") & (len(list(set(item['data'][0]['snomedNames']))) == 1)) == False)) ):
+                    ((((list(set(item['data'][0]['snomedNames']))[0] == "No Mapping Found") & (len(list(set(item['data'][0]['snomedNames']))) == 1)) == False)) & \
+                        ((((list(set(item['data'][0]['snomedNames']))[0] == 'Sodium-22') & (len(list(set(item['data'][0]['snomedNames']))) == 1)) == False)) ):
                     # (((len(item['data'][0]['snomedNames']) == 1 )& (item['data'][0]['snomedNames'][0] == "No Mapping Found")) == False)):
                 # print(list(set(item['data'][0]['snomedNames']))[0])
                 #get full transcript
@@ -39,12 +42,12 @@ def transcripts():
                 umlsTermsLength = len(item['data'][0]['umlsStartChar'])
                 for i in range(0, umlsTermsLength):
                     if(item['data'][0]['snomedNames'][i] != "No Mapping Found"):
-
-                        #extract the string from the transcript based on positions
-                        start = int(item['data'][0]['umlsStartChar'][i])
-                        end = int(item['data'][0]['umlsEndChar'][i]) - 1
-                        targetString = transcript[start:end+1]
-                        lsTerms = np.append(lsTerms, targetString)
+                        if(item['data'][0]['umlsStartChar'][i] != 'NA'):
+                            #extract the string from the transcript based on positions
+                            start = int(item['data'][0]['umlsStartChar'][i])
+                            end = int(item['data'][0]['umlsEndChar'][i]) - 1
+                            targetString = transcript[start:end+1]
+                            lsTerms = np.append(lsTerms, targetString)
 
                 #highlight all instances
                 for term in lsTerms:

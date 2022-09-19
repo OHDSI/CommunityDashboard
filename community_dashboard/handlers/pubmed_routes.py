@@ -6,9 +6,16 @@ from dash import Dash, dcc, html, Input, Output, State
 from flask_session import Session
 from flask import Flask, jsonify, render_template, request
 from azure.cosmos import CosmosClient, PartitionKey
+import re
+import numpy as np
+import string
+import ast
+from community_dashboard.handlers import htmlBuilderFunctions
+from flask import Flask, jsonify, render_template, request, render_template_string
 
 from community_dashboard import app, pubmedDashApp
 from community_dashboard.handlers import pubmed_miner, key_vault as kv
+
 
 container = pubmed_miner.init_cosmos('pubmed')
 container_ignore = pubmed_miner.init_cosmos('pubmed_ignore')
@@ -156,6 +163,123 @@ def update_author_bar(all_rows_data, slctd_row_indices, slct_rows_names, slctd_r
                     style={'width': '100%', 'padding-left': '50px'},
                     )
             ]
+
+
+pubmedContainer = pubmed_miner.init_cosmos('pubmed')
+
+
+@app.route('/abstracts', methods = ['GET'])
+def abstracts():
+    pubmedID = "PMID: " + str(int(float(request.args.get('id', None))))
+    abstract = ''
+    #query item with the search query
+    for item in pubmedContainer.query_items( query='SELECT * FROM pubmed WHERE pubmed.id=@id',
+            parameters = [{ "name":"@id", "value": pubmedID }], 
+            enable_cross_partition_query=True):
+        if(item['id'] == pubmedID):
+            snomedNamesStr = item['data']['snomedNames'].strip('][')
+            snomedNames = re.split("', '|\n", snomedNamesStr[1:-1])
+            umlsStartChar = item['data']['umlsStartChar'].strip('][').split('. ')
+            umlsEndChar = item['data']['umlsEndChar'].strip('][').split('. ')
+            if(item['data']['abstract'] == 'TranscriptsDisabled'):
+                abstract = 'Transcripts Disabled. Please check back later...'
+            elif((isinstance(snomedNames, type(None)) == False) & \
+                (isinstance(umlsStartChar, type(None)) == False) & \
+                    ((((list(set(snomedNames))[0] == "No Mapping Found") & (len(list(set(snomedNames))) == 1)) == False)) & \
+                        ((((list(set(snomedNames))[0] == 'Sodium-22') & (len(list(set(snomedNames))) == 1)) == False)) ):
+                    # (((len(snomedNames) == 1 )& (snomedNames[0] == "No Mapping Found")) == False)):
+                # print(list(set(snomedNames))[0])
+                #get full transcript
+                abstract = item['data']['abstract']
+                #identify list of meshterms
+                lsTerms = []
+                lsOccurenceTimes = []
+                umlsTermsLength = len(umlsStartChar)
+                for i in range(0, umlsTermsLength):
+                    if(umlsStartChar[i] != 'NA'):
+                            #extract the string from the transcript based on positions
+                            
+                            start = int(float(umlsStartChar[i]))
+                            end = int(float(umlsEndChar[i])) - 1
+                            targetString = abstract[start:end+1]
+                            lsTerms = np.append(lsTerms, targetString)
+
+                #highlight all instances
+                for term in lsTerms:
+                    abstract = re.sub((term + "|" + term.upper() + "|" + term.lower() + "|" + term.capitalize()), ('<mark>' + term + '</mark>'), abstract)
+                
+                # print(lsTerms)
+                #find all the highlighted instances
+                markStart = [i for i in range(len(abstract)) if abstract.startswith("<mark>", i)]
+                markEnd = [i + 7 for i in range(len(abstract)) if abstract.startswith("</mark>", i)]
+                for i in range(len(markStart)):
+                    stringUptoTerm = abstract[0: markStart[i]]
+                    #find number of words stripping of punctuations
+                    strAsListWords = re.sub('['+string.punctuation+']', '', stringUptoTerm).split()
+                    numWords = len(strAsListWords)
+                    timeOccurred = "It might be around " + str(int(np.floor(((numWords / 150) * 60) / 60))) + " minute(s)" + " " + \
+                                        str(int(np.floor(((numWords / 150) * 60) % 60))) + " second(s) ± 15 seconds"
+                    lsOccurenceTimes = np.append(lsOccurenceTimes, timeOccurred)
+
+                #underlilne is faulty
+                addedLength = 0
+                for i in range(len(markStart)):
+                    strBeforeMark = abstract[0:markStart[i] + addedLength]
+                    strWithinMark = abstract[markStart[i] + addedLength:markEnd[i] + addedLength]
+                    strAfterMark = abstract[markEnd[i] + addedLength:len(abstract)]
+
+                    abstract = strBeforeMark + " <div class='tooltip'> " + strWithinMark + \
+                                    " <span class='tooltiptext'> " + lsOccurenceTimes[i] + "</span>" + \
+                                        " </div> " + strAfterMark
+                    addedLength = addedLength + len(" <div class='tooltip'>  <span class='tooltiptext'> " + lsOccurenceTimes[i] + "</span> </div> ")
+
+
+                #occurrence time is faulty
+                # for i in range(len(lsTerms)):
+                #     pattern = ("<mark>" + lsTerms[i] + "</mark>" + "|" +\
+                #                         "<mark>" + lsTerms[i].upper() + "</mark>" + "|" +\
+                #                             "<mark>" + lsTerms[i].lower() + "<mark>" + "|" + \
+                #                                 "<mark>" + lsTerms[i].capitalize() + "</mark>")
+                #     abstract = re.sub(pattern, " <div class='tooltip'> " + ('<mark>' + lsTerms[i] + '</mark>') + \
+                #                     " <span class='tooltiptext'> " + lsOccurenceTimes[i] + "</span>" + \
+                #                         " </div> ", abstract)
+
+                # print(lsOccurenceTimes)
+                #fill out the rest of the html codes
+                abstract = htmlBuilderFunctions.addTagWrapper(abstract, "body")
+                #add style
+                tooltipStyle = '<style> \
+                                .tooltip { \
+                                position: auto; \
+                                display: inline-block;\
+                                border-bottom: 1px dotted black;\
+                                }\
+                                .tooltip .tooltiptext {\
+                                visibility: hidden;\
+                                width: 120px;\
+                                background-color: black;\
+                                color: #fff;\
+                                text-align: center;\
+                                border-radius: 6px;\
+                                padding: 5px 0;\
+                                position: absolute;\
+                                z-index: 1;\
+                                }\
+                                .tooltip:hover .tooltiptext {\
+                                visibility: visible;\
+                                }\
+                                </style>'
+
+                abstract = tooltipStyle + abstract
+                abstract = htmlBuilderFunctions.addTagWrapper(abstract, "html")
+
+
+                # del abstractID
+            else:
+                abstract = "No SNOMED Terms Identified"
+    if(abstract == ""):
+        abstract = "To be updated soon..."
+    return render_template_string(str(abstract))
             
 @app.route('/articleManager')
 def articleManager():

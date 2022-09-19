@@ -587,6 +587,9 @@ def retrieveAsTable( fullRecord: bool, containerName):
     grantNum, fullAuthor, abstract, meshT, source, fullAuthorEdited = [],[],[],[],[],[]
     firstAuthor, pubYear, titleAuthorStr, datePulled = [],[],[],[]
     foundInGooScholar, numCitations , levenProb, fullAuthorGooScholar, googleScholarLink = [],[],[],[],[]
+    rxnormIDspacy, rxnormTermspacy , rxnormStartChar, rxnormEndChar = [],[],[],[]
+    umlsIDspacy, umlsTermspacy , umlsStartChar, umlsEndChar = [],[],[],[]
+    snomedIDs, snomedNames , termFreq = [],[],[]
 
     colNames = ['pmcID', 'pubmedID', 'nlmID', 'journalTitle', 'title',
            'creationDate', 'affiliation', 'locID', 'countryOfPub', 'language',
@@ -983,7 +986,6 @@ period = 1
 MAX_CALLS = 15
 
 
-def update_data():
 @sleep_and_retry
 @limits(calls=MAX_CALLS, period=period)
 def mapToSnomed(ids, apiKey):
@@ -1176,13 +1178,13 @@ def update_data():
     #first search pubmed
     finalTable = getPMArticles(searchAll)
     finalTable = finalTable[finalTable['pubYear'] > 2010]
-    finalTable = includeMissingCurrentArticles(finalTable, key_dict)
+    finalTable = includeMissingCurrentArticles(finalTable)
     numNewArticles = 0
     #check if an update has already been performed this month
-    lastUpdated = getTimeOfLastUpdate(key_dict)[0:2] + getTimeOfLastUpdate(key_dict)[5:10]
+    lastUpdated = getTimeOfLastUpdate()[0:2] + getTimeOfLastUpdate()[5:10]
 
     if(lastUpdated == dateMY):
-        print("Already updated this month on " + getTimeOfLastUpdate(key_dict))
+        print("Already updated this month on " + getTimeOfLastUpdate())
         print("Identifying new articles...")
         #check if an update has already been performed today
         if(getTimeOfLastUpdate() != str("" + date.datetime.now().strftime("%m-%d-%Y"))):
@@ -1201,31 +1203,31 @@ def update_data():
     #if it is the first update of the month, or if new articles have been found within the same month, upsert those articles
     if((lastUpdated != dateMY) or (numNewArticles > 0)):
         #search google scholar and create 4 new columns
-        finalTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = finalTable.apply(lambda x: getGoogleScholarCitation(x, key_dict['SERPAPI_KEY']), axis = 1, result_type='expand')
+        finalTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = finalTable.apply(lambda x: getGoogleScholarCitation(x['SERPAPI_KEY']), axis = 1, result_type='expand')
         finalTable = finalTable.reset_index()
         if ('index' in finalTable.columns):
             del finalTable['index']
         if ('level_0' in finalTable.columns):
             del finalTable['level_0']
             
-        newArticlesTable, numNewArticles = identifyNewArticles(finalTable, key_dict)
-        asOfDate =  retrieveAsTable(key_dict, False, 'pubmed')
+        newArticlesTable, numNewArticles = identifyNewArticles(finalTable)
+        asOfDate =  retrieveAsTable(False, 'pubmed')
         if(numNewArticles > 0):
             #NER and mapping of abstracts to SNOMED
             newArticlesTable = scispacyOntologyNER(newArticlesTable, "rxnorm")
             newArticlesTable = scispacyOntologyNER(newArticlesTable, "umls")
-            newArticlesTable = mapUmlsToSnomed(newArticlesTable, umlsApiKey)
+            newArticlesTable = mapUmlsToSnomed(newArticlesTable, kv.key['UMLSAPI_KEY'])
             newArticlesTable = findTermFreq(newArticlesTable)
             #push new articles
-            makeCSVJSON(newArticlesTable, key_dict, 'pubmed', True)
-            asOfDate = retrieveAsTable(key_dict, False, 'pubmed')
-            pushTableToDB(asOfDate, key_dict, 'dashboard', 'pubmed_articles')
+            makeCSVJSON(newArticlesTable, 'pubmed', True)
+            asOfDate = retrieveAsTable(False, 'pubmed')
+            pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
             
             #author summary tables
-            currentAuthorSummaryTable = retrieveAuthorSummaryTable(key_dict, 'dashboard', 'pubmed_authors')
+            currentAuthorSummaryTable = retrieveAuthorSummaryTable('dashboard', 'pubmed_authors')
             asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[10]).T
             checkAuthorRecord(newArticlesTable, asOfThisYear)
-            pushTableToDB(currentAuthorSummaryTable, key_dict, 'dashboard', 'pubmed_authors')
+            pushTableToDB(currentAuthorSummaryTable, 'dashboard', 'pubmed_authors')
             
         if(lastUpdated != dateMY):
             #merge in NER and snomed mapping columns
@@ -1235,10 +1237,10 @@ def update_data():
             finalTable = pd.merge(finalTable, asOfDate[colList], on='pubmedID')
             
             #update the current records
-            makeCSVJSON(finalTable, key_dict, 'pubmed', True)
+            makeCSVJSON(finalTable, 'pubmed', True)
             #also cache the table as an object
-            asOfDate = retrieveAsTable(key_dict, False, 'pubmed')
-            pushTableToDB(asOfDate, key_dict, 'dashboard', 'pubmed_articles')
+            asOfDate = retrieveAsTable(False, 'pubmed')
+            pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
 
         print("Update complete.")
     else:
