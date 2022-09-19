@@ -33,8 +33,9 @@ def build_education_dash():
     """
     
     container_name='youtube'
+    # container_name='pubmed_test'
     container=pubmed_miner.init_cosmos(container_name)
-    container_transcripts=pubmed_miner.init_cosmos("transcripts")
+    # container_transcripts=pubmed_miner.init_cosmos("transcripts")
     query = "SELECT * FROM c"
     items = list(container.query_items(
         query=query,
@@ -67,21 +68,22 @@ def build_education_dash():
                     'Date Published':pd.to_datetime(item['publishedAt']),
                     'Total Views':total_views,
                     'Recent Views':recent_views,
-                    'channelTitle':item['channelTitle']}
+                    'channelTitle':item['channelTitle'], 
+                    'SNOMED Terms (n)': item['termFreq']}
                     )
     df=pd.DataFrame(videos)
     endTime = time.time()
     print(endTime - startTime)
-    for transcript in container_transcripts.query_items(
-        query=query,
-        enable_cross_partition_query=True
-    ):
-        transcriptsDict.append({
-            'id':transcript['id'],
-            'SNOMED Terms (n)':transcript['data'][0]['termFreq'],
+    # for transcript in container_transcripts.query_items(
+    #     query=query,
+    #     enable_cross_partition_query=True
+    # ):
+    #     transcriptsDict.append({
+    #         'id':transcript['id'],
+    #         'SNOMED Terms (n)':transcript['data'][0]['termFreq'],
 
-        })
-    df_transcripts = pd.DataFrame(transcriptsDict) 
+    #     })
+    # df_transcripts = pd.DataFrame(transcriptsDict) 
     # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: ([i for i in x['SNOMED Terms'] if ((i != "No Mapping Found") & (i != "Sodium-22"))]), axis = 1)
     # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if len(x['SNOMED Terms']) == 0 else x['SNOMED Terms'], axis = 1)
     # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if x['SNOMED Terms'] == '' else x['SNOMED Terms'], axis = 1)
@@ -124,7 +126,7 @@ def build_education_dash():
     df['Length'] = df.apply(lambda x: str(x['Duration'])[7:], axis = 1)
     # del df['Duration']
     # fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
-    df = pd.merge(df, df_transcripts, how = 'left', left_on= 'id', right_on = 'id')
+    # df = pd.merge(df, df_transcripts, how = 'left', left_on= 'id', right_on = 'id')
     df['SNOMED Terms (n)']=df.apply(lambda row:"[{}](/transcripts?id={})".format(row['SNOMED Terms (n)'], row.id),axis=1)
     cols=['Title','Date Published','Length','Total Views','Recent Views', 'SNOMED Terms (n)']
     # del df_transcripts

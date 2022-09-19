@@ -31,7 +31,7 @@ def build_pubs_dash():
                     'Title':item['data']['title'],
                     'Journal':item['data']['journalTitle'],
                     'Publication Year':item['data']['pubYear'],
-                    'MeSH Terms':item['data']['meshT']})
+                    'SNOMED Terms (n)':item['data']['termFreq']})
     df1=pd.DataFrame(data)   
 
     #parse authors to set a limit on authors shown n_authors
@@ -51,21 +51,21 @@ def build_pubs_dash():
             auth_list=auth_list[:-2]
         df1.loc[i,'Authors']=auth_list
 
-    for i,row in df1.iterrows():
-        meshTerms = row['MeSH Terms'].replace("]", "")
-        meshTerms = meshTerms.replace("[", "")
-        meshList = meshTerms.split(",")
-        # terms=ast.literal_eval(meshTerms)
-        term_list=""
-        for term in meshList:
-            term_list+= term + ", "
-        term_list = term_list.replace("'", "")
-        term_list = term_list.replace("*", "")
-        term_list=term_list[:-2]
-        if(term_list == "nan"):
-            df1.loc[i,'MeSH Terms']= "Not Yet Available"
-        else:
-            df1.loc[i,'MeSH Terms']=term_list
+    # for i,row in df1.iterrows():
+    #     meshTerms = row['MeSH Terms'].replace("]", "")
+    #     meshTerms = meshTerms.replace("[", "")
+    #     meshList = meshTerms.split(",")
+    #     # terms=ast.literal_eval(meshTerms)
+    #     term_list=""
+    #     for term in meshList:
+    #         term_list+= term + ", "
+    #     term_list = term_list.replace("'", "")
+    #     term_list = term_list.replace("*", "")
+    #     term_list=term_list[:-2]
+    #     if(term_list == "nan"):
+    #         df1.loc[i,'MeSH Terms']= "Not Yet Available"
+    #     else:
+    #         df1.loc[i,'MeSH Terms']=term_list
 
     df1['Creation Date']=df1['Creation Date'].str[:-6]
     df2=df1.groupby('Publication Year')['PubMed ID'].count().reset_index()
@@ -88,7 +88,7 @@ def build_pubs_dash():
     import plotly.graph_objects as go
 
     df1['Publication']=df1.apply(lambda row:"[{}](https://pubmed.gov/{})".format(row.Title,row['PubMed ID']),axis=1)
-    cols=['PubMed ID', 'Creation Date','Authors','Publication','Journal','MeSH Terms', 'Citation Count']
+    cols=['PubMed ID', 'Creation Date','Authors','Publication','Journal','SNOMED Terms (n)', 'Citation Count']
     layout= html.Div([
                 dcc.Interval(
                     id='interval-component',
