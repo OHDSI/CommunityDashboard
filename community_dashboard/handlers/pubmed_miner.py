@@ -129,8 +129,7 @@ def selectAndDropCol(table):
     #affiliation, author, authorID, fullAuthor, creationDate, grantNum, investName, fullInvestName, language, locID, nlmID
     #numOfRefer(ences), countryOfPub(lication), pmcID, pubmedID, source, title
     listOfCol = ["pmcID", "pubmedID", "nlmID", "journalTitle", "title",  "creationDate", "affiliation",
-                   "locID", "countryOfPub", "language", "grantNum", "fullAuthor", "meshT", "source"]
-                   "locID", "countryOfPub", "language", "grantNum", "fullAuthor", "abstract", "meshT", "source"]
+    "locID", "countryOfPub", "language", "grantNum", "fullAuthor", "abstract", "meshT", "source"]
     #for any missing column, create it
     for i in range(len(listOfCol)):
         if ((listOfCol[i] in outputTable.columns) == False):
