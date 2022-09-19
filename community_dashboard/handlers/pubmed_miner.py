@@ -10,12 +10,20 @@ import numpy as np
 import json
 import re
 from serpapi  import GoogleSearch
+import csv
 import Levenshtein as lev
 from fuzzywuzzy import fuzz, process
 from os.path import exists
 from pprint import pprint
 from collections import defaultdict, Counter
 from dateutil.parser import *
+import ast
+
+import scispacy
+import spacy
+from scispacy.linking import EntityLinker
+from ratelimit import limits, RateLimitException, sleep_and_retry
+import requests
 
 def init_cosmos(container_name:str):
     """Initialize the Cosmos client
@@ -122,6 +130,7 @@ def selectAndDropCol(table):
     #numOfRefer(ences), countryOfPub(lication), pmcID, pubmedID, source, title
     listOfCol = ["pmcID", "pubmedID", "nlmID", "journalTitle", "title",  "creationDate", "affiliation",
                    "locID", "countryOfPub", "language", "grantNum", "fullAuthor", "meshT", "source"]
+                   "locID", "countryOfPub", "language", "grantNum", "fullAuthor", "abstract", "meshT", "source"]
     #for any missing column, create it
     for i in range(len(listOfCol)):
         if ((listOfCol[i] in outputTable.columns) == False):
@@ -131,7 +140,8 @@ def selectAndDropCol(table):
                                                                          "title", 
                                                                           "creationDate", "affiliation", 
                                                                          "locID", "countryOfPub", "language",
-                                                                         "grantNum", "fullAuthor", "meshT", 
+                                                                         "grantNum", "fullAuthor", "abstract",
+                                                                           "meshT", 
                                                                          "source"]]
     outputTable = outputTable.reset_index()
     outputTable = outputTable.drop(columns = ['index'])
@@ -403,9 +413,9 @@ def getGoogleScholarCitation(row, serp_api_key):
         dictArticlesToMatch = serpApiExtract(appendedResults)
     strOptions = dictArticlesToMatch['titleAuthorStr'].keys()
     if(len(strOptions) == 0):
-        result = ["NA", 0, 0, "NA", "NA"]
+        result = ["NA", "NA", "NA", "NA", "NA"]
         return result
-
+    
     elif(len(strOptions) == 1):
         title = list(dictArticlesToMatch['titleAuthorStr'].values())[0]
         levenP = fuzz.token_set_ratio(searchTitle, list(dictArticlesToMatch['titleAuthorStr'].keys())[0])
@@ -494,9 +504,12 @@ def makeCSVJSON(table, containerChosen: str, forUpdate: bool):
                 d_articleInfo[k] = str(int(float(table[k][row])))
             elif (k in ['pmcID', 'nlmID', 'journalTitle', 'title', 'creationDate', 'affiliation', 'locID',
                         'countryOfPub', 'language','grantNum', 'fullAuthor', 'source', 
-                        'fullAuthorEdited', 'firstAuthor', 'meshT',
+                        'fullAuthorEdited', 'firstAuthor', 'meshT', "abstract",
                         'titleAuthorStr', 'foundInGooScholar', 
-                        'fullAuthorGooScholar', 'googleScholarLink']):
+                        'fullAuthorGooScholar', 'googleScholarLink',
+                        'rxnormIDspacy', 'rxnormTermspacy', 'rxnormStartChar', 'rxnormEndChar',
+                        'umlsIDspacy', 'umlsTermspacy', 'umlsStartChar', 'umlsEndChar', 
+                        'snomedIDs', 'snomedNames', 'termFreq']):
                 d_articleInfo[k] = str(table[k][row])
             elif( k in ['pubYear', 'levenProb']):
                 d_articleInfo[k] = int(float(table[k][row]))
@@ -572,15 +585,18 @@ def retrieveAsTable( fullRecord: bool, containerName):
     container = init_cosmos( containerName)
     pmcID, pubmedID, nlmID, journalTitle, title = [],[],[],[],[]
     creationDate, affiliation, locID, countryOfPub, language = [],[],[],[],[]
-    grantNum, fullAuthor, meshT, source, fullAuthorEdited = [],[],[],[],[]
+    grantNum, fullAuthor, abstract, meshT, source, fullAuthorEdited = [],[],[],[],[],[]
     firstAuthor, pubYear, titleAuthorStr, datePulled = [],[],[],[]
     foundInGooScholar, numCitations , levenProb, fullAuthorGooScholar, googleScholarLink = [],[],[],[],[]
 
     colNames = ['pmcID', 'pubmedID', 'nlmID', 'journalTitle', 'title',
            'creationDate', 'affiliation', 'locID', 'countryOfPub', 'language',
-           'grantNum', 'fullAuthor', 'meshT', 'source', 'fullAuthorEdited',
+           'grantNum', 'fullAuthor', 'abstract', 'meshT', 'source', 'fullAuthorEdited',
            'firstAuthor', 'pubYear', 'titleAuthorStr', 'datePulled',
-            'foundInGooScholar','numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']
+            'foundInGooScholar','numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink',
+            'rxnormIDspacy', 'rxnormTermspacy', 'rxnormStartChar', 'rxnormEndChar',
+                'umlsIDspacy', 'umlsTermspacy', 'umlsStartChar', 'umlsEndChar', 'snomedIDs', 'snomedNames', 'termFreq'
+               ]
 
     for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
         lastIndex = len(item['data']['trackingChanges']) - 1
@@ -603,6 +619,7 @@ def retrieveAsTable( fullRecord: bool, containerName):
 
             grantNum.append(item['data']['grantNum'])
             fullAuthor.append(item['data']['fullAuthor'])
+            abstract.append(item['data']['abstract'])
             meshT.append(item['data']['meshT'])
             source.append(item['data']['source'])
             fullAuthorEdited.append(item['data']['fullAuthorEdited'])
@@ -617,11 +634,26 @@ def retrieveAsTable( fullRecord: bool, containerName):
             levenProb.append(item['data']['levenProb'])
             fullAuthorGooScholar.append(item['data']['fullAuthorGooScholar'])
             googleScholarLink.append(item['data']['googleScholarLink'])
+            
+            rxnormIDspacy.append(item['data']['rxnormIDspacy'])
+            rxnormTermspacy.append(item['data']['rxnormTermspacy'])
+            rxnormStartChar.append(item['data']['rxnormStartChar'])
+            rxnormEndChar.append(item['data']['rxnormEndChar'])
+            umlsIDspacy.append(item['data']['umlsIDspacy'])
+            umlsTermspacy.append(item['data']['umlsTermspacy'])
+            umlsStartChar.append(item['data']['umlsStartChar'])
+            umlsEndChar.append(item['data']['umlsEndChar'])
+            snomedIDs.append(item['data']['snomedIDs'])
+            snomedNames.append(item['data']['snomedNames'])
+            termFreq.append(item['data']['termFreq'])
 
         df = pd.DataFrame([pmcID, pubmedID, nlmID, journalTitle, title, creationDate, affiliation, 
-                               locID, countryOfPub, language, grantNum, fullAuthor, meshT, source, 
-                               fullAuthorEdited, firstAuthor, pubYear, titleAuthorStr, datePulled,
-                               foundInGooScholar, numCitations, levenProb, fullAuthorGooScholar, googleScholarLink]).T
+                           locID, countryOfPub, language, grantNum, fullAuthor, abstract, meshT, source, 
+                           fullAuthorEdited, firstAuthor, pubYear, titleAuthorStr, datePulled,
+                           foundInGooScholar, numCitations, levenProb, fullAuthorGooScholar, googleScholarLink],
+                           rxnormIDspacy, rxnormTermspacy, rxnormStartChar, rxnormEndChar, umlsIDspacy, 
+                           umlsTermspacy, umlsStartChar, umlsEndChar, snomedIDs, snomedNames, termFreq
+                         ).T
         df.columns = colNames
     return df
 
@@ -686,7 +718,7 @@ def includeMissingCurrentArticles(table):
     outputTable = pd.concat([outputTable, table], axis=0)
     outputTable = outputTable.reset_index()
     if ('index' in outputTable.columns):
-            del outputTable['index']
+        del outputTable['index']
             
     return outputTable
 
@@ -790,8 +822,9 @@ def authorSummary(authorDf):
     
     """
     authorDf['firstAuthor'] = authorDf.apply(lambda x: x['firstAuthor'].replace("'", ""), axis = 1)
-    authorDf = authorDf.groupby(['pubYear'])['fullAuthor'].apply(', '.join).reset_index()
     firstAuthorDf = authorDf.groupby(['pubYear'])['firstAuthor'].apply(', '.join).reset_index()
+
+    authorDf = authorDf.groupby(['pubYear'])['fullAuthor'].apply(', '.join).reset_index()
     #full authors
     placeHolder = []
     authorDf['cleanFullAuthors'] = authorDf.apply(lambda x: x['fullAuthor'].replace("[", ""), axis = 1)
@@ -870,7 +903,267 @@ def checkAuthorRecord(newArticleTable, currentAuthorSummary):
         for item in dfRow['cleanFullAuthors']:
             if((item in list(currentAuthorSummary['uniqueAuthors'])[0]) == False):
                 list(currentAuthorSummary['uniqueAuthors'])[0].append(item)
+                
+#functions for NER
+def scispacyNER(text, lowerThreshold, upperThreshold, nlp):
+    """
+    SciSpacy NER applied to YouTube transcripts
+    """
+    doc = nlp(str(text))
+    #extract linker information
+    linker = nlp.get_pipe("scispacy_linker")
+    #placeholder
+    conceptIDs = []
+    concepts = []
+    startChar = []
+    endChar = []
+    #for each entity identified in a document
+    for ent in doc.ents:
+        #if there exists entities
+        if(len(ent._.kb_ents) != 0):
+            #if the matching score is greater than 0.85 (threshold)
+            if((ent._.kb_ents[0][1] >= lowerThreshold) & (ent._.kb_ents[0][1] <= upperThreshold)):
+                conceptID = linker.kb.cui_to_entity[ent._.kb_ents[0][0]][0]
+                concept = linker.kb.cui_to_entity[ent._.kb_ents[0][0]][1]
+                #if ID is new
+                if(conceptID not in conceptIDs):
+                    conceptIDs = np.append(conceptIDs, conceptID)
+                    concepts = np.append(concepts, concept)
+                    startChar = np.append(startChar, ent.start_char)
+                    endChar = np.append(endChar, ent.end_char)
+    
+    if(len(conceptIDs) == 0):
+        conceptIDs = ['NA']
+        concepts = ['NA']
+        startChar = ['NA']
+        endChar = ['NA']
+    
+    return [conceptIDs, concepts, startChar, endChar]
+    
+    
+def scispacyCorpusLinkerLoader(corpus, ontology):
+    """
+    Called in scispacyOntologyNER()
+    Loads spacy corpus and linker
+    """
+    nlp = spacy.load(corpus) # en_core_sci_sm, en_ner_bc5cdr_md
+    nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": ontology})
+    return nlp
 
+def scispacyOntologyNER(inputData, ontology, corpus = "en_ner_bc5cdr_md"):
+    """
+    Called in main()
+    Loads spacy corpus and linker. Applies scispacyNER to each row or item. 
+    Returns the updated dataframe or dictionary
+    """
+    nlp = scispacyCorpusLinkerLoader(corpus, ontology)
+    onotologyIDs = ontology + "IDspacy"
+    onotologyTerms = ontology + "Termspacy"
+    onotologyStart = ontology + "StartChar"
+    onotologyEnd = ontology + "EndChar"
+    if(ontology == "mesh"):
+        threshold = 0.85
+    elif(ontology == "rxnorm"):
+        threshold = 0.7
+    else:
+        threshold = 0.95
+    if (isinstance(inputData, pd.DataFrame)):
+        inputData[[onotologyIDs, onotologyTerms, onotologyStart, onotologyEnd]] = inputData.apply(lambda x: scispacyNER(x['abstract'], threshold, 1, nlp), axis = 1, result_type='expand')
+    
+    elif(isinstance(inputData, dict)):
+        ids, terms, startChar, endChar = scispacyNER(inputData['transcript'], threshold, 1, nlp)
+        inputData[onotologyIDs] = list(ids)
+        inputData[onotologyTerms] = list(terms)
+        inputData[onotologyStart] = list(startChar)
+        inputData[onotologyEnd] = list(endChar)
+    return inputData
+
+
+
+period = 1
+MAX_CALLS = 15
+
+
+def update_data():
+@sleep_and_retry
+@limits(calls=MAX_CALLS, period=period)
+def mapToSnomed(ids, apiKey):
+    snomedIDs = []
+    snomedNames = []
+    if(isinstance(ids, list)):
+        for i in ids:
+            if(i != 'NA'):
+    #             #mesh to umls
+                baseUrl = "https://uts-ws.nlm.nih.gov/rest/"
+    #             meshToUmlsQuery = "search/current?string=" + i + "&inputType=sourceUi&searchType=exact&sabs=MSH&apiKey="
+    #             search_url = baseUrl + meshToUmlsQuery + apiKey
+    #             umlsResp = requests.get(search_url)
+    #             umlsJson = umlsResp.json()
+                #get umls ui and map to snomed
+
+    #             if(len(umlsJson['result']['results']) != 0):
+    #                 umlsID = umlsJson['result']['results'][0]['ui']
+                umlsToSnomedQuery = "search/current?string=" + i + "&sabs=SNOMEDCT_US&returnIdType=code&apiKey="
+                search_url = baseUrl + umlsToSnomedQuery + apiKey
+                snomedResp = requests.get(search_url)
+                snomedJson = snomedResp.json()
+                if(len(snomedJson['result']['results']) != 0):
+                    snomedID = snomedJson['result']['results'][0]['ui']
+                    snomedName = snomedJson['result']['results'][0]['name']
+                else:
+                    snomedID = "00000000"
+                    snomedName = "No Mapping Found"
+    #             else:
+    #                 snomedID = "00000000"
+    #                 snomedName = "No Mapping Found"
+                snomedIDs = np.append(snomedIDs, snomedID)
+                snomedNames = np.append(snomedNames, snomedName)
+            else:
+                snomedID = "00000000"
+                snomedName = "No Mapping Found"
+                snomedIDs = np.append(snomedIDs, snomedID)
+                snomedNames = np.append(snomedNames, snomedName)
+            if(len(snomedIDs) == 0):
+                snomedIDs = ['NA']
+                snomedNames = ['NA']
+        return [snomedIDs, snomedNames]
+
+    else:
+#         #mesh to umls
+        if(ids != 'NA'):
+            baseUrl = "https://uts-ws.nlm.nih.gov/rest/"
+    #         meshToUmlsQuery = "search/current?string=" + ids + "&inputType=sourceUi&searchType=exact&sabs=MSH&apiKey="
+    #         search_url = baseUrl + meshToUmlsQuery + apiKey
+    #         umlsResp = requests.get(search_url)
+    #         umlsJson = umlsResp.json()
+    #         #get umls ui and map to snomed
+
+    #         if(len(umlsJson['result']['results']) != 0):
+    #             umlsID = umlsJson['result']['results'][0]['ui']
+            umlsToSnomedQuery = "search/current?string=" + ids + "&sabs=SNOMEDCT_US&returnIdType=code&apiKey="
+            search_url = baseUrl + umlsToSnomedQuery + apiKey
+            snomedResp = requests.get(search_url)
+            snomedJson = snomedResp.json()
+            if(len(snomedJson['result']['results']) != 0):
+                snomedID = snomedJson['result']['results'][0]['ui']
+                snomedName = snomedJson['result']['results'][0]['name']
+            else:
+                snomedID = "00000000"
+                snomedName = "No Mapping Found"
+    #         else:
+    #             snomedID = "00000000"
+    #             snomedName = "No Mapping Found"
+            if(len(snomedIDs) == 0):
+                snomedID = ['NA']
+                snomedName = ['NA']
+            return [snomedID, snomedName]
+        else:
+            return ['NA', 'NA']
+
+def mapUmlsToSnomed(inputData, apiKey):
+    """
+    Called in main()
+    Loads spacy corpus and linker. Applies scispacyNER to each row or item. 
+    Returns the updated dataframe or dictionary
+    """
+
+    if (isinstance(inputData, pd.DataFrame)):
+        inputData[["snomedIDs", "snomedNames"]] = inputData.apply(lambda x: mapToSnomed(list(x['umlsIDspacy']), apiKey), axis = 1, result_type='expand')
+    
+    elif(isinstance(inputData, dict)):
+        ids, terms= mapToSnomed(inputData['umlsIDspacy'], apiKey)
+        inputData["snomedIDs"] = list(ids)
+        inputData["snomedNames"] = list(terms)
+
+    return inputData
+
+def termFreq(eachArticle):
+    """
+    Called in findTermFreq()
+    Finds the frequency of each term 
+    Returns a concatenated string of terms and frequencies
+    """
+    termAndFreqStr = ""
+    try:
+        isinstance(eachArticle[0]['umlsStartChar'], type(None))
+    except:
+        if(isinstance(eachArticle['umlsStartChar'], type(None))):
+            return termAndFreqStr
+        else:
+            length = len(eachArticle['umlsStartChar'])
+#             print(eachArticle['umlsIDspacy'])
+#             print(eachArticle['snomedIDs'])
+#             print(eachArticle['umlsStartChar'])
+            terms = []
+            termFreqs = []
+            if(length == 0):
+                return 'No Mappings Found'
+            else:
+                for i in range(0, length):
+                    if(eachArticle['snomedIDs'][i] != '00000000'):
+                        if(eachArticle['umlsEndChar'][i] != "NA"):
+                            termStart = int(eachArticle['umlsStartChar'][i])
+                            termEnd = int(eachArticle['umlsEndChar'][i])
+                            searchTerm = eachArticle['abstract'][termStart:termEnd]
+                            term = eachArticle['snomedNames'][i]
+                            termFreq = eachArticle['abstract'].count(searchTerm)
+                            terms = np.append(terms, term)
+                            termFreqs = np.append(termFreqs, termFreq)
+                sortedOrder = np.argsort(termFreqs)[::-1]
+                for sortedIndex in sortedOrder:
+                    term = terms[sortedIndex]
+                    termFreq = termFreqs[sortedIndex]
+                    termAndFreqStr = termAndFreqStr + term + " (" + str(int(termFreq)) + "); "
+                if(len(termAndFreqStr) == 0):
+                    return 'No Mappings Found'
+                else:
+                    return termAndFreqStr
+    else:
+        if(isinstance(eachArticle[0]['umlsStartChar'], type(None))):
+            return termAndFreqStr
+        else:
+            length = len(eachArticle[0]['umlsStartChar'])
+            terms = []
+            termFreqs = []
+            if(length == 0):
+                return 'No Mappings Found'
+            else:
+                for i in range(0, length):
+                    if(eachArticle[0]['snomedIDs'][i] != '00000000'):
+                        if(eachArticle[0]['umlsEndChar'][i] != "NA"):
+                            termStart = int(eachArticle[0]['umlsStartChar'][i])
+                            termEnd = int(eachArticle[0]['umlsEndChar'][i])
+                            searchTerm = eachArticle[0]['transcript'][termStart:termEnd]
+                            term = eachArticle[0]['snomedNames'][i]
+                            termFreq = eachArticle[0]['transcript'].count(searchTerm)
+                            terms = np.append(terms, term)
+                            termFreqs = np.append(termFreqs, termFreq)
+                sortedOrder = np.argsort(termFreqs)[::-1]
+                for sortedIndex in sortedOrder:
+                    term = terms[sortedIndex]
+                    termFreq = termFreqs[sortedIndex]
+                    termAndFreqStr = termAndFreqStr + term + " (" + str(int(termFreq)) + "); "
+                if(len(termAndFreqStr) == 0):
+                    return 'No Mappings Found'
+                else:
+                    return termAndFreqStr
+
+def findTermFreq(inputData):
+    """
+    Called in main()
+    Finds the frequency of each term 
+    Adds a new column
+    """
+    
+    if (isinstance(inputData, pd.DataFrame)):
+        inputData['termFreq'] = inputData.apply(lambda x: termFreq(x), axis = 1)
+    
+    elif(isinstance(inputData, dict)):
+        termsWFreq = termFreq(inputData)
+        inputData["termFreq"] = termsWFreq
+
+    return inputData
+                
 def update_data():
     #initialize the cosmos db dictionary
     dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
@@ -883,12 +1176,14 @@ def update_data():
     
     #first search pubmed
     finalTable = getPMArticles(searchAll)
-    finalTable = includeMissingCurrentArticles(finalTable)
     finalTable = finalTable[finalTable['pubYear'] > 2010]
+    finalTable = includeMissingCurrentArticles(finalTable, key_dict)
     numNewArticles = 0
     #check if an update has already been performed this month
-    if(getTimeOfLastUpdate()[0:2] + getTimeOfLastUpdate()[5:10] == dateMY):
-        print("Already updated this month on " + getTimeOfLastUpdate())
+    lastUpdated = getTimeOfLastUpdate(key_dict)[0:2] + getTimeOfLastUpdate(key_dict)[5:10]
+
+    if(lastUpdated == dateMY):
+        print("Already updated this month on " + getTimeOfLastUpdate(key_dict))
         print("Identifying new articles...")
         #check if an update has already been performed today
         if(getTimeOfLastUpdate() != str("" + date.datetime.now().strftime("%m-%d-%Y"))):
@@ -905,30 +1200,47 @@ def update_data():
         print("First update of the month.")
 
     #if it is the first update of the month, or if new articles have been found within the same month, upsert those articles
-    if((getTimeOfLastUpdate()[0:2] + getTimeOfLastUpdate()[5:10] != dateMY) or (numNewArticles > 0)):
+    if((lastUpdated != dateMY) or (numNewArticles > 0)):
         #search google scholar and create 4 new columns
-        finalTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = finalTable.apply(lambda x: getGoogleScholarCitation(x, kv.key['SERPAPI_KEY']), axis = 1, result_type='expand')
+        finalTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = finalTable.apply(lambda x: getGoogleScholarCitation(x, key_dict['SERPAPI_KEY']), axis = 1, result_type='expand')
         finalTable = finalTable.reset_index()
         if ('index' in finalTable.columns):
             del finalTable['index']
         if ('level_0' in finalTable.columns):
             del finalTable['level_0']
-
-        #update the current records
-        makeCSVJSON(finalTable, 'pubmed', True)
-        #also cache the table as an object
-        asOfDate = retrieveAsTable( False, 'pubmed')
-        pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
-        
-        #update new authors
-        if(getTimeOfLastUpdate()[0:2] + getTimeOfLastUpdate()[5:10] != dateMY):
-            result = authorSummary( 'pubmed')
-            pushTableToDB(result, 'dashboard', 'pubmed_authors')
+            
+        newArticlesTable, numNewArticles = identifyNewArticles(finalTable, key_dict)
+        asOfDate =  retrieveAsTable(key_dict, False, 'pubmed')
         if(numNewArticles > 0):
-            currentAuthorSummaryTable = retrieveAuthorSummaryTable( 'dashboard', 'pubmed_authors')
+            #NER and mapping of abstracts to SNOMED
+            newArticlesTable = scispacyOntologyNER(newArticlesTable, "rxnorm")
+            newArticlesTable = scispacyOntologyNER(newArticlesTable, "umls")
+            newArticlesTable = mapUmlsToSnomed(newArticlesTable, umlsApiKey)
+            newArticlesTable = findTermFreq(newArticlesTable)
+            #push new articles
+            makeCSVJSON(newArticlesTable, key_dict, 'pubmed', True)
+            asOfDate = retrieveAsTable(key_dict, False, 'pubmed')
+            pushTableToDB(asOfDate, key_dict, 'dashboard', 'pubmed_articles')
+            
+            #author summary tables
+            currentAuthorSummaryTable = retrieveAuthorSummaryTable(key_dict, 'dashboard', 'pubmed_authors')
             asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[10]).T
-            checkAuthorRecord(finalTable, asOfThisYear)
-            pushTableToDB(currentAuthorSummaryTable, 'dashboard', 'pubmed_authors')
+            checkAuthorRecord(newArticlesTable, asOfThisYear)
+            pushTableToDB(currentAuthorSummaryTable, key_dict, 'dashboard', 'pubmed_authors')
+            
+        if(lastUpdated != dateMY):
+            #merge in NER and snomed mapping columns
+            finalTable = finalTable[finalTable.pubmedID.isin(asOfDate.pubmedID)]
+            colList = ['pubmedID', 'rxnormIDspacy', 'rxnormTermspacy', 'rxnormStartChar', 'rxnormEndChar',
+                       'umlsIDspacy', 'umlsTermspacy', 'umlsStartChar', 'umlsEndChar', 'snomedIDs', 'snomedNames', 'termFreq']
+            finalTable = pd.merge(finalTable, asOfDate[colList], on='pubmedID')
+            
+            #update the current records
+            makeCSVJSON(finalTable, key_dict, 'pubmed', True)
+            #also cache the table as an object
+            asOfDate = retrieveAsTable(key_dict, False, 'pubmed')
+            pushTableToDB(asOfDate, key_dict, 'dashboard', 'pubmed_articles')
+
         print("Update complete.")
     else:
         print("No updates were performed.")
