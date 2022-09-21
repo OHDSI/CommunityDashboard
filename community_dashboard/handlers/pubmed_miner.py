@@ -652,10 +652,10 @@ def retrieveAsTable( fullRecord: bool, containerName):
         df = pd.DataFrame([pmcID, pubmedID, nlmID, journalTitle, title, creationDate, affiliation, 
                            locID, countryOfPub, language, grantNum, fullAuthor, abstract, meshT, source, 
                            fullAuthorEdited, firstAuthor, pubYear, titleAuthorStr, datePulled,
-                           foundInGooScholar, numCitations, levenProb, fullAuthorGooScholar, googleScholarLink],
+                           foundInGooScholar, numCitations, levenProb, fullAuthorGooScholar, googleScholarLink,
                            rxnormIDspacy, rxnormTermspacy, rxnormStartChar, rxnormEndChar, umlsIDspacy, 
                            umlsTermspacy, umlsStartChar, umlsEndChar, snomedIDs, snomedNames, termFreq
-                         ).T
+                         ]).T
         df.columns = colNames
     return df
 
@@ -866,6 +866,8 @@ def pushTableToDB(summaryTable, containerName, idName):
         if(item['id'] == idName):
             print("Specified ID Name already exists. Updating...")
     results = {}
+    if ('abstract' in summaryTable.columns):
+        del summaryTable['abstract']
     results['data'] = summaryTable.to_json()
     results['id'] = idName
     container.upsert_item(body = results)
@@ -894,7 +896,7 @@ def checkAuthorRecord(newArticleTable, currentAuthorSummary):
         dfRow['cleanFullAuthors'] = dfRow.apply(lambda x: x['fullAuthor'].replace("[", ""), axis = 1)
         dfRow['cleanFullAuthors'] = dfRow.apply(lambda x: x['cleanFullAuthors'].replace("]", ""), axis = 1)
         dfRow['cleanFullAuthors'] = dfRow.apply(lambda x: re.sub('([A-Za-z])(,)', '\\1', x['cleanFullAuthors']), axis = 1)
-        exists = dfRow['firstAuthor'][0] in list(currentAuthorSummary['uniqueFirstAuthors'])[0]
+        exists = list(dfRow['firstAuthor'])[0] in list(currentAuthorSummary['uniqueFirstAuthors'])[0]
         if(exists == False):
             #append
             authorList = list(currentAuthorSummary['uniqueFirstAuthors'])[0]
@@ -948,7 +950,9 @@ def scispacyCorpusLinkerLoader(corpus, ontology):
     Called in scispacyOntologyNER()
     Loads spacy corpus and linker
     """
-    nlp = spacy.load(corpus) # en_core_sci_sm, en_ner_bc5cdr_md
+    import pathlib
+    path = pathlib.Path(__file__).parent / 'dependencies/en_ner_bc5cdr_md/en_ner_bc5cdr_md-0.5.0'
+    nlp = spacy.load(path) # en_core_sci_sm, en_ner_bc5cdr_md
     nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": ontology})
     return nlp
 
@@ -1211,7 +1215,7 @@ def update_data():
             del finalTable['level_0']
             
         newArticlesTable, numNewArticles = identifyNewArticles(finalTable)
-        asOfDate =  retrieveAsTable(False, 'pubmed')
+        
         if(numNewArticles > 0):
             #NER and mapping of abstracts to SNOMED
             newArticlesTable = scispacyOntologyNER(newArticlesTable, "rxnorm")
@@ -1220,7 +1224,7 @@ def update_data():
             newArticlesTable = findTermFreq(newArticlesTable)
             #push new articles
             makeCSVJSON(newArticlesTable, 'pubmed', True)
-            asOfDate = retrieveAsTable(False, 'pubmed')
+            asOfDate =  retrieveAsTable(False, 'pubmed')
             pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
             
             #author summary tables

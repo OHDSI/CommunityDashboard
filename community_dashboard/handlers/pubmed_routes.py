@@ -362,16 +362,31 @@ def insert():
                     else:
                         return jsonify("This article already exists in the other container. Please verify." )
                 else:
-                    
+                    #search google scholar and create 4 new columns
                     articleTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = articleTable.apply(lambda x: pubmed_miner.getGoogleScholarCitation(x, secret_api_key), axis = 1, result_type='expand')
                     articleTable = articleTable.reset_index()
                     if ('index' in articleTable.columns):
                         del articleTable['index']
-
-                    #update the current records
-                    # makeCSVJSON(finalTable)
-                    #update the current records
-                    pubmed_miner.makeCSVJSON(articleTable, designatedContainer, False)
+                    if ('level_0' in articleTable.columns):
+                        del articleTable['level_0']
+                        
+                    newArticlesTable, numNewArticles = pubmed_miner.identifyNewArticles(articleTable)
+                    if(numNewArticles > 0):
+                        #NER and mapping of abstracts to SNOMED
+                        newArticlesTable = pubmed_miner.scispacyOntologyNER(newArticlesTable, "rxnorm")
+                        newArticlesTable = pubmed_miner.scispacyOntologyNER(newArticlesTable, "umls")
+                        newArticlesTable = pubmed_miner.mapUmlsToSnomed(newArticlesTable, kv.key['UMLSAPI_KEY'])
+                        newArticlesTable = pubmed_miner.findTermFreq(newArticlesTable)
+                        #push new articles
+                        pubmed_miner.makeCSVJSON(newArticlesTable, designatedContainer, False)
+                        asOfDate = pubmed_miner.retrieveAsTable(False, designatedContainer)
+                        pubmed_miner.pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
+                        
+                        #author summary tables
+                        currentAuthorSummaryTable = pubmed_miner.retrieveAuthorSummaryTable('dashboard', 'pubmed_authors')
+                        asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[10]).T
+                        pubmed_miner.checkAuthorRecord(newArticlesTable, asOfThisYear)
+                        pubmed_miner.pushTableToDB(currentAuthorSummaryTable, 'dashboard', 'pubmed_authors')
 
 
                     return jsonify("" + str(numNewArticles) + " new article(s) added successfully")
