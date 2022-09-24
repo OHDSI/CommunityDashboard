@@ -8,7 +8,8 @@ from dash import Dash, dcc, html, Input, Output, State
 from flask import Flask, jsonify, render_template, request, render_template_string
 from community_dashboard.handlers import youtube_miner, youtube_dash
 from community_dashboard import app, youtubeDashApp
-from community_dashboard.handlers import pubmed_miner, key_vault as kv
+from community_dashboard.handlers import pubmed_miner
+
 import re
 import string
 from community_dashboard.handlers import htmlBuilderFunctions

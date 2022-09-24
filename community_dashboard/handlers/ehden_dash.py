@@ -1,11 +1,12 @@
 import pandas as pd 
 from dash import dcc, html, dash_table
 import dash_bootstrap_components as dbc
-from . import key_vault, pubmed_miner
+from . import pubmed_miner
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import ast
+from community_dashboard.config import Keys
 
 def get_author_names(items):
     output=""

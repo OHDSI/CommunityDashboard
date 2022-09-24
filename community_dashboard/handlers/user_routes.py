@@ -1,7 +1,8 @@
 from datetime import datetime, date
 from numpy import double
 from community_dashboard import app
-from community_dashboard.handlers import key_vault as kv, pubmed_miner, youtube_miner, ehden_miner
+from community_dashboard.handlers import pubmed_miner, youtube_miner, ehden_miner
+from community_dashboard.config import Keys
 from flask import Flask, jsonify, render_template, request
 import json
 from azure.cosmos import CosmosClient, PartitionKey
@@ -13,10 +14,10 @@ def init_cosmos(container_name:str):
     * container_name : str - Name of azure container in cosmos db
     Returns container for cosmosclient
     """
-    endpoint = kv.key['AZURE_ENDPOINT']
-    azure_key = kv.key['AZURE_KEY']
+    endpoint = Keys['AZURE_ENDPOINT']
+    azure_key = Keys['AZURE_KEY']
     client = CosmosClient(endpoint, azure_key)
-    database_name = kv.key['DB_NAME']
+    database_name = Keys['DB_NAME']
     database = client.create_database_if_not_exists(id=database_name)
     container = database.create_container_if_not_exists(
         id=container_name, 
@@ -107,7 +108,7 @@ def index():
 @app.route('/update_all', methods=['GET'])
 def update_all():
     """Run the miners to update data sources"""
-    if kv.key['PASS_KEY']!=request.args.get('pass_key'):
+    if Keys['PASS_KEY']!=request.args.get('pass_key'):
         return "Not authorized to access this page"
     pubmed_miner.update_data()
     ehden_miner.update_data()

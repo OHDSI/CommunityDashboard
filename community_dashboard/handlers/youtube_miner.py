@@ -6,13 +6,12 @@ from oauth2client.tools import argparser
 from community_dashboard.handlers.youtube_dash import convert_time
 import pandas as pd
 import datetime
-from community_dashboard.handlers import key_vault as kv
+from community_dashboard.config import Keys
 from collections import defaultdict
 #scispacy
 import numpy as np
 import spacy
 from scispacy.linking import EntityLinker
-from ratelimit import limits, RateLimitException, sleep_and_retry
 import requests
 
 #youtube transcript API
@@ -36,8 +35,8 @@ def init_cosmos(container_name:str):
 
     Returns container for cosmosclient
     """
-    endpoint = kv.key['AZURE_ENDPOINT']
-    azure_key = kv.key['AZURE_KEY']
+    endpoint = Keys['AZURE_ENDPOINT']
+    azure_key = Keys['AZURE_KEY']
     client = CosmosClient(endpoint, azure_key)
     database_name = 'ohdsi-impact-engine'
     database = client.create_database_if_not_exists(id=database_name)
@@ -333,7 +332,7 @@ def pullNerMapTranscript(videoDict):
     videoDict = scispacyOntologyNER(videoDict, "rxnorm", "en_ner_bc5cdr_md") 
 
     #map umls to SNOMED
-    umlsApiKey = kv['UMLSAPI_KEY']
+    umlsApiKey = Keys['UMLSAPI_KEY']
     videoDict = mapUmlsToSnomed(videoDict, umlsApiKey)
     videoDict = findTermFreq(videoDict)
 
@@ -375,8 +374,8 @@ def video_details(video_id: str):
     * publishedAt: str - date the video was published
 
     """
-    youtube = build(kv.key['YOUTUBE_API_SERVICE_NAME'], kv.key['YOUTUBE_API_VERSION']\
-        ,developerKey=kv.key['YOUTUBE_DEVELOPER_KEY'])
+    youtube = build(Keys['YOUTUBE_API_SERVICE_NAME'], Keys['YOUTUBE_API_VERSION']\
+        ,developerKey=Keys['YOUTUBE_DEVELOPER_KEY'])
     """use youtube data api to get details on a video"""
     video={}
     response = youtube.videos().list(part='statistics, snippet, contentDetails', \
@@ -459,8 +458,8 @@ def youtube_search(q: str, max_results:int =50,order:str ="relevance"):
     title and videoId.
 
     """
-    youtube = build(kv.key['YOUTUBE_API_SERVICE_NAME'], kv.key['YOUTUBE_API_VERSION']\
-        ,developerKey=kv.key['YOUTUBE_DEVELOPER_KEY'])
+    youtube = build(Keys['YOUTUBE_API_SERVICE_NAME'], Keys['YOUTUBE_API_VERSION']\
+        ,developerKey=Keys['YOUTUBE_DEVELOPER_KEY'])
     request = youtube.search().list(
         q=q, type="video", order = order,
         part="id,snippet", # Part signifies the different types of data you want 
