@@ -91,7 +91,7 @@ def scispacyCorpusLinkerLoader(corpus, ontology):
     Loads spacy corpus and linker
     """
     import pathlib
-    path = pathlib.Path(__file__).parent / 'dependencies/en_ner_bc5cdr_md/en_ner_bc5cdr_md-0.5.0'
+    path = pathlib.Path(__file__).parent / 'en_ner_bc5cdr_md/en_ner_bc5cdr_md/en_ner_bc5cdr_md-0.5.0'
     nlp = spacy.load(path) # en_core_sci_sm, en_ner_bc5cdr_md
     nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": ontology})
     return nlp
