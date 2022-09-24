@@ -8,3 +8,4 @@ community_dashboard/handlers/key_vault.py
 community_dashboard/__pycache__
 community_dashboard/handlers/__pycache__
 community_dashboard/config.py
+community_dashboard/handlers/dependencies/
