@@ -13,7 +13,7 @@ import numpy as np
 import spacy
 from scispacy.linking import EntityLinker
 import requests
-
+from ratelimit import sleep_and_retry, limits
 #youtube transcript API
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.formatters import JSONFormatter
