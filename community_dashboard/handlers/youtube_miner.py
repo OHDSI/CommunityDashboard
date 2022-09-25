@@ -35,8 +35,8 @@ def init_cosmos(container_name:str):
 
     Returns container for cosmosclient
     """
-    endpoint = Keys['AZURE_ENDPOINT']
-    azure_key = Keys['AZURE_KEY']
+    endpoint = Keys.AZURE_ENDPOINT
+    azure_key = Keys.AZURE_KEY
     client = CosmosClient(endpoint, azure_key)
     database_name = 'ohdsi-impact-engine'
     database = client.create_database_if_not_exists(id=database_name)
@@ -334,7 +334,7 @@ def pullNerMapTranscript(videoDict):
     videoDict = scispacyOntologyNER(videoDict, "rxnorm", "en_ner_bc5cdr_md") 
 
     #map umls to SNOMED
-    umlsApiKey = Keys['UMLSAPI_KEY']
+    umlsApiKey = Keys.UMLSAPI_KEY
     videoDict = mapUmlsToSnomed(videoDict, umlsApiKey)
     videoDict = findTermFreq(videoDict)
 
@@ -376,8 +376,8 @@ def video_details(video_id: str):
     * publishedAt: str - date the video was published
 
     """
-    youtube = build(Keys['YOUTUBE_API_SERVICE_NAME'], Keys['YOUTUBE_API_VERSION']\
-        ,developerKey=Keys['YOUTUBE_DEVELOPER_KEY'])
+    youtube = build(Keys.YOUTUBE_API_SERVICE_NAME, Keys.YOUTUBE_API_VERSION\
+        ,developerKey=Keys.YOUTUBE_DEVELOPER_KEY)
     """use youtube data api to get details on a video"""
     video={}
     response = youtube.videos().list(part='statistics, snippet, contentDetails', \
@@ -460,8 +460,8 @@ def youtube_search(q: str, max_results:int =50,order:str ="relevance"):
     title and videoId.
 
     """
-    youtube = build(Keys['YOUTUBE_API_SERVICE_NAME'], Keys['YOUTUBE_API_VERSION']\
-        ,developerKey=Keys['YOUTUBE_DEVELOPER_KEY'])
+    youtube = build(Keys.YOUTUBE_API_SERVICE_NAME, Keys.YOUTUBE_API_VERSION\
+        ,developerKey=Keys.YOUTUBE_DEVELOPER_KEY)
     request = youtube.search().list(
         q=q, type="video", order = order,
         part="id,snippet", # Part signifies the different types of data you want 

@@ -1,7 +1,7 @@
-from curses import KEY_SCANCEL
 from azure.cosmos import CosmosClient,PartitionKey
 from oauth2client.tools import argparser
 from community_dashboard.config import Keys
+
 from Bio import Entrez, Medline #http://biopython.org/DIST/docs/tutorial/Tutorial.html#sec%3Aentrez-specialized-parsers
 import xmltodict #https://marcobonzanini.com/2015/01/12/searching-pubmed-with-python/
 import time
@@ -33,10 +33,10 @@ def init_cosmos(container_name:str):
     * container_name : str - Name of azure container in cosmos db
     Returns container for cosmosclient
     """
-    endpoint = Keys['AZURE_ENDPOINT']
-    azure_key = Keys['AZURE_KEY']
+    endpoint = Keys.AZURE_ENDPOINT
+    azure_key = Keys.AZURE_KEY
     client = CosmosClient(endpoint, azure_key)
-    database_name = Keys['DB_NAME']
+    database_name = Keys.DB_NAME
     database = client.create_database_if_not_exists(id=database_name)
     container = database.create_container_if_not_exists(
         id=container_name, 
@@ -51,7 +51,7 @@ def pubmedAPI(searchQuery):
     For each of the search terms (searchQuery), search on pubmed and pmc databases
     Convert the results into a dataframe
     """
-    Entrez.email = Keys['ENTREZ_EMAIL'] #personal email address for Pubmed to reach out if necessary
+    Entrez.email = Keys.ENTREZ_EMAIL #personal email address for Pubmed to reach out if necessary
     paramEutils = { 'usehistory':'Y' } #using cache
     queryList = searchQuery
     dbList = ['pubmed'] #Search through all databases of interest 'nlmcatalog', 'ncbisearch' 
@@ -1173,7 +1173,7 @@ def findTermFreq(inputData):
 def update_data():
     #initialize the cosmos db dictionary
     dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
-    secret_api_key = Keys['SERPAPI_KEY'] #SERPAPI key
+    secret_api_key = Keys.SERPAPI_KEY #SERPAPI key
     
     #search terms/strings
     searchAll = ['ohdsi', 'omop', 'Observational Medical Outcomes Partnership Common Data Model', \
@@ -1221,7 +1221,7 @@ def update_data():
             #NER and mapping of abstracts to SNOMED
             newArticlesTable = scispacyOntologyNER(newArticlesTable, "rxnorm")
             newArticlesTable = scispacyOntologyNER(newArticlesTable, "umls")
-            newArticlesTable = mapUmlsToSnomed(newArticlesTable, Keys['UMLSAPI_KEY'])
+            newArticlesTable = mapUmlsToSnomed(newArticlesTable, Keys.UMLSAPI_KEY)
             newArticlesTable = findTermFreq(newArticlesTable)
             #push new articles
             makeCSVJSON(newArticlesTable, 'pubmed', True)

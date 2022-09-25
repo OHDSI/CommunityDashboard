@@ -335,16 +335,16 @@ def insert():
         # if Keys['PASS_KEY']!=request.args.get('pass_key'): #Need to add hidden field for POST condition
         #     return "Not authorized to access this page"
         dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
-        if((request.method == 'POST') & (Keys['PASS_KEY']!= request.form['passKeyHiddenInsert'])):
+        if((request.method == 'POST') & (Keys.PASS_KEY!= request.form['passKeyHiddenInsert'])):
             return "Not authorized to access this page"
-        elif ((request.method == 'POST') & (Keys['PASS_KEY']== request.form['passKeyHiddenInsert'])) :
+        elif ((request.method == 'POST') & (Keys.PASS_KEY== request.form['passKeyHiddenInsert'])) :
             
             searchArticles = request.form['articleIdentifier']
             designatedContainer = request.form['containerChoice']
             numNewArticles = 0
             containerArticles = pubmed_miner.getExistingIDandSearchStr(designatedContainer)
 
-            secret_api_key = Keys['SERPAPI_KEY'] #SERPAPI key
+            secret_api_key = Keys.SERPAPI_KEY #SERPAPI key
             articleTable = pubmed_miner.getPMArticles(searchArticles)
             # articleTable = articleTable[articleTable['pubYear'] > 2010]
             try:
@@ -376,7 +376,7 @@ def insert():
                         #NER and mapping of abstracts to SNOMED
                         newArticlesTable = pubmed_miner.scispacyOntologyNER(newArticlesTable, "rxnorm")
                         newArticlesTable = pubmed_miner.scispacyOntologyNER(newArticlesTable, "umls")
-                        newArticlesTable = pubmed_miner.mapUmlsToSnomed(newArticlesTable, Keys['UMLSAPI_KEY'])
+                        newArticlesTable = pubmed_miner.mapUmlsToSnomed(newArticlesTable, Keys.UMLSAPI_KEY)
                         newArticlesTable = pubmed_miner.findTermFreq(newArticlesTable)
                         #push new articles
                         pubmed_miner.makeCSVJSON(newArticlesTable, designatedContainer, False)
@@ -401,9 +401,9 @@ def remove_article():
         # if Keys['PASS_KEY']!=request.args.get('pass_key'): #Need to add hidden field for POST condition
         #     return "Not authorized to access this page"
         dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
-        if((request.method == 'DELETE') & (Keys['PASS_KEY']!= request.form['passKeyHiddenDelete'])):
+        if((request.method == 'DELETE') & (Keys.PASS_KEY!= request.form['passKeyHiddenDelete'])):
             return "Not authorized to access this page"
-        elif ((request.method == 'DELETE') & (Keys['PASS_KEY']== request.form['passKeyHiddenDelete'])) :
+        elif ((request.method == 'DELETE') & (Keys.PASS_KEY== request.form['passKeyHiddenDelete'])) :
             searchArticles = request.form['articleIDToRemove']
             designatedContainer = request.form['containerWithArticle']
             containerArticles = pubmed_miner.getExistingIDandSearchStr( designatedContainer)
@@ -435,9 +435,9 @@ def moveToContainer():
         # if Keys['PASS_KEY']!=request.args.get('pass_key'): #Need to add hidden field for POST condition
         #     return "Not authorized to access this page"
         dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
-        if((request.method == 'POST') & (Keys['PASS_KEY']!= request.form['passKeyHiddenMove'])):
+        if((request.method == 'POST') & (Keys.PASS_KEY!= request.form['passKeyHiddenMove'])):
             return "Not authorized to access this page"
-        elif ((request.method == 'POST') & (Keys['PASS_KEY']== request.form['passKeyHiddenMove'])) :
+        elif ((request.method == 'POST') & (Keys.PASS_KEY== request.form['passKeyHiddenMove'])) :
             articleToMove = request.form['articleMove']
             containerArticles = pubmed_miner.getExistingIDandSearchStr('pubmed')
             ignoreArticles = pubmed_miner.getExistingIDandSearchStr( 'pubmed_ignore')

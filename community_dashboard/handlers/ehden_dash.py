@@ -6,7 +6,6 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import ast
-from community_dashboard.config import Keys
 
 def get_author_names(items):
     output=""
