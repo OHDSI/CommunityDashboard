@@ -35,6 +35,7 @@ def init_cosmos(container_name:str):
     """
     endpoint = Keys.AZURE_ENDPOINT
     azure_key = Keys.AZURE_KEY
+
     client = CosmosClient(endpoint, azure_key)
     database_name = Keys.DB_NAME
     database = client.create_database_if_not_exists(id=database_name)
@@ -48,7 +49,7 @@ def init_cosmos(container_name:str):
 def pubmedAPI(searchQuery):
     """
     Called in getPMArticles()
-    For each of the search terms (searchQuery), search on pubmed and pmc databases
+    For each of the search terms (searchQuery), search on pubmed databases
     Convert the results into a dataframe
     """
     Entrez.email = Keys.ENTREZ_EMAIL #personal email address for Pubmed to reach out if necessary
