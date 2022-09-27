@@ -6,6 +6,7 @@ from oauth2client.tools import argparser
 from community_dashboard.handlers.youtube_dash import convert_time
 import pandas as pd
 import datetime
+from dateutil.relativedelta import relativedelta
 from community_dashboard.config import Keys
 from collections import defaultdict
 #scispacy
@@ -309,11 +310,11 @@ def findTermFreq(inputData):
     return inputData
 
 
-def pullNerMapTranscript(videoDict):
-    
+def pullNerMapTranscript(videoDict, candidate):
+    container_transcripts = init_cosmos('transcripts')
     newTranscriptsDict = defaultdict(list)
     #For each video, save the id, title, channel title, and transcript
-    videoID = videoDict['id']
+    videoID = candidate
     #dictionary of videos stored as dictionaries with ID, title, channel, and transcript
     try:
         transcript = YouTubeTranscriptApi.get_transcript(videoID)
@@ -334,9 +335,27 @@ def pullNerMapTranscript(videoDict):
     videoDict = scispacyOntologyNER(videoDict, "rxnorm", "en_ner_bc5cdr_md") 
 
     #map umls to SNOMED
-    umlsApiKey = Keys.UMLSAPI_KEY
+    umlsApiKey = Keys.UMLSAPI_KEY #kv.key['UMLSAPI_KEY']
     videoDict = mapUmlsToSnomed(videoDict, umlsApiKey)
     videoDict = findTermFreq(videoDict)
+
+    videoDictCopy = {}
+    videoDictCopy['id'] = candidate
+    videoDictCopy['title'] = videoDict['title']
+    videoDictCopy['channelTitle'] = videoDict['channelTitle']
+    videoDictCopy['transcript'] = videoDict['transcript']
+    videoDictCopy['umlsIDspacy'] = videoDict['umlsIDspacy']
+    videoDictCopy['umlsTermspacy'] = videoDict['umlsTermspacy']
+    videoDictCopy['umlsStartChar'] = videoDict['umlsStartChar']
+    videoDictCopy['umlsEndChar'] = videoDict['umlsEndChar']
+    videoDictCopy['rxnormIDspacy'] = videoDict['rxnormIDspacy']
+    videoDictCopy['rxnormTermspacy'] = videoDict['rxnormTermspacy']
+    videoDictCopy['rxnormStartChar'] = videoDict['rxnormStartChar']
+    videoDictCopy['rxnormEndChar'] = videoDict['rxnormEndChar']
+    videoDictCopy['snomedIDs'] = videoDict['snomedIDs']
+    videoDictCopy['snomedNames'] = videoDict['snomedNames']
+    videoDictCopy['termFreq'] = videoDict['termFreq']
+    container_transcripts.upsert_item({'id': videoDictCopy['id'], 'data': [videoDictCopy]})
 
 def response_test(response: dict):
     """Quick test of the http request to make sure it has the data structure needed to analyze
@@ -491,7 +510,7 @@ def sort_new_videos(candidate_list:list):
     for candidate in candidate_list:
         video=video_details(candidate)
         if video['channelTitle'][:5]=='OHDSI':
-            pullNerMapTranscript(video)
+            pullNerMapTranscript(video, candidate)
 
             item={'id':candidate,'title':video['title'],'duration':video['duration'],\
                   'channelId':video['channelId'],'channelTitle':video['channelTitle'],\
@@ -588,6 +607,69 @@ def update_yearly_dash():
     yrlyTotal = pd.DataFrame(df.groupby('yr')['hrsWatched'].sum())
     container_dashboard.upsert_item({'id': 'youtube_annual', 'data': yrlyTotal.to_dict()})
 
+
+def getDiabledTranscriptIDs():
+    IDs = []
+    container_transcripts = init_cosmos('transcripts')
+    container_youtube = init_cosmos('youtube')
+    query = "SELECT * FROM c"
+    items = list(container_transcripts.query_items(
+        query=query,
+        enable_cross_partition_query=True
+    ))
+            
+    for item in items:
+        if(item['data'][0]['transcript'] == 'TranscriptsDisabled'):
+            item_youtube = list(container_youtube.query_items( query='SELECT * FROM youtube WHERE youtube.id=@id',
+                parameters = [{ "name":"@id", "value": item['id'] }], 
+                enable_cross_partition_query=True))
+            current_yrmonth = '{}'.format(datetime.date.today())[:7]
+            item_published_yrmonth = item_youtube[0]['publishedAt'][:7]
+
+            #check also the previous month
+            date_format = '%Y-%m'
+            dtObj = datetime.datetime.strptime(item_published_yrmonth, date_format)
+            n = 1
+            previous_month = str(dtObj - relativedelta(months=n))[:7]
+            if((item_published_yrmonth == current_yrmonth) | (item_published_yrmonth == previous_month)):
+                IDs.append(item['id'])
+    return IDs
+    
+
+def findDisabledRemap():
+    """ Take a list of candidate video ids
+    - get the video details
+    - if the video channel is OHDSI, add to youtube
+    - otherwise add to ignore
+    Args:
+        candidat_list (list): A list of youtube id's that are candidates for getting details
+
+  
+    """
+    candidate_list = getDiabledTranscriptIDs()
+    container=init_cosmos('youtube') 
+    for candidate in candidate_list:
+        video = list(container.query_items( query='SELECT * FROM youtube WHERE youtube.id=@id',
+                parameters = [{ "name":"@id", "value": candidate }], 
+                enable_cross_partition_query=True))[0]
+        if video['channelTitle'][:5]=='OHDSI':
+            pullNerMapTranscript(video, candidate)
+
+            item={'id':candidate,'title':video['title'],'duration':video['duration'],\
+                  'channelId':video['channelId'],'channelTitle':video['channelTitle'],\
+                  'categoryId':video['categoryId'],'publishedAt':video['publishedAt'],\
+                  'counts':video['counts'],\
+                  'rxnormIDspacy': video['rxnormIDspacy'], 'rxnormTermspacy': video['rxnormTermspacy'],\
+                  'rxnormStartChar': video['rxnormStartChar'], 'rxnormEndChar': video['rxnormEndChar'],\
+                  'umlsIDspacy': video['umlsIDspacy'], 'umlsTermspacy': video['umlsTermspacy'],\
+                  'umlsStartChar': video['umlsStartChar'], 'umlsEndChar': video['umlsEndChar'],\
+                  'snomedIDs': video['snomedIDs'], 'snomedNames': video['snomedNames'],\
+                  'termFreq': video['termFreq'],
+                  'lastChecked': video['lastChecked']}
+
+            container.upsert_item(body=item)
+
+
 def update_data():
     ignore_list=get_existing_ids()
     search_qry="OHDSI"
@@ -597,4 +679,5 @@ def update_data():
     update_video_stats()
     update_monthly_dash()
     update_yearly_dash()
+    findDisabledRemap()
 
