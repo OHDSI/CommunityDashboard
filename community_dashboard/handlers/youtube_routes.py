@@ -219,11 +219,3 @@ def youtubeupdate_bar(all_rows_data, slctd_row_indices, slct_rows_names, slctd_r
                 ]
 
 
-app.config.supress_callback_exceptions = True
-app.config.update({
-    # remove the default of '/'
-    'routes_pathname_prefix': '',
-
-    # remove the default of '/'
-    'requests_pathname_prefix': ''
-})
