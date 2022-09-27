@@ -131,7 +131,7 @@ def build_education_dash():
     cols=['Title','Date Published','Length','Total Views','Recent Views', 'SNOMED Terms (n)']
     # del df_transcripts
 
-    layout=html.Div([
+    layout=html.Div(children=[
                 dcc.Interval(
                     id='interval-component',
                     interval=1*1000 # in milliseconds
@@ -149,12 +149,12 @@ def build_education_dash():
 
                         }
                     ),
-                    html.Div("Youtube Tracking leverages the Google YouTube Data API and \
+                    html.Div(children=["Youtube Tracking leverages the Google YouTube Data API and \
                             highlights videos released across the OHDSI Youtube Channels. \
                             These videos are intended to serve two purposes: 1) \
                             provide users a great source of training on learning \
                             how to conduct observational research. 2) \
-                            keep our community aware of the latest activities within our open science community.", 
+                            keep our community aware of the latest activities within our open science community."], 
                         style={
                             'width': '70%',
                             'margin-left': '15%',
@@ -170,7 +170,7 @@ def build_education_dash():
                     [
                         dbc.Row(
                             [
-                                dbc.Col(html.Div(id='bar-container'), width = 6),
+                                dbc.Col(html.Div(id='bar-container', children=[]), width = 6),
                                 dbc.Col(dcc.Graph(id='bar-fig2',figure=bar_fig2), width = 6)
                             ]
                         )
@@ -185,7 +185,7 @@ def build_education_dash():
                         }
                     ),
                     # dcc.Graph(id='videos',figure=fig), 
-                    html.Div(),
+                    html.Div(children=[]),
                     dash_table.DataTable(
                         id = 'datatable-interactivity',
                         data = df.sort_values('Date Published',ascending=False).to_dict('records'), 
