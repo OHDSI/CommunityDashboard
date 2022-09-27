@@ -93,8 +93,8 @@ def build_education_dash():
     # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
     df['Duration'] = df.apply(lambda x: convert_time(x['Duration']), axis = 1)
     df['yr']=df['Date Published'].dt.year
-    
-    df['hrsWatched']=(df.Duration.dt.days*24+df.Duration.dt.seconds/3600)*df['Total Views']
+    df['hrsWatched']=(df.Duration.dt.days*24+df.Duration.dt.seconds/3600)*df['Total Views'] 
+    df['Duration'] = df['Duration'].astype(str)
 
     results_container=pubmed_miner.init_cosmos('dashboard')
     query="SELECT * FROM c where c.id = 'youtube_monthly'"
