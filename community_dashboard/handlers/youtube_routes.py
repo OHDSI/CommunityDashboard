@@ -213,7 +213,7 @@ def youtubeupdate_bar(all_rows_data, slctd_row_indices, slct_rows_names, slctd_r
 
     return [
         dcc.Graph(id = 'bar-chart', 
-                    figure = fig.update_layout(yaxis={'tickformat': '{:,}'}),
+                    figure = fig.update_layout(),
                     style={'width': '100%', 'padding-left': '50px'},
                     )
                 ]
