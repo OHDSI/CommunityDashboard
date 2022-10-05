@@ -513,13 +513,19 @@ def makeCSVJSON(table, containerChosen: str, forUpdate: bool):
                         'snomedIDs', 'snomedNames', 'termFreq']):
                 d_articleInfo[k] = str(table[k][row])
             elif( k in ['pubYear', 'levenProb']):
-                d_articleInfo[k] = int(float(table[k][row]))
+                if( (k == "levenProb") & (table[k][row] == "NA")):
+                    d_articleInfo[k] = int(0)
+                else:
+                    d_articleInfo[k] = int(float(table[k][row]))
             elif( k in ['additionalCitationCount', 'numCitations', 'datePulled']):
                 d_trackingChanges['t'] = int(parse(table["datePulled"][row]).timestamp())
                 if( k == 'datePulled'):
                     d_trackingChanges[k] = str(table[k][row])
                 else:
-                    d_trackingChanges[k] = int(float(table[k][row]))
+                    if(table[k][row] == 'NA'):
+                        d_trackingChanges[k] = 0
+                    else:
+                        d_trackingChanges[k] = int(float(table[k][row]))
 
 
         id = "PMID: " + str(int(float(table['pubmedID'][row])))
@@ -873,7 +879,7 @@ def pushTableToDB(summaryTable, containerName, idName):
     results['data'] = summaryTable.to_json()
     results['id'] = idName
     container.upsert_item(body = results)
-
+    print("Update completed.")
         
         
 def retrieveAuthorSummaryTable(containerName, selectedID):
@@ -902,7 +908,7 @@ def checkAuthorRecord(newArticleTable, currentAuthorSummary):
         if(exists == False):
             #append
             authorList = list(currentAuthorSummary['uniqueFirstAuthors'])[0]
-            authorList.append(dfRow['firstAuthor'][0])
+            authorList.append(list(dfRow['firstAuthor'])[0])
             currentAuthorSummary['uniqueFirstAuthors'][0] = authorList
 
         #check full authors
@@ -1209,7 +1215,7 @@ def update_data():
     #if it is the first update of the month, or if new articles have been found within the same month, upsert those articles
     if((lastUpdated != dateMY) or (numNewArticles > 0)):
         #search google scholar and create 4 new columns
-        finalTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = finalTable.apply(lambda x: getGoogleScholarCitation(x['SERPAPI_KEY']), axis = 1, result_type='expand')
+        finalTable[['foundInGooScholar', 'numCitations', 'levenProb', 'fullAuthorGooScholar', 'googleScholarLink']] = finalTable.apply(lambda x: getGoogleScholarCitation(x, Keys.SERPAPI_KEY), axis = 1, result_type='expand')
         finalTable = finalTable.reset_index()
         if ('index' in finalTable.columns):
             del finalTable['index']
@@ -1224,6 +1230,9 @@ def update_data():
             newArticlesTable = scispacyOntologyNER(newArticlesTable, "umls")
             newArticlesTable = mapUmlsToSnomed(newArticlesTable, Keys.UMLSAPI_KEY)
             newArticlesTable = findTermFreq(newArticlesTable)
+            newArticlesTable = newArticlesTable.reset_index()
+            if ('index' in newArticlesTable.columns):
+                del newArticlesTable['index']
             #push new articles
             makeCSVJSON(newArticlesTable, 'pubmed', True)
             asOfDate =  retrieveAsTable(False, 'pubmed')
@@ -1246,6 +1255,8 @@ def update_data():
             makeCSVJSON(finalTable, 'pubmed', True)
             #also cache the table as an object
             asOfDate = retrieveAsTable(False, 'pubmed')
+            asOfDate = asOfDate[['pmcID', 'pubmedID', 'nlmID', 'journalTitle',
+             'title', 'creationDate','fullAuthorEdited', 'firstAuthor', 'pubYear']]
             pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
 
         print("Update complete.")

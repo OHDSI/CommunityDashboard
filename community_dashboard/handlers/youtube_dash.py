@@ -50,12 +50,15 @@ def build_education_dash():
 
     videos=[]
     transcriptsDict = []
-    dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
+    # dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
+    pullDate = 0
     for item in items:
+        if(pullDate == 0):
+            dateCheckedOn = item['lastChecked']
+            dateCheckedOn = dateCheckedOn[5:len(dateCheckedOn)] + dateCheckedOn[4:5] + dateCheckedOn[0:4]
         #Review the log of counts and find the last two and subtract them for recent views
         df=pd.DataFrame(item['counts']).sort_values('checkedOn',ascending=False).reset_index()
-        # dateCheckedOn = str(date.today().replace(day=1))
-        # dateCheckedOn = dateCheckedOn[5:len(dateCheckedOn)] + dateCheckedOn[4:5] + dateCheckedOn[0:4]
+        
         total_views=int(df.viewCount[0])
         if len(df)==1:
             recent_views=int(df.viewCount[0])
@@ -71,6 +74,7 @@ def build_education_dash():
                     'channelTitle':item['channelTitle'], 
                     'SNOMED Terms (n)': item['termFreq']}
                     )
+    
     df=pd.DataFrame(videos)
     endTime = time.time()
     print(endTime - startTime)
@@ -154,7 +158,8 @@ def build_education_dash():
                             These videos are intended to serve two purposes: 1) \
                             provide users a great source of training on learning \
                             how to conduct observational research. 2) \
-                            keep our community aware of the latest activities within our open science community."], 
+                            keep our community aware of the latest activities within our open science community. \
+                            Searches for new videos are performed daily."], 
                         style={
                             'width': '70%',
                             'margin-left': '15%',

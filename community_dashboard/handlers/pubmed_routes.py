@@ -378,6 +378,9 @@ def insert():
                         newArticlesTable = pubmed_miner.scispacyOntologyNER(newArticlesTable, "umls")
                         newArticlesTable = pubmed_miner.mapUmlsToSnomed(newArticlesTable, Keys.UMLSAPI_KEY)
                         newArticlesTable = pubmed_miner.findTermFreq(newArticlesTable)
+                        newArticlesTable = newArticlesTable.reset_index()
+                        if ('index' in newArticlesTable.columns):
+                            del newArticlesTable['index']
                         #push new articles
                         pubmed_miner.makeCSVJSON(newArticlesTable, designatedContainer, False)
                         asOfDate = pubmed_miner.retrieveAsTable(False, designatedContainer)

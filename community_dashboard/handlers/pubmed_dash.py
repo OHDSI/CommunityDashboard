@@ -117,7 +117,8 @@ def build_pubs_dash():
                                     author, title, journal, and MeSH terms. We monitor the impact of our community \
                                     using summary statistics (number of publications and citations), \
                                     and the growth and diversity of our community with the number of \
-                                    distinct authors.", 
+                                    distinct authors. Searches for new papers are performed daily, and \
+                                    citation counts are updated monthy.", 
                                 style={
                                     'width': '70%',
                                     'margin-left': '15%',

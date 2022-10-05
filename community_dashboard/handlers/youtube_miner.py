@@ -114,7 +114,7 @@ def scispacyOntologyNER(inputData, ontology, corpus = "en_ner_bc5cdr_md"):
     else:
         threshold = 0.95
     if (isinstance(inputData, pd.DataFrame)):
-        inputData[[onotologyIDs, onotologyTerms, onotologyStart, onotologyEnd]] = inputData.apply(lambda x: scispacyNER(x['abstract'], threshold, 1, nlp), axis = 1, result_type='expand')
+        inputData[[onotologyIDs, onotologyTerms, onotologyStart, onotologyEnd]] = inputData.apply(lambda x: scispacyNER(x['transcript'], threshold, 1, nlp), axis = 1, result_type='expand')
     
     elif(isinstance(inputData, dict)):
         ids, terms, startChar, endChar = scispacyNER(inputData['transcript'], threshold, 1, nlp)
@@ -249,9 +249,9 @@ def termFreq(eachArticle):
                         if(eachArticle['umlsEndChar'][i] != "NA"):
                             termStart = int(eachArticle['umlsStartChar'][i])
                             termEnd = int(eachArticle['umlsEndChar'][i])
-                            searchTerm = eachArticle['abstract'][termStart:termEnd]
+                            searchTerm = eachArticle['transcript'][termStart:termEnd]
                             term = eachArticle['snomedNames'][i]
-                            termFreq = eachArticle['abstract'].count(searchTerm)
+                            termFreq = eachArticle['transcript'].count(searchTerm)
                             terms = np.append(terms, term)
                             termFreqs = np.append(termFreqs, termFreq)
                 sortedOrder = np.argsort(termFreqs)[::-1]
