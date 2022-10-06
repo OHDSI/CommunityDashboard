@@ -114,7 +114,7 @@ def build_pubs_dash():
                                     data standards, methodological research, open-source development, \
                                     and clinical applications. We provide the resource \
                                     to search and browse the catalogue of OHDSI-related publications by date, \
-                                    author, title, journal, and MeSH terms. We monitor the impact of our community \
+                                    author, title, journal, and SNOMED terms. We monitor the impact of our community \
                                     using summary statistics (number of publications and citations), \
                                     and the growth and diversity of our community with the number of \
                                     distinct authors. Searches for new papers are performed daily, and \
