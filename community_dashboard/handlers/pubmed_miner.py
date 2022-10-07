@@ -884,6 +884,7 @@ def pushTableToDB(summaryTable, containerName, idName):
         
 def retrieveAuthorSummaryTable(containerName, selectedID):
     """
+    Called in dataupdate
     Retrieves the author data as a dataframe
     
     """
@@ -896,6 +897,11 @@ def retrieveAuthorSummaryTable(containerName, selectedID):
             return outputDf
 
 def checkAuthorRecord(newArticleTable, currentAuthorSummary):
+    """
+    Called in dataupdate
+    Checks for new authors and add to the list of authors
+    
+    """
     for row in range(0,newArticleTable.shape[0]):
         dfRow = pd.DataFrame(newArticleTable.iloc[row]).T
         #clean first author 
@@ -915,6 +921,18 @@ def checkAuthorRecord(newArticleTable, currentAuthorSummary):
         for item in dfRow['cleanFullAuthors']:
             if((item in list(currentAuthorSummary['uniqueAuthors'])[0]) == False):
                 list(currentAuthorSummary['uniqueAuthors'])[0].append(item)
+                
+    currentAuthorSummary['cumulativeFirstAuthors'] = len(list(currentAuthorSummary['uniqueFirstAuthors'])[0])
+    currentAuthorSummary['cumulativeAuthors'] = len(list(currentAuthorSummary['uniqueAuthors'])[0])
+    
+def calculateNewAuthors(currentAuthorSummary):
+    """
+    Calculate the number of new authors and update summary statistics
+    
+    """
+    lastRowIndex = currentAuthorSummary['numberNewFirstAuthors'].shape[0]
+    currentAuthorSummary['numberNewFirstAuthors'][lastRowIndex-1] = currentAuthorSummary['cumulativeFirstAuthors'][lastRowIndex-1] - currentAuthorSummary['cumulativeFirstAuthors'][lastRowIndex-2]
+    currentAuthorSummary['numberNewAuthors'][lastRowIndex-1] = currentAuthorSummary['cumulativeAuthors'][lastRowIndex-1] - currentAuthorSummary['cumulativeAuthors'][lastRowIndex-2]
                 
 #functions for NER
 def scispacyNER(text, lowerThreshold, upperThreshold, nlp):
@@ -1240,8 +1258,16 @@ def update_data():
             
             #author summary tables
             currentAuthorSummaryTable = retrieveAuthorSummaryTable('dashboard', 'pubmed_authors')
+            #past years
+            pastYears = pd.DataFrame(currentAuthorSummaryTable.iloc[0:-1])
+            #this year
             asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[10]).T
+            #look for new authors and add to the list
             checkAuthorRecord(newArticlesTable, asOfThisYear)
+            #rbinds
+            currentAuthorSummaryTable = pd.concat([pastYears, asOfThisYear])
+            #update summary statistics
+            calculateNewAuthors(currentAuthorSummaryTable)
             pushTableToDB(currentAuthorSummaryTable, 'dashboard', 'pubmed_authors')
             
         if(lastUpdated != dateMY):
@@ -1259,7 +1285,7 @@ def update_data():
              'title', 'creationDate','fullAuthorEdited', 'firstAuthor', 'pubYear']]
             pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
 
-        print("Update complete.")
+        print("Update completed.")
     else:
         print("No updates were performed.")
 
