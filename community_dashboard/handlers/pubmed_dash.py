@@ -8,19 +8,14 @@ import pandas as pd
 
 def build_pubs_dash():
     container_name='pubmed'
-    container_for_author_data='pubmed_author'
     container=pubmed_miner.init_cosmos(container_name)
-    container_author_data=pubmed_miner.init_cosmos( container_for_author_data)
-
+    dateLastUpdated = pubmed_miner.getTimeOfLastUpdate()
     query = "SELECT * FROM c"
     items = list(container.query_items(
         query=query,
         enable_cross_partition_query=True
     ))
-    author_items = list(container_author_data.query_items(
-        query=query,
-        enable_cross_partition_query=True
-    ))
+
     data=[]
     for item in items:
         t=0
@@ -36,7 +31,7 @@ def build_pubs_dash():
                     'Title':item['data']['title'],
                     'Journal':item['data']['journalTitle'],
                     'Publication Year':item['data']['pubYear'],
-                    'MeSH Terms':item['data']['meshT']})
+                    'SNOMED Terms (n)':item['data']['termFreq']})
     df1=pd.DataFrame(data)   
 
     #parse authors to set a limit on authors shown n_authors
@@ -56,21 +51,21 @@ def build_pubs_dash():
             auth_list=auth_list[:-2]
         df1.loc[i,'Authors']=auth_list
 
-    for i,row in df1.iterrows():
-        meshTerms = row['MeSH Terms'].replace("]", "")
-        meshTerms = meshTerms.replace("[", "")
-        meshList = meshTerms.split(",")
-        # terms=ast.literal_eval(meshTerms)
-        term_list=""
-        for term in meshList:
-            term_list+= term + ", "
-        term_list = term_list.replace("'", "")
-        term_list = term_list.replace("*", "")
-        term_list=term_list[:-2]
-        if(term_list == "nan"):
-            df1.loc[i,'MeSH Terms']= "Not Yet Available"
-        else:
-            df1.loc[i,'MeSH Terms']=term_list
+    # for i,row in df1.iterrows():
+    #     meshTerms = row['MeSH Terms'].replace("]", "")
+    #     meshTerms = meshTerms.replace("[", "")
+    #     meshList = meshTerms.split(",")
+    #     # terms=ast.literal_eval(meshTerms)
+    #     term_list=""
+    #     for term in meshList:
+    #         term_list+= term + ", "
+    #     term_list = term_list.replace("'", "")
+    #     term_list = term_list.replace("*", "")
+    #     term_list=term_list[:-2]
+    #     if(term_list == "nan"):
+    #         df1.loc[i,'MeSH Terms']= "Not Yet Available"
+    #     else:
+    #         df1.loc[i,'MeSH Terms']=term_list
 
     df1['Creation Date']=df1['Creation Date'].str[:-6]
     df2=df1.groupby('Publication Year')['PubMed ID'].count().reset_index()
@@ -91,9 +86,9 @@ def build_pubs_dash():
         
     from plotly.subplots import make_subplots
     import plotly.graph_objects as go
-
+    df1['SNOMED Terms (n)']=df1.apply(lambda row:"[{}](/abstracts?id={})".format(row['SNOMED Terms (n)'], row['PubMed ID']),axis=1)
     df1['Publication']=df1.apply(lambda row:"[{}](https://pubmed.gov/{})".format(row.Title,row['PubMed ID']),axis=1)
-    cols=['PubMed ID', 'Creation Date','Authors','Publication','Journal','MeSH Terms', 'Citation Count']
+    cols=['PubMed ID', 'Creation Date','Authors','Publication','Journal','SNOMED Terms (n)', 'Citation Count']
     layout= html.Div([
                 dcc.Interval(
                     id='interval-component',
@@ -103,8 +98,7 @@ def build_pubs_dash():
                     
                     children=[
                             html.Br(),
-                            html.Br(),
-                            html.Br(),
+
                             html.H1("Publication Analysis", 
                                 style={
                                     'font-family': 'Saira Extra Condensed',
@@ -114,7 +108,27 @@ def build_pubs_dash():
 
                                 }
                             ),
-                            
+                            html.Div("PubMed Publication Tracking highlights scholarship generated \
+                                    using the OMOP Common Data Model, OHDSI tools, or the OHDSI network. \
+                                    These publications represent scientific accomplishments across areas of \
+                                    data standards, methodological research, open-source development, \
+                                    and clinical applications. We provide the resource \
+                                    to search and browse the catalogue of OHDSI-related publications by date, \
+                                    author, title, journal, and SNOMED terms. We monitor the impact of our community \
+                                    using summary statistics (number of publications and citations), \
+                                    and the growth and diversity of our community with the number of \
+                                    distinct authors. Searches for new papers are performed daily, and \
+                                    citation counts are updated monthy.", 
+                                style={
+                                    'width': '70%',
+                                    'margin-left': '15%',
+                                    'font-family': 'Saira Extra Condensed',
+                                    'color': '#20425A',
+                                    'fontSize': '14pt',
+                                    'text-align': 'center'
+
+                                }
+                            ),
                             html.Div(children=
                             [
                                 dbc.Row(
@@ -127,6 +141,14 @@ def build_pubs_dash():
                             
                             
                             # dcc.Graph(id='publications',figure=fig), 
+                            html.H6("Data as of: " + str(dateLastUpdated), 
+                                style={
+                                    'font-family': 'Saira Extra Condensed',
+                                    'color': '#20425A',
+                                    'text-align': 'right'
+
+                                }
+                            ),
                             html.Div(id='my-output'),
                             dash_table.DataTable(
                                 id='datatable-interactivity',
@@ -170,6 +192,7 @@ def build_pubs_dash():
                                     'fontWeight': 'bold'
                                 }
                             )
+                            
                             
                     ], style={'padding-top': '0px', 'overflow-y': 'hidden'}
                 )

@@ -1,8 +1,13 @@
 from dash import dcc, html, dash_table
 import dash_bootstrap_components as dbc
-from . import key_vault, pubmed_miner
+from . import pubmed_miner
 import plotly.express as px
 import pandas as pd 
+import numpy as np
+from datetime import datetime, date
+import plotly.graph_objects as go
+
+import time
 
 def convert_time(time_str):
     """Takes time values from Youtube duration
@@ -26,17 +31,34 @@ def build_education_dash():
     Returns:
         layout: object for Dash
     """
+    
     container_name='youtube'
+    # container_name='pubmed_test'
     container=pubmed_miner.init_cosmos(container_name)
+    # container_transcripts=pubmed_miner.init_cosmos("transcripts")
     query = "SELECT * FROM c"
     items = list(container.query_items(
         query=query,
         enable_cross_partition_query=True
     ))
+    startTime = time.time()
+    # transcript_items = list(container_transcripts.query_items(
+    #     query=query,
+    #     enable_cross_partition_query=True
+    # ))
+    
+
     videos=[]
+    transcriptsDict = []
+    # dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
+    pullDate = 0
     for item in items:
+        if(pullDate == 0):
+            dateCheckedOn = item['lastChecked']
+            dateCheckedOn = dateCheckedOn[5:len(dateCheckedOn)] + dateCheckedOn[4:5] + dateCheckedOn[0:4]
         #Review the log of counts and find the last two and subtract them for recent views
         df=pd.DataFrame(item['counts']).sort_values('checkedOn',ascending=False).reset_index()
+        
         total_views=int(df.viewCount[0])
         if len(df)==1:
             recent_views=int(df.viewCount[0])
@@ -49,48 +71,71 @@ def build_education_dash():
                     'Date Published':pd.to_datetime(item['publishedAt']),
                     'Total Views':total_views,
                     'Recent Views':recent_views,
-                    'channelTitle':item['channelTitle']}
+                    'channelTitle':item['channelTitle'], 
+                    'SNOMED Terms (n)': item['termFreq']}
                     )
+    
     df=pd.DataFrame(videos)
-    import plotly.express as px
+    endTime = time.time()
+    print(endTime - startTime)
+    # for transcript in container_transcripts.query_items(
+    #     query=query,
+    #     enable_cross_partition_query=True
+    # ):
+    #     transcriptsDict.append({
+    #         'id':transcript['id'],
+    #         'SNOMED Terms (n)':transcript['data'][0]['termFreq'],
+
+    #     })
+    # df_transcripts = pd.DataFrame(transcriptsDict) 
+    # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: ([i for i in x['SNOMED Terms'] if ((i != "No Mapping Found") & (i != "Sodium-22"))]), axis = 1)
+    # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if len(x['SNOMED Terms']) == 0 else x['SNOMED Terms'], axis = 1)
+    # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if x['SNOMED Terms'] == '' else x['SNOMED Terms'], axis = 1)
+    
+
     df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
     # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
-    # print(df['Duration'])
     df['Duration'] = df.apply(lambda x: convert_time(x['Duration']), axis = 1)
-    # print(type(df['Duration'][0]))
-    # print(df['Duration'])
     df['yr']=df['Date Published'].dt.year
-    
-    from plotly.subplots import make_subplots
-    import plotly.graph_objects as go
-    # fig = make_subplots(rows=1, cols=2,
-    #                     subplot_titles=("Youtube Hours Created","Cumulative Hrs Watched"))
-    # df4=df.groupby('yr').Duration.sum().reset_index()
-    # df4.columns=['Year','SumSeconds']
-    # df4['Hrs Created']=df4['SumSeconds'].dt.days*24+df4['SumSeconds'].dt.seconds/3600
-    # fig.add_trace(
-    #     go.Bar(
-    #     x=df4['Year'],
-    #     y=df4['Hrs Created']),
-    #     row=1, col=1
-    #     )
-    df['hrsWatched']=(df.Duration.dt.days*24+df.Duration.dt.seconds/3600)*df['Total Views']
-    # df4=df.groupby('yr').hrsWatched.sum().reset_index()
-    # df4.columns=['Year','HrsWatched']
-    # df4['Cumulative Hrs Watched']=df4['HrsWatched'].cumsum()
-    # fig.add_trace(
-    #     go.Line(
-    #     x=df4['Year'],
-    #     y=df4['Cumulative Hrs Watched']),
-    #     row=1, col=2
-    #     )
+    df['hrsWatched']=(df.Duration.dt.days*24+df.Duration.dt.seconds/3600)*df['Total Views'] 
+    df['Duration'] = df['Duration'].astype(str)
+
+    results_container=pubmed_miner.init_cosmos('dashboard')
+    query="SELECT * FROM c where c.id = 'youtube_monthly'"
+    items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
+    df2=pd.read_json(items[0]['data'])
+    df2['Date']=pd.to_datetime(df2['Date']).dt.strftime('%Y-%m')
+    bar_fig2=go.Figure()
+    bar_fig2.add_trace(
+        go.Bar(
+            x=df2['Date'],
+            y=df2['Count'],
+            marker=dict(color = '#20425A'),
+            showlegend=False
+        )
+    )
+    bar_fig2.update_layout(
+        title={
+        'text': "<b>Hours Viewed for each month</b>",
+        'y':0.9,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'})
+    bar_fig2.update_xaxes(type='category')
+
+    # DataTable Prep
     df['Date Published']=df['Date Published'].dt.strftime('%Y-%m-%d')
+    # df['Title']=df.apply(lambda row:"[{}](https://www.youtube.com/watch?v={})".format(row.Title,row.id),axis=1)
     df['Title']=df.apply(lambda row:"[{}](https://www.youtube.com/watch?v={})".format(row.Title,row.id),axis=1)
     df['Length'] = df.apply(lambda x: str(x['Duration'])[7:], axis = 1)
-    del df['Duration']
+    # del df['Duration']
     # fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
-    cols=['Title','Date Published','Length','Total Views','Recent Views']
-    layout=html.Div([
+    # df = pd.merge(df, df_transcripts, how = 'left', left_on= 'id', right_on = 'id')
+    df['SNOMED Terms (n)']=df.apply(lambda row:"[{}](/transcripts?id={})".format(row['SNOMED Terms (n)'], row.id),axis=1)
+    cols=['Title','Date Published','Length','Total Views','Recent Views', 'SNOMED Terms (n)']
+    # del df_transcripts
+
+    layout=html.Div(children=[
                 dcc.Interval(
                     id='interval-component',
                     interval=1*1000 # in milliseconds
@@ -98,8 +143,7 @@ def build_education_dash():
                 html.Div(
                     children=[
                     html.Br(),
-                    html.Br(),
-                    html.Br(),
+
                     html.H1("YouTube Analysis", 
                         style={
                             'font-family': 'Saira Extra Condensed',
@@ -109,19 +153,44 @@ def build_education_dash():
 
                         }
                     ),
+                    html.Div(children=["Youtube Tracking leverages the Google YouTube Data API and \
+                            highlights videos released across the OHDSI Youtube Channels. \
+                            These videos are intended to serve two purposes: 1) \
+                            provide users a great source of training on learning \
+                            how to conduct observational research. 2) \
+                            keep our community aware of the latest activities within our open science community. \
+                            Searches for new videos are performed daily."], 
+                        style={
+                            'width': '70%',
+                            'margin-left': '15%',
+                            'font-family': 'Saira Extra Condensed',
+                            'color': '#20425A',
+                            'fontSize': '14pt',
+                            'text-align': 'center'
+
+                        }
+                    ),
                     
                     html.Div(children=
                     [
                         dbc.Row(
                             [
-                                dbc.Col(html.Div(id='bar-container'), width = 6),
-                                dbc.Col(html.Div(id='line-container'), width = 6)
+                                dbc.Col(html.Div(id='bar-container', children=[]), width = 6),
+                                dbc.Col(dcc.Graph(id='bar-fig2',figure=bar_fig2), width = 6)
                             ]
                         )
                     ]),
+                    # dcc.Graph(id='publications',figure=fig), 
+                    html.H6("Data as of: " + str(dateCheckedOn), 
+                        style={
+                            'font-family': 'Saira Extra Condensed',
+                            'color': '#20425A',
+                            'text-align': 'right'
 
+                        }
+                    ),
                     # dcc.Graph(id='videos',figure=fig), 
-                    html.Div(),
+                    html.Div(children=[]),
                     dash_table.DataTable(
                         id = 'datatable-interactivity',
                         data = df.sort_values('Date Published',ascending=False).to_dict('records'), 

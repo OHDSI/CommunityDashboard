@@ -81,11 +81,21 @@
         <div class="main" style="padding-left: 0px; padding-right: 5px; font-family: 'Saira Extra Condensed'; color: #20425A;">
             <br />
             <br />
+            <h2 >Credentials</h2>
+            <form method="post" id="credential">
+            <div class="form-group">
+                <!-- <label>Enter PubMed ID/Article Title</label> -->
+                <input type="text" name="passKey" id="passKey" class="form-control" placeholder="Enter Passkey">
+            </div>
+
+            </form>
+            <br />
             <h2 >Add New Article(s)</h2>
             <form method="post" id="insert_form">
             <div class="form-group">
                 <!-- <label>Enter PubMed ID/Article Title</label> -->
                 <input type="text" name="articleIdentifier" id="articleIdentifier" class="form-control" placeholder="Enter PubMed ID/Article Title">
+                <input type="hidden" name="passKeyHiddenInsert" id="passKeyHiddenInsert" value = ''>
             </div>
             <div class="row">
                 <div class="form-group" style="width: 200px; padding-left: 15px;">
@@ -107,6 +117,8 @@
                 <div class="form-group">
                     <!-- <label>Enter PubMed ID/Article Title</label> -->
                     <input type="text" name="articleIDToRemove" id="articleIDToRemove" class="form-control" placeholder="Enter PubMed ID/Article Title">
+                    <input type="hidden" name="passKeyHiddenDelete" id="passKeyHiddenDelete" value = ''>
+
                 </div>
                 <div class="row">
                     <div class="form-group" style="width: 200px; padding-left: 15px;">
@@ -130,6 +142,8 @@
             <form method="post" id="move_form">
                 <div class="form-group">
                     <input type="text" name="articleMove" id="articleMove" class="form-control" placeholder="Enter PubMed ID/Article Title">
+                    <input type="hidden" name="passKeyHiddenMove" id="passKeyHiddenMove" value = ''>
+
                 </div>
                 <div class="row">
                     <div class="form-group" style="width: 200px; padding-left: 15px;">
@@ -141,8 +155,14 @@
             </form>
         </div>
         <script>
+            function setHiddenKey(whichHiddenKey) {
+                document.getElementById(whichHiddenKey).value = document.getElementById("passKey").value;
+                // print(document.getElementById("passKeyHidden").value)
+            }
             $(document).ready(function () {
-                
+                setHiddenKey("passKeyHiddenInsert");
+                setHiddenKey("passKeyHiddenDelete");
+                setHiddenKey("passKeyHiddenMove");
                 $('#search_text').keyup(function(){
                     var search = $(this).val();
                     if(search != ''){
@@ -158,7 +178,9 @@
                 });
 
             $('#insert_form').on('submit', function(event){
+                setHiddenKey("passKeyHiddenInsert");
                 event.preventDefault();
+                // document.getElementById("passKeyHidden").val() = document.getElementById("passKey").val()
                 if($('#articleIdentifier').val() == '') {
                     $('#insertResult').html("Please Enter Article PubMed ID/Title");
                     setTimeout(() => {
@@ -167,6 +189,9 @@
                     return false;
                 }else if($('#containerChoice').val() == ''){
                     alert("Select Container");
+                    return false;
+                }else if($('#passKey').val() == ''){
+                    alert("Enter Valid Passkey");
                     return false;
                 }else{
                     $.ajax({
@@ -186,56 +211,64 @@
                 });
 
                 $('#delete_form').on('submit', function(event){
-                event.preventDefault();
-                if($('#articleIDToRemove').val() == '') {
-                    $('#removalResult').html("Please Enter Article PubMed ID/Title");
-                    setTimeout(() => {
-                        $('#removalResult').html("");
-                    }, 4000);
-                    return false;
-                }else if($('#containerWithArticle').val() == ''){
-                    $('#removalresult').html("Select Container");
-                    return false;
-                }else{
-                    $.ajax({
-                        url:"/remove_article",
-                        method:"DELETE",
-                        data:$(this).serialize(),
-                        success:function(data)
-                        {
-                            $('#removalResult').html(data);
-                            setTimeout(() => {
-                                $('#removalResult').html("");
-                            }, 4000);
-                            $('#delete_form')[0].reset();
-                        }
-                    });
-                }
+                    setHiddenKey("passKeyHiddenDelete");
+                    event.preventDefault();
+                    if($('#articleIDToRemove').val() == '') {
+                        $('#removalResult').html("Please Enter Article PubMed ID/Title");
+                        setTimeout(() => {
+                            $('#removalResult').html("");
+                        }, 4000);
+                        return false;
+                    }else if($('#containerWithArticle').val() == ''){
+                        $('#removalresult').html("Select Container");
+                        return false;
+                    }else if($('#passKey').val() == ''){
+                        alert("Enter Valid Passkey");
+                        return false;
+                    }else{
+                        $.ajax({
+                            url:"/remove_article",
+                            method:"DELETE",
+                            data:$(this).serialize(),
+                            success:function(data)
+                            {
+                                $('#removalResult').html(data);
+                                setTimeout(() => {
+                                    $('#removalResult').html("");
+                                }, 4000);
+                                $('#delete_form')[0].reset();
+                            }
+                        });
+                    }
                 });
 
                 $('#move_form').on('submit', function(event){
-                event.preventDefault();
-                if($('#articleMove').val() == '') {
-                    $('#moveResult').html("Please Enter Article PubMed ID/Title");
-                    setTimeout(() => {
-                        $('#moveResult').html("");
-                    }, 4000);
-                    return false;
-                }else{
-                    $.ajax({
-                        url:"/moveToContainer",
-                        method:"POST",
-                        data:$(this).serialize(),
-                        success:function(data)
-                        {
-                            $('#moveResult').html(data);
-                            setTimeout(() => {
-                                $('#moveResult').html("");
-                            }, 4000);
-                            $('#move_form')[0].reset();
-                        }
-                    });
-                }
+                    setHiddenKey("passKeyHiddenMove");
+                    event.preventDefault();
+                    if($('#articleMove').val() == '') {
+                        $('#moveResult').html("Please Enter Article PubMed ID/Title");
+                        setTimeout(() => {
+                            $('#moveResult').html("");
+                        }, 4000);
+                        return false;
+                    }else if($('#passKey').val() == ''){
+                        alert("Enter Valid Passkey");
+                        return false;
+                    }else{
+                        $.ajax({
+                            url:"/moveToContainer",
+                            method:"POST",
+                            data:$(this).serialize(),
+                            success:function(data)
+                            {
+                                $('#moveResult').html(data);
+                                setTimeout(() => {
+                                    $('#moveResult').html("");
+                                }, 4000);
+                                $('#move_form')[0].reset();
+                            }
+                        });
+                    }
                 });
                             
             });

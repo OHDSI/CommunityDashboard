@@ -1,16 +1,23 @@
 import pandas as pd 
 from dash import dcc, html, dash_table
 import dash_bootstrap_components as dbc
-from . import key_vault, pubmed_miner
+from . import pubmed_miner
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+import ast
+
+def get_author_names(items):
+    output=""
+    for item in items:
+        output +=", " + item['firstname'] + " " + item['lastname']
+    return output[1:]
 
 def build_ehden_dash():
     results_container=pubmed_miner.init_cosmos('dashboard')
+    dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
     query="SELECT * FROM c where c.id = 'ehden'"
     items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
-
     df=pd.DataFrame(items[0]['data'][1]['users'])
     df['year']=pd.to_numeric(df.year)
     df=df[df.year!=1970]
@@ -58,14 +65,18 @@ def build_ehden_dash():
 
 
     df=pd.DataFrame(items[0]['data'][4]['course_stats'])
-    df2=df[df.user_id!=None].groupby('course_id').max().reset_index()
-    df2['course_created']=pd.to_datetime(df2.course_created)
-    df2.sort_values('course_created',ascending=False,inplace=True)
+
+
+    df2=df.groupby('course_id').max().reset_index()
+    df2['authors']=df2.teachers.apply(get_author_names)
+    df2['course_started']=pd.to_datetime(df2.course_started)
     df2['course_fullname']=df2.apply(lambda row:"[{}](https://academy.ehden.eu/course/view.php?id={})".format(row.course_fullname,row.course_id),axis=1)
     df2['completions']=pd.to_numeric(df2.completions)
     df2['started']=pd.to_numeric(df2.started)
-    df2.drop(['course_id','user_id','author'],axis=1,inplace=True)
-
+    df2['course_started']=df2.course_started.dt.strftime('%Y/%m/%d')
+    df2=df2[df2.started!=0]
+    df2.drop(['course_id','teachers'],axis=1,inplace=True)
+    df2.sort_values('course_started',ascending=False,inplace=True)
     layout=html.Div([
             dcc.Interval(
                 id='interval-component',
@@ -93,6 +104,15 @@ def build_ehden_dash():
                                     ]
                                 )
                             ]),
+                # dcc.Graph(id='publications',figure=fig), 
+                html.H6("Data as of: " + str(dateCheckedOn), 
+                    style={
+                        'font-family': 'Saira Extra Condensed',
+                        'color': '#20425A',
+                        'text-align': 'right'
+
+                    }
+                ),
                 html.Div(),
                 dash_table.DataTable(
                     id = 'datatable-interactivity',
