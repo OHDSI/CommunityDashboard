@@ -62,6 +62,7 @@ def pubmedAPI(searchQuery):
     if(type(queryList) == list):
         for searchStringItem in queryList:
             # generate query to Entrez eSearch
+            time.sleep(1)
             eSearch = Entrez.esearch(db="pubmed", term=searchStringItem, **paramEutils, retmax = retMax)
 
             # get eSearch result as dict object
@@ -75,6 +76,7 @@ def pubmedAPI(searchQuery):
         print("Found in PubMed:", len(articleList))
     else:
         for dB in dbList: 
+                time.sleep(1)
                 # generate query to Entrez eSearch
                 eSearch = Entrez.esearch(db=dB, term=searchQuery, **paramEutils, retmax = retMax)
 
@@ -737,48 +739,49 @@ def findUniqueAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
     finds unique authors regardless of authorship
     
     """
-#     container = init_cosmos(containerName)
-#     placeHolder = []
-#     placeHolderMatch = []
+
     indexStart = 1
     indexFQ = 0
-    indexC = 0
     indexSQ = 0
     i = 0
     while i < len(articleAuthors)-1:
         if((articleAuthors[i] == "'") & (articleAuthors[i+1] == ",")):
             indexFQ = i
-            indexC = i + 1
             indexSQ = i + 3
             author = articleAuthors[indexStart:indexFQ]
 #                 author = author.replace(",", "")
             author = author.replace("\"", "")
             if(author[0] == " "):
                 author = author[1:-1]
-#             if((author in placeHolder) == False):
-#                 if(((fuzz.token_set_ratio(author, placeHolder)) >= 80) &\
-#                   ((fuzz.token_set_ratio(author, placeHolder)) < 90)):
-#                     placeHolderMatch.append(author)
-#             if((fuzz.token_set_ratio(author, placeHolder)) < 80):
+
             if(len(placeHolder) > 0):
-                highestOne = process.extractOne(author, placeHolder)
-                if(highestOne[1] < 95):
-                    if((fuzz.token_set_ratio(author, highestOne[0])) < 95):
-                        if((author != "") & (author != ', ')):
-                            author = re.sub(',|"', '', author)
-                            author = re.sub("'", '', author)
-                            if((author[0] == " ") | (author[0] == "'")):
-                                author = author[1:-1]
-                            placeHolder.append(author)
-                indexStart = indexSQ + 1
-                i = indexSQ + 1
+                try:
+                    highestOne = process.extractOne(author, placeHolder)
+                except RecursionError:
+                    indexStart = indexSQ + 1
+                    i = indexSQ + 1
+                else:
+                    # highestOne = process.extractOne(author, placeHolder)
+                    if(highestOne[1] < 95):
+                        if((fuzz.token_set_ratio(author, highestOne[0])) < 95):
+                            if((author != "") & (author != ', ')):
+                                author = re.sub(',|"', '', author)
+                                author = re.sub("'", '', author)
+                                if((author[0] == " ") | (author[0] == "'")):
+                                    author = author[1:-1]
+
+                                placeHolder.append(author)
+
+                    indexStart = indexSQ + 1
+                    i = indexSQ + 1
             else:
+
                 placeHolder.append(author)
                 indexStart = indexSQ + 1
                 i = indexSQ + 1
         else:
             i += 1
-    placeHolder = sorted(placeHolder)
+    # placeHolder = sorted(placeHolder)
     return placeHolder
 
 def findUniqueFirstAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
@@ -788,25 +791,25 @@ def findUniqueFirstAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
     """
     indexStartQ = 1
     indexEndQ = 0
-    indexC = 0
     indexStart = 0
     i = 0
-    while i < len(articleAuthors)-1:
-        if(articleAuthors[i] == ","):
-            indexEndQ = i-1
-            indexC = i
-            indexStartQ = i + 1
-            author = articleAuthors[indexStart:indexEndQ]
-#                 author = author.replace(",", "")
-            if(author[0] == " "):
-                author = author[1:-1]
-#             if((author in placeHolder) == False):
-#                 if(((fuzz.token_set_ratio(author, placeHolder)) >= 80) &\
-#                   ((fuzz.token_set_ratio(author, placeHolder)) < 90)):
-#                     placeHolderMatch.append(author)
-#             if((fuzz.token_set_ratio(author, placeHolder)) < 80):
-            if(len(placeHolder) > 0):
+
+    indexEndQ = len(articleAuthors)
+    indexStartQ = 0
+    author = articleAuthors[indexStart:indexEndQ]
+
+    if(author != ""):
+        if(author[0] == " "):
+            author = author[1:-1]
+        
+        if(len(placeHolder) > 0):
+            try:
                 highestOne = process.extractOne(author, placeHolder)
+            except RecursionError:
+                indexStart = indexStartQ + 1
+                i = indexStartQ + 1
+            else:
+                # highestOne = process.extractOne(author, placeHolder)
                 if(highestOne[1] < 95):
                     if((fuzz.token_set_ratio(author, highestOne[0])) < 95):
                         if((author != "") & (author != ', ')):
@@ -815,15 +818,15 @@ def findUniqueFirstAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
                             if((author[0] == " ") | (author[0] == "'")):
                                 author = author[1:-1]
                             placeHolder.append(author)
-                indexStart = indexStartQ
-                i = indexStartQ + 1
-            else:
-                placeHolder.append(author)
                 indexStart = indexStartQ + 1
                 i = indexStartQ + 1
         else:
-            i += 1
-    placeHolder = sorted(placeHolder)
+
+            placeHolder.append(author)
+            indexStart = indexStartQ + 1
+            i = indexStartQ + 1
+    
+    # placeHolder = sorted(placeHolder)
     return placeHolder
 
 def authorSummary(authorDf):
@@ -896,34 +899,53 @@ def retrieveAuthorSummaryTable(containerName, selectedID):
             outputDf = pd.DataFrame(pd.read_json(authorSum))
             return outputDf
 
-def checkAuthorRecord(newArticleTable, currentAuthorSummary):
+def checkAuthorRecord(newArticleTable, currentAuthorSummary, monthlyUpdate = False):
     """
     Called in dataupdate
     Checks for new authors and add to the list of authors
     
     """
-    for row in range(0,newArticleTable.shape[0]):
-        dfRow = pd.DataFrame(newArticleTable.iloc[row]).T
-        #clean first author 
-        dfRow['firstAuthor'] = dfRow.apply(lambda x: x['firstAuthor'].replace("'", ""), axis = 1)
-        #check full author
-        dfRow['cleanFullAuthors'] = dfRow.apply(lambda x: x['fullAuthor'].replace("[", ""), axis = 1)
-        dfRow['cleanFullAuthors'] = dfRow.apply(lambda x: x['cleanFullAuthors'].replace("]", ""), axis = 1)
-        dfRow['cleanFullAuthors'] = dfRow.apply(lambda x: re.sub('([A-Za-z])(,)', '\\1', x['cleanFullAuthors']), axis = 1)
-        exists = list(dfRow['firstAuthor'])[0] in list(currentAuthorSummary['uniqueFirstAuthors'])[0]
-        if(exists == False):
-            #append
-            authorList = list(currentAuthorSummary['uniqueFirstAuthors'])[0]
-            authorList.append(list(dfRow['firstAuthor'])[0])
-            currentAuthorSummary['uniqueFirstAuthors'][0] = authorList
+    placeHolder = list(currentAuthorSummary['uniqueAuthors'])[0]
+    faPlaceHolder = list(currentAuthorSummary['uniqueFirstAuthors'])[0]
 
-        #check full authors
-        for item in dfRow['cleanFullAuthors']:
-            if((item in list(currentAuthorSummary['uniqueAuthors'])[0]) == False):
-                list(currentAuthorSummary['uniqueAuthors'])[0].append(item)
-                
+    #clean first author 
+    newArticleTable['firstAuthor'] = newArticleTable.apply(lambda x: x['firstAuthor'].replace("'", ""), axis = 1)
+    #clean full author
+    newArticleTable['cleanFullAuthors'] = newArticleTable.apply(lambda x: x['fullAuthor'].replace("[", ""), axis = 1)
+    newArticleTable['cleanFullAuthors'] = newArticleTable.apply(lambda x: x['cleanFullAuthors'].replace("]", ""), axis = 1)
+    newArticleTable['cleanFullAuthors'] = newArticleTable.apply(lambda x: re.sub('([A-Za-z])(,)', '\\1', x['cleanFullAuthors']), axis = 1)
+    #find unique authors and first authors
+    placeHolder = newArticleTable.apply(lambda x: findUniqueAuthors(True, placeHolder, x['cleanFullAuthors']), axis = 1)
+    faPlaceHolder = newArticleTable.apply(lambda x: findUniqueFirstAuthors(True, faPlaceHolder, x['firstAuthor']), axis = 1)
+
+    if(monthlyUpdate):
+        currentAuthorSummary['uniqueAuthors'] = placeHolder
+        currentAuthorSummary['uniqueFirstAuthors'] = faPlaceHolder
+    else:
+        currentAuthorSummary['uniqueAuthors'] = list(placeHolder)
+        currentAuthorSummary['uniqueFirstAuthors'] = list(faPlaceHolder)
+
+    if(monthlyUpdate == True):
+        #recalculate the results as some articles may have been moved to the ignore container
+        currentYear = int(date.datetime.now().strftime("%m-%d-%Y")[6:10])
+        newArticleTable['firstAuthor'] = newArticleTable.apply(lambda x: x['firstAuthor'].replace("'", ""), axis = 1)
+        firstAuthorDf = newArticleTable.groupby(['pubYear'])['firstAuthor'].apply(', '.join).reset_index()
+        fullAuthorDf = newArticleTable.groupby(['pubYear'])['fullAuthor'].apply(', '.join).reset_index()
+        
+        #full authors
+        fullAuthorDf['cleanFullAuthors'] = fullAuthorDf.apply(lambda x: x['fullAuthor'].replace("[", ""), axis = 1)
+        fullAuthorDf['cleanFullAuthors'] = fullAuthorDf.apply(lambda x: x['cleanFullAuthors'].replace("]", ""), axis = 1)
+        fullAuthorDf['cleanFullAuthors'] = fullAuthorDf.apply(lambda x: re.sub('([A-Za-z])(,)', '\\1', x['cleanFullAuthors']), axis = 1)    
+        firstAuthorDf = pd.DataFrame(firstAuthorDf)
+
+        currentAuthorSummary['firstAuthor'] = list(firstAuthorDf[firstAuthorDf['pubYear'] == currentYear]['firstAuthor'])
+        currentAuthorSummary['fullAuthor'] = list(fullAuthorDf[fullAuthorDf['pubYear'] == currentYear]['fullAuthor'])
+        currentAuthorSummary['cleanFullAuthors'] = list(fullAuthorDf[fullAuthorDf['pubYear'] == currentYear]['cleanFullAuthors'])
+
     currentAuthorSummary['cumulativeFirstAuthors'] = len(list(currentAuthorSummary['uniqueFirstAuthors'])[0])
     currentAuthorSummary['cumulativeAuthors'] = len(list(currentAuthorSummary['uniqueAuthors'])[0])
+
+    
     
 def calculateNewAuthors(currentAuthorSummary):
     """
@@ -1200,15 +1222,15 @@ def update_data():
     dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
     secret_api_key = Keys.SERPAPI_KEY #SERPAPI key
     
-    #search terms/strings
+    # #search terms/strings
     searchAll = ['ohdsi', 'omop', 'Observational Medical Outcomes Partnership Common Data Model', \
              '"Observational Medical Outcomes Partnership"', '"Observational Health Data Sciences and Informatics"']  
     # searchAll = addTheseArticles   #27 without relevent key words in the title/abstract/author
-    
+    # searchAll = ['36321557']
     #first search pubmed
     finalTable = getPMArticles(searchAll)
     finalTable = finalTable[finalTable['pubYear'] > 2010]
-    finalTable = includeMissingCurrentArticles(finalTable)
+    # finalTable = includeMissingCurrentArticles(finalTable)
     numNewArticles = 0
     #check if an update has already been performed this month
     lastUpdated = getTimeOfLastUpdate()[0:2] + getTimeOfLastUpdate()[5:10]
@@ -1248,20 +1270,23 @@ def update_data():
             newArticlesTable = scispacyOntologyNER(newArticlesTable, "umls")
             newArticlesTable = mapUmlsToSnomed(newArticlesTable, Keys.UMLSAPI_KEY)
             newArticlesTable = findTermFreq(newArticlesTable)
-            newArticlesTable = newArticlesTable.reset_index()
-            if ('index' in newArticlesTable.columns):
-                del newArticlesTable['index']
+            newArticlesTable = newArticlesTable.reset_index(drop = True)
+            # if ('index' in newArticlesTable.columns):
+            #     del newArticlesTable['index']
             #push new articles
             makeCSVJSON(newArticlesTable, 'pubmed', True)
             asOfDate =  retrieveAsTable(False, 'pubmed')
             pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
-            
+
+            newArticlesTable.to_csv("tempNewArticle.csv")
+
             #author summary tables
             currentAuthorSummaryTable = retrieveAuthorSummaryTable('dashboard', 'pubmed_authors')
+            numRows = pd.DataFrame(currentAuthorSummaryTable).shape[0]
             #past years
             pastYears = pd.DataFrame(currentAuthorSummaryTable.iloc[0:-1])
             #this year
-            asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[10]).T
+            asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[numRows - 1]).T
             #look for new authors and add to the list
             checkAuthorRecord(newArticlesTable, asOfThisYear)
             #rbinds
@@ -1282,8 +1307,26 @@ def update_data():
             #also cache the table as an object
             asOfDate = retrieveAsTable(False, 'pubmed')
             asOfDate = asOfDate[['pmcID', 'pubmedID', 'nlmID', 'journalTitle',
-             'title', 'creationDate','fullAuthorEdited', 'firstAuthor', 'pubYear']]
+             'title', 'creationDate','fullAuthorEdited', 'firstAuthor', 'fullAuthor', 'pubYear']]
             pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
+
+            #author Summary table, re-count, some articles may be moved to the ignore container, remove those authors
+            currentAuthorSummaryTable = retrieveAuthorSummaryTable('dashboard', 'pubmed_authors')
+            numRows = pd.DataFrame(currentAuthorSummaryTable).shape[0]
+            #past years
+            pastYears = pd.DataFrame(currentAuthorSummaryTable.iloc[0:-1])
+            #this year
+            currentAuthorSummaryTable['uniqueFirstAuthors'][numRows - 1] = []
+            currentAuthorSummaryTable['uniqueAuthors'][numRows - 1] = []
+            asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[numRows - 1]).T
+            #look for new authors and add to the list
+            checkAuthorRecord(asOfDate, asOfThisYear, monthlyUpdate =True)
+            #rbinds
+            currentAuthorSummaryTable = pd.concat([pastYears, asOfThisYear])
+            currentAuthorSummaryTable = currentAuthorSummaryTable.reset_index(drop = True)
+            #update summary statistics
+            calculateNewAuthors(currentAuthorSummaryTable)
+            pushTableToDB(currentAuthorSummaryTable, 'dashboard', 'pubmed_authors')
 
         print("Update completed.")
     else:
