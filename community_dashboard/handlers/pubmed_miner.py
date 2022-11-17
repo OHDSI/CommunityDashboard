@@ -27,7 +27,7 @@ from ratelimit import limits, RateLimitException, sleep_and_retry
 import requests
 
 def init_cosmos(container_name:str):
-    """Initialize the Cosmos client
+    """ Initialize the Cosmos client
     Parameters
     ---
     * container_name : str - Name of azure container in cosmos db
@@ -47,10 +47,15 @@ def init_cosmos(container_name:str):
     return container
 
 def pubmedAPI(searchQuery):
-    """
-    Called in getPMArticles()
-    For each of the search terms (searchQuery), search on pubmed databases
-    Convert the results into a dataframe
+
+    """ For each of the search terms (searchQuery), search on pubmed databases
+        Called in getPMArticles()
+
+    parameters
+        searchQuery: list of search strategies, key words, or article pubmed id
+
+    Returns:
+        outputTable: a dataframe with an article per row and attributes as columns
     """
     Entrez.email = Keys.ENTREZ_EMAIL #personal email address for Pubmed to reach out if necessary
     paramEutils = { 'usehistory':'Y' } #using cache
@@ -101,9 +106,15 @@ def pubmedAPI(searchQuery):
     return outputTable
 
 def selectAndDropCol(table):
-    """
-    Called in getPMArticles()
-    Rename, select, and drop columns
+
+    """ Rename, select, and drop columns
+        Called in getPMArticles()
+
+    parameters
+        table: dataframe with an article per row and attributes as columns, output from pubmedAPI() 
+
+    Returns:
+        outputTable: a dataframe with reduced and renamed columns
     """
     outputTable = table.rename(columns={"AB": "abstract", "CI": "copyrightInformation", "AD": "affiliation",
                                "IRAD": "investigatorAffiliation", "AID": "articleID", "AU": "author",
@@ -151,9 +162,15 @@ def selectAndDropCol(table):
     return outputTable
 
 def formatName(row):
-    """
-    Called in getPMArticles()
-    Format all the names into "first, last" so that it is consistent with Google Scholars
+
+    """ Format all the names into "first, last" so that it is consistent with Google Scholars
+        Called in getPMArticles()
+
+    parameters
+        row: each row of a dataframe, used with apply() 
+
+    Returns:
+        replacement: a cleaned author string
     """
     fullAuthorStr = str(row['fullAuthor'])
     i = 0
@@ -185,9 +202,15 @@ def formatName(row):
     return replacement
 
 def splitFullAuthorColumn(outputTable):
-    """
-    Called in getPMArticles()
-    Split the full author column into first author, ...etc. keep the first author column only
+
+    """ Split the full author column into first author, ...etc. keep the first author column only
+        Called in getPMArticles()
+
+    parameters
+        outputTable: dataframe with articles and articles' attributes
+
+    Returns:
+        outputTable: dataframe with added columns for first author
     """
     # testFind = re.sub('[^A-Za-z0-9]+', '', testFind).lower()
     outputTable['fullAuthor'] = outputTable['fullAuthor'].astype("str")
@@ -201,10 +224,15 @@ def splitFullAuthorColumn(outputTable):
     return outputTable
 
 def getYear(row):
-    """
-    Called in getPMArticles()
-    Get the year published for every article. 
-    Used for filtering articles after 2010
+
+    """ Get the year published for every article. Used for filtering articles after 2010
+        Called in getPMArticles()
+
+    parameters
+        row: each row of a dataframe
+
+    Returns:
+        year
     """
     if(row['creationDate'] == 'nan'):
         return(2000)
@@ -212,11 +240,17 @@ def getYear(row):
         return(pd.to_numeric(row['creationDate'][0:4]))
     
 def getPMArticles(query):
-    """
-    Called in main()
-    Fetch relevant articles from PubMed
-    Perform final cleaning on this dataframe before it is passed for google scholar
-        citation search and match (getGoogleScholarCitation() applied to each row)
+
+    """ Fetch relevant articles from PubMed
+        Perform final cleaning on this dataframe before it is passed for google scholar
+            citation search and match (getGoogleScholarCitation() applied to each row)
+        Called in main()
+
+    parameters
+        query: list of search strategies, key words, or article pubmed id
+
+    Returns:
+        outputTable: dataframe with fetched articles
     """
     outputTable = pubmedAPI(query)
     outputTable = selectAndDropCol(outputTable)
@@ -239,9 +273,16 @@ def getPMArticles(query):
     return outputTable
 
 def serpAPI(query, api_key):
-    """
-    Called in getGoogleScholarCitation()
-    Input API key and search term
+
+    """ Input API key and search term for Google Scholars
+        Called in getGoogleScholarCitation()
+
+    parameters
+        api_key,
+        query: unique article title + first author string
+
+    Returns:
+        results: dictionary of fetched articles from google scholars
     """
     fromYr = 2010
     params = {
@@ -258,9 +299,15 @@ def serpAPI(query, api_key):
     return results
 
 def saveRawSerpApiAsDict(serpRawResult):
-    """
-    Called in getGoogleScholarCitation()
-    concatenate all the results into one JSON object
+
+    """ concatenate all the results into one JSON object
+        Called in getGoogleScholarCitation()
+
+    parameters
+        serpRawResult: dictionary of fetched articles from google scholars
+
+    Returns:
+        extractedResult: json of fetched articles from google scholars with selected organic_results field
     """
     extractedResult = {}
     if('organic_results' in serpRawResult.keys()):
@@ -275,10 +322,16 @@ def saveRawSerpApiAsDict(serpRawResult):
     return extractedResult
 
 def serpApiExtract(extractedResult):
-    """
-    Called in getGoogleScholarCitation()
-    From the JSON object produced by saveRawSerpApiAsDict(), 
+
+    """ From the JSON object produced by saveRawSerpApiAsDict(), 
         extract title, author, and citation information based on rules.
+        Called in getGoogleScholarCitation()
+
+    parameters
+        extractedResult: json of fetched articles from google scholars with selected organic_results field
+
+    Returns:
+        extractedResult: json of articles with selected features: citation counts, link, ...
     """
     searchDict = {"citationInfo": {}, 'firstAuthorInfo': {}, 'fullAuthorInfo': {}, 'titleAuthorStr': {}, 'googleScholarLink': {}}
     dashIndex = 0
@@ -331,26 +384,11 @@ def serpApiExtract(extractedResult):
             if(('cited_by' in extractedResult['gScholarQResults'][i]['inline_links'].keys()) == False):
                 #check if it already exists
                 if((title in searchDict['citationInfo'].keys()) == False):
-                #     #if it does, do nothing, otherwise add it
-                #     if(i+2 < len(extractedResult['gScholarQResults'])):
-                #         i += 1
-                #         title = extractedResult['gScholarQResults'][i]['title']
-                # #otherwise, set to 0
-                # else:
+
                     searchDict['citationInfo'][title] = 0
                     searchDict['googleScholarLink'][title] = "Link Not Available"
             else:
-                # if((title in searchDict['citationInfo'].keys()) == False):
-                #     if(searchDict['citationInfo'][title] == 0):
-                #         # if(i+2 < len(extractedResult['gScholarQResults'])):
-                #         #     i += 1
-                #         #     title = extractedResult['gScholarQResults'][i]['title']
-                #     # else:
-                #         numCitedBy = extractedResult['gScholarQResults'][i]['inline_links']['cited_by']['total']
-                #         googleScholarLink = extractedResult['gScholarQResults'][0]['inline_links']['versions']['link']
-                #         searchDict['citationInfo'][title] = numCitedBy
-                #         searchDict['googleScholarLink'][title] = googleScholarLink
-                # else:
+
                 numCitedBy = extractedResult['gScholarQResults'][i]['inline_links']['cited_by']['total']
                 searchDict['citationInfo'][title] = numCitedBy
 
@@ -396,14 +434,20 @@ def serpApiExtract(extractedResult):
     return searchDict
 
 def getGoogleScholarCitation(row, serp_api_key):
-    """
-    Called in main() and applied to each row of the table output from getPMArticles()
-    Output into 4 new columns: 
-        title found on Google Scholar (could have different capitalization, abbrevation, spacing...etc), 
-        number of citation, 
-        levenshtein probability, and 
-        a list of full authors from Google Scholar
-    
+
+    """ From the JSON object produced by saveRawSerpApiAsDict(), 
+        extract title, author, and citation information based on rules.
+        Called in main() and applied to each row of the table output from getPMArticles()
+
+    parameters
+        row: applied to each row of the table output from getPMArticles()
+
+    Returns:
+        results: Output into 4 new columns: 
+                    title found on Google Scholar (could have different capitalization, abbrevation, spacing...etc), 
+                    number of citation, 
+                    levenshtein probability, and 
+                    a list of full authors from Google Scholar
     """
     searchTitle = str(row['titleAuthorStr']) #get search string
     results = serpAPI(searchTitle, serp_api_key) #search on google scholar
@@ -432,9 +476,16 @@ def getGoogleScholarCitation(row, serp_api_key):
         return result
 
 def getLastUpdatedCitations(containerName):
-    """
-    Called in trackCitationChanges()
-    Retrieve the number of citation for each article from the most recent update.
+
+    """ Retrieve the number of citation for each article from the most recent update.
+        Called in trackCitationChanges()
+
+    parameters
+        containerName: containerName on azure cosmosdb
+
+    Returns:
+        lastUpdateResults: citation counts
+
     """
     container = init_cosmos(containerName)
     lastUpdateResults = {'citationInfo': {}}
@@ -446,9 +497,16 @@ def getLastUpdatedCitations(containerName):
     return lastUpdateResults
 
 def trackCitationChanges(table):
-    """
-    Called in main()
-    Calculate the change in the number of citations
+
+    """ Calculate the change in the number of citations
+        Called in main()
+
+    parameters
+        table: table of articles
+
+    Returns:
+        table: dataframe with added columns of added citation count
+
     """
     #format the input table into a dictionary of {title: citation count}
     table = table.reset_index()
@@ -471,9 +529,15 @@ def trackCitationChanges(table):
     return table
 
 def fetchCurrentDataAndUpdate(containerName):
-    """
-    Called in makeCSVJSON()
-    Retrieve all existing records and add in updates
+    """ Retrieve all existing records and add in updates
+        Called in makeCSVJSON()
+
+    parameters
+        containerName: containerName
+
+    Returns:
+        result: dictionary of lists of articles
+
     """
     container = init_cosmos(containerName)
     result = defaultdict(list)
@@ -483,9 +547,16 @@ def fetchCurrentDataAndUpdate(containerName):
 
 
 def makeCSVJSON(table, containerChosen: str, forUpdate: bool):
-    """
-    Called in main()
-    Add new records to the existing records and update container
+  
+    """ Add new records to the existing records and update container
+        Called in main()
+
+    parameters
+        table: dataframe with articles
+
+    Returns:
+        upserts articles
+
     """
     container = init_cosmos( 'pubmed')
     container_ignore = init_cosmos( 'pubmed_ignore')
@@ -558,9 +629,15 @@ def makeCSVJSON(table, containerChosen: str, forUpdate: bool):
             )
 
 def getTimeOfLastUpdate():
-    """
-    Called in main()
-    Not every article has the same last date of update. Find the most recent among all articles. 
+
+    """ Not every article has the same last date of update. Find the most recent date. 
+        Called in main()
+
+    parameters
+        
+    Returns:
+        dateOfLastUpdate: most recent data pull
+
     """
     container = init_cosmos('pubmed')
     dateOfLastUpdate = "01-01-2022"
@@ -570,10 +647,17 @@ def getTimeOfLastUpdate():
     return dateOfLastUpdate
 
 def getExistingIDandSearchStr(containerName):
-    """
-    Called in main()
-    Get a list of PMIDs and a list of title-author search strings
-    Two outputs
+
+    """ Get a list of PMIDs and a list of title-author search strings
+        Called in main()
+
+    parameters
+        containerName: containerName
+
+    Returns:
+        result: existing pubmed IDs,
+                existing articles' title and author string
+
     """
     container = init_cosmos( containerName)
     result = []
@@ -587,9 +671,15 @@ def getExistingIDandSearchStr(containerName):
     return result
 
 def retrieveAsTable( fullRecord: bool, containerName):
-    """
-    Retrieves the data as a dataframe
-    
+
+    """ Retrieves the data as a dataframe
+
+    parameters
+        fullRecord: timeseries yes or no
+
+    Returns:
+        df: dataframe, either static or timeseries data
+
     """
     container = init_cosmos( containerName)
     pmcID, pubmedID, nlmID, journalTitle, title = [],[],[],[],[]
@@ -670,9 +760,17 @@ def retrieveAsTable( fullRecord: bool, containerName):
     return df
 
 def moveItemToIgnoreContainer( pmIDList, fromContainerName: str, toContainerName: str):
-    """
-    Moves one or many articles from one container to another
-    
+
+    """ Moves one or many articles from one container to another
+
+    parameters
+        pmIDList: IDs to move
+        fromContainerName: departure ontainer
+        toContainerName: destination container
+
+    Returns:
+        Message indicating task success
+
     """
     fromContainer = init_cosmos( fromContainerName)
     toContainer = init_cosmos( toContainerName)
@@ -698,9 +796,16 @@ def moveItemToIgnoreContainer( pmIDList, fromContainerName: str, toContainerName
             print("" + pmID + " is not in this container. Check the direction of migration.")
             
 def identifyNewArticles(table):
-    """
-    Called in main()
-    Identify new articles for a limited search. Used to search for new articles on a daily basis. 
+
+    """ Identify new articles for a limited search. Used to search for new articles on a daily basis. 
+        Called in main()
+
+    parameters
+        table: dataframe with articles
+
+    Returns:
+        result: dataframe with only new articles
+
     """
     trueArticles = getExistingIDandSearchStr('pubmed')
     ignoreArticles = getExistingIDandSearchStr('pubmed_ignore')
@@ -716,10 +821,15 @@ def identifyNewArticles(table):
     return result
 
 def includeMissingCurrentArticles(table):
-    """
-    Called in main()
-    For the 27 articles that were added in manually (any other manually added articles in the future), 
-    we need to do add them to the total list of articles to search for. 
+    """ For the 27 articles that were added in manually (any other manually added articles in the future), 
+        we need to do add them to the total list of articles to search for.
+        Called in main()
+
+    parameters
+        table: dataframe with articles
+
+    Returns:
+        outputTable: dataframe with articles that were previously manually added
 
     """
     trueArticles = getExistingIDandSearchStr('pubmed')
@@ -735,11 +845,18 @@ def includeMissingCurrentArticles(table):
     return outputTable
 
 def findUniqueAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
-    """
-    finds unique authors regardless of authorship
-    
-    """
 
+    """ finds unique authors regardless of authorship
+        Called in main()
+
+    parameters
+        placeHolder: empty list or list of existing authors
+        articleAuthors: list of authors to filter
+
+    Returns:
+        placeHolder: list of unique authors identified
+
+    """
     indexStart = 1
     indexFQ = 0
     indexSQ = 0
@@ -785,9 +902,16 @@ def findUniqueAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
     return placeHolder
 
 def findUniqueFirstAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
-    """
-    uses levenshtein fuzzy matching to find unique first authors, not unique authors (besides first authors)
-    
+
+    """ uses levenshtein fuzzy matching to find unique first authors, not unique authors (besides first authors)
+
+    parameters
+        placeHolder: empty list or list of existing first authors
+        articleAuthors: list of first authors to filter
+
+    Returns:
+        placeHolder: list of unique first authors identified
+
     """
     indexStartQ = 1
     indexEndQ = 0
@@ -830,9 +954,15 @@ def findUniqueFirstAuthors(multipleAuthors: bool, placeHolder, articleAuthors):
     return placeHolder
 
 def authorSummary(authorDf):
-    """
-    Creates author summary table from the articles
-    
+
+    """ Creates author summary table from the articles
+
+    parameters
+        authorDf: dataframe of articles with authorship info
+
+    Returns:
+        finalAuthorDf: dataframe of authors, first authors, unique authors, and unique first authors grouped by year
+
     """
     authorDf['firstAuthor'] = authorDf.apply(lambda x: x['firstAuthor'].replace("'", ""), axis = 1)
     firstAuthorDf = authorDf.groupby(['pubYear'])['firstAuthor'].apply(', '.join).reset_index()
@@ -868,9 +998,15 @@ def authorSummary(authorDf):
     return(finalAuthorDf)
 
 def pushTableToDB(summaryTable, containerName, idName):
-    """
-    pushes summary table to CosmosDB and store as a single object.
-    
+
+    """ pushes summary table to CosmosDB and store as a single object.
+
+    parameters
+        summaryTable: dataframe of articles
+
+    Returns:
+        Message indicating task success
+
     """
     container = init_cosmos(containerName)
     for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
@@ -886,10 +1022,17 @@ def pushTableToDB(summaryTable, containerName, idName):
         
         
 def retrieveAuthorSummaryTable(containerName, selectedID):
-    """
-    Called in dataupdate
-    Retrieves the author data as a dataframe
-    
+
+    """ Retrieves the author data as a dataframe
+        Called in dataupdate()
+
+    parameters
+        containerName: containerName
+        selectedID: document id from the list cached dataframes in the dashboard container
+
+    Returns:
+        outputDf: dataframe
+
     """
     container = init_cosmos(containerName)
     for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
@@ -900,10 +1043,18 @@ def retrieveAuthorSummaryTable(containerName, selectedID):
             return outputDf
 
 def checkAuthorRecord(newArticleTable, currentAuthorSummary, monthlyUpdate = False):
-    """
-    Called in dataupdate
-    Checks for new authors and add to the list of authors
-    
+
+    """ Checks for new authors and add to the list of authors
+        Called in dataupdate()
+
+    parameters
+        newArticleTable: dataframe of newly identified articles
+        currentAuthorSummary: current dataframe with summary authorship info (grouped by year)
+        monthlyUpdate: indicating whether this is during daily or monthly update
+
+    Returns:
+        currentAuthorSummary: updated dataframe with added authorship
+
     """
     placeHolder = list(currentAuthorSummary['uniqueAuthors'])[0]
     faPlaceHolder = list(currentAuthorSummary['uniqueFirstAuthors'])[0]
@@ -948,9 +1099,17 @@ def checkAuthorRecord(newArticleTable, currentAuthorSummary, monthlyUpdate = Fal
     
     
 def calculateNewAuthors(currentAuthorSummary):
-    """
-    Calculate the number of new authors and update summary statistics
-    
+
+    """ Calculate the number of new authors and update summary statistics
+
+    parameters
+        currentAuthorSummary: current dataframe with summary authorship info (grouped by year)
+
+    Returns:
+        currentAuthorSummary: two updated columns:
+                                number of new first authors,
+                                number of new authors in total
+
     """
     lastRowIndex = currentAuthorSummary['numberNewFirstAuthors'].shape[0]
     currentAuthorSummary['numberNewFirstAuthors'][lastRowIndex-1] = currentAuthorSummary['cumulativeFirstAuthors'][lastRowIndex-1] - currentAuthorSummary['cumulativeFirstAuthors'][lastRowIndex-2]
@@ -958,8 +1117,20 @@ def calculateNewAuthors(currentAuthorSummary):
                 
 #functions for NER
 def scispacyNER(text, lowerThreshold, upperThreshold, nlp):
-    """
-    SciSpacy NER applied to YouTube transcripts
+
+    """ SciSpacy NER applied to YouTube transcripts
+
+    parameters
+        text: abstract or transcript
+        lowerThreshold: lower threshold for NER
+        upperThreshold: upper threshold for NER
+        nlp: corpus
+
+    Returns:
+        currentAuthorSummary: two updated columns:
+                                number of new first authors,
+                                number of new authors in total
+
     """
     doc = nlp(str(text))
     #extract linker information
@@ -994,9 +1165,17 @@ def scispacyNER(text, lowerThreshold, upperThreshold, nlp):
     
     
 def scispacyCorpusLinkerLoader(corpus, ontology):
-    """
-    Called in scispacyOntologyNER()
-    Loads spacy corpus and linker
+
+    """ Initializes spacy corpus and linker
+        Called in scispacyOntologyNER()
+
+    parameters
+        corpus: corpus
+        ontology: ontology
+
+    Returns:
+        nlp: model
+
     """
     import pathlib
     path = pathlib.Path(__file__).parent / 'en_ner_bc5cdr_md/en_ner_bc5cdr_md/en_ner_bc5cdr_md-0.5.0'
@@ -1005,10 +1184,18 @@ def scispacyCorpusLinkerLoader(corpus, ontology):
     return nlp
 
 def scispacyOntologyNER(inputData, ontology, corpus = "en_ner_bc5cdr_md"):
-    """
-    Called in main()
-    Loads spacy corpus and linker. Applies scispacyNER to each row or item. 
-    Returns the updated dataframe or dictionary
+
+    """ Loads spacy corpus and linker. Applies scispacyNER to each row or item. 
+        Called in main()
+
+    parameters
+        inputData: dataframe of videos with transcript
+        ontology: ontology
+        corpus: default corpus en_ner_bc5cdr_md
+
+    Returns:
+        inputData: the updated dataframe or dictionary
+
     """
     nlp = scispacyCorpusLinkerLoader(corpus, ontology)
     onotologyIDs = ontology + "IDspacy"
@@ -1041,6 +1228,16 @@ MAX_CALLS = 15
 @sleep_and_retry
 @limits(calls=MAX_CALLS, period=period)
 def mapToSnomed(ids, apiKey):
+    """ Maps transcript to SNOMED terms
+
+    parameters
+        ids: umls ids
+        apiKey: UMLS api key
+
+    Returns:
+        [snomed id, name of the term]
+
+    """
     snomedIDs = []
     snomedNames = []
     if(isinstance(ids, list)):
@@ -1114,10 +1311,16 @@ def mapToSnomed(ids, apiKey):
             return ['NA', 'NA']
 
 def mapUmlsToSnomed(inputData, apiKey):
-    """
-    Called in main()
-    Loads spacy corpus and linker. Applies scispacyNER to each row or item. 
-    Returns the updated dataframe or dictionary
+
+    """ Loads spacy corpus and linker. Applies scispacyNER to each row or item. 
+        Called in main()
+    parameters
+        inputData: dataframe of videos with abstract/transcripts
+        apiKey: UMLS api key
+
+    Returns:
+        inputData: dataframe with added snomed ids and names
+
     """
 
     if (isinstance(inputData, pd.DataFrame)):
@@ -1131,10 +1334,15 @@ def mapUmlsToSnomed(inputData, apiKey):
     return inputData
 
 def termFreq(eachArticle):
-    """
-    Called in findTermFreq()
-    Finds the frequency of each term 
-    Returns a concatenated string of terms and frequencies
+    """ Finds the frequency of each term 
+        Called in findTermFreq()
+
+    parameters
+        eachArticle: called in apply() on each row of the dataframe
+
+    Returns:
+        termAndFreqStr: concatenated string of terms and frequencies
+
     """
     termAndFreqStr = ""
     try:
@@ -1202,12 +1410,17 @@ def termFreq(eachArticle):
                     return termAndFreqStr
 
 def findTermFreq(inputData):
+
+    """ Finds the frequency of each term 
+        Called in main()
+        
+    parameters
+        inputdata: dataframe of articles
+
+    Returns:
+        inputData: dataframe with new column with terms(frequency)
+
     """
-    Called in main()
-    Finds the frequency of each term 
-    Adds a new column
-    """
-    
     if (isinstance(inputData, pd.DataFrame)):
         inputData['termFreq'] = inputData.apply(lambda x: termFreq(x), axis = 1)
     
