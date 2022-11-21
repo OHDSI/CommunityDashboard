@@ -46,6 +46,8 @@ def init_cosmos(container_name:str):
     )
     return container
 
+@sleep_and_retry
+@limits(calls=3, period=1)
 def pubmedAPI(searchQuery):
 
     """ For each of the search terms (searchQuery), search on pubmed databases
@@ -1066,15 +1068,12 @@ def checkAuthorRecord(newArticleTable, currentAuthorSummary, monthlyUpdate = Fal
     newArticleTable['cleanFullAuthors'] = newArticleTable.apply(lambda x: x['cleanFullAuthors'].replace("]", ""), axis = 1)
     newArticleTable['cleanFullAuthors'] = newArticleTable.apply(lambda x: re.sub('([A-Za-z])(,)', '\\1', x['cleanFullAuthors']), axis = 1)
     #find unique authors and first authors
-    placeHolder = newArticleTable.apply(lambda x: findUniqueAuthors(True, placeHolder, x['cleanFullAuthors']), axis = 1)
-    faPlaceHolder = newArticleTable.apply(lambda x: findUniqueFirstAuthors(True, faPlaceHolder, x['firstAuthor']), axis = 1)
-
-    if(monthlyUpdate):
-        currentAuthorSummary['uniqueAuthors'] = placeHolder
-        currentAuthorSummary['uniqueFirstAuthors'] = faPlaceHolder
-    else:
-        currentAuthorSummary['uniqueAuthors'] = list(placeHolder)
-        currentAuthorSummary['uniqueFirstAuthors'] = list(faPlaceHolder)
+    placeHolder = newArticleTable.apply(lambda x: findUniqueAuthors(True, placeHolder, x['cleanFullAuthors']), axis = 1)[newArticleTable.shape[0] - 1]
+    faPlaceHolder = newArticleTable.apply(lambda x: findUniqueFirstAuthors(True, faPlaceHolder, x['firstAuthor']), axis = 1)[newArticleTable.shape[0] - 1]
+    
+    
+    currentAuthorSummary['uniqueAuthors'] = [placeHolder]
+    currentAuthorSummary['uniqueFirstAuthors'] = [faPlaceHolder]
 
     if(monthlyUpdate == True):
         #recalculate the results as some articles may have been moved to the ignore container
@@ -1431,6 +1430,7 @@ def findTermFreq(inputData):
     return inputData
                 
 def update_data():
+
     #initialize the cosmos db dictionary
     dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
     secret_api_key = Keys.SERPAPI_KEY #SERPAPI key
@@ -1439,7 +1439,7 @@ def update_data():
     searchAll = ['ohdsi', 'omop', 'Observational Medical Outcomes Partnership Common Data Model', \
              '"Observational Medical Outcomes Partnership"', '"Observational Health Data Sciences and Informatics"']  
     # searchAll = addTheseArticles   #27 without relevent key words in the title/abstract/author
-    # searchAll = ['36321557']
+    # searchAll = ['36395615', '36389281']
     #first search pubmed
     finalTable = getPMArticles(searchAll)
     finalTable = finalTable[finalTable['pubYear'] > 2010]
@@ -1491,7 +1491,7 @@ def update_data():
             asOfDate =  retrieveAsTable(False, 'pubmed')
             pushTableToDB(asOfDate, 'dashboard', 'pubmed_articles')
 
-            newArticlesTable.to_csv("tempNewArticle.csv")
+            # newArticlesTable.to_csv("tempNewArticle.csv")
 
             #author summary tables
             currentAuthorSummaryTable = retrieveAuthorSummaryTable('dashboard', 'pubmed_authors')
