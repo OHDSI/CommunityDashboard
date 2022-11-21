@@ -59,7 +59,7 @@ def build_pubs_dash():
             df1.loc[i,'Grant Funding']= "None"
         else:
             grant_list=ast.literal_eval(row['Grant Funding'])
-            print(type(grant_list), grant_list)
+            # print(type(grant_list), grant_list)
             # grant_num = len(grant_list)
             grant_clean = ""
             for grant in grant_list:
