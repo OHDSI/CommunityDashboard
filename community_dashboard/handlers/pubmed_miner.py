@@ -20,9 +20,9 @@ from collections import defaultdict, Counter
 from dateutil.parser import *
 import ast
 
-import scispacy
+#import scispacy
 import spacy
-from scispacy.linking import EntityLinker
+#from scispacy.linking import EntityLinker
 from ratelimit import limits, RateLimitException, sleep_and_retry
 import requests
 
