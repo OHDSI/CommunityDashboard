@@ -1,0 +1,12 @@
+{
+	"name": "Development",
+	"image": "ghcr.io/natb1/community-dashboard-development",
+	"forwardPorts": [
+		9876, // karma
+		4200, // dev server
+		6006 // storybook
+	],
+	"hostRequirements": {
+		"memory": "7gb"
+  }
+}

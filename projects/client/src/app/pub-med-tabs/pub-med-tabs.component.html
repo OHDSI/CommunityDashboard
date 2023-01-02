@@ -1,0 +1,12 @@
+<mat-tab-group color="accent" backgroundColor="primary" class="not-full-height outline">
+  <mat-tab label="OHDSI Publications & Cumulative Citations">
+    <ng-template matTabContent>
+      <app-iframe-plot  path="plots/publications-citations"></app-iframe-plot>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="New & Cumulative OHDSI Researchers">
+    <ng-template matTabContent>
+      <app-iframe-plot  path="plots/researchers"></app-iframe-plot>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,214 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@use './app/app-theme' as app;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Raleway, "Helvetica Neue", sans-serif; }
+
+.mdc-data-table__cell.compact, .mdc-data-table__header-cell.compact {
+  padding: 0;
+}
+
+ul {
+  list-style: circle outside;
+  padding-left: 24px;
+  margin-top: 0;
+}
+
+li {
+  margin-bottom: 1rem; 
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.no-border {
+  border: none;
+}
+
+.fit-content {
+  width: fit-content;
+}
+
+.flex-container {
+  display: flex !important;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.aspect-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+.width-unset {
+  width: unset !important;
+}
+
+.margin-24 {
+  margin: 24px;
+}
+
+.full-shadow-margin {
+  height: calc(100% - 2px);
+  width: calc(100% - 2px);
+}
+
+.white-space-nowrap {
+  white-space: nowrap !important;
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+$ohdsi-blue-palette: (
+ 50: #dfefff,
+ 100: #bdd8ed,
+ 200: #9ebbd5,
+ 300: #7d9fbd,
+ 400: #648aaa,
+ 500: #4a7698,
+ 600: #3d6887,
+ 700: #2e5470,
+ 800: #20425a,
+ 900: #0c2d42,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: rgba(black, 0.87),
+   400: rgba(black, 0.87),
+   500: white,
+   600: white,
+   700: white,
+   800: white,
+   900: white,
+ )
+);
+
+@mixin custom-component-dark-themes($theme) {
+  @include app.dark-theme($theme);
+
+  $color-config: mat.get-color-config($theme);
+  $palette: map.get($color-config, 'accent');
+
+  a {
+    color: mat.get-color-from-palette($palette, 'default');
+  }
+
+  .outline {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #595959;
+  }
+}
+
+@mixin custom-component-light-themes($theme) {
+  @include app.light-theme($theme);
+
+  $color-config: mat.get-color-config($theme);
+  $primary-palette: map.get($color-config, 'primary');
+
+  a {
+    color: mat.get-color-from-palette($primary-palette, 700);
+  }
+
+  .outline {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e0e0e0;
+  }
+}
+
+@include mat.core();
+
+$typography: mat.define-typography-config(
+  $font-family: 'Raleway',
+);
+
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: mat.define-palette($ohdsi-blue-palette, 800),
+    accent: mat.define-palette(mat.$orange-palette),
+  ),
+  typography: $typography,
+  density: 0,
+));
+
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: mat.define-palette($ohdsi-blue-palette, 800),
+    accent: mat.define-palette(mat.$orange-palette),
+  ),
+));
+
+@include mat.all-component-themes($dark-theme);
+@include custom-component-dark-themes($dark-theme);
+// Addresses md15 typography bug https://github.com/angular/components/issues/24370
+@include mat.all-component-typographies($typography);
+
+.invert {
+  $invert-theme: $light-theme;
+  color: map.get(map.get($invert-theme, 'foreground'), 'text') !important;
+  background: map.get(map.get($invert-theme, 'background'), 'background') !important;
+}
+
+@media (prefers-color-scheme: light) {
+  @include mat.all-component-colors($light-theme);
+  @include custom-component-light-themes($light-theme);
+
+  .invert {
+    $invert-theme: $dark-theme;
+    color: map.get(map.get($invert-theme, 'foreground'), 'text') !important;
+    background: map.get(map.get($invert-theme, 'background'), 'background') !important;
+  }
+}
+
+.always-light {
+  color: map.get(map.get($light-theme, 'foreground'), 'text') !important;
+}
+
+.toolbar-anchor {
+  color: map.get(map.get($dark-theme, 'foreground'), 'text') !important;
+  text-decoration: unset;
+}
+
+.metric {
+  $headline-config: map.get($typography, 'headline-5');
+  font-size: map.get($headline-config, 'font-size') !important;
+
+}

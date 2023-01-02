@@ -1,0 +1,31 @@
+<div class="full-height">
+  <mat-toolbar color="primary" class="navigation-toolbar">
+    <button
+      type="button"
+      color="accent"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="drawer.toggle()"
+      *ngIf="upToLarge | async">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <a mat-button routerLink="" class="toolbar-anchor mat-headline-5 no-margin">Community Dashboard</a>
+  </mat-toolbar>
+  <mat-sidenav-container class="full-height">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [fixedTopGap]="toolbarHeight | async"
+        [attr.role]="(upToLarge | async) ? 'dialog' : 'navigation'"
+        [mode]="(upToLarge | async) ? 'over' : 'side'"
+        [opened]="(upToLarge | async) === false">
+      <img src="/assets/ohdsi-logo-with-text-199-{{prefersColorScheme}}.png" class="padding-top-8">
+      <mat-nav-list>
+        <a mat-list-item routerLink="pubmed" [activated]="location.pathname === '/pubmed'" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="drawer.close()">PubMed Publication Tracking</a>
+        <a mat-list-item routerLink="youtube" [activated]="location.pathname === '/youtube'" routerLinkActive="active"  ariaCurrentWhenActive="page" (click)="drawer.close()">YouTube Video Tracking</a>
+        <a mat-list-item routerLink="ehden" [activated]="location.pathname === '/ehden'" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="drawer.close()">Ehden Course Tracking</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div [style]="{'height': px((toolbarHeight | async)!)}"></div>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

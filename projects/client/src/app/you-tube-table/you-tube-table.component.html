@@ -1,0 +1,49 @@
+<div class="mat-elevation-z8">
+  <table mat-table class="full-width" matSort aria-label="Elements">
+
+    <ng-container matColumnDef="Title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+      <td mat-cell *matCellDef="let row">
+        <a [href]="row.titleLink">{{row.titleText}}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Date Published">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Published</th>
+      <td mat-cell *matCellDef="let row">{{row['Date Published']}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Length">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Length</th>
+      <td mat-cell *matCellDef="let row">{{row['Length']}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Total Views">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Views</th>
+      <td mat-cell *matCellDef="let row">{{row['Total Views']}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Recent Views">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Recent Views</th>
+      <td mat-cell *matCellDef="let row">{{row['Recent Views']}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="SNOMED Terms (n)">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>SNOMED Terms (n)</th>
+      <td mat-cell *matCellDef="let row">
+        <a [href]="row.snomedLink">{{row.snomedTerms}}</a>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="(youTubeService.count() | async)"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page">
+  </mat-paginator>
+</div>
