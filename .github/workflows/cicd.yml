@@ -30,6 +30,9 @@ jobs:
         with:
           imageName: ghcr.io/natb1/community-dashboard-development
           cacheFrom: ghcr.io/natb1/community-dashboard-development
+          eventFilterForPush: |
+            push
+            workflow_dispatch
           subFolder: projects/development
           platform: linux/amd64,linux/arm64
     
