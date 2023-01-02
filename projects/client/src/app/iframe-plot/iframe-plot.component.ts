@@ -60,7 +60,7 @@ export class IframePlotComponent implements OnDestroy {
     }
     const width = this.plotContainer.nativeElement.offsetWidth
     if (height != this._height || width != this._width) {
-      console.log("plot", this.path)
+      // console.log("plot", this.path)
       this._height = height
       this._width = width
       this.plotSrc = `${environment.plots}/${this.path}?height=${height}px&width=${width}`

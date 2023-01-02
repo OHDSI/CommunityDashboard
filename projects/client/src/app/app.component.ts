@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { map, shareReplay, tap } from 'rxjs/operators';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, LocationStrategy, PathLocationStrategy } from '@angular/common';
@@ -31,10 +31,12 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 export class AppComponent {
 
   location
+  drawerToggles!: boolean
 
   upToLarge: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
   .pipe(
     map(result => result.matches),
+    tap(upToLarge => this.drawerToggles = upToLarge)
   );
 
   toolbarHeight: Observable<number> = this.breakpointObserver.observe([Breakpoints.XSmall])
@@ -58,4 +60,5 @@ export class AppComponent {
   px(px: number) {
     return `${px}px`
   }
+
 }
