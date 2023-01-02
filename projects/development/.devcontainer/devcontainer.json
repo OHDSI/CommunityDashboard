@@ -11,7 +11,7 @@
 		"ghcr.io/devcontainers/features/git:1": {},
 		"ghcr.io/devcontainers/features/git-lfs:1": {}
 	},
-	"updateContentCommand": "npm ci && pip install -e './projects/plots/'[development] && SHELL=/bin/bash ng completion && ng analytics disable && echo \". $PWD/projects/development/env.sh >> ~/.bashrc\"",
+	"updateContentCommand": "npm ci && pip install -e './projects/plots/'[development] && SHELL=/bin/bash ng completion && ng analytics disable && echo \". $PWD/projects/development/env.sh\" >> ~/.bashrc",
 	"customizations": {
 		"vscode": {
 			"extensions": [
