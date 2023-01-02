@@ -32,7 +32,7 @@ from ratelimit import limits, RateLimitException, sleep_and_retry
 import requests
 
 account_url = "https://bidsclassfs2.blob.core.windows.net"
-default_credential = "jg3VpgObNIc7/Zg04q3iKBQpiOjQzjtQ/ZOdNG+jnS12CtK596Ni8XPe4QLoq4ElYWh+It5/AV9G+AStlMIeRQ=="
+
 
 # Create the BlobServiceClient object
 blob_service_client = BlobServiceClient(account_url, credential=default_credential)
