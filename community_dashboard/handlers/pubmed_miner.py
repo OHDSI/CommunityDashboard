@@ -1450,28 +1450,6 @@ def findTermFreq(inputData):
                 
 def update_data():
 
-    # asOfDate = retrieveAsTable(False, 'pubmed')
-    # # asOfDate.to_csv("tempNewArticle.csv")
-    # asOfDate = asOfDate[['pmcID', 'pubmedID', 'nlmID', 'journalTitle',
-    #     'title', 'creationDate','fullAuthorEdited', 'firstAuthor', 'fullAuthor', 'pubYear']]
-
-    # #author Summary table, re-count, some articles may be moved to the ignore container, remove those authors
-    # currentAuthorSummaryTable = retrieveAuthorSummaryTable('dashboard', 'pubmed_authors')
-    # numRows = pd.DataFrame(currentAuthorSummaryTable).shape[0]
-    # #past years
-    # pastYears = pd.DataFrame(currentAuthorSummaryTable.iloc[0:-1])
-    # #this year
-    # currentAuthorSummaryTable['uniqueFirstAuthors'][numRows - 1] = []
-    # currentAuthorSummaryTable['uniqueAuthors'][numRows - 1] = []
-    # asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[numRows - 1]).T
-    # #look for new authors and add to the list
-    # checkAuthorRecord(asOfDate, asOfThisYear, monthlyUpdate =True)
-    # #rbinds
-    # currentAuthorSummaryTable = pd.concat([pastYears, asOfThisYear])
-    # currentAuthorSummaryTable = currentAuthorSummaryTable.reset_index(drop = True)
-    # #update summary statistics
-    # calculateNewAuthors(currentAuthorSummaryTable)
-    # pushTableToDB(currentAuthorSummaryTable, 'dashboard', 'pubmed_authors')
 
     #initialize the cosmos db dictionary
     dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
