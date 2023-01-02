@@ -1,4 +1,9 @@
 from azure.cosmos import CosmosClient,PartitionKey
+from azure.identity import DefaultAzureCredential
+import os, uuid
+from azure.identity import DefaultAzureCredential
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+
 from oauth2client.tools import argparser
 from community_dashboard.config import Keys
 
@@ -25,6 +30,14 @@ import spacy
 from scispacy.linking import EntityLinker
 from ratelimit import limits, RateLimitException, sleep_and_retry
 import requests
+
+account_url = "https://bidsclassfs2.blob.core.windows.net"
+default_credential = "jg3VpgObNIc7/Zg04q3iKBQpiOjQzjtQ/ZOdNG+jnS12CtK596Ni8XPe4QLoq4ElYWh+It5/AV9G+AStlMIeRQ=="
+
+# Create the BlobServiceClient object
+blob_service_client = BlobServiceClient(account_url, credential=default_credential)
+container_client = blob_service_client.get_container_client("ohdsistore")
+resultObj = container_client.list_blobs(name_starts_with='en_core_sci_md-0.5.1/en_core_sci_md/en_core_sci_md-0.5.1/')
 
 def init_cosmos(container_name:str):
     """ Initialize the Cosmos client
@@ -642,10 +655,13 @@ def getTimeOfLastUpdate():
 
     """
     container = init_cosmos('pubmed')
-    dateOfLastUpdate = "01-01-2022"
+    dateOfLastUpdate = date.datetime.strptime("01-01-2022", "%m-%d-%Y")
     for item in container.query_items(query='SELECT * FROM beta', enable_cross_partition_query=True):
-        if(dateOfLastUpdate < item['data']['trackingChanges'][len(item['data']['trackingChanges'])-1]['datePulled']):
-            dateOfLastUpdate = item['data']['trackingChanges'][len(item['data']['trackingChanges'])-1]['datePulled']
+        testDate = date.datetime.strptime(item['data']['trackingChanges'][len(item['data']['trackingChanges'])-1]['datePulled'], "%m-%d-%Y")
+        if(dateOfLastUpdate < testDate):
+            dateOfLastUpdate = testDate
+    dateOfLastUpdate = str(dateOfLastUpdate)
+    dateOfLastUpdate = dateOfLastUpdate[5:7] + "-" + dateOfLastUpdate[8:10] + "-" + dateOfLastUpdate[0:4]
     return dateOfLastUpdate
 
 def getExistingIDandSearchStr(containerName):
@@ -1088,6 +1104,9 @@ def checkAuthorRecord(newArticleTable, currentAuthorSummary, monthlyUpdate = Fal
         fullAuthorDf['cleanFullAuthors'] = fullAuthorDf.apply(lambda x: re.sub('([A-Za-z])(,)', '\\1', x['cleanFullAuthors']), axis = 1)    
         firstAuthorDf = pd.DataFrame(firstAuthorDf)
 
+        if(sum(firstAuthorDf['pubYear'] == currentYear) == 0):
+            currentYear = currentYear - 1
+            
         currentAuthorSummary['firstAuthor'] = list(firstAuthorDf[firstAuthorDf['pubYear'] == currentYear]['firstAuthor'])
         currentAuthorSummary['fullAuthor'] = list(fullAuthorDf[fullAuthorDf['pubYear'] == currentYear]['fullAuthor'])
         currentAuthorSummary['cleanFullAuthors'] = list(fullAuthorDf[fullAuthorDf['pubYear'] == currentYear]['cleanFullAuthors'])
@@ -1178,6 +1197,7 @@ def scispacyCorpusLinkerLoader(corpus, ontology):
     """
     import pathlib
     path = pathlib.Path(__file__).parent / 'en_ner_bc5cdr_md/en_ner_bc5cdr_md/en_ner_bc5cdr_md-0.5.0'
+    # path = "/lib/en_core_sci_md/en_ner_bc5cdr_md/en_ner_bc5cdr_md/en_ner_bc5cdr_md-0.5.0"
     nlp = spacy.load(path) # en_core_sci_sm, en_ner_bc5cdr_md
     nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": ontology})
     return nlp
@@ -1430,6 +1450,29 @@ def findTermFreq(inputData):
     return inputData
                 
 def update_data():
+
+    # asOfDate = retrieveAsTable(False, 'pubmed')
+    # # asOfDate.to_csv("tempNewArticle.csv")
+    # asOfDate = asOfDate[['pmcID', 'pubmedID', 'nlmID', 'journalTitle',
+    #     'title', 'creationDate','fullAuthorEdited', 'firstAuthor', 'fullAuthor', 'pubYear']]
+
+    # #author Summary table, re-count, some articles may be moved to the ignore container, remove those authors
+    # currentAuthorSummaryTable = retrieveAuthorSummaryTable('dashboard', 'pubmed_authors')
+    # numRows = pd.DataFrame(currentAuthorSummaryTable).shape[0]
+    # #past years
+    # pastYears = pd.DataFrame(currentAuthorSummaryTable.iloc[0:-1])
+    # #this year
+    # currentAuthorSummaryTable['uniqueFirstAuthors'][numRows - 1] = []
+    # currentAuthorSummaryTable['uniqueAuthors'][numRows - 1] = []
+    # asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[numRows - 1]).T
+    # #look for new authors and add to the list
+    # checkAuthorRecord(asOfDate, asOfThisYear, monthlyUpdate =True)
+    # #rbinds
+    # currentAuthorSummaryTable = pd.concat([pastYears, asOfThisYear])
+    # currentAuthorSummaryTable = currentAuthorSummaryTable.reset_index(drop = True)
+    # #update summary statistics
+    # calculateNewAuthors(currentAuthorSummaryTable)
+    # pushTableToDB(currentAuthorSummaryTable, 'dashboard', 'pubmed_authors')
 
     #initialize the cosmos db dictionary
     dateMY = "" + date.datetime.now().strftime("%m-%d-%Y")[0:2] + date.datetime.now().strftime("%m-%d-%Y")[5:10]
