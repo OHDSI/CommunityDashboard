@@ -31,13 +31,12 @@ from scispacy.linking import EntityLinker
 from ratelimit import limits, RateLimitException, sleep_and_retry
 import requests
 
-account_url = "https://bidsclassfs2.blob.core.windows.net"
+# account_url = "https://bidsclassfs2.blob.core.windows.net"
 
-
-# Create the BlobServiceClient object
-blob_service_client = BlobServiceClient(account_url, credential=default_credential)
-container_client = blob_service_client.get_container_client("ohdsistore")
-resultObj = container_client.list_blobs(name_starts_with='en_core_sci_md-0.5.1/en_core_sci_md/en_core_sci_md-0.5.1/')
+# # Create the BlobServiceClient object
+# blob_service_client = BlobServiceClient(account_url, credential=default_credential)
+# container_client = blob_service_client.get_container_client("ohdsistore")
+# resultObj = container_client.list_blobs(name_starts_with='en_core_sci_md-0.5.1/en_core_sci_md/en_core_sci_md-0.5.1/')
 
 def init_cosmos(container_name:str):
     """ Initialize the Cosmos client
