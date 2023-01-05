@@ -12,7 +12,7 @@ from collections import defaultdict
 #scispacy
 import numpy as np
 import spacy
-from scispacy.linking import EntityLinker
+#from scispacy.linking import EntityLinker
 import requests
 from ratelimit import sleep_and_retry, limits
 #youtube transcript API
