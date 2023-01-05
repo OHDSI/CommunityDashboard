@@ -1,9 +1,5 @@
 from azure.cosmos import CosmosClient,PartitionKey
-from azure.identity import DefaultAzureCredential
 import os, uuid
-from azure.identity import DefaultAzureCredential
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
-
 from oauth2client.tools import argparser
 from community_dashboard.config import Keys
 
