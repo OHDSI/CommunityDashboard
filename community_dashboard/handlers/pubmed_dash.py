@@ -4,7 +4,7 @@ from dash import dcc, html, dash_table
 from . import  pubmed_miner
 import plotly.express as px
 import pandas as pd 
-
+import re
 
 def build_pubs_dash():
     container_name='pubmed'
@@ -30,6 +30,7 @@ def build_pubs_dash():
                     'Authors':item['data']['fullAuthor'],
                     'Title':item['data']['title'],
                     'Journal':item['data']['journalTitle'],
+                    'Grant Funding':item['data']['grantNum'],
                     'Publication Year':item['data']['pubYear'],
                     'SNOMED Terms (n)':item['data']['termFreq']})
     df1=pd.DataFrame(data)   
@@ -50,22 +51,27 @@ def build_pubs_dash():
                 auth_list+="{}, ".format(auth.replace(',',''))
             auth_list=auth_list[:-2]
         df1.loc[i,'Authors']=auth_list
-
-    # for i,row in df1.iterrows():
-    #     meshTerms = row['MeSH Terms'].replace("]", "")
-    #     meshTerms = meshTerms.replace("[", "")
-    #     meshList = meshTerms.split(",")
-    #     # terms=ast.literal_eval(meshTerms)
-    #     term_list=""
-    #     for term in meshList:
-    #         term_list+= term + ", "
-    #     term_list = term_list.replace("'", "")
-    #     term_list = term_list.replace("*", "")
-    #     term_list=term_list[:-2]
-    #     if(term_list == "nan"):
-    #         df1.loc[i,'MeSH Terms']= "Not Yet Available"
-    #     else:
-    #         df1.loc[i,'MeSH Terms']=term_list
+    #([A-Z0-9]+[A-Z0-9\s\-\:_]+[0-9])([A-Z]?)
+    df1['grantid']=""
+    grantRegex = re.compile(r"([A-Z0-9]+[a-zA-Z0-9\s\-\:_]+[0-9][A-Z]?)")
+    for i,row in df1.iterrows():
+        if((row['Grant Funding'] == "nan") | (row['Grant Funding'] == "None")):
+            df1.loc[i,'Grant Funding']= "None"
+        else:
+            grant_list=ast.literal_eval(row['Grant Funding'])
+            # print(type(grant_list), grant_list)
+            # grant_num = len(grant_list)
+            grant_clean = ""
+            for grant in grant_list:
+                matchedStr = grantRegex.search(grant)
+                if isinstance(matchedStr, type(None)) == False:
+                    grant_clean = grant_clean + matchedStr.group() + "; "
+            if grant_clean == "":
+                grant_clean = grant_list[0]
+            else:
+                grant_clean = grant_clean[:-1]
+            df1.loc[i,'Grant Funding']= grant_clean
+            
 
     df1['Creation Date']=df1['Creation Date'].str[:-6]
     df2=df1.groupby('Publication Year')['PubMed ID'].count().reset_index()
@@ -88,7 +94,7 @@ def build_pubs_dash():
     import plotly.graph_objects as go
     df1['SNOMED Terms (n)']=df1.apply(lambda row:"[{}](/abstracts?id={})".format(row['SNOMED Terms (n)'], row['PubMed ID']),axis=1)
     df1['Publication']=df1.apply(lambda row:"[{}](https://pubmed.gov/{})".format(row.Title,row['PubMed ID']),axis=1)
-    cols=['PubMed ID', 'Creation Date','Authors','Publication','Journal','SNOMED Terms (n)', 'Citation Count']
+    cols=['PubMed ID', 'Creation Date','Authors','Publication','Journal', 'Grant Funding', 'SNOMED Terms (n)', 'Citation Count']
     layout= html.Div([
                 dcc.Interval(
                     id='interval-component',

@@ -95,7 +95,22 @@ def build_ehden_dash():
                         'text-align': 'center'
                     }
                 ),
-                                            html.Div(children=
+                html.Div(children=["Ehden Tracking leverages the Ehden Data API and \
+                            highlights training resources on Ehden Academy. \
+                            This page is intended to serve two purposes: 1) \
+                            assess the background and skillset of the reseachers in OHDSI at large\
+                            2) understand the needs of OHDSI researchers and what training are most sought after. "], 
+                        style={
+                            'width': '70%',
+                            'margin-left': '15%',
+                            'font-family': 'Saira Extra Condensed',
+                            'color': '#20425A',
+                            'fontSize': '14pt',
+                            'text-align': 'center'
+
+                        }
+                    ),
+                html.Div(children=
                             [
                                 dbc.Row(
                                     [
