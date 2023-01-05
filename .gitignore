@@ -10,4 +10,5 @@ community_dashboard/handlers/__pycache__
 community_dashboard/config.py
 community_dashboard/handlers/en_ner_bc5cdr_md/
 tempNewArticle.csv
+community_dashboard/.DS_Store
 .DS_Store
