@@ -1,3 +1,7 @@
+# Requires these secrets:
+# GH_TOKEN - requires write permissions to ghcr
+# IMAGE_NAME - assumes ghcr.io prefix
+
 name: 'cicd'
 on:
   workflow_dispatch:
@@ -28,8 +32,8 @@ jobs:
       - name: Build and release devcontainer Multi-Platform
         uses: devcontainers/ci@v0.2
         with:
-          imageName: ghcr.io/natb1/community-dashboard-development
-          cacheFrom: ghcr.io/natb1/community-dashboard-development
+          imageName: ${{ secrets.IMAGE_NAME }}
+          cacheFrom: ${{ secrets.IMAGE_NAME }}
           eventFilterForPush: |
             push
             workflow_dispatch
@@ -51,5 +55,5 @@ jobs:
       - name: npm run test:ci
         uses: devcontainers/ci@v0.2
         with:
-          cacheFrom: ghcr.io/natb1/community-dashboard-development
+          cacheFrom: ${{ secrets.IMAGE_NAME }}
           runCmd: yarn test:ci
