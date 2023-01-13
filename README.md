@@ -48,10 +48,6 @@ Or, equivalent to something like `docker-compose up`.
 ```
 yarn workspaces foreach -pi run start
 ```
-[storybook](https://storybook.js.org) is a tool for spot checking and documenting UI components.
-```
-yarn storybook
-```
 
 > Known Issue:
 > Dev builds in cloud containers (ex. GH Actions/Codespaces)

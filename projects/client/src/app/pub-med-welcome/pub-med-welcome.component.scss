@@ -1,0 +1,44 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '../../styles.scss' as styles;
+
+.headline {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.absolute {
+  position: absolute;
+  bottom: 8px;
+  z-index: 1;
+}
+
+.header-text {
+  $color-config: mat.get-color-config(styles.$dark-theme);
+  $palette: map.get($color-config, 'accent');
+
+  color: mat.get-color-from-palette($palette, 500) !important;
+}
+
+.headline-title {
+  $headline-config: map.get(styles.$typography, 'headline-4');
+
+  font-size: map.get($headline-config, 'font-size');
+  line-height: map.get($headline-config, 'line-height');
+}
+
+.headline-subtitle {
+  $headline-config: map.get(styles.$typography, 'headline-5');
+
+  font-size: map.get($headline-config, 'font-size');
+  font-weight: map.get($headline-config, 'font-weight');
+  line-height: map.get($headline-config, 'line-weight');
+  margin-top: 4px;
+}
+
+.hero {
+  $color-config: mat.get-color-config(styles.$dark-theme);
+  $palette: map.get($color-config, 'primary');
+
+  background-color: mat.get-color-from-palette($palette, 'default');
+}
