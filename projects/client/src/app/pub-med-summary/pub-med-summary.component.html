@@ -1,0 +1,37 @@
+<mat-card class="full-height">
+  <mat-card-header>
+    <mat-card-title>Publication Analysis</mat-card-title>
+    <mat-card-subtitle>Summary</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="full-height flex-container" [class.flex-direction-column]="orientation == 'vertical'">
+    <mat-list *ngIf="orientation == 'horizontal'; else verticalMetrics" class="fit-content metrics">
+      <mat-list-item style="min-width: 175px">
+        <span matListItemTitle class="metric">508</span>
+        <span matListItemLine>PubMed Manuscripts</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matListItemTitle class="metric">2,057</span>
+        <span>PubMed Authors</span>
+      </mat-list-item>
+    </mat-list>
+    <ng-template #verticalMetrics>
+      <div class="flex-container flex-wrap">
+        <mat-list-item class="width-unset" style="min-width: 175px">
+          <span matListItemTitle class="metric">508</span>
+          <span matListItemLine>PubMed Manuscripts</span>
+        </mat-list-item>
+        <mat-list-item class="width-unset" style="min-width: 175px">
+          <span matListItemTitle class="metric">2,057</span>
+          <span>PubMed Authors</span>
+        </mat-list-item>
+      </div>
+    </ng-template>
+    <app-iframe-plot  path="plots/publications-citations" class="flex-grow"></app-iframe-plot>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-stroked-button color="accent" routerLink="pubmed">
+      <mat-icon class="material-icons-outlined">data_exploration</mat-icon>
+      EXPLORE
+    </a>
+  </mat-card-actions>
+</mat-card>

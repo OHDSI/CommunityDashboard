@@ -1,0 +1,13 @@
+.plot {
+  height: 100%;
+  width: 100%;
+}
+
+.plot-container {
+  flex-grow: 1;
+  background: white;
+}
+
+.metrics {
+  /* min-width: 250px; */
+}

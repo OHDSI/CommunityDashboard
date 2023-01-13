@@ -1,0 +1,55 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin dark-color($theme) {
+  $color-config: mat.get-color-config($theme);
+  $primary-palette: map.get($color-config, 'primary');
+  $accent-palette: map.get($color-config, 'accent');
+  $primary: mat.get-color-from-palette($primary-palette, 'default');
+
+  .active {
+    background: rgba($primary, .15);
+  }
+
+  .sidenav {
+    $contrast-primary: mat.define-palette($primary-palette, 100);
+    $contrast-theme: mat.define-dark-theme((
+      color: (primary: $contrast-primary, accent: $accent-palette),
+    ));
+    @include mat.list-color($contrast-theme);
+  }
+
+}
+
+@mixin light-color($theme) {
+  $color-config: mat.get-color-config($theme);
+  $primary-palette: map.get($color-config, 'primary');
+  $accent-palette: map.get($color-config, 'accent');
+  $primary: mat.get-color-from-palette($primary-palette, 'default');
+
+  .active {
+    background: rgba($primary, .15);
+  }
+
+  .sidenav {
+    $contrast-primary: mat.define-palette($primary-palette, 800);
+    $contrast-theme: mat.define-light-theme((
+      color: (primary: $contrast-primary, accent: $accent-palette),
+    ));
+    @include mat.list-color($contrast-theme);
+  }
+}
+
+@mixin dark-theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include dark-color($theme);
+  }
+}
+
+@mixin light-theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include light-color($theme);
+  }
+}
