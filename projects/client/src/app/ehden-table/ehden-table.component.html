@@ -1,0 +1,47 @@
+<div class="mat-elevation-z8">
+  <table mat-table class="full-width" matSort aria-label="Elements">
+
+    <ng-container matColumnDef="course_fullname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>course_fullname</th>
+      <td mat-cell *matCellDef="let row">
+        <a [href]="row.courseFullNameLink">{{row.courseFullNameText}}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="course_shortname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>course_shortname</th>
+      <td mat-cell *matCellDef="let row">{{row['course_shortname']}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>category</th>
+      <td mat-cell *matCellDef="let row">{{row['category']}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="started">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>started</th>
+      <td mat-cell *matCellDef="let row">{{row['started']}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="completions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>completions</th>
+      <td mat-cell *matCellDef="let row">{{row['completions']}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="course_started">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>course_started</th>
+      <td mat-cell *matCellDef="let row">{{row.course_started}}</td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="(courseStatsService.count() | async)"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page">
+  </mat-paginator>
+</div>

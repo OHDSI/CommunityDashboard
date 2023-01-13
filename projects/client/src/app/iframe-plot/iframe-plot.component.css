@@ -1,0 +1,15 @@
+.plot {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.loading {
+  /* padding: 24px; */
+  /* height: 100%; */
+  margin-top: 24px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}

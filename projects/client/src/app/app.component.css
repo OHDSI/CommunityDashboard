@@ -1,0 +1,20 @@
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: fixed;
+  z-index: 2;
+}
+
+.padding-top-8 {
+  padding-top: 8px;
+}
+
+.no-margin {
+  margin: 0;
+}

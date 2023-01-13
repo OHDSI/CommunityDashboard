@@ -1,0 +1,9 @@
+<div #plotContainer class="plot-container full-height position-relative">
+  <div *ngIf="dashDelay" class="loading flex-container flex-direction-column position-absolute">
+    Getting plot from dash...
+    <mat-spinner></mat-spinner>
+    <button *ngIf="retryDelay" mat-button color="warn">refresh to retry</button>
+  </div>
+  <iframe *ngIf="plotSrc" [src]="plotSrc | safeUrl" class="no-border plot position-absolute" 
+  ></iframe>
+</div>
