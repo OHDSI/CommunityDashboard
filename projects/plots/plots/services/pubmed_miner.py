@@ -1,7 +1,6 @@
 from azure.cosmos import CosmosClient,PartitionKey
 import os, uuid
 from oauth2client.tools import argparser
-from community_dashboard.config import Keys
 
 from Bio import Entrez, Medline #http://biopython.org/DIST/docs/tutorial/Tutorial.html#sec%3Aentrez-specialized-parsers
 import xmltodict #https://marcobonzanini.com/2015/01/12/searching-pubmed-with-python/
@@ -26,6 +25,11 @@ import spacy
 #from scispacy.linking import EntityLinker
 from ratelimit import limits, RateLimitException, sleep_and_retry
 import requests
+
+try:
+    from plots.config import Keys
+except ImportError:
+    pass
 
 # account_url = "https://bidsclassfs2.blob.core.windows.net"
 

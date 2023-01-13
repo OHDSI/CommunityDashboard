@@ -1,30 +1,12 @@
-from datetime import datetime, date
-from numpy import double
-from community_dashboard import app
-from community_dashboard.handlers import pubmed_miner, youtube_miner, ehden_miner
-from community_dashboard.config import Keys
-from flask import Flask, jsonify, render_template, request
+from flask import render_template, request, Blueprint
 import json
-from azure.cosmos import CosmosClient, PartitionKey
 
-def init_cosmos(container_name:str):
-    """Initialize the Cosmos client
-    Parameters
-    ---
-    * container_name : str - Name of azure container in cosmos db
-    Returns container for cosmosclient
-    """
-    endpoint = Keys.AZURE_ENDPOINT
-    azure_key = Keys.AZURE_KEY
-    client = CosmosClient(endpoint, azure_key)
-    database_name = Keys.DB_NAME
-    database = client.create_database_if_not_exists(id=database_name)
-    container = database.create_container_if_not_exists(
-        id=container_name, 
-        partition_key=PartitionKey(path="/id"),
-        offer_throughput=400
-    )
-    return container
+from plots.services import db, pubmed_miner, ehden_miner, youtube_miner
+
+try:
+    from plots.config import Keys
+except ImportError:
+    pass
 
 def numberFormatter(number):
     number = int(number)
@@ -36,7 +18,9 @@ def numberFormatter(number):
         number = "{:,}".format(number)
     return number
 
-@app.route('/')
+bp = Blueprint('user', __name__)
+
+@bp.route('/')
 def index():
     """Main route for the application"""
     totalAuthors = 0
@@ -45,8 +29,8 @@ def index():
     totalVideos = 0
     totalCourses = 0
     totalCompletions = 0
-    container_dashboard = init_cosmos('dashboard')
-    container_youtube = init_cosmos('youtube')
+    container_dashboard = db.init_cosmos('dashboard')
+    container_youtube = db.init_cosmos('youtube')
     for item in container_dashboard.query_items(query='SELECT * FROM dashboard WHERE dashboard.id=@id',
                 parameters = [{ "name":"@id", "value": "pubmed_authors" }], 
                 enable_cross_partition_query=True):
@@ -101,11 +85,11 @@ def index():
                 'totalCompletions': totalCompletions}
 
     #data as of
-    dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
+    dateCheckedOn = db.getTimeOfLastUpdate()
 
     return render_template('home.html', liveTable = liveTable, dateCheckedOn = dateCheckedOn)
 
-@app.route('/update_all', methods=['GET'])
+@bp.route('/update_all', methods=['GET'])
 def update_all():
     """Run the miners to update data sources"""
     if Keys.PASS_KEY!=request.args.get('pass_key'):

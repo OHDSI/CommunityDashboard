@@ -1,82 +1,22 @@
-import pandas as pd 
+import dash
 from dash import dcc, html, dash_table
 import dash_bootstrap_components as dbc
-from . import pubmed_miner
-import plotly.express as px
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
-import ast
 
-def get_author_names(items):
-    output=""
-    for item in items:
-        output +=", " + item['firstname'] + " " + item['lastname']
-    return output[1:]
+from plots.services import db
+from plots.figures import ehden_users, ehden_course_completions
 
-def build_ehden_dash():
-    results_container=pubmed_miner.init_cosmos('dashboard')
-    dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
-    query="SELECT * FROM c where c.id = 'ehden'"
-    items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
-    df=pd.DataFrame(items[0]['data'][1]['users'])
-    df['year']=pd.to_numeric(df.year)
-    df=df[df.year!=1970]
-    df['number_of_users']=pd.to_numeric(df.number_of_users)
-    bar_fig1=go.Figure()
-    bar_fig1.add_trace(
-        go.Bar(
-            x=df.year,
-            y=df.number_of_users,
-            marker=dict(color = '#20425A'),
-            showlegend=False
-        )
-    )
-    bar_fig1.update_layout(
-        title={
-        'text': "Users by Year",
-        'y':0.9,
-        'x':0.5,
-        'xanchor': 'center',
-        'yanchor': 'top'})
-    bar_fig1.update_xaxes(type='category')
+dash.register_page(__name__, '/ehden_dash')
 
-    df=pd.DataFrame(items[0]['data'][3]['completions'])
-    df['year']=pd.to_numeric(df.year)
-    df=df[df.year!=1970]
-    df['completions']=pd.to_numeric(df.completions)
-    bar_fig2=go.Figure()
-    bar_fig2.add_trace(
-        go.Bar(
-            x=df.year,
-            y=df.completions,
-            marker=dict(color = '#20425A'),
-            showlegend=False
-        )
-    )
-    bar_fig2.update_layout(
-        title={
-        'text': "Course Completions by Year",
-        'y':0.9,
-        'x':0.5,
-        'xanchor': 'center',
-        'yanchor': 'top'})
-    bar_fig2.update_xaxes(type='category')
-    bar_fig2.update_yaxes(range=[0,1500])
+def layout():
+    dateCheckedOn = db.getTimeOfLastUpdate()
+    
+    df = db.get_ehden_users()
+    bar_fig1 = ehden_users.figure(df)
 
+    df = db.get_ehden_course_completions()
+    bar_fig2 = ehden_course_completions.figure(df)
 
-    df=pd.DataFrame(items[0]['data'][4]['course_stats'])
-
-
-    df2=df.groupby('course_id').max().reset_index()
-    df2['authors']=df2.teachers.apply(get_author_names)
-    df2['course_started']=pd.to_datetime(df2.course_started)
-    df2['course_fullname']=df2.apply(lambda row:"[{}](https://academy.ehden.eu/course/view.php?id={})".format(row.course_fullname,row.course_id),axis=1)
-    df2['completions']=pd.to_numeric(df2.completions)
-    df2['started']=pd.to_numeric(df2.started)
-    df2['course_started']=df2.course_started.dt.strftime('%Y/%m/%d')
-    df2=df2[df2.started!=0]
-    df2.drop(['course_id','teachers'],axis=1,inplace=True)
-    df2.sort_values('course_started',ascending=False,inplace=True)
+    df2 = db.get_course_stats()
     layout=html.Div([
             dcc.Interval(
                 id='interval-component',
@@ -154,13 +94,11 @@ def build_ehden_dash():
                         'backgroundColor': 'white',
                         'font-family': 'Saira Extra Condensed'
                     },
-                    style_filter=[
-                        {
-                            'color': 'black',
-                            'backgroundColor': '#20425A',
-                            'font-family': 'Saira Extra Condensed'
-                        }
-                    ],
+                    style_filter={
+                        'color': 'black',
+                        'backgroundColor': '#20425A',
+                        'font-family': 'Saira Extra Condensed'
+                    },
                     style_header={
                         'font-family': 'Saira Extra Condensed',
                         'background-color': '#20425A',

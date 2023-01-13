@@ -1,175 +1,36 @@
 import datetime as date  
 import pandas as pd 
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-from dash import Dash, dcc, html, Input, Output, State
-from flask_session import Session
-from flask import Flask, jsonify, render_template, request
-from azure.cosmos import CosmosClient, PartitionKey
+from flask import jsonify, render_template, request, Blueprint
 import re
 import numpy as np
 import string
-import ast
-from community_dashboard.handlers import htmlBuilderFunctions
-from flask import Flask, jsonify, render_template, request, render_template_string
+from plots.blueprints import htmlBuilderFunctions
+from flask import jsonify, render_template, request, render_template_string
 
-from community_dashboard import app, pubmedDashApp
-from community_dashboard.handlers import pubmed_miner
-from community_dashboard.config import Keys
+from plots.services.db import init_cosmos, getExistingIDandSearchStr
+from plots.services import pubmed_miner
 
+try:
+    from plots.config import Keys
+except ImportError:
+    pass
 
-container = pubmed_miner.init_cosmos('pubmed')
-container_ignore = pubmed_miner.init_cosmos('pubmed_ignore')
+container = init_cosmos('pubmed')
+container_ignore = init_cosmos('pubmed_ignore')
 
-@app.route('/publication_dashboard/', methods = ['POST', 'GET'])
+bp = Blueprint('pubmed', __name__)
+
+@bp.route('/publication_dashboard/', methods = ['POST', 'GET'])
 def dashboard():
     # dashHtml = BeautifulSoup(pubmedDashApp.index(), 'html.parser')
     return render_template("publication_dashboard.html")
     # return jsonify({'htmlresponse': render_template('publication_dashboard.html', dashHtml = pubmedDashApp)})
 
 
-@app.route('/pub_dash', methods = ['POST', 'GET'])
-def dash_app_pub():
-    return pubmedDashApp.index()
-
-@pubmedDashApp.callback(
-    Output(component_id='bar-container', component_property='children'),
-    [Input(component_id='datatable-interactivity', component_property="derived_virtual_data"),
-    Input(component_id='datatable-interactivity', component_property='derived_virtual_selected_rows'),
-    Input(component_id='datatable-interactivity', component_property='derived_virtual_selected_row_ids'),
-    Input(component_id='datatable-interactivity', component_property='selected_rows'),
-    Input(component_id='datatable-interactivity', component_property='derived_virtual_indices'),
-    Input(component_id='datatable-interactivity', component_property='derived_virtual_row_ids'),
-    Input(component_id='datatable-interactivity', component_property='active_cell'),
-    Input(component_id='datatable-interactivity', component_property='selected_cells')], prevent_initial_call=True
-)
-
-def update_bar(all_rows_data, slctd_row_indices, slct_rows_names, slctd_rows,
-            order_of_rows_indices, order_of_rows_names, actv_cell, slctd_cell):
-
-    dff = pd.DataFrame(all_rows_data)
-    df2=((dff.groupby('Publication Year')['PubMed ID']).count()).reset_index()
-    df2.columns=['Year','Count']
-    df3=((dff.groupby('Publication Year')['Citation Count']).sum()).reset_index()
-    df3['cumulative']= round(df3['Citation Count'].cumsum(), 0) 
-    df3.columns=['Year','citations','Count']
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
-    # Add traces
-    fig.add_trace(
-        go.Bar(
-            x=df2['Year'],
-            y=df2['Count'],
-            marker=dict(color = '#20425A'),
-            hovertemplate =
-                '<i>Publications in %{x}</i>: %{y:.0f}<extra></extra>',
-            showlegend = False
-            
-            ), 
-        secondary_y=False,
-    )
-
-    fig.add_trace(
-        go.Line(
-            x=df3['Year'],
-            y=df3['Count'],
-            marker=dict(color = '#f6ac15'),
-            hovertemplate =
-                '<i>Citations in %{x}</i>: %{y} <extra></extra>',
-            ),
-        secondary_y='Secondary'
-    )
-
-    # Add figure title
-    fig.update_layout(title_text="<b> OHDSI Publications & Cumulative Citations</b>", title_x=0.5, showlegend=False)
-    # Set x-axis title
-    fig.update_xaxes(title_text="Year")
-    # Set y-axes titles
-    fig.update_yaxes(
-        title_text="Number of Publications", 
-        secondary_y=False)
-    fig.update_yaxes(
-        title_text="Number of Citations", 
-        secondary_y=True)
-
-    return [
-        dcc.Graph(id = 'bar-chart', 
-                    figure = fig.update_layout(yaxis={'tickformat': '{:,}'}),
-                    style={'width': '100%', 'padding-left': '50px'},
-                    )
-            ]
+pubmedContainer = init_cosmos('pubmed')
 
 
-@pubmedDashApp.callback(
-    Output(component_id='line-container', component_property='children'),
-    [Input(component_id='datatable-interactivity', component_property="derived_virtual_data"),
-    Input(component_id='datatable-interactivity', component_property='derived_virtual_selected_rows'),
-    Input(component_id='datatable-interactivity', component_property='derived_virtual_selected_row_ids'),
-    Input(component_id='datatable-interactivity', component_property='selected_rows'),
-    Input(component_id='datatable-interactivity', component_property='derived_virtual_indices'),
-    Input(component_id='datatable-interactivity', component_property='derived_virtual_row_ids'),
-    Input(component_id='datatable-interactivity', component_property='active_cell'),
-    Input(component_id='datatable-interactivity', component_property='selected_cells')], prevent_initial_call=True
-)
-def update_author_bar(all_rows_data, slctd_row_indices, slct_rows_names, slctd_rows,
-            order_of_rows_indices, order_of_rows_names, actv_cell, slctd_cell):
-    #currentAuthorSummaryTable = pubmed_miner.retrieveAuthorSummaryTable('pubmed_author')
-    results_container=pubmed_miner.init_cosmos('dashboard')
-    query="SELECT * FROM c where c.id = 'pubmed_authors'"
-    items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
-    currentAuthorSummaryTable=pd.read_json(items[0]['data'])
-    currentAuthorSummaryTable = currentAuthorSummaryTable[['pubYear', 'numberNewFirstAuthors', 'cumulativeFirstAuthors', 'numberNewAuthors', 'cumulativeAuthors']]
-    currentAuthorSummaryTable.columns = ['Year', 'New First Authors', 'Total First Authors', 'All New Authors', 'Total Authors']
-
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
-    # Add traces
-    fig.add_trace(
-        go.Bar(
-            x=currentAuthorSummaryTable['Year'],
-            y=currentAuthorSummaryTable['All New Authors'],
-            marker=dict(color = '#20425A'),
-            hovertemplate =
-                '<i>New Authors in %{x}</i>: %{y:.0f}<extra></extra>',
-            showlegend = False
-            
-            ), 
-        secondary_y=False,
-    )
-
-    fig.add_trace(
-        go.Line(
-            x=currentAuthorSummaryTable['Year'],
-            y=currentAuthorSummaryTable['Total Authors'],
-            marker=dict(color = '#f6ac15'),
-            hovertemplate =
-                '<i>Cumulative Authors by %{x}</i>: %{y} <extra></extra>',
-            ),
-        secondary_y='Secondary'
-    )
-
-    # Add figure title
-    fig.update_layout(title_text="<b> New and Cumulative OHDSI Researchers</b>", title_x=0.5, showlegend=False)
-    # Set x-axis title
-    fig.update_xaxes(title_text="Year")
-    # Set y-axes titles
-    fig.update_yaxes(
-        title_text="Number of New Authors", 
-        secondary_y=False)
-    fig.update_yaxes(
-        title_text="Number of Cumulative Authors", 
-        secondary_y=True)
-
-    return [
-        dcc.Graph(id = 'bar-chart', 
-                    figure = fig.update_layout(yaxis={'tickformat': '{:,}'}),
-                    style={'width': '100%', 'padding-left': '50px'},
-                    )
-            ]
-
-
-pubmedContainer = pubmed_miner.init_cosmos('pubmed')
-
-
-@app.route('/abstracts', methods = ['GET'])
+@bp.route('/abstracts', methods = ['GET'])
 def abstracts():
     pubmedID = "PMID: " + str(int(float(request.args.get('id', None))))
     abstract = ''
@@ -282,7 +143,7 @@ def abstracts():
         abstract = "To be updated soon..."
     return render_template_string(str(abstract))
             
-@app.route('/articleManager')
+@bp.route('/articleManager')
 def articleManager():
     # count = 0
     # countIgnore = 0
@@ -327,7 +188,7 @@ def articleManager():
 #     return jsonify({'htmlresponse': render_template('response.html', articleList=listHolder, numArticle = count)})
 
 
-@app.route("/insert",methods=['POST'])
+@bp.route("/insert",methods=['POST'])
 def insert():
     if(request.method):
         # print(request.form.keys())
@@ -342,7 +203,7 @@ def insert():
             searchArticles = request.form['articleIdentifier']
             designatedContainer = request.form['containerChoice']
             numNewArticles = 0
-            containerArticles = pubmed_miner.getExistingIDandSearchStr(designatedContainer)
+            containerArticles = getExistingIDandSearchStr(designatedContainer)
 
             secret_api_key = Keys.SERPAPI_KEY #SERPAPI key
             articleTable = pubmed_miner.getPMArticles(searchArticles)
@@ -396,7 +257,7 @@ def insert():
                     return jsonify("" + str(numNewArticles) + " new article(s) added successfully")
 
 
-@app.route('/remove_article', methods=['DELETE'])
+@bp.route('/remove_article', methods=['DELETE'])
 def remove_article():
     if(request.method == 'DELETE'):
         # print(request.form.keys())
@@ -430,7 +291,7 @@ def remove_article():
             return jsonify('Article removed.')
 
     
-@app.route('/moveToContainer', methods=['POST'])
+@bp.route('/moveToContainer', methods=['POST'])
 def moveToContainer():
     if(request.method == 'POST'):
         # print(request.form.keys())

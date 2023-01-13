@@ -1,99 +1,17 @@
+import dash
+from dash import callback, Output, Input, dcc, html, dash_table
 import dash_bootstrap_components as dbc
-import ast
-from dash import dcc, html, dash_table
-from . import  pubmed_miner
-import plotly.express as px
-import pandas as pd 
-import re
+import pandas as pd
+import plotly.graph_objects as go
 
-def build_pubs_dash():
-    container_name='pubmed'
-    container=pubmed_miner.init_cosmos(container_name)
-    dateLastUpdated = pubmed_miner.getTimeOfLastUpdate()
-    query = "SELECT * FROM c"
-    items = list(container.query_items(
-        query=query,
-        enable_cross_partition_query=True
-    ))
+from plots.services import db
+from plots.figures import publications_citations, researchers
 
-    data=[]
-    for item in items:
-        t=0
-        for citations in item['data']['trackingChanges']:
-            if citations['t']>t:
-                t=citations['t']
-                citation_count=citations['numCitations']
-        data.append({'PubMed ID':item['data']['pubmedID'],
-                    'Creation Date':item['data']['creationDate'],
-                    'Citation Count':citation_count,
-                    'First Authors':item['data']['firstAuthor'],
-                    'Authors':item['data']['fullAuthor'],
-                    'Title':item['data']['title'],
-                    'Journal':item['data']['journalTitle'],
-                    'Grant Funding':item['data']['grantNum'],
-                    'Publication Year':item['data']['pubYear'],
-                    'SNOMED Terms (n)':item['data']['termFreq']})
-    df1=pd.DataFrame(data)   
+dash.register_page(__name__, '/pub_dash')
 
-    #parse authors to set a limit on authors shown n_authors
-    df1['authors']=""
-    n_authors=3
-    for i,row in df1.iterrows():
-        authors=ast.literal_eval(row['Authors'])
-        auth_list=""
-        if len(authors)>n_authors:
-            for j in range(n_authors):
-                auth_list+="{}, ".format(authors[j].replace(',',''))
-            auth_list += "+ {} authors, ".format(len(authors)-n_authors)
-            auth_list += "{} ".format(authors[-1].replace(',',''))
-        else:
-            for auth in authors:
-                auth_list+="{}, ".format(auth.replace(',',''))
-            auth_list=auth_list[:-2]
-        df1.loc[i,'Authors']=auth_list
-    #([A-Z0-9]+[A-Z0-9\s\-\:_]+[0-9])([A-Z]?)
-    df1['grantid']=""
-    grantRegex = re.compile(r"([A-Z0-9]+[a-zA-Z0-9\s\-\:_]+[0-9][A-Z]?)")
-    for i,row in df1.iterrows():
-        if((row['Grant Funding'] == "nan") | (row['Grant Funding'] == "None")):
-            df1.loc[i,'Grant Funding']= "None"
-        else:
-            grant_list=ast.literal_eval(row['Grant Funding'])
-            # print(type(grant_list), grant_list)
-            # grant_num = len(grant_list)
-            grant_clean = ""
-            for grant in grant_list:
-                matchedStr = grantRegex.search(grant)
-                if isinstance(matchedStr, type(None)) == False:
-                    grant_clean = grant_clean + matchedStr.group() + "; "
-            if grant_clean == "":
-                grant_clean = grant_list[0]
-            else:
-                grant_clean = grant_clean[:-1]
-            df1.loc[i,'Grant Funding']= grant_clean
-            
-
-    df1['Creation Date']=df1['Creation Date'].str[:-6]
-    df2=df1.groupby('Publication Year')['PubMed ID'].count().reset_index()
-    df2.columns=['Year','Count']
-    bar_fig=px.bar(
-        data_frame=df2,
-        x="Year",
-        y='Count',
-        title="OHDSI Publications")
-    df3=df1.groupby('Publication Year')['Citation Count'].sum().reset_index()
-    df3['cumulative']=df3['Citation Count'].cumsum()
-    df3.columns=['Year','citations','Count']
-    line_fig=px.line(
-        data_frame=df3,
-        x='Year',
-        y='Count',
-        title="OHDSI Cumulative Citations")
-        
-    from plotly.subplots import make_subplots
-    import plotly.graph_objects as go
-    df1['SNOMED Terms (n)']=df1.apply(lambda row:"[{}](/abstracts?id={})".format(row['SNOMED Terms (n)'], row['PubMed ID']),axis=1)
-    df1['Publication']=df1.apply(lambda row:"[{}](https://pubmed.gov/{})".format(row.Title,row['PubMed ID']),axis=1)
+def layout():
+    dateLastUpdated = db.getTimeOfLastUpdate()
+    df1 = db.get_publications()
     cols=['PubMed ID', 'Creation Date','Authors','Publication','Journal', 'Grant Funding', 'SNOMED Terms (n)', 'Citation Count']
     layout= html.Div([
                 dcc.Interval(
@@ -184,13 +102,11 @@ def build_pubs_dash():
                                     'backgroundColor': 'white',
                                     'font-family': 'Saira Extra Condensed'
                                 },
-                                style_filter=[
-                                    {
-                                        'color': 'black',
-                                        'backgroundColor': '#20425A',
-                                        'font-family': 'Saira Extra Condensed'
-                                    }
-                                ],
+                                style_filter={
+                                    'color': 'black',
+                                    'backgroundColor': '#20425A',
+                                    'font-family': 'Saira Extra Condensed'
+                                },
                                 style_header={
                                     'font-family': 'Saira Extra Condensed',
                                     'background-color': '#20425A',
@@ -205,3 +121,50 @@ def build_pubs_dash():
             ])
     return layout
 
+
+
+@callback(
+    Output(component_id='bar-container', component_property='children'),
+    [Input(component_id='datatable-interactivity', component_property="derived_virtual_data"),
+    Input(component_id='datatable-interactivity', component_property='derived_virtual_selected_rows'),
+    Input(component_id='datatable-interactivity', component_property='derived_virtual_selected_row_ids'),
+    Input(component_id='datatable-interactivity', component_property='selected_rows'),
+    Input(component_id='datatable-interactivity', component_property='derived_virtual_indices'),
+    Input(component_id='datatable-interactivity', component_property='derived_virtual_row_ids'),
+    Input(component_id='datatable-interactivity', component_property='active_cell'),
+    Input(component_id='datatable-interactivity', component_property='selected_cells')], prevent_initial_call=True
+)
+def update_bar(all_rows_data, slctd_row_indices, slct_rows_names, slctd_rows,
+            order_of_rows_indices, order_of_rows_names, actv_cell, slctd_cell):
+    dff = pd.DataFrame(all_rows_data)
+    fig = publications_citations.figure(dff)
+    return [
+        dcc.Graph(id = 'bar-chart', 
+                figure=fig,
+                style={'width': '100%', 'padding-left': '50px'},
+                )
+        ]
+
+@callback(
+    Output(component_id='line-container', component_property='children'),
+    [Input(component_id='datatable-interactivity', component_property="derived_virtual_data"),
+    Input(component_id='datatable-interactivity', component_property='derived_virtual_selected_rows'),
+    Input(component_id='datatable-interactivity', component_property='derived_virtual_selected_row_ids'),
+    Input(component_id='datatable-interactivity', component_property='selected_rows'),
+    Input(component_id='datatable-interactivity', component_property='derived_virtual_indices'),
+    Input(component_id='datatable-interactivity', component_property='derived_virtual_row_ids'),
+    Input(component_id='datatable-interactivity', component_property='active_cell'),
+    Input(component_id='datatable-interactivity', component_property='selected_cells')], prevent_initial_call=True
+)
+def update_author_bar(all_rows_data, slctd_row_indices, slct_rows_names, slctd_rows,
+            order_of_rows_indices, order_of_rows_names, actv_cell, slctd_cell):
+
+    currentAuthorSummaryTable = db.get_researchers()
+    fig = researchers.figure(currentAuthorSummaryTable)
+
+    return [
+        dcc.Graph(id = 'bar-chart', 
+                    figure = fig,
+                    style={'width': '100%', 'padding-left': '50px'},
+                    )
+            ]

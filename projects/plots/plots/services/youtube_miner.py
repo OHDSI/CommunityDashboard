@@ -3,11 +3,9 @@ from azure.cosmos import CosmosClient,PartitionKey
 from googleapiclient.discovery import build # googleapiclient. not apiclient
 from googleapiclient.errors import HttpError
 from oauth2client.tools import argparser
-from community_dashboard.handlers.youtube_dash import convert_time
 import pandas as pd
 import datetime
 from dateutil.relativedelta import relativedelta
-from community_dashboard.config import Keys
 from collections import defaultdict
 #scispacy
 import numpy as np
@@ -18,6 +16,11 @@ from ratelimit import sleep_and_retry, limits
 #youtube transcript API
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.formatters import JSONFormatter
+
+try:
+    from plots.config import Keys
+except ImportError:
+    pass
 
 """ Steps
 1. Initialize the cosmos client
@@ -681,3 +684,17 @@ def update_data():
     update_yearly_dash()
     findDisabledRemap()
 
+def convert_time(time_str):
+    """Takes time values from Youtube duration
+        '8M12S' or '3H10M5S' 
+    """
+    import datetime,time
+    #Strip PT from string (Period Time)
+    time_str=time_str[2:]
+    filter=''
+    filter_list=['H','M','S']
+    for filter_item in filter_list:
+        if filter_item in time_str:
+            filter+='%'+filter_item*2
+    ntime=time.strptime(time_str,filter)
+    return datetime.timedelta(hours=ntime.tm_hour,minutes=ntime.tm_min,seconds=ntime.tm_sec)

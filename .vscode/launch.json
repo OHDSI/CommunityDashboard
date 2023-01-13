@@ -1,0 +1,26 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "debug plots",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/projects/plots",
+      "program": "app.py",
+      "console": "integratedTerminal",
+      "env": {
+        "PLOTS_ENV": "development",
+      },
+      "jinja": true,
+      "justMyCode": true  
+    }
+  ]
+}
