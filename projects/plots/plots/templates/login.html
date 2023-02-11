@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>OHDSI Article Manager</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        
+        <script src="http://rawgithub.com/indrimuska/jquery-editable-select/master/dist/jquery-editable-select.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class = "row">
+                <div class="column1" style="margin: 0%;">
+                    <br />
+                        <h2 align="left">Login</h2><br />
+                        <form method="post" id="login_form">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" name="email" id="email" class="form-control">
+                                <label>Password</label>
+                                <input type="text" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="Log In Form" id="login" class="btn btn-success" value="Log In Form" />
+                            </div>
+                        </form>
+                </div>
+            </div>
+
+            
+            <br />
+            <br />
+            <br />
+        </div>
+        
+<script>
+$(document).ready(function () {
+   
+   $('#login_form').on('submit', function(event){
+       event.preventDefault();
+       if($('#email').val() == '') {
+          alert("Enter Email");
+          return false;
+       }else if($('#password').val() == ''){
+          alert("Enter Passwrod");
+          return false;
+       }else{
+          $.ajax({
+               url:"/login",
+               method:"POST",
+               data:$(this).serialize(),
+               success:function(data)
+               {
+                location.href = "/articleManager"
+
+                // location.href = "/articleManager/auth?token=" + data.access_token
+                // $('#login_form')[0].reset();
+               },
+               error: function(){
+                alert('Wrong login credential');
+               }
+          });
+       }
+    });
+
+
+
+                
+});
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+flask >= 2.2.2
+azure-functions
+azure-cosmos >= 4.2.0
+google-api-python-client >= 2.31.0 #For youtube data API
+google-search-results == 2.4.1  #For serpapi API https://github.com/serpapi/google-search-results-python
+oauth2client >= 4.1.3
+pandas >= 1.3.4
+biopython >= 1.22.3
+xmltodict >= 0.12.0
+levenshtein >= 0.18.1
+fuzzywuzzy >= 0.18.0
+dash >= 2.7.1
+Flask-Session>=0.4.0
+dash-bootstrap-components>=1.1.0
+pytest>=7.1.2
+ratelimit >= 2.2.1
+youtube_transcript_api >= 0.4.4
+Flask-Cors==3.0.10
+python-dotenv==0.21.1
+spacy == 3.2.5
+scispacy == 0.5.0
+https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.0/en_ner_bc5cdr_md-0.5.0.tar.gz

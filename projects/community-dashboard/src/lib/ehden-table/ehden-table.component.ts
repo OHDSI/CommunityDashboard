@@ -1,0 +1,41 @@
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTable, MatTableModule } from '@angular/material/table';
+import { TableDataSourceOld } from '../table-data-source-old';
+import { CourseStat, CourseStatsService } from './course-stats.service';
+
+@Component({
+  selector: 'app-ehden-table',
+  standalone: true,
+  imports: [
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    CommonModule
+  ],
+  templateUrl: './ehden-table.component.html',
+  styleUrls: ['./ehden-table.component.css']
+})
+export class EhdenTableComponent implements AfterViewInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatTable) table!: MatTable<CourseStat>;
+  dataSource: TableDataSourceOld<CourseStat>;
+
+  @Input()
+  displayedColumns!: string[]
+
+  constructor(
+    public courseStatsService: CourseStatsService,
+  ) {
+    this.dataSource = new TableDataSourceOld(courseStatsService);
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
+  }
+}

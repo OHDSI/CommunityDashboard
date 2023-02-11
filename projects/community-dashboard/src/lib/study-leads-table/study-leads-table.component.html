@@ -1,0 +1,39 @@
+<div class="mat-elevation-z8">
+  <table mat-table class="full-width white-space-nowrap" matSort aria-label="Elements">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="{'max-width': '120px'}"></th>
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        <a href="https://forums.ohdsi.org/u/{{row.name}}" target="_blank">{{row.name}}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="active">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style.padding-left]="0" [style]="{'max-width': '120px'}">
+        Active Studies
+      </th>
+      <td mat-cell *matCellDef="let row" [style.padding-left]="0" [style]="{'max-width': '120px'}">
+        {{row.active}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="completed">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style.padding-left]="0" [style]="{'max-width': '120px'}">
+        Completed Studies
+      </th>
+      <td mat-cell *matCellDef="let row" [style.padding-left]="0" [style]="{'max-width': '120px'}">
+        {{row.completed}}
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="(count()|async)"
+      [pageIndex]="0"
+      [pageSize]="5"
+      aria-label="Select page">
+  </mat-paginator>
+</div>

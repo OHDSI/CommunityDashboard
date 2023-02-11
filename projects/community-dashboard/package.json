@@ -1,0 +1,15 @@
+{
+  "name": "@community-dashboard/community-dashboard",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^15.0.0",
+    "@angular/core": "^15.0.0",
+    "@observablehq/plot": "^0.6.2",
+    "d3": "^7.8.2",
+    "htl": "^0.3.1",
+    "lodash": "^4.17.21"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
