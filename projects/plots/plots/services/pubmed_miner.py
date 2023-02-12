@@ -21,7 +21,10 @@ import ast
 from flask import current_app
 #import scispacy
 import spacy
-from scispacy.linking import EntityLinker
+# try:
+#     from scispacy.linking import EntityLinker
+# except: # https://github.com/allenai/scispacy/issues/372
+#     pass
 from ratelimit import limits, RateLimitException, sleep_and_retry
 import requests
 

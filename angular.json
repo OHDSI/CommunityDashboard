@@ -3,116 +3,6 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "navigation": {
-      "projectType": "application",
-      "schematics": {},
-      "root": "projects/navigation",
-      "sourceRoot": "projects/navigation/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "preserveSymlinks": true,
-            "outputPath": "dist/navigation",
-            "index": "projects/navigation/src/index.html",
-            "main": "projects/navigation/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
-            "tsConfig": "projects/navigation/tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/favicon.ico",
-                "input": "projects/navigation/src",
-                "output": ""
-              },
-              {
-                "glob": "**/*",
-                "input": "projects/navigation/src/assets",
-                "output": "assets"
-              }
-            ],
-            "styles": [
-              "projects/navigation/src/styles.scss"
-            ],
-            "scripts": [
-              "./node_modules/marked/marked.min.js"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/navigation/src/app/environments/environment.ts",
-                  "with": "projects/navigation/src/app/environments/environment.production.ts"
-                }
-              ],
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "3mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "browserTarget": "navigation:build:production"
-            },
-            "development": {
-              "browserTarget": "navigation:build:development",
-              "host": "127.0.0.1"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "navigation:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "karmaConfig": "karma.conf.js",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "projects/navigation/tsconfig.spec.json",
-            "assets": [
-              "projects/navigation/src/favicon.ico",
-              "projects/navigation/src/assets"
-            ],
-            "styles": [
-              "projects/navigation/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        }
-      }
-    },
     "community-dashboard": {
       "projectType": "library",
       "root": "projects/community-dashboard",
@@ -129,7 +19,7 @@
               "tsConfig": "projects/community-dashboard/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/community-dashboard/tsconfig.lib.json"
+              "tsConfig": "projects/community-dashboard/tsconfig.lib.json",
             }
           },
           "defaultConfiguration": "production"
@@ -142,6 +32,134 @@
               "zone.js",
               "zone.js/testing"
             ]
+          }
+        }
+      }
+    },
+    "rest": {
+      "projectType": "library",
+      "root": "projects/rest",
+      "sourceRoot": "projects/rest/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/rest/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/rest/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/rest/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/rest/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "navigation": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/navigation",
+      "sourceRoot": "projects/navigation/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/navigation",
+            "index": "projects/navigation/src/index.html",
+            "main": "projects/navigation/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/navigation/tsconfig.app.json",
+            "assets": [
+              "projects/navigation/src/favicon.ico",
+              "projects/navigation/src/assets"
+            ],
+            "styles": [
+              "projects/navigation/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": {
+                "scripts": true,
+                "styles": true,
+                "vendor": true
+              },
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "navigation:build:production"
+            },
+            "development": {
+              "browserTarget": "navigation:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "navigation:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/navigation/tsconfig.spec.json",
+            "assets": [
+              "projects/navigation/src/favicon.ico",
+              "projects/navigation/src/assets"
+            ],
+            "styles": [
+              "projects/navigation/src/styles.scss"
+            ],
+            "scripts": []
           }
         }
       }

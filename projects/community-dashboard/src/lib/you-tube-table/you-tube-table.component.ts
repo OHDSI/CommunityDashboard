@@ -3,7 +3,7 @@ import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
-import { TableDataSourceOld } from '../table-data-source-old';
+import { TableDataSource } from 'rest';
 import { YouTubeVideo, YouTubeService } from './you-tube.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class YouTubeTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<YouTubeVideo>;
-  dataSource: TableDataSourceOld<YouTubeVideo>;
+  dataSource: TableDataSource<YouTubeVideo>;
 
   @Input()
   displayedColumns!: string[]
@@ -30,7 +30,7 @@ export class YouTubeTableComponent implements AfterViewInit {
   constructor(
     public youTubeService: YouTubeService,
   ) {
-    this.dataSource = new TableDataSourceOld(youTubeService);
+    this.dataSource = new TableDataSource(youTubeService);
   }
 
   ngAfterViewInit(): void {

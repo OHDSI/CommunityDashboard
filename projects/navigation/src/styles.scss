@@ -1,0 +1,262 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use './themes.scss' as themes;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Raleway, "Helvetica Neue", sans-serif; }
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.no-border {
+  border: none;
+}
+
+.fit-content {
+  width: fit-content;
+}
+
+.flex-container {
+  display: flex !important;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-shrink {
+  flex-shrink: 1;
+}
+
+.flex-basis-min-content {
+  flex-basis: min-content;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.position-bottom {
+  position: absolute;
+  bottom: 0;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.aspect-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+.width-unset {
+  width: unset !important;
+}
+
+.margin-24 {
+  margin: 24px;
+}
+
+.full-shadow-margin {
+  height: calc(100% - 2px);
+  width: calc(100% - 2px);
+}
+
+.white-space-nowrap {
+  white-space: nowrap !important;
+}
+
+.white-space-break-spaces {
+  white-space: break-spaces !important;
+}
+
+.word-break-break-all {
+  word-break: break-all;
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+@mixin custom-component-themes($theme) {
+  $background: map.get(map.get($theme, 'background'), 'background');
+  $color-config: mat.get-color-config($theme);
+  $primary-palette: map.get($color-config, 'primary');
+
+  svg[class^="plot-"] {
+    background: $background;
+  }
+
+  svg[class^="plot-"] .hover {
+    color: mat.get-color-from-palette($primary-palette, 'default');
+  }
+}
+
+@mixin custom-component-dark-themes($theme) {
+  @include custom-component-themes($theme);
+
+  $color-config: mat.get-color-config($theme);
+  $palette: map.get($color-config, 'accent');
+  $primary-palette: map.get($color-config, 'primary');
+
+  a {
+    color: mat.get-color-from-palette($palette, 'default');
+  }
+
+  .outline {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #595959;
+  }
+
+  .color-disabled {
+    color: map.get(map.get($theme, 'foreground'), 'disabled') !important;
+  }
+
+  .action:hover {
+    background: rgba(mat.get-color-from-palette($primary-palette, 'default'), .15) !important;
+    cursor: pointer;
+  }
+}
+
+@mixin custom-component-light-themes($theme) {
+  @include custom-component-themes($theme);
+
+  $color-config: mat.get-color-config($theme);
+  $primary-palette: map.get($color-config, 'primary');
+
+  a {
+    color: mat.get-color-from-palette($primary-palette, 700);
+  }
+
+  .outline {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e0e0e0;
+  }
+
+  .color-disabled {
+    color: map.get(map.get($theme, 'foreground'), 'disabled') !important;
+  }
+
+  .action:hover {
+    background: rgba(mat.get-color-from-palette($primary-palette, 'default'), .15) !important;
+    cursor: pointer;
+  }
+}
+
+@include mat.core();
+
+@include mat.all-component-themes(themes.$dark-theme);
+// see typography bug https://github.com/angular/components/issues/24370
+@include mat.all-component-typographies(themes.$typography);
+@include custom-component-dark-themes(themes.$dark-theme);
+
+.invert {
+  $invert-theme: themes.$light-theme;
+  color: map.get(map.get($invert-theme, 'foreground'), 'text') !important;
+  background: map.get(map.get($invert-theme, 'background'), 'background') !important;
+}
+
+.light-theme {
+  @include mat.all-component-colors(themes.$light-theme);
+  @include custom-component-light-themes(themes.$light-theme);
+
+  .invert {
+    $invert-theme: themes.$dark-theme;
+    color: map.get(map.get($invert-theme, 'foreground'), 'text') !important;
+    background: map.get(map.get($invert-theme, 'background'), 'background') !important;
+  }
+  
+}
+
+.on-dark {
+  color: map.get(map.get(themes.$dark-theme, 'foreground'), 'text') !important;
+}
+
+.toolbar-anchor {
+  color: map.get(map.get(themes.$dark-theme, 'foreground'), 'text') !important;
+  text-decoration: unset;
+}
+
+.metric {
+  $headline-config: map.get(themes.$typography, 'headline-5');
+  font-size: map.get($headline-config, 'font-size') !important;
+}
+
+.color-accent {
+  $color-config: mat.get-color-config(themes.$dark-theme);
+  $palette: map.get($color-config, 'accent');
+  color: map.get($palette, 'default') !important;
+}
+
+.color-warn {
+  $color-config: mat.get-color-config(themes.$dark-theme);
+  $palette: map.get($color-config, 'warn');
+  color: map.get($palette, 'default') !important;
+}
+
+// from community dashboard
+.header-text {
+  $color-config: mat.get-color-config(themes.$dark-theme);
+  $palette: map.get($color-config, 'accent');
+
+  color: mat.get-color-from-palette($palette, 500) !important;
+}
+
+.headline-title {
+  $headline-config: map.get(themes.$typography, 'headline-3');
+
+  font-size: map.get($headline-config, 'font-size');
+  line-height: map.get($headline-config, 'line-height');
+}
+
+.headline-subtitle {
+  $headline-config: map.get(themes.$typography, 'headline-5');
+
+  font-size: map.get($headline-config, 'font-size');
+  font-weight: map.get($headline-config, 'font-weight');
+  margin-left: 8px;
+}
+
+.hero {
+  $color-config: mat.get-color-config(themes.$dark-theme);
+  $palette: map.get($color-config, 'primary');
+
+  background-color: mat.get-color-from-palette($palette, 'default');
+}

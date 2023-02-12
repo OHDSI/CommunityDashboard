@@ -1,0 +1,10 @@
+<mat-sidenav-container class="full-height">
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let link of links"
+        [routerLink]="link.routerLink"
+      >{{ link.routerLink }}</a>
+    </mat-nav-list>
+  </mat-sidenav-content>
+</mat-sidenav-container>

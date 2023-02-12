@@ -3,7 +3,7 @@ import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
-import { TableDataSourceOld } from '../table-data-source-old';
+import { TableDataSource } from 'rest';
 import { Publication, PublicationsService } from './publications.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class PubMedTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Publication>;
-  dataSource: TableDataSourceOld<Publication>;
+  dataSource: TableDataSource<Publication>;
 
   @Input()
   displayedColumns!: string[]
@@ -30,7 +30,7 @@ export class PubMedTableComponent implements AfterViewInit {
   constructor(
     public publicationsService: PublicationsService,
   ) {
-    this.dataSource = new TableDataSourceOld(publicationsService);
+    this.dataSource = new TableDataSource(publicationsService);
   }
 
   ngAfterViewInit(): void {

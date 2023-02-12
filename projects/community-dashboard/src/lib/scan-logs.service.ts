@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Rest, RestDelegate } from 'rest';
+import { RestToken, RestDelegate, Rest } from 'rest';
 import { map, of, tap } from 'rxjs';
 
 export enum Status {
@@ -50,7 +50,7 @@ export class ScanLogsService extends RestDelegate<ScanLog> {
   _cache: ScanLog[] = []
 
   constructor(
-    rest: Rest,
+    @Inject(RestToken) rest: Rest,
     @Inject('environment') environment: any,
   ) {
     super(

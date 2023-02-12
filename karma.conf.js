@@ -35,7 +35,7 @@ module.exports = async function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/site-study-manager'),
+      dir: require('path').join(__dirname, './coverage/community-dashboard'),
       subdir: '.',
       reporters: [
         { type: 'html' },

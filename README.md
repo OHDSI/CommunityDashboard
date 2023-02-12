@@ -21,6 +21,8 @@ This repo contains multiple "projects" as `yarn` [workspaces](https://yarnpkg.co
 - The `development` [devcontainer](https://containers.dev)
   template provides a consistent,
   prebuilt environment for developers described below.
+- The `rest` project provides a standard interface for all
+  database operations. See: [Production Considerations](#production-considerations)
 
 # Development
 This repo uses the [Development Container](https://containers.dev/implementors/spec/)
@@ -40,9 +42,6 @@ can use the spec as a reference to set up your local environment of choice.
 
 
 `yarn` is used to manage the rest of the development workflow:
-```
-yarn test
-```
 ```
 yarn workspace @community-dashboard/plots start
 ```

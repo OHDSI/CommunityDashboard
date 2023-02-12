@@ -1,0 +1,44 @@
+@use '@angular/material' as mat;
+
+$ohdsi-blue-palette: (
+ 50: #dfefff,
+ 100: #bdd8ed,
+ 200: #9ebbd5,
+ 300: #7d9fbd,
+ 400: #648aaa,
+ 500: #4a7698,
+ 600: #3d6887,
+ 700: #2e5470,
+ 800: #20425a,
+ 900: #0c2d42,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: rgba(black, 0.87),
+   400: rgba(black, 0.87),
+   500: white,
+   600: white,
+   700: white,
+   800: white,
+   900: white,
+ )
+);
+
+$typography: mat.define-typography-config(
+  $font-family: 'Raleway',
+);
+
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: mat.define-palette($ohdsi-blue-palette, 800),
+    accent: mat.define-palette(mat.$orange-palette),
+  )
+));
+
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: mat.define-palette($ohdsi-blue-palette, 800),
+    accent: mat.define-palette(mat.$orange-palette),
+  ),
+));
