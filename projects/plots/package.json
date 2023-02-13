@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "start": "flask --app main.py --debug run --port 5001",
-    "prepublish": "python3 -m build",
-    "publish": "python3 -m twine upload dist/*"
+    "clean": "rm -r dist/*",
+    "build": "python3 -m build",
+    "publish": "yarn clean && yarn build && python3 -m twine upload dist/*"
   },
   "private": true
 }

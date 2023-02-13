@@ -6,6 +6,8 @@ import os
 from logging.config import dictConfig
 from dotenv import load_dotenv
 
+TEST_DIR = os.path.join(os.path.dirname(__file__), 'test')
+
 _dash_app = None
 def create_app():
     global _dash_app
@@ -14,7 +16,7 @@ def create_app():
 
     load_dotenv()
     app.config['ENTREZ_EMAIL'] = os.environ.get('ENTREZ_EMAIL')
-    app.config['DATABASE'] = 'plots/test/test.db'
+    app.config['DATABASE'] = os.path.join(TEST_DIR, 'test.db')
     app.config['SERPAPI_KEY'] = os.environ.get('SERPAPI_KEY')
     app.config['LOG_LEVEL'] = os.environ.get('LOG_LEVEL', 'INFO')
 
