@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Rest, RestDelegate, RestMemory } from 'rest';
+import { Rest, RestDelegate, RestMemory } from '@community-dashboard/rest';
 import { ScanLogsService } from '../scan-logs.service';
 
 export const EXCEPTIONS: {[key: string]: string} = {
@@ -30,8 +30,8 @@ export class StudyExceptionsService extends RestDelegate<StudyException> {
     })
     super(rest, '', 'study-exceptions')
     this.scanLogsService.cache.subscribe({
-      next: (ls) => {
-        const allExceptions = ls.flatMap(l => {
+      next: (ls: any) => {
+        const allExceptions = ls.flatMap((l: any) => {
           const es = []
           if (
             !l.readmeCommit?.summary.studyLead ||

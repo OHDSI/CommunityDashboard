@@ -7,16 +7,8 @@ import string
 from plots.blueprints import htmlBuilderFunctions
 from flask import jsonify, render_template, request, render_template_string
 
-from plots.services.db import init_cosmos, getExistingIDandSearchStr
+from plots.services.db import getExistingIDandSearchStr, get_db
 from plots.services import pubmed_miner
-
-try:
-    from plots.config import Keys
-except ImportError:
-    pass
-
-container = init_cosmos('pubmed')
-container_ignore = init_cosmos('pubmed_ignore')
 
 bp = Blueprint('pubmed', __name__)
 
@@ -27,17 +19,13 @@ def dashboard():
     # return jsonify({'htmlresponse': render_template('publication_dashboard.html', dashHtml = pubmedDashApp)})
 
 
-pubmedContainer = init_cosmos('pubmed')
-
-
 @bp.route('/abstracts', methods = ['GET'])
 def abstracts():
     pubmedID = "PMID: " + str(int(float(request.args.get('id', None))))
     abstract = ''
+    db = get_db()
     #query item with the search query
-    for item in pubmedContainer.query_items( query='SELECT * FROM pubmed WHERE pubmed.id=@id',
-            parameters = [{ "name":"@id", "value": pubmedID }], 
-            enable_cross_partition_query=True):
+    for item in db.find('pubmed', {'where': {'id': pubmedID}}):
         if(item['id'] == pubmedID):
             snomedNamesStr = item['data']['snomedNames'].strip('][')
             snomedNames = re.split("', '|\n", snomedNamesStr[1:-1])
@@ -259,6 +247,7 @@ def insert():
 
 @bp.route('/remove_article', methods=['DELETE'])
 def remove_article():
+    db = get_db()
     if(request.method == 'DELETE'):
         # print(request.form.keys())
         print(request.form['passKeyHiddenDelete'])
@@ -275,16 +264,16 @@ def remove_article():
             # print(designatedContainer)
             if(designatedContainer == "pubmed_ignore"):
                 if(searchArticles in containerArticles[0]):
-                    for item in container_ignore.query_items( 'SELECT * FROM pubmed_ignore', enable_cross_partition_query=True):
+                    for item in db.find('pubmed_ignore'):
                         if(item['id'] == ("PMID: " + str(searchArticles))):
-                            container_ignore.delete_item(item=item, partition_key=item['id'])
+                            db.deleteById('pubmed_ignore', item['id'])
                 else:
                     return jsonify('Article does not exist in this container.')
             else:
                 if(searchArticles in containerArticles[0]):
-                    for item in container.query_items( 'SELECT * FROM pubmed', enable_cross_partition_query=True):
+                    for item in db.find('pubmed'):
                         if(item['id'] == ("PMID: " + str(searchArticles))):
-                            container.delete_item(item=item, partition_key=item['id'])
+                            db.deleteById('pubmed', item['id'])
                 else: 
                     return jsonify('Article does not exist in this container.')
 

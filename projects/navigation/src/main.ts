@@ -8,7 +8,7 @@ import { environment } from './app/environments/environment';
 // import { RestToken } from 'rest';
 import { AppComponent } from './app/app.component';
 import { RestMock } from './test/rest-mock.service';
-import { RestToken } from 'rest';
+import { RestToken } from '@community-dashboard/rest';
 // import { TestComponent } from './app/test.component';
 // import { CommunityDashboardModule } from 'community-dashboard';
 
@@ -21,7 +21,7 @@ const ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () => import('./app/navigation/navigation.component').then(mod => mod.NavigationComponent),
-    loadChildren: () => import('community-dashboard').then(mod => mod.CommunityDashboardModule),
+    loadChildren: () => import('@community-dashboard/community-dashboard').then(mod => mod.CommunityDashboardModule),
   },
   // {
   //   path: '**',

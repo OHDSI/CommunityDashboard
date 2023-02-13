@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RestDelegate, RestMemory } from 'rest';
+import { RestDelegate, RestMemory } from '@community-dashboard/rest';
 import { ScanLog, ScanLogsService } from '../scan-logs.service';
 import * as d3 from 'd3'
 
@@ -34,12 +34,12 @@ export class StudiesService extends RestDelegate<Study> {
     })
     super(rest, '', 'studies')
     this.scanLogsService.cache.subscribe({
-      next: (ls) => {
-        const readmeCommits = ls.filter(l => l.readmeCommit)
+      next: (ls: any) => {
+        const readmeCommits = ls.filter((l: any) => l.readmeCommit)
           // .map(c => {
           //   (c as any).readmeCommit!.author.date = new Date(c.readmeCommit!.author.date)
           // })
-          .sort((a, b) => d3.descending(a.readmeCommit!.author.date, b.readmeCommit!.author.date))
+          .sort((a: any, b: any) => d3.descending(a.readmeCommit!.author.date, b.readmeCommit!.author.date))
         const byStudy = d3.group(readmeCommits, (c: ScanLog) => c.readmeCommit!.repoName) as {values: () => ScanLog[][]}
         let i = 0
         for (const commits of byStudy.values()) {

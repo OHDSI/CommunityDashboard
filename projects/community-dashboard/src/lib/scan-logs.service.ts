@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { RestToken, RestDelegate, Rest } from 'rest';
+import { RestToken, RestDelegate, Rest } from '@community-dashboard/rest';
 import { map, of, tap } from 'rxjs';
 
 export enum Status {

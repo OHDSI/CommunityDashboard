@@ -10,6 +10,31 @@
       "name": "Launch Chrome against localhost",
       "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}",
+    },
+    {
+      "name": "debug plots",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/projects/plots",
+      "program": "main.py",
+      "console": "integratedTerminal",
+      "env": {
+      },
+      "jinja": true,
+      "justMyCode": true  
+    },
+    {
+      "name": "debug pytest",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/projects/plots",
+      "module": "pytest",
+      "console": "integratedTerminal",
+      "env": {
+        "PLOTS_ENV": "development",
+      },
+      "jinja": true,
+      "justMyCode": true  
     }
   ]
 }

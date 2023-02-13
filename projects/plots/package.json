@@ -2,7 +2,9 @@
   "name": "@community-dashboard/plots",
   "version": "0.0.0",
   "scripts": {
-    "start": "PLOTS_ENV='development' flask --app main.py --debug run --port 5001"
+    "start": "flask --app main.py --debug run --port 5001",
+    "prepublish": "python3 -m build",
+    "publish": "python3 -m twine upload dist/*"
   },
   "private": true
 }

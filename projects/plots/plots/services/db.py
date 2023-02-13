@@ -1,3 +1,4 @@
+import json
 import time
 from azure.cosmos import CosmosClient, PartitionKey
 import pandas as pd
@@ -6,8 +7,12 @@ import re
 import click
 from flask import g, current_app
 import sqlite3
+import logging
+import os.path
 
 from plots.services import youtube_miner
+
+TEST_DIR = os.path.join(os.path.dirname(__file__), '../test')
 
 class DbSession:
 
@@ -24,14 +29,69 @@ class DbSession:
     def init_db(self):
         with current_app.open_resource('test/schema.sql') as f:
             self.session.executescript(f.read().decode('utf8'))
+        self._load_dashboard_fixture('pubmed_authors')
+        self._load_fixture('ehden_course_completions')
+        self._load_fixture('ehden_users')
+        self._load_fixture('youtube_monthly')
+        self._load_fixture('youtube')
+        self._load_fixture('researchers')
+        self._load_fixture('pubmed')
 
-    def find(self, path: str):
-        return self.session.execute(f'SELECT * FROM {path}')
+    def _load_dashboard_fixture(self, id):
+        with open(os.path.join(TEST_DIR, f'{id}.json')) as fd:
+            json_data = json.load(fd)
+            self.replaceById('dashboard', id, json_data)
+
+    def _load_fixture(self, path):
+        self.session.execute(f'DROP TABLE IF EXISTS {path};')
+        self.session.execute(f'''
+            CREATE TABLE {path} (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                json JSON NOT NULL
+            )
+        ''')
+        with open(os.path.join(TEST_DIR, f'{path}.json')) as fd:
+            json_data = json.load(fd)
+            for r in json_data:
+                self.create(path, r)
+            self.session.commit()
+
+    def find(self, path: str, filter={}):
+        where = ''
+        if ('where' in filter):
+            where = ' WHERE ' + ' AND '.join([f"{k} = '{v}'" for k, v in filter['where'].items()])
+        sql = f'SELECT * FROM {path}{where}'
+        logging.info(sql)
+        rows = self.session.execute(sql).fetchall()
+        return [json.loads(r['json']) for r in rows]
+
+    def findById(self, path: str, id):
+        row = self.session.execute(f'SELECT * FROM {path} WHERE id = ?', [id]).fetchone()
+        return json.loads(row)
+
+    def replaceById(self, path: str, id, data):
+        self.session.execute(
+            f'INSERT INTO {path} (id, json) VALUES (?, ?) ON CONFLICT(id) DO UPDATE SET json=excluded.json;',
+            [id, json.dumps(data)]
+        )
+        self.session.commit()
+
+    def create(self, path: str, data):
+        self.session.execute(
+            f'INSERT INTO {path} (json) VALUES (?)',
+            [json.dumps(data)]
+        )
+        self.session.commit()
+
+    def deleteById(self, path: str, id):
+        self.session.execute(
+            f'DELETE FROM {path} WHERE id = ?',
+            [id]
+        )
+        self.session.commit()
 
 
-        
-
-def get_db():
+def get_db() -> DbSession:
     if 'db' not in g:
         g.db = DbSession()
     return g.db
@@ -58,36 +118,14 @@ def init_db_command():
     init_db()
     click.echo('Initialized the database.')
 
-
-def init_cosmos(container_name:str):
-    """Initialize the Cosmos client
-    Parameters
-    ---
-    * container_name : str - Name of azure container in cosmos db
-    Returns container for cosmosclient
-    """
-    from plots.config import Keys
-    endpoint = Keys.AZURE_ENDPOINT
-    azure_key = Keys.AZURE_KEY
-
-    client = CosmosClient(endpoint, azure_key)
-    database_name = Keys.DB_NAME
-    database = client.create_database_if_not_exists(id=database_name)
-    container = database.create_container_if_not_exists(
-        id=container_name, 
-        partition_key=PartitionKey(path="/id"),
-        offer_throughput=400
-    )
-    return container
-
 def getTimeOfLastUpdate():
     """
     Called in main()
     Not every article has the same last date of update. Find the most recent among all articles. 
     """
-    container = init_cosmos('pubmed')
+    db = get_db()
     dateOfLastUpdate = "01-01-2022"
-    for item in container.query_items(query='SELECT * FROM beta', enable_cross_partition_query=True):
+    for item in db.find('beta'):
         if(dateOfLastUpdate < item['data']['trackingChanges'][len(item['data']['trackingChanges'])-1]['datePulled']):
             dateOfLastUpdate = item['data']['trackingChanges'][len(item['data']['trackingChanges'])-1]['datePulled']
     return dateOfLastUpdate
@@ -98,196 +136,32 @@ def getExistingIDandSearchStr(containerName):
     Get a list of PMIDs and a list of title-author search strings
     Two outputs
     """
-    container = init_cosmos( containerName)
+    db = get_db()
     result = []
     exisitingIDs = []
     exisitingTitleAuthorStr = []
-    for item in container.query_items(query=('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
+    for item in db.find(containerName):
         exisitingIDs.append(item['data']['pubmedID'])
         exisitingTitleAuthorStr.append(item['data']['titleAuthorStr'])
     result = [exisitingIDs, exisitingTitleAuthorStr]
 
     return result
 
-def get_publications():
-    container_name='pubmed'
-    container=init_cosmos(container_name)
-    query = "SELECT * FROM c"
-    items = list(container.query_items(
-        query=query,
-        enable_cross_partition_query=True
-    ))
-
-    data=[]
-    for item in items:
-        t=0
-        for citations in item['data']['trackingChanges']:
-            if citations['t']>t:
-                t=citations['t']
-                citation_count=citations['numCitations']
-        data.append({'PubMed ID':item['data']['pubmedID'],
-                    'Creation Date':item['data']['creationDate'],
-                    'Citation Count':citation_count,
-                    'First Authors':item['data']['firstAuthor'],
-                    'Authors':item['data']['fullAuthor'],
-                    'Title':item['data']['title'],
-                    'Journal':item['data']['journalTitle'],
-                    'Grant Funding':item['data']['grantNum'],
-                    'Publication Year':item['data']['pubYear'],
-                    'SNOMED Terms (n)':item['data']['termFreq']})
-    df1=pd.DataFrame(data)   
-
-    #parse authors to set a limit on authors shown n_authors
-    df1['authors']=""
-    n_authors=3
-    for i,row in df1.iterrows():
-        authors=ast.literal_eval(row['Authors'])
-        auth_list=""
-        if len(authors)>n_authors:
-            for j in range(n_authors):
-                auth_list+="{}, ".format(authors[j].replace(',',''))
-            auth_list += "+ {} authors, ".format(len(authors)-n_authors)
-            auth_list += "{} ".format(authors[-1].replace(',',''))
-        else:
-            for auth in authors:
-                auth_list+="{}, ".format(auth.replace(',',''))
-            auth_list=auth_list[:-2]
-        df1.loc[i,'Authors']=auth_list
-
-    df1['grantid']=""
-    grantRegex = re.compile(r"([A-Z0-9]+[a-zA-Z0-9\s\-\:_]+[0-9][A-Z]?)")
-    for i,row in df1.iterrows():
-        if((row['Grant Funding'] == "nan") | (row['Grant Funding'] == "None")):
-            df1.loc[i,'Grant Funding']= "None"
-        else:
-            grant_list=ast.literal_eval(row['Grant Funding'])
-            # print(type(grant_list), grant_list)
-            # grant_num = len(grant_list)
-            grant_clean = ""
-            for grant in grant_list:
-                matchedStr = grantRegex.search(grant)
-                if isinstance(matchedStr, type(None)) == False:
-                    grant_clean = grant_clean + matchedStr.group() + "; "
-            if grant_clean == "":
-                grant_clean = grant_list[0]
-            else:
-                grant_clean = grant_clean[:-1]
-            df1.loc[i,'Grant Funding']= grant_clean
-
-    df1['Creation Date']=df1['Creation Date'].str[:-6]
-    df1['SNOMED Terms (n)']=df1.apply(lambda row:"[{}](/abstracts?id={})".format(row['SNOMED Terms (n)'], row['PubMed ID']),axis=1)
-    df1['Publication']=df1.apply(lambda row:"[{}](https://pubmed.gov/{})".format(row.Title,row['PubMed ID']),axis=1)
-    return df1
-
-def get_youtube():
-    
-    container_name='youtube'
-    # container_name='pubmed_test'
-    container=init_cosmos(container_name)
-    # container_transcripts=pubmed_miner.init_cosmos("transcripts")
-    query = "SELECT * FROM c"
-    items = list(container.query_items(
-        query=query,
-        enable_cross_partition_query=True
-    ))
-    startTime = time.time()
-    # transcript_items = list(container_transcripts.query_items(
-    #     query=query,
-    #     enable_cross_partition_query=True
-    # ))
-    
-
-    videos=[]
-    transcriptsDict = []
-    # dateCheckedOn = pubmed_miner.getTimeOfLastUpdate()
-    pullDate = 0
-    for item in items:
-        if(pullDate == 0):
-            dateCheckedOn = item['lastChecked']
-            dateCheckedOn = dateCheckedOn[5:len(dateCheckedOn)] + dateCheckedOn[4:5] + dateCheckedOn[0:4]
-        #Review the log of counts and find the last two and subtract them for recent views
-        df=pd.DataFrame(item['counts']).sort_values('checkedOn',ascending=False).reset_index()
-        
-        total_views=int(df.viewCount[0])
-        if len(df)==1:
-            recent_views=int(df.viewCount[0])
-        else:
-            recent_views=int(df.viewCount[0])-int(df.viewCount[1])
-        videos.append({'id':item['id'],
-                    'Title':item['title'],
-                    # 'Duration':convert_time(item['duration']),
-                    'Duration':item['duration'],
-                    'Date Published':pd.to_datetime(item['publishedAt']),
-                    'Total Views':total_views,
-                    'Recent Views':recent_views,
-                    'channelTitle':item['channelTitle'], 
-                    'SNOMED Terms (n)': item['termFreq']}
-                    )
-    
-    df=pd.DataFrame(videos)
-    endTime = time.time()
-    print(endTime - startTime)
-    # for transcript in container_transcripts.query_items(
-    #     query=query,
-    #     enable_cross_partition_query=True
-    # ):
-    #     transcriptsDict.append({
-    #         'id':transcript['id'],
-    #         'SNOMED Terms (n)':transcript['data'][0]['termFreq'],
-
-    #     })
-    # df_transcripts = pd.DataFrame(transcriptsDict) 
-    # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: ([i for i in x['SNOMED Terms'] if ((i != "No Mapping Found") & (i != "Sodium-22"))]), axis = 1)
-    # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if len(x['SNOMED Terms']) == 0 else x['SNOMED Terms'], axis = 1)
-    # df_transcripts['SNOMED Terms'] = df_transcripts.apply(lambda x: "No Mapping Found" if x['SNOMED Terms'] == '' else x['SNOMED Terms'], axis = 1)
-    
-
-    df=df[df.channelTitle.str.startswith('OHDSI')].copy(deep=True)
-    # df['Duration'] = df.apply(lambda x: str(x['Duration'])[2:], axis = 1)
-    df['Duration'] = df.apply(lambda x: youtube_miner.convert_time(x['Duration']), axis = 1)
-    df['yr']=df['Date Published'].dt.year
-    df['hrsWatched']=(df.Duration.dt.days*24+df.Duration.dt.seconds/3600)*df['Total Views'] 
-    df['Duration'] = df['Duration'].astype(str)
-    
-    # DataTable Prep
-    df['Date Published']=df['Date Published'].dt.strftime('%Y-%m-%d')
-    # df['Title']=df.apply(lambda row:"[{}](https://www.youtube.com/watch?v={})".format(row.Title,row.id),axis=1)
-    df['Title']=df.apply(lambda row:"[{}](https://www.youtube.com/watch?v={})".format(row.Title,row.id),axis=1)
-    df['Length'] = df.apply(lambda x: str(x['Duration'])[7:], axis = 1)
-    # del df['Duration']
-    # fig.update_layout( title_text="Youtube Video Analysis", showlegend=False)
-    # df = pd.merge(df, df_transcripts, how = 'left', left_on= 'id', right_on = 'id')
-    df['SNOMED Terms (n)']=df.apply(lambda row:"[{}](/transcripts?id={})".format(row['SNOMED Terms (n)'], row.id),axis=1)
-    
-    return df, dateCheckedOn
-
-def get_youtube_monthly():
-    results_container=init_cosmos('dashboard')
-    query="SELECT * FROM c where c.id = 'youtube_monthly'"
-    items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
-    df2=pd.read_json(items[0]['data'])
-    df2['Date']=pd.to_datetime(df2['Date']).dt.strftime('%Y-%m')
-    return df2
-
 def _get_ehden():
-    results_container = init_cosmos('dashboard')
-    query = "SELECT * FROM c where c.id = 'ehden'"
-    items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
-    return items
+    db = get_db()
+    return db.find('dashboard', {'where': {'id': 'ehden'}})[0]
 
 def get_ehden_users():
     items = _get_ehden()
-    df = pd.DataFrame(items[0]['data'][1]['users'])
+    df = pd.DataFrame(items['data'][1]['users'])
     df['year']=pd.to_numeric(df.year)
     df=df[df.year!=1970]
     df['number_of_users']=pd.to_numeric(df.number_of_users)
     return df
 
 def get_ehden_course_completions():
-    results_container = init_cosmos('dashboard')
-    query = "SELECT * FROM c where c.id = 'ehden'"
-    items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
-    df=pd.DataFrame(items[0]['data'][3]['completions'])
+    items = _get_ehden()
+    df=pd.DataFrame(items['data'][3]['completions'])
     df['year']=pd.to_numeric(df.year)
     df=df[df.year!=1970]
     df['completions']=pd.to_numeric(df.completions)
@@ -295,7 +169,7 @@ def get_ehden_course_completions():
 
 def get_course_stats():
     items = _get_ehden()
-    df=pd.DataFrame(items[0]['data'][4]['course_stats'])
+    df=pd.DataFrame(items['data'][4]['course_stats'])
     df2=df.groupby('course_id').max().reset_index()
     df2['authors']=df2.teachers.apply(_get_author_names)
     df2['course_started']=pd.to_datetime(df2.course_started)
@@ -313,12 +187,3 @@ def _get_author_names(items):
     for item in items:
         output +=", " + item['firstname'] + " " + item['lastname']
     return output[1:]
-
-def get_researchers():
-    results_container = init_cosmos('dashboard')
-    query = "SELECT * FROM c where c.id = 'pubmed_authors'"
-    items = list(results_container.query_items(query=query, enable_cross_partition_query=True ))
-    currentAuthorSummaryTable = pd.read_json(items[0]['data'])
-    currentAuthorSummaryTable = currentAuthorSummaryTable[['pubYear', 'numberNewFirstAuthors', 'cumulativeFirstAuthors', 'numberNewAuthors', 'cumulativeAuthors']]
-    currentAuthorSummaryTable.columns = ['Year', 'New First Authors', 'Total First Authors', 'All New Authors', 'Total Authors']
-    return currentAuthorSummaryTable

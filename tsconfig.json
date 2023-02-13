@@ -23,10 +23,10 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "paths": {
-      "community-dashboard": [
+      "@community-dashboard/community-dashboard": [
         "dist/community-dashboard"
       ],
-      "rest": [
+      "@community-dashboard/rest": [
         "dist/rest"
       ],
     },

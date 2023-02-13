@@ -35,14 +35,14 @@ export class RestDelegate<T extends {[key: string]: any}> {
     return this.rest.create<T>({host: this.host, path: this.path, ...params})
   }
 
-  replaceById<T>(params: {
+  replaceById<T extends {[key: string]: any}>(params: {
     id: Id,
     body: Omit<T, 'id'> | T
   }): Observable<T> {
     return this.rest.replaceById<T>({host: this.host, path: this.path, ...params})
   }
 
-  updateById<T>(params: {
+  updateById<T extends {[key: string]: any}>(params: {
     id: Id,
     body: T | Partial<Omit<T, 'id'>>
   }): Observable<T> {

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Rest, RestDelegate, RestToken } from 'rest';
+import { Rest, RestDelegate, RestToken } from '@community-dashboard/rest';
 import { map, Observable } from 'rxjs';
 
 export interface CourseStat {

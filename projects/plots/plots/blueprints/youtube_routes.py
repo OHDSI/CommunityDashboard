@@ -4,20 +4,17 @@ import re
 import string
 
 from plots.blueprints import htmlBuilderFunctions
-from plots.services import db
+from plots.services.db import get_db
 
-transcriptContainer = db.init_cosmos('transcripts')
 bp = Blueprint('youtube', __name__)
 
 @bp.route('/transcripts', methods = ['GET'])
 def transcripts():
-
+    db = get_db()
     transcriptID = request.args.get('id', None)
     transcript = ''
     #query item with the search query
-    for item in transcriptContainer.query_items( query='SELECT * FROM transcripts WHERE transcripts.id=@id',
-            parameters = [{ "name":"@id", "value": transcriptID }], 
-            enable_cross_partition_query=True):
+    for item in db.find('transcripts', {'where': {'id': transcriptID}}):
         if(item['id'] == request.args.get('id', None)):
             if(item['data'][0]['transcript'] == 'TranscriptsDisabled'):
                 transcript = 'Transcripts Disabled. Please check back later...'

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Rest, RestToken, RestDelegate } from 'rest';
+import { Rest, RestToken, RestDelegate } from '@community-dashboard/rest';
 import { map, Observable } from 'rxjs';
 
 export interface Publication  {

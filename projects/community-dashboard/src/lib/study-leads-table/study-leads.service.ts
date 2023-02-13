@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RestDelegate, RestMemory } from 'rest';
+import { RestDelegate, RestMemory } from '@community-dashboard/rest';
 import { StudiesService } from '../studies-table/studies.service';
 
 export interface StudyLead {

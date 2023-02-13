@@ -30,11 +30,6 @@ import requests
 
 from plots.services.db import get_db
 
-try:
-    from plots.config import Keys
-except ImportError:
-    pass
-
 # account_url = "https://bidsclassfs2.blob.core.windows.net"
 
 # # Create the BlobServiceClient object
@@ -42,26 +37,6 @@ except ImportError:
 # container_client = blob_service_client.get_container_client("ohdsistore")
 # resultObj = container_client.list_blobs(name_starts_with='en_core_sci_md-0.5.1/en_core_sci_md/en_core_sci_md-0.5.1/')
 
-
-def init_cosmos(container_name:str):
-    """ Initialize the Cosmos client
-    Parameters
-    ---
-    * container_name : str - Name of azure container in cosmos db
-    Returns container for cosmosclient
-    """
-    endpoint = Keys.AZURE_ENDPOINT
-    azure_key = Keys.AZURE_KEY
-
-    client = CosmosClient(endpoint, azure_key)
-    database_name = Keys.DB_NAME
-    database = client.create_database_if_not_exists(id=database_name)
-    container = database.create_container_if_not_exists(
-        id=container_name, 
-        partition_key=PartitionKey(path="/id"),
-        offer_throughput=400
-    )
-    return container
 
 @sleep_and_retry
 @limits(calls=3, period=1)
@@ -508,10 +483,10 @@ def getLastUpdatedCitations(containerName):
         lastUpdateResults: citation counts
 
     """
-    container = init_cosmos(containerName)
+    db = get_db()
     lastUpdateResults = {'citationInfo': {}}
     numCitation = 0
-    for item in container.query_items(query=str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
+    for item in db.find(containerName):
         title = item['data']['title']
         numCitation = item['data']['trackingChanges'][len(item['data']['trackingChanges'])-1]['numCitations']
         lastUpdateResults['citationInfo'][title] = numCitation
@@ -560,9 +535,9 @@ def fetchCurrentDataAndUpdate(containerName):
         result: dictionary of lists of articles
 
     """
-    container = init_cosmos(containerName)
+    db = get_db()
     result = defaultdict(list)
-    for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
+    for item in db.find(containerName):
         result[item['id']] = item['data']
     return result
 

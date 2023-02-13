@@ -1,0 +1,4 @@
+include plots/test/*.json
+include plots/test/*.sql
+include plots/test/*.pkl
+include plots/test/*.db

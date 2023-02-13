@@ -22,7 +22,7 @@ export interface Rest {
   }
 
   replaceById: {
-    <T>(params: {
+    <T extends {[key: string]: any}>(params: {
       host: string,
       path: string,
       id: Id,
@@ -31,7 +31,7 @@ export interface Rest {
    }
 
   updateById: {
-    <T>(params: {
+    <T extends {[key: string]: any}>(params: {
       host: string,
       path: string,
       id: Id,

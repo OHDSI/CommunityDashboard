@@ -55,7 +55,7 @@ yarn workspace @community-dashboard/navigation start
 # Production considerations
 - Database: For development purposes all projects use in-memory
   testing databases. For production deployment you will need to
-  implement [this rest interface]() via dependency injection.
+  implement [this rest interface](projects/rest/src/lib/rest.ts) via dependency injection.
 - Scheduling: This open source project does not depend on any
   particular scheduler. In production you may wish to execute
   back end functions on some schedule or in response to some
@@ -63,7 +63,6 @@ yarn workspace @community-dashboard/navigation start
   choice.
 
 # Getting Involved
-
 We use the GitHub issue tracker for all bugs/issues/enhancements
 
 # License

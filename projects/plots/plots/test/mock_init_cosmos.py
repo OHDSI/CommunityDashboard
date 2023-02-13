@@ -113,7 +113,7 @@ class MockCosmos:
                 n = r['course_fullname']
                 yield {
                     'course_id': i,
-                    'teachers': teachers(list(r['authors'].split(', '))),
+                    'teachers': list(teachers(list(r['authors'].split(', ')))),
                     'course_started': r['course_started'],
                     'course_fullname': n[n.find("[")+1:n.find("]")],
                     'course_shortname': r['course_shortname'],
