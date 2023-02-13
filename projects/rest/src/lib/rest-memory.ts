@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, delay, Observable, of, Subject, tap } from 'rxjs';
-import { Change, Id } from './rest';
+import { Change, Filter, FilterColumn, Id, Where } from './rest';
 
 export class RestMemory {
 
@@ -106,9 +106,7 @@ export class RestMemory {
     const t = this._getTableOrThrow(params.path)
     let d = Object.values({...t}) as any[]
     if (params.filter?.where) {
-      for (const [k, v] of Object.entries(params.filter?.where)) {
-        d = [...d.filter(r => r[k] === v)]
-      }
+      d = filterMemory(d, {where: params.filter.where})
     }
     return of(d.length)
   }
@@ -116,17 +114,14 @@ export class RestMemory {
 
 export const filterMemory = <T extends {[key: string]: any}>(
   d: T[],
-  filter: {
-    skip?: number,
-    limit?: number,
-    order?: string[],
-    where?: { [key: string]: any },
-  }
+  filter: Filter
 ) => {
   let f = [...d]
   if (filter.where) {
-    for (const [k, v] of Object.entries(filter.where)) {
-      f = [...d.filter(r => r[k] === v)]
+    if (filter.where.or) {
+      f =_filterOr(f, filter.where.or)
+    } else {
+      f = _filterAnd(f, filter.where)
     }
   }
   if (filter.order) {
@@ -135,6 +130,30 @@ export const filterMemory = <T extends {[key: string]: any}>(
   if (filter.skip !== undefined || filter.limit !== undefined) {
     const skip = filter.skip ? filter.skip : 0
     f = f.splice(skip, filter.limit)
+  }
+  return f
+}
+
+const _filterOr = <T extends {[key: string]: any}>(f: T[], a: FilterColumn[]) => {
+  return [...f.filter(r => {
+    return a.reduce((m, f) => _and(r, f) || m, false)
+  })]
+}
+
+const _and = <T extends {[key: string]: any}>(r: T, f: FilterColumn) => {
+  return Object.entries(f).reduce((m, [fk, fv]) => m && _match(r[fk], fv), true)
+}
+
+const _match = (v: any, fv: any) => {
+  if (fv.like) {
+    return (v as string).toLowerCase().includes(fv.like.toLowerCase())
+  }
+  return v === fv
+}
+
+const _filterAnd = <T extends {[key: string]: any}>(f: T[], a: Where) => {
+  for (const [k, v] of Object.entries(a)) {
+    f = [...f.filter(r => r[k] === v)]
   }
   return f
 }

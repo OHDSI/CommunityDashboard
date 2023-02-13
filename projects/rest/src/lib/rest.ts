@@ -7,6 +7,26 @@ export type Id = number | string
 
 export const RestToken = new InjectionToken<Rest>('RestToken')
 
+export type FilterColumn = { 
+  [key: string]: string | number | {
+    like: string
+  },
+}
+
+export type Where = { 
+  [key: string]: string | number | FilterColumn[] | undefined | {
+    like: string
+  },
+  or?: FilterColumn[]
+}
+
+export type Filter = {
+  skip?: number,
+  limit?: number,
+  order?: string[],
+  where?: Where,
+}
+
 export interface Rest {
 
   changes: Subject<Change>
@@ -45,12 +65,7 @@ export interface Rest {
       path: string,
       scope?: string,
       converter?: any,
-      filter?: {
-        skip?: number,
-        limit?: number,
-        order?: string[],
-        where?: { [key: string]: any },
-      }
+      filter?: Filter,
     }): Observable<T[]>
   }
 

@@ -1,0 +1,101 @@
+<div class="mat-elevation-z8">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Search</mat-label>
+    <input matInput [formControl]="searchControl" cdkFocusInitial>
+  </mat-form-field>
+
+  <table mat-table class="full-width white-space-nowrap" matSort aria-label="Elements">
+
+    <ng-container matColumnDef="DATE ADDED">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="{'max-width': '120px'}">
+        DATE ADDED
+      </th>
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        {{row["DATE ADDED"]}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="LOCATION FOUND">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="{'max-width': '120px'}">
+        LOCATION FOUND
+      </th>
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        {{row["LOCATION FOUND"]}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="LOCATION FOUND 2">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="{'max-width': '120px'}">
+        LOCATION FOUND 2
+      </th>
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        {{row["LOCATION FOUND 2"]}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="AGENCY">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="{'max-width': '120px'}">
+        AGENCY
+      </th>
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        {{row["AGENCY"]}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="OPPORTUNITY DETAILS">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="{'max-width': '120px'}">
+        OPPORTUNITY DETAILS
+      </th>
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        {{row["OPPORTUNITY DETAILS"]}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="OPPORTUNITY LINK">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="{'max-width': '120px'}">
+        OPPORTUNITY LINK
+      </th>
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        {{row["OPPORTUNITY LINK"]}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="BUDGET">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="{'max-width': '120px'}">
+        BUDGET
+      </th>
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        {{row["BUDGET"]}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="NUMBER YEARS">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="{'max-width': '120px'}">
+        NUMBER YEARS
+      </th>
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        {{row["NUMBER YEARS"]}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="SUBMISSION DEADLINE(S) IN 2023">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="{'max-width': '120px'}">
+        SUBMISSION DEADLINE(S) IN 2023
+      </th>
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        {{row["SUBMISSION DEADLINE(S) IN 2023"]}}
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="count"
+      [pageIndex]="0"
+      [pageSize]="5"
+      aria-label="Select page">
+  </mat-paginator>
+</div>

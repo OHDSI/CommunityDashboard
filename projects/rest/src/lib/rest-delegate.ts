@@ -1,4 +1,4 @@
-import { Rest, Id } from './rest';
+import { Rest, Id, Filter, Where } from './rest';
 import { Observable, of } from 'rxjs';
 import { filterMemory } from './rest-memory';
 
@@ -6,7 +6,7 @@ export class RestDelegate<T extends {[key: string]: any}> {
 
   changes = this.rest.changes
   status = this.rest.status
-  activeWhere?: { [key: string]: any }
+  activeWhere?: Where
 
   constructor(
     private rest: Rest,
@@ -14,7 +14,7 @@ export class RestDelegate<T extends {[key: string]: any}> {
     private path: string,
     private exampleFkValues?: Id[],
     private example: T[] = [],
-    where?: Observable<{ [key: string]: any }>,
+    where?: Observable<Where>,
     private exampleFk: string = 'siteId',
     private params?: {
       scope?: string,
@@ -50,12 +50,7 @@ export class RestDelegate<T extends {[key: string]: any}> {
   }
 
   find(params?: {
-    filter?: {
-      skip?: number,
-      limit?: number,
-      order?: string[],
-      where?: { [key: string]: any },
-    }
+    filter?: Filter
   }): Observable<T[]> {
     if (this.activeWhere && this.activeWhere[this.exampleFk] === null) {
       return of([])
@@ -67,16 +62,13 @@ export class RestDelegate<T extends {[key: string]: any}> {
       if (!params.filter) {
         params.filter = {}
       }
-      if (!params.filter.where) {
-        params.filter.where = {}
-      }
       params.filter.where = {...this.activeWhere, ...params.filter.where}
     }
     if (
       this.exampleFkValues !== undefined &&
       params?.filter?.where &&
       this.exampleFk in params.filter.where &&
-      this.exampleFkValues.includes(params.filter.where[this.exampleFk])
+      this.exampleFkValues.includes((params.filter.where as any)[this.exampleFk])
     ) {
       return of(params?.filter ? filterMemory(this.example, params.filter) : this.example)
     }
