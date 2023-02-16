@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
-import { Rest, RestDelegate, RestToken } from '@community-dashboard/rest';
+import { Id, Rest, RestDelegate, RestToken } from '@community-dashboard/rest';
 
 export interface Funding {
+  "id": Id,
   "DATE ADDED": string,
   "LOCATION FOUND": string,
   "LOCATION FOUND 2": string,

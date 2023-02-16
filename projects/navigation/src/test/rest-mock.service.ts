@@ -11,7 +11,9 @@ function records(a: {[key: string]: {[key: string]: any}}) {
   for (const [c, rs] of Object.entries(a)) {
     for (const [k, r] of Object.entries(rs)) {
       if (!(k in records)) {
-        const n: {[key: string]: any} = {}
+        const n: {[key: string]: any} = {
+          id: k
+        }
         records[k] = n
       }
       records[k][c] = r
