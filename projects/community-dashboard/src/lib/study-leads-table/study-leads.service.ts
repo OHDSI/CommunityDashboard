@@ -38,9 +38,9 @@ export class StudyLeadsService extends RestDelegate<StudyLead> {
               }
             }
             leads[lead].completed += 1
-            const updatedAt = new Date(s.lastUpdate)
-            const daysSinceLastUpdate = (now.getTime() - updatedAt.getTime()) / DAYS
-            if (daysSinceLastUpdate < 90) {
+            const updatedAt = s.lastUpdate ? new Date(s.lastUpdate) : null
+            const daysSinceLastUpdate = updatedAt ? (now.getTime() - updatedAt.getTime()) / DAYS : null
+            if (daysSinceLastUpdate !== null && daysSinceLastUpdate < 90) {
               leads[lead].active += 1
             }
           }

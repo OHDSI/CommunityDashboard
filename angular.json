@@ -19,7 +19,7 @@
               "tsConfig": "projects/community-dashboard/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/community-dashboard/tsconfig.lib.json",
+              "tsConfig": "projects/community-dashboard/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -101,7 +101,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",

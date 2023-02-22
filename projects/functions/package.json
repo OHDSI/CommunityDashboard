@@ -53,6 +53,7 @@
     "@types/jest": "^29.2.5",
     "loopback-connector-openapi": "^6.2.0",
     "nodemon": "^2.0.20",
+    "octokit": "^2.0.14",
     "openapi": "^1.0.1",
     "rxjs": "^7.8.0",
     "swagger-client": "^3.18.5",

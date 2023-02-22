@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { RestDelegate, RestMemory } from '@community-dashboard/rest';
 import { ScanLog, ScanLogsService } from './scan-logs.service';
 import * as d3 from 'd3'
@@ -28,6 +28,7 @@ export class StudyPipelineService extends RestDelegate<StudyPromotion> {
 
   constructor(
     private scanLogsService: ScanLogsService,
+    private errorHandler: ErrorHandler,
   ) {
     const promotions: {[key: string]: StudyPromotion} = {}
     const rest = new RestMemory({
@@ -49,20 +50,30 @@ export class StudyPipelineService extends RestDelegate<StudyPromotion> {
         ]
         let i = 0
         for (const [repoName, commits] of byStudy.entries()) {
-          const startDate = new Date(new Date(commits[0].readmeCommit!.author.date))
+          const startAuthorDate = commits[0].readmeCommit!.author?.date
+          if (!startAuthorDate) {
+            this.errorHandler.handleError('first commit has no author date')
+            continue
+          }
+          const startDate = new Date(new Date(startAuthorDate))
           let status = undefined
           for (const c of commits) {
-            const newStatus = c.readmeCommit!.summary.status
-            const newDate = new Date(new Date(c.readmeCommit!.author.date))
+            const newStatus = c.readmeCommit!.summary?.status
+            const newAuthorDate = c.readmeCommit!.author?.date
+            if (!newAuthorDate) {
+              this.errorHandler.handleError('new commit has no author date')
+            continue
+            }
+            const newDate = new Date(new Date(newAuthorDate))
             if (newStatus !== status) {
               promotions[i] = {
                 id: i.toString(),
                 repoName,
                 days: (newDate.getTime() - startDate.getTime()) / DAYS,
                 stage: newStatus && VALID_STATUS.includes(newStatus) ? newStatus : 'Invalid / Suspended',
-                tags: c.readmeCommit!.summary.tags || [],
-                useCases: c.readmeCommit!.summary.useCases || [],
-                studyType: c.readmeCommit!.summary.studyType || [],
+                tags: c.readmeCommit!.summary?.tags || [],
+                useCases: c.readmeCommit!.summary?.useCases || [],
+                studyType: c.readmeCommit!.summary?.studyType || [],
               }
               status = newStatus
               i += 1
@@ -76,63 +87,5 @@ export class StudyPipelineService extends RestDelegate<StudyPromotion> {
   _nullIfDash(s: string | undefined) {
     return s === '-' ? null : s
   }
-
-  // find(): Observable<StudyPipelineStage[]> {
-    // return this.scanLogsService.cache.pipe(
-    //   map(ls => {
-    //     const p: {[key: string]: any} = {
-    //       "Repo Created": {
-    //         stage: "Repo Created",
-    //         'studies at stage': 0,
-    //         'active studies at stage (last 30 days)': 0,
-    //         'days since last update': [],
-    //         'avg. days since last update': null,
-    //       },
-    //       "Started": {
-    //         stage: "Started",
-    //         'studies at stage': 0,
-    //         'active studies at stage (last 30 days)': 0,
-    //         'days since last update': [],
-    //         'avg. days since last update': null,
-    //       },
-    //       "Design Finalized": {
-    //         stage: "Design Finalized",
-    //         'studies at stage': 0,
-    //         'active studies at stage (last 30 days)': 0,
-    //         'days since last update': [],
-    //         'avg. days since last update': null,
-    //       },
-    //       "Results Available": {
-    //         stage: "Results Available",
-    //         'studies at stage': 0,
-    //         'active studies at stage (last 30 days)': 0,
-    //         'days since last update': [],
-    //         'avg. days since last update': null,
-    //       },
-    //     }
-    //     const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
-    //     const DAYS = 1000 * 3600 * 24
-    //     const now = new Date()
-    //     ls.forEach(l => {
-    //       const stage = l.readmeCommit?.summary.status
-    //       if (!stage) { return }
-    //       if (!(stage in p)) { return }
-    //       p[stage]['studies at stage'] += 1
-    //       const updatedAt = new Date(l.repository!.updatedAt)
-    //       const daysSinceLastUpdate = (now.getTime() - updatedAt.getTime()) / DAYS
-    //       p[stage]['days since last update'].push(daysSinceLastUpdate)
-    //       if (daysSinceLastUpdate < 90) {
-    //         p[stage]['active studies at stage (last 30 days)'] += 1
-    //       }
-    //     })
-    //     Object.values(p).forEach(s => {
-    //       if(s['days since last update'].length) {
-    //         s['avg. days since last update'] = average(s['days since last update'])
-    //       }
-    //     })
-    //     return Object.values(p)
-    //   })
-    // )
-  // }
 
 }

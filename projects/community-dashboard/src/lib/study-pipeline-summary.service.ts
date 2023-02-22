@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { RestDelegate, RestMemory } from '@community-dashboard/rest';
 import { ScanLog, ScanLogsService } from './scan-logs.service';
 import * as d3 from 'd3'
@@ -25,6 +25,7 @@ export class StudyPipelineSummaryService extends RestDelegate<PipelineStage> {
 
   constructor(
     private scanLogsService: ScanLogsService,
+    private errorHandler: ErrorHandler
   ) {
     const stages: {[key: string]: PipelineStage} = {}
     const rest = new RestMemory({
@@ -45,11 +46,21 @@ export class StudyPipelineSummaryService extends RestDelegate<PipelineStage> {
           'Complete',
         ]
         for (const [repoName, commits] of byStudy.entries()) {
-          const lastUpdate = new Date(new Date(commits[0].readmeCommit!.author.date))
-          const status = commits[0].readmeCommit!.summary.status && VALID_STATUS.includes(commits[0].readmeCommit!.summary.status) ? commits[0].readmeCommit!.summary.status : 'Invalid / Suspended'
+          const lastAuthorDate = commits[0].readmeCommit!.author?.date
+          if (!lastAuthorDate) {
+            this.errorHandler.handleError('last commit missing author date')
+            continue
+          }
+          const lastUpdate = new Date(new Date(lastAuthorDate))
+          const status = commits[0].readmeCommit!.summary?.status && VALID_STATUS.includes(commits[0].readmeCommit!.summary.status) ? commits[0].readmeCommit!.summary.status : 'Invalid / Suspended'
           for (const c of commits) {
-            const newStatus = c.readmeCommit!.summary.status && VALID_STATUS.includes(c.readmeCommit!.summary.status) ? c.readmeCommit!.summary.status : 'Invalid / Suspended'
-            const promotionDate = new Date(new Date(c.readmeCommit!.author.date))
+            const newStatus = c.readmeCommit!.summary?.status && VALID_STATUS.includes(c.readmeCommit!.summary.status) ? c.readmeCommit!.summary.status : 'Invalid / Suspended'
+            const authorDate = c.readmeCommit!.author?.date
+            if (!authorDate) {
+              this.errorHandler.handleError('commit missing author date')
+              continue
+            }
+            const promotionDate = new Date(new Date(authorDate))
             if (newStatus !== status) {
               let days
               const atStage = (lastUpdate.getTime() - promotionDate.getTime()) / DAYS

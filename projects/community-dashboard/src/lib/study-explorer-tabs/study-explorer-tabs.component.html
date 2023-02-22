@@ -9,6 +9,16 @@
     <div class="flex-container flex-direction-column">
       <div #studyProgress class="align-self-center plot-margin-top"></div>
       <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Search</mat-label>
+          <input matInput [formControl]="studyProgressSearchControl" required cdkFocusInitial>
+        </mat-form-field>
+      </div>
+      <div class="display-flex">
+        <mat-form-field appearance="fill">
+          <mat-label>MaxDays</mat-label>
+          <input matInput [formControl]="studyProgressMaxDaysControl" required>
+        </mat-form-field>
         <mat-selection-list [formControl]="studyProgressControl" class="progress-option-width">
           <mat-list-option [value]="'logScale'">
             <div class="flex-container">
@@ -28,10 +38,6 @@
             </div>        
           </mat-list-option> -->
         </mat-selection-list>
-        <mat-form-field appearance="fill">
-          <mat-label>Search</mat-label>
-          <input matInput [formControl]="studyProgressSearchControl" required cdkFocusInitial>
-        </mat-form-field>
       </div>
     </div>
   </ng-template>

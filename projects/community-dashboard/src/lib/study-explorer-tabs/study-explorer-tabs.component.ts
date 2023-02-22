@@ -47,8 +47,9 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
   daysMetrics = ['avg. days since last update']
   studyLeadMetrics = ['active', 'completed']
   exceptionMetrics = ['count']
-  studyProgressControl = new FormControl<string[]>(['logScale'])
+  studyProgressControl = new FormControl<string[]>([])
   studyProgressSearchControl = new FormControl('Covid')
+  studyProgressMaxDaysControl = new FormControl(180)
   countMetricsControl = new FormControl<string[]>([...this.countMetrics])
   daysMetricsControl = new FormControl<string[]>([...this.daysMetrics])
 
@@ -206,6 +207,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
         ]
       },
       x: {
+        domain: [0, 180],
         ...log
       },
       color: {

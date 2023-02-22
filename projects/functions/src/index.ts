@@ -2,6 +2,7 @@ import debug from 'debug';
 import {ApplicationConfig, ApiApplication} from './application';
 
 export * from './application';
+export * from './events/github-miner';
 
 debug.enable('community-dashboard:api:*')
 

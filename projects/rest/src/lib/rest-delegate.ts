@@ -17,7 +17,7 @@ export class RestDelegate<T extends {[key: string]: any}> {
     where?: Observable<Where>,
     private exampleFk: string = 'siteId',
     private params?: {
-      scope?: string,
+      scope?: string | ((scope: {[key: string]: string}) => string) ,
       converter?: any
     }
   ) {
@@ -50,7 +50,10 @@ export class RestDelegate<T extends {[key: string]: any}> {
   }
 
   find(params?: {
-    filter?: Filter
+    filter?: Filter,
+    delegate?: {
+      scope: {[key: string]: string},
+    }
   }): Observable<T[]> {
     if (this.activeWhere && this.activeWhere[this.exampleFk] === null) {
       return of([])
@@ -75,9 +78,31 @@ export class RestDelegate<T extends {[key: string]: any}> {
     return this.rest.find<T>({
       host: this.host, 
       path: this.path, 
-      ...this.params,
+      ...{
+        ...this.params,
+        scope: this.resolveScope(params?.delegate?.scope)
+      },
       ...params
     })
+  }
+
+  resolveScope(scope?: {[key: string]: string}) {
+    if (!this.params?.scope) {
+      if (scope) {
+        throw new Error('Scope cannot be resolved because delegate was not constructed with scope.')
+      }
+      return undefined
+    }
+    if (this.params.scope instanceof String) {
+      if (scope) {
+        throw new Error('Scope cannot be resolved because delegate was constructed with string scope.')
+      }
+      return this.params.scope as string
+    }
+    if (!scope) {
+      throw new Error('Scope cannot be resolved because scope parameters were not provided.')
+    }
+    return (this.params.scope as (scope: {[key: string]: string}) => string)(scope)
   }
 
   findById(params: {
@@ -86,7 +111,7 @@ export class RestDelegate<T extends {[key: string]: any}> {
     return this.rest.findById<T>({
       host: this.host, 
       path: this.path, 
-      scope: this.params?.scope,
+      scope: this.resolveScope(),
       ...params
     })
   }

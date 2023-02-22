@@ -1,8 +1,38 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, delay, Observable, of, Subject, tap } from 'rxjs';
-import { Change, Filter, FilterColumn, Id, Where } from './rest';
+import { Change, Filter, FilterColumn, Id, Rest, Where } from './rest';
 
-export class RestMemory {
+// Utilities for indexing in memory data
+
+export function index(a: any[]) {
+  return a.reduce(([acc, i], v) => {acc[v.id || i.toString()] = v; return [acc, i+1]}, [{}, 0])[0]
+}
+
+export function indexAll(fixtures: {[key: string]: any[]}) {
+  const indexed: {[key: string]: {[key: Id]: object}} = {}
+  for (const k in fixtures) {
+    indexed[k] = index(fixtures[k])
+  }
+  return indexed
+}
+
+export function records(a: {[key: string]: {[key: string]: any}}) {
+  const records: {[key: Id]: {[key: string]: any}} = {}
+  for (const [c, rs] of Object.entries(a)) {
+    for (const [k, r] of Object.entries(rs)) {
+      if (!(k in records)) {
+        const n: {[key: string]: any} = {
+          id: k
+        }
+        records[k] = n
+      }
+      records[k][c] = r
+    }
+  }
+  return records
+}
+
+export class RestMemory implements Rest {
 
   changes = new Subject<Change>()
   status = new BehaviorSubject<HttpErrorResponse | null>(null)
@@ -67,16 +97,12 @@ export class RestMemory {
   }
 
   find<T extends {[key: string]: any}>(params: {
-    path: string,
-    scope?: string,
-    converter?: any,
-    filter?: {
-      skip?: number,
-      limit?: number,
-      order?: string[],
-      where?: { [key: string]: any },
-    }
-  }): Observable<T[]> {
+      host: string,
+      path: string,
+      scope?: string,
+      converter?: any,
+      filter?: Filter,
+    }): Observable<T[]> {
     const t = this._getTableOrThrow(params.path, params.scope)
     const d = Object.values({...t}) as T[]
     const f = params.filter ? filterMemory(d, params.filter) : d
@@ -84,6 +110,7 @@ export class RestMemory {
   }
 
   findById<T>(params: {
+    host: string,
     path: string,
     id: Id,
     scope?: string,

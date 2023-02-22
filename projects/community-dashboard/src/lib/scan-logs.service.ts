@@ -1,6 +1,8 @@
-import { Inject, Injectable } from '@angular/core';
-import { RestToken, RestDelegate, Rest } from '@community-dashboard/rest';
-import { map, of, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { RestDelegate, RestMemory } from '@community-dashboard/rest';
+import { of, tap } from 'rxjs';
+import { ReadmeSummariesService } from './studies-table/readme-summaries.service';
+import { RepoSummariesService } from './studies-table/repo-summaries.service';
 
 export enum Status {
   COMPLETE = 'complete',
@@ -9,36 +11,33 @@ export enum Status {
 }
 
 export interface ScanLog {
-  id: number,
-  scanId: number,
-  status: Status,
+  id: string,
   repository?: {
     name: string,
-    updatedAt: string,
-    watchersCount: number,
+    updatedAt?: string | null,
+    watchersCount?: number,
   },
   readmeCommit?: {
     repoName: string,
     sha: string,
     author: {
-      name: string,
-      email: string,
-      date: string,
-    },
+      name?: string,
+      email?: string,
+      date?: string,
+    } | null,
     summary: {
-      exists: boolean,
-      title?: string,
-      status?: string,
-      useCases?: string[],
-      studyType?: string[],
-      tags?: string[],
-      studyLead?: string[],
-      startDate?: string,
-      endDate?: string,
-      protocol?: string,
-      publications?: string,
-      results?: string,
-    }
+      title: string | null,
+      status: string | null,
+      useCases: string[] | null,
+      studyType: string[] |null,
+      tags: string[] |null,
+      studyLeads: string[] | null,
+      startDate: string|null,
+      endDate: string|null,
+      protocol: string|null,
+      publications: string|null,
+      results: string|null,
+    } | null
   },
 }
 
@@ -50,17 +49,38 @@ export class ScanLogsService extends RestDelegate<ScanLog> {
   _cache: ScanLog[] = []
 
   constructor(
-    @Inject(RestToken) rest: Rest,
-    @Inject('environment') environment: any,
+    private repoSummariesService: RepoSummariesService,
+    private readmeSummariesService: ReadmeSummariesService
   ) {
-    super(
-      rest, environment.rest, 'logs', 
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      {scope: '/scans/12'}
-    )
+    const scanLogs: {[key: string]: ScanLog} = {}
+    const rest = new RestMemory({
+      '/scan-logs': scanLogs
+    })
+    super(rest, '', 'scan-logs')
+    this.repoSummariesService.find().subscribe({
+      next: (rs) => {
+        for (const r of rs) {
+          this.readmeSummariesService.find({
+            delegate: {scope: {repo: r.name}}
+          }).subscribe({
+            next: ss => {
+              for (const s of ss) {
+                scanLogs[s.sha] = {
+                  id: s.sha,
+                  repository: r!,
+                  readmeCommit: {
+                    repoName: r.name,
+                    sha: s.sha,
+                    author: s.author,
+                    summary: s.summary
+                  }
+                }
+              }
+            }
+          })
+        }
+      }
+    })
   }
 
   get cache() {

@@ -5,19 +5,19 @@ import * as d3 from 'd3'
 
 export interface Study  {
   id: number,
-  title?: string,
+  title?: string | null,
   gitRepo: string | null,
-  status?: string,
-  useCases?: string[],
-  type?: string[],
-  tags?: string[],
-  lead?: string[],
+  status?: string | null,
+  useCases?: string[] | null,
+  type?: string[] | null,
+  tags?: string[] | null,
+  lead?: string[] | null,
   start?: string | null,
   end?: string | null,
   protocol?: string | null,
   publications?: string | null,
   results?: string | null,
-  lastUpdate: Date,
+  lastUpdate: Date | null,
 }
 
 @Injectable({
@@ -43,21 +43,22 @@ export class StudiesService extends RestDelegate<Study> {
         const byStudy = d3.group(readmeCommits, (c: ScanLog) => c.readmeCommit!.repoName) as {values: () => ScanLog[][]}
         let i = 0
         for (const commits of byStudy.values()) {
+          const authorDate = commits[0].readmeCommit!.author?.date
           studies[i] = {
             id: i,
-            title: commits[0].readmeCommit!.summary.title,
+            title: commits[0].readmeCommit!.summary?.title,
             gitRepo: commits[0].readmeCommit!.repoName,
-            status: commits[0].readmeCommit!.summary.status,
-            useCases: commits[0].readmeCommit!.summary.useCases,
-            type: commits[0].readmeCommit!.summary.studyType,
-            tags: commits[0].readmeCommit!.summary.tags,
-            lead: commits[0].readmeCommit!.summary.studyLead,
-            start: commits[0].readmeCommit!.summary.startDate,
-            end: commits[0].readmeCommit!.summary.endDate,
-            protocol: this._nullIfDash(commits[0].readmeCommit!.summary.protocol),
-            publications: commits[0].readmeCommit!.summary.publications,
-            results: this._nullIfDash(commits[0].readmeCommit!.summary.results),
-            lastUpdate: new Date(commits[0].readmeCommit!.author.date)
+            status: commits[0].readmeCommit!.summary?.status,
+            useCases: commits[0].readmeCommit!.summary?.useCases,
+            type: commits[0].readmeCommit!.summary?.studyType,
+            tags: commits[0].readmeCommit!.summary?.tags,
+            lead: commits[0].readmeCommit!.summary?.studyLeads,
+            start: commits[0].readmeCommit!.summary?.startDate,
+            end: commits[0].readmeCommit!.summary?.endDate,
+            protocol: this._nullIfDash(commits[0].readmeCommit!.summary?.protocol),
+            publications: commits[0].readmeCommit!.summary?.publications,
+            results: this._nullIfDash(commits[0].readmeCommit!.summary?.results),
+            lastUpdate: authorDate ? new Date(authorDate) : null
           }
           i += 1
         }
@@ -65,7 +66,7 @@ export class StudiesService extends RestDelegate<Study> {
     })
   }
 
-  _nullIfDash(s: string | undefined) {
+  _nullIfDash(s: string | undefined | null) {
     return s === '-' ? null : s
   }
 
