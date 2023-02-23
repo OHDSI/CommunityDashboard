@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { RestDelegate, RestMemory } from '@community-dashboard/rest';
 import { ScanLog, ScanLogsService } from '../scan-logs.service';
 import * as d3 from 'd3'
+import { map } from 'rxjs';
 
 export interface Study  {
   id: number,
@@ -26,15 +27,12 @@ export interface Study  {
 export class StudiesService extends RestDelegate<Study> {
 
   constructor(
-    private scanLogsService: ScanLogsService,
+    scanLogsService: ScanLogsService,
   ) {
-    const studies: {[key: string]: Study} = {}
-    const rest = new RestMemory({
-      '/studies': studies
-    })
-    super(rest, '', 'studies')
-    this.scanLogsService.cache.subscribe({
-      next: (ls: any) => {
+    
+    const rest = new RestMemory(scanLogsService.cache.pipe(
+      map((ls: any) => {
+        const studies: {[key: string]: Study} = {}
         const readmeCommits = ls.filter((l: any) => l.readmeCommit)
           // .map(c => {
           //   (c as any).readmeCommit!.author.date = new Date(c.readmeCommit!.author.date)
@@ -62,8 +60,12 @@ export class StudiesService extends RestDelegate<Study> {
           }
           i += 1
         }
-      }
-    })
+        return {
+          '/studies': studies
+        }
+      })
+    ))
+    super(rest, '', 'studies')
   }
 
   _nullIfDash(s: string | undefined | null) {

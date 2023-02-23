@@ -90,7 +90,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
     if (this.studyProgress) {
       // from(d3.csv('https://raw.githubusercontent.com/observablehq/plot/main/test/data/bls-metro-unemployment.csv')).subscribe({
       this.studyPipelineService.find().subscribe({
-        next: (data: StudyPromotion[]) => {
+        next: (data: unknown[]) => {
           if(this.studyProgress.nativeElement) {
             this.studyProgress.nativeElement?.replaceChildren(
               this._studyProgressPlot(data)
@@ -188,7 +188,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
       d.studyType.join(' ').toLowerCase().includes(search.toLowerCase())
   }
 
-  _studyProgressPlot(data: StudyPromotion[]) {
+  _studyProgressPlot(data: unknown[]) {
     
     const log = this.studyProgressControl.value!.includes('logScale') ? {type: 'log'} : {}
     return add_tooltips(Plot.plot({

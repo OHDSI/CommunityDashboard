@@ -1,10 +1,10 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { RepoSummariesService } from './repo-summaries.service';
+import { ReadmeSummariesService } from './readme-summaries.service';
 
 describe('ReadmeSummariesService', () => {
-  let service: RepoSummariesService;
+  let service: ReadmeSummariesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -12,7 +12,7 @@ describe('ReadmeSummariesService', () => {
         HttpClientTestingModule,
       ]
     });
-    service = TestBed.inject(RepoSummariesService);
+    service = TestBed.inject(ReadmeSummariesService);
   });
 
   it('should be created', () => {

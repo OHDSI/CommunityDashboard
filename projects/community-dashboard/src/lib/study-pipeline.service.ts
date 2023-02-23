@@ -1,7 +1,8 @@
 import { ErrorHandler, Injectable } from '@angular/core';
-import { RestDelegate, RestMemory } from '@community-dashboard/rest';
+import { Filter, RestDelegate, RestMemory } from '@community-dashboard/rest';
 import { ScanLog, ScanLogsService } from './scan-logs.service';
 import * as d3 from 'd3'
+import { concatMap, map, Observable } from 'rxjs';
 
 export interface StudyPipelineStage {
   id: number,
@@ -27,16 +28,12 @@ export interface StudyPromotion {
 export class StudyPipelineService extends RestDelegate<StudyPromotion> {
 
   constructor(
-    private scanLogsService: ScanLogsService,
-    private errorHandler: ErrorHandler,
+    scanLogsService: ScanLogsService,
+    errorHandler: ErrorHandler,
   ) {
-    const promotions: {[key: string]: StudyPromotion} = {}
-    const rest = new RestMemory({
-      '/study-promotions': promotions
-    })
-    super(rest, '', 'study-promotions')
-    this.scanLogsService.cache.subscribe({
-      next: (ls: any) => {
+    const rest = new RestMemory(scanLogsService.cache.pipe(
+      map((ls: any) => {
+        const promotions: {[key: string]: StudyPromotion} = {}
         const readmeCommits = ls.filter((l: any) => l.readmeCommit)
           .sort((a: any, b: any) => d3.ascending(a.readmeCommit!.author.date, b.readmeCommit!.author.date))
         const byStudy = d3.group(readmeCommits, (c: ScanLog) => c.readmeCommit!.repoName) as Map<string, ScanLog[]>
@@ -52,7 +49,7 @@ export class StudyPipelineService extends RestDelegate<StudyPromotion> {
         for (const [repoName, commits] of byStudy.entries()) {
           const startAuthorDate = commits[0].readmeCommit!.author?.date
           if (!startAuthorDate) {
-            this.errorHandler.handleError('first commit has no author date')
+            errorHandler.handleError('first commit has no author date')
             continue
           }
           const startDate = new Date(new Date(startAuthorDate))
@@ -61,7 +58,7 @@ export class StudyPipelineService extends RestDelegate<StudyPromotion> {
             const newStatus = c.readmeCommit!.summary?.status
             const newAuthorDate = c.readmeCommit!.author?.date
             if (!newAuthorDate) {
-              this.errorHandler.handleError('new commit has no author date')
+              errorHandler.handleError('new commit has no author date')
             continue
             }
             const newDate = new Date(new Date(newAuthorDate))
@@ -80,8 +77,12 @@ export class StudyPipelineService extends RestDelegate<StudyPromotion> {
             }
           }
         }
-      }
-    })
+        return {
+          '/study-promotions': promotions
+        }
+      })
+    ))
+    super(rest, '', 'study-promotions')
   }
 
   _nullIfDash(s: string | undefined) {

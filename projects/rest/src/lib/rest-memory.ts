@@ -1,11 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, delay, Observable, of, Subject, tap } from 'rxjs';
+import { BehaviorSubject, concat, concatAll, concatMap, delay, from, map, Observable, of, reduce, Subject, takeLast, tap } from 'rxjs';
 import { Change, Filter, FilterColumn, Id, Rest, Where } from './rest';
 
 // Utilities for indexing in memory data
 
 export function index(a: any[]) {
-  return a.reduce(([acc, i], v) => {acc[v.id || i.toString()] = v; return [acc, i+1]}, [{}, 0])[0]
+  return a.reduce(([acc, i], v) => {acc[v.id || `i${i.toString()}`] = v; return [acc, i+1]}, [{}, 0])[0]
 }
 
 export function indexAll(fixtures: {[key: string]: any[]}) {
@@ -36,16 +36,23 @@ export class RestMemory implements Rest {
 
   changes = new Subject<Change>()
   status = new BehaviorSubject<HttpErrorResponse | null>(null)
+  tables: Observable<{[key: string]: {[key: Id]: object}}>
 
   constructor(
-    private tables: {[key: string]: {[key: Id]: object}}
-  ) {}
+    tables: {[key: string]: {[key: Id]: object}} | Observable<{[key: string]: {[key: Id]: object}}>
+  ) {
+    if (tables instanceof Observable) {
+      this.tables = tables
+    } else {
+      this.tables = of(tables)
+    }
+  }
 
-  _getTableOrThrow(path: string, scope?: string) {
+  _getTableOrThrow(tables: {[key: string]: {[key: Id]: object}}, path: string, scope?: string) {
     if (!scope) {
       scope = ''
     }
-    const t = this.tables[`${scope}/${path}`]
+    const t =  tables[`${scope}/${path}`]
     if (!t) {
       throw new Error(`Expected memory table to be defined for path ${path}.`)
     }
@@ -56,11 +63,15 @@ export class RestMemory implements Rest {
     path: string,
     body: Omit<T, 'id'>
   }): Observable<T> {
-    const t = this._getTableOrThrow(params.path)
-    const id = Object.keys(t).length.toString()
-    const n = {...params.body, id} as T
-    t[id] = n
-    return of(n).pipe(
+
+    return this.tables.pipe(
+      map(ts => this._getTableOrThrow(ts, params.path)),
+      map(t => {
+        const id = Object.keys(t).length.toString()
+        const n = {...params.body, id} as T
+        t[id] = n
+        return n
+      }),
       delay(2000),
       tap(_ => this.changes.next({}))
     )
@@ -71,10 +82,12 @@ export class RestMemory implements Rest {
     id: Id,
     body: Omit<T, 'id'> | T
   }): Observable<T> {
-    const t = this._getTableOrThrow(params.path)
-    const n = {id: params.id, ...params.body}
-    t[params.id] = n
-    return of(n as T).pipe(
+    return this.tables.pipe(
+      map(ts => this._getTableOrThrow(ts, params.path)),
+      map(table => {
+        const n = {id: params.id, ...params.body}
+        table[params.id] = n; return n as T
+      }),
       delay(2000),
       tap(_ => this.changes.next({}))
     )
@@ -85,28 +98,36 @@ export class RestMemory implements Rest {
     id: Id,
     body: Partial<Omit<T, 'id'>> | T
   }): Observable<T> {
-    const t = this._getTableOrThrow(params.path)
-    const a = t[params.id] as {[key: Id]: object}
-    for (const [k, v] of Object.entries(params.body as object)) {
-      a[k] = v
-    }
-    return of(a as T).pipe(
+    return this.tables.pipe(
+      map(ts => this._getTableOrThrow(ts, params.path)),
+      map(table => {
+        const a = table[params.id] as {[key: Id]: object}
+        for (const [k, v] of Object.entries(params.body as object)) {
+          a[k] = v
+        }
+        return a as T
+      }),
       delay(2000),
       tap(_ => this.changes.next({}))
     )
   }
 
   find<T extends {[key: string]: any}>(params: {
-      host: string,
-      path: string,
-      scope?: string,
-      converter?: any,
-      filter?: Filter,
-    }): Observable<T[]> {
-    const t = this._getTableOrThrow(params.path, params.scope)
-    const d = Object.values({...t}) as T[]
-    const f = params.filter ? filterMemory(d, params.filter) : d
-    return of(f)
+    host: string,
+    path: string,
+    scope?: string,
+    converter?: any,
+    filter?: Filter,
+  }): Observable<T[]> {
+    return this.tables.pipe(
+      map(ts => this._getTableOrThrow(ts, params.path, params.scope)),
+      map(table => {
+        const d = Object.values({...table}) as T[]
+        const f = params.filter ? filterMemory(d, params.filter) : d
+        return f
+      }),
+      // delay(500)
+    )
   }
 
   findById<T>(params: {
@@ -115,13 +136,16 @@ export class RestMemory implements Rest {
     id: Id,
     scope?: string,
   }): Observable<T> {
-    const t = this._getTableOrThrow(params.path, params.scope)
-    if (!(params.id in t)) {
-      return new Observable(() => {
-        throw new HttpErrorResponse({status: 404})
-      })
-    }
-    return of(t[params.id] as T)
+    return this.tables.pipe(
+      map(ts => this._getTableOrThrow(ts, params.path, params.scope)),
+      map(table => {
+        if (!(params.id in table)) {
+          throw new HttpErrorResponse({status: 404})
+        }
+        return table[params.id] as T
+      }),
+      delay(500)
+    )
   }
 
   count(params: {
@@ -130,12 +154,17 @@ export class RestMemory implements Rest {
       where?: { [key: string]: any },
     }
   }): Observable<number> {
-    const t = this._getTableOrThrow(params.path)
-    let d = Object.values({...t}) as any[]
-    if (params.filter?.where) {
-      d = filterMemory(d, {where: params.filter.where})
-    }
-    return of(d.length)
+    return this.tables.pipe(
+      map(ts => this._getTableOrThrow(ts, params.path)),
+      map(table => {
+        let d = Object.values({...table}) as any[]
+        if (params.filter?.where) {
+          d = filterMemory(d, {where: params.filter.where})
+        }
+        return d.length
+      }),
+      delay(500)
+    )
   }
 }
 

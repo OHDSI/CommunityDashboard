@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestDelegate, RestMemory } from '@community-dashboard/rest';
-import { of, tap } from 'rxjs';
+import { concatMap, from, map, Observable, of, reduce, shareReplay, tap } from 'rxjs';
 import { ReadmeSummariesService } from './studies-table/readme-summaries.service';
 import { RepoSummariesService } from './studies-table/repo-summaries.service';
 
@@ -46,26 +46,19 @@ export interface ScanLog {
 })
 export class ScanLogsService extends RestDelegate<ScanLog> {
 
-  _cache: ScanLog[] = []
-
   constructor(
-    private repoSummariesService: RepoSummariesService,
-    private readmeSummariesService: ReadmeSummariesService
+    repoSummariesService: RepoSummariesService,
+    readmeSummariesService: ReadmeSummariesService
   ) {
-    const scanLogs: {[key: string]: ScanLog} = {}
-    const rest = new RestMemory({
-      '/scan-logs': scanLogs
-    })
-    super(rest, '', 'scan-logs')
-    this.repoSummariesService.find().subscribe({
-      next: (rs) => {
-        for (const r of rs) {
-          this.readmeSummariesService.find({
-            delegate: {scope: {repo: r.name}}
-          }).subscribe({
-            next: ss => {
-              for (const s of ss) {
-                scanLogs[s.sha] = {
+    const rest = new RestMemory(repoSummariesService.find().pipe(
+      concatMap((rs) => {
+        return from(rs).pipe(
+          concatMap(r => {
+            return readmeSummariesService.find({
+              delegate: {scope: {repo: r.name}}
+            }).pipe(
+              concatMap(ss => {
+                return ss.map(s => ({
                   id: s.sha,
                   repository: r!,
                   readmeCommit: {
@@ -74,29 +67,31 @@ export class ScanLogsService extends RestDelegate<ScanLog> {
                     author: s.author,
                     summary: s.summary
                   }
-                }
-              }
-            }
+                }))
+              })
+            )
           })
-        }
-      }
-    })
+        )
+      }),
+      reduce((acc, l) => {acc[l.readmeCommit.sha] = l; return acc}, {} as {[key: string]: ScanLog}),
+      map(ls => ({
+        '/scan-logs': ls
+      })),
+      map(test => {
+        return test
+      })
+    ))
+    super(rest, '', 'scan-logs')
+
   }
 
-  get cache() {
-    if (this._cache.length) {
-      return of(this._cache)
+  _cache: Observable<ScanLog[]> | null = null
+  get cache(): Observable<ScanLog[]> {
+    if (this._cache) {
+      return this._cache
     } else {
-      return this.find().pipe(
-        // map(ls => {
-        //   return ls.filter(l => l.repository && l.repository.name !== 'StudyRepoTemplate' && l.repository.name !== 'EmptyStudyRepository')
-        // }),
-        tap(ls => {
-          if (!this._cache.length) {
-            this._cache.push(...ls)
-          }
-        }),
-      )
+      this._cache = this.find().pipe(shareReplay(1))
+      return this._cache
     }
   }
 
