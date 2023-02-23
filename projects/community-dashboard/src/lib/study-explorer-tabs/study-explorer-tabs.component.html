@@ -4,45 +4,6 @@
   color="accent" backgroundColor="primary" class="not-full-height outline"
 >
 
-<mat-tab label="Study Progress">
-  <ng-template matTabContent>
-    <div class="flex-container flex-direction-column">
-      <div #studyProgress class="align-self-center plot-margin-top"></div>
-      <div>
-        <mat-form-field appearance="fill">
-          <mat-label>Search</mat-label>
-          <input matInput [formControl]="studyProgressSearchControl" required cdkFocusInitial>
-        </mat-form-field>
-      </div>
-      <div class="display-flex">
-        <mat-form-field appearance="fill">
-          <mat-label>MaxDays</mat-label>
-          <input matInput [formControl]="studyProgressMaxDaysControl" required>
-        </mat-form-field>
-        <mat-selection-list [formControl]="studyProgressControl" class="progress-option-width">
-          <mat-list-option [value]="'logScale'">
-            <div class="flex-container">
-              <div class="mat-caption">Log Scale</div>
-            </div>        
-          </mat-list-option>
-          <!-- <mat-list-option *ngFor="let m of countMetrics; index as i" [value]="m">
-            <div class="flex-container">
-              <div [style]="'background: '+scheme(i)" class="legend-choice-box"></div>
-              <div class="mat-caption">{{m}}</div>
-            </div>
-          </mat-list-option>
-          <mat-list-option disabled>
-            <div class="flex-container">
-              <div [style]="'background: '+scheme(2)" class="legend-choice-box"></div>
-              <div class="mat-caption">new studies per month (last 3 months)</div>
-            </div>        
-          </mat-list-option> -->
-        </mat-selection-list>
-      </div>
-    </div>
-  </ng-template>
-</mat-tab>
-
   <mat-tab label="Study Pipeline">
     <ng-template matTabContent>
       <div class="flex-container flex-direction-column">
@@ -70,9 +31,26 @@
   <mat-tab label="Study Cadence">
     <ng-template matTabContent>
       <div class="flex-container flex-direction-column">
-        <div #daysPlot class="align-self-center plot-margin-top"></div>
+        <pre>{{studyProgressSummary}}</pre>
+        <div #studyCadencePlot class="align-self-center plot-margin-top"></div>
         <div>
-          <mat-selection-list [formControl]="daysMetricsControl">
+          <mat-form-field appearance="fill">
+            <mat-label>MinDays</mat-label>
+            <input matInput [formControl]="cadenceMinDaysControl" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>MaxDays</mat-label>
+            <input matInput [formControl]="cadenceMaxDaysControl" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>buckets</mat-label>
+            <input matInput [formControl]="cadenceBucketsControl" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>epanechnikov bandwidth</mat-label>
+            <input matInput [formControl]="cadenceBandwidthControl" required>
+          </mat-form-field>
+          <!-- <mat-selection-list [formControl]="daysMetricsControl">
             <mat-list-option *ngFor="let m of daysMetrics; index as i" [value]="m">
               <div class="flex-container">
                 <div [style]="'background: '+scheme(i)" class="legend-choice-box"></div><div>{{m}}</div>
@@ -90,6 +68,45 @@
                 <div>avg. time to complete (cumulative)</div>
               </div>        
             </mat-list-option>
+          </mat-selection-list> -->
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Study Progress">
+    <ng-template matTabContent>
+      <div class="flex-container flex-direction-column">
+        <div #studyProgress class="align-self-center plot-margin-top"></div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Search</mat-label>
+            <input matInput [formControl]="studyProgressSearchControl" required cdkFocusInitial>
+          </mat-form-field>
+        </div>
+        <div class="display-flex">
+          <mat-form-field appearance="fill">
+            <mat-label>MaxDays</mat-label>
+            <input matInput [formControl]="studyProgressMaxDaysControl" required>
+          </mat-form-field>
+          <mat-selection-list [formControl]="studyProgressControl" class="progress-option-width">
+            <mat-list-option [value]="'logScale'">
+              <div class="flex-container">
+                <div class="mat-caption">Log Scale</div>
+              </div>        
+            </mat-list-option>
+            <!-- <mat-list-option *ngFor="let m of countMetrics; index as i" [value]="m">
+              <div class="flex-container">
+                <div [style]="'background: '+scheme(i)" class="legend-choice-box"></div>
+                <div class="mat-caption">{{m}}</div>
+              </div>
+            </mat-list-option>
+            <mat-list-option disabled>
+              <div class="flex-container">
+                <div [style]="'background: '+scheme(2)" class="legend-choice-box"></div>
+                <div class="mat-caption">new studies per month (last 3 months)</div>
+              </div>        
+            </mat-list-option> -->
           </mat-selection-list>
         </div>
       </div>

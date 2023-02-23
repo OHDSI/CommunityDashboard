@@ -28,7 +28,7 @@ export class StudyLeadsTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<StudyLead>;
 
   dataSource: TableDataSource<StudyLead> = new TableDataSource(this.studyLeadsService)
-  count = this.studyLeadsService.count.bind(this.studyLeadsService)
+  count: number | null = null
 
   @Input()
   displayedColumns: string[] = ["name", "active", "completed"]
@@ -38,6 +38,7 @@ export class StudyLeadsTableComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
+    this.studyLeadsService.count().subscribe(c => this.count = c)
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;

@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as Plot from "@observablehq/plot";
 import * as d3 from "d3"
-import { debounceTime, from } from 'rxjs';
+import { debounceTime, from, merge } from 'rxjs';
 import { StudyExceptionsTableComponent } from '../study-exceptions-table/study-exceptions-table.component';
 import { StudyLeadsTableComponent } from '../study-leads-table/study-leads-table.component';
 import { StudyLeadsService } from '../study-leads-table/study-leads.service';
@@ -14,6 +14,7 @@ import { EXCEPTIONS } from '../study-exceptions-table/study-exceptions.service';
 import { StudyPipelineService, StudyPipelineStage, StudyPromotion } from '../study-pipeline.service';
 import { StudyExceptionSummariesService } from '../study-exceptions-table/study-exception-summaries.service';
 import add_tooltips from '../tooltips'
+import cadenceViolin from './cadence-violin'
 import { MatInputModule } from '@angular/material/input';
 import { PipelineStage, StudyPipelineSummaryService } from '../study-pipeline-summary.service';
 
@@ -38,7 +39,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('studyProgress', {read: ElementRef}) studyProgress!: ElementRef
   @ViewChild('countsPlot', {read: ElementRef}) countsPlot!: ElementRef
-  @ViewChild('daysPlot', {read: ElementRef}) daysPlot!: ElementRef
+  @ViewChild('studyCadencePlot', {read: ElementRef}) studyCadencePlot!: ElementRef
   @ViewChild('timelineCountsPlot', {read: ElementRef}) timelineCountsPlot!: ElementRef
   @ViewChild('studyLeadsPlot', {read: ElementRef}) studyLeadsPlot!: ElementRef
   @ViewChild('exceptionsPlot', {read: ElementRef}) exceptionsPlot!: ElementRef
@@ -52,6 +53,11 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
   studyProgressMaxDaysControl = new FormControl(180)
   countMetricsControl = new FormControl<string[]>([...this.countMetrics])
   daysMetricsControl = new FormControl<string[]>([...this.daysMetrics])
+  studyProgressSummary = ''
+  cadenceMinDaysControl = new FormControl(0)
+  cadenceMaxDaysControl = new FormControl(365)
+  cadenceBucketsControl = new FormControl(40)
+  cadenceBandwidthControl = new FormControl(10)
 
   constructor(
     private studyLeadsService: StudyLeadsService,
@@ -64,26 +70,21 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
     this.renderPlots()
   }
 
-  countMetricsControlSubscription = this.countMetricsControl.valueChanges.subscribe({
-    next: _ => this.renderPlots()
-  })
-
-  studyProgressControlSubscription = this.studyProgressControl.valueChanges.subscribe({
-    next: _ => this.renderPlots()
-  })
-
-  studyProgressSearchControlSubscription = this.studyProgressSearchControl.valueChanges.pipe(debounceTime(1000)).subscribe({
-    next: _ => this.renderPlots()
-  })
-
-  studyProgressMaxDaysControllSubscription = this.studyProgressMaxDaysControl.valueChanges.pipe(debounceTime(1000)).subscribe({
+  renderSubscription = merge(
+    this.countMetricsControl.valueChanges,
+    this.studyProgressControl.valueChanges,
+    this.studyProgressSearchControl.valueChanges,
+    this.studyProgressMaxDaysControl.valueChanges,
+    this.cadenceMinDaysControl.valueChanges,
+    this.cadenceMaxDaysControl.valueChanges,
+    this.cadenceBucketsControl.valueChanges,
+    this.cadenceBandwidthControl.valueChanges,
+  ).subscribe({
     next: _ => this.renderPlots()
   })
 
   ngOnDestroy(): void {
-    this.countMetricsControlSubscription.unsubscribe()
-    this.studyProgressControlSubscription.unsubscribe()
-    this.studyProgressMaxDaysControllSubscription.unsubscribe()
+    this.renderSubscription.unsubscribe()
   }
 
   scheme(i: number) {
@@ -117,20 +118,17 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
       })
     }
     
-    if (this.daysPlot) {
+    if (this.studyCadencePlot) {
       this.studyPipelineService.find().subscribe({
-        next: stages => {
-          if (this.daysPlot) {
-            this.daysPlot.nativeElement.replaceChildren(
-              this._barPlot(
-                stages, this.daysMetricsControl.value!, 'Days', this.daysMetrics,
-                [
-                  'Repo Created',
-                  'Started',
-                  'Design Finalized',
-                  'Results Available',
-                ], 'stage'
-              )
+      // from(d3.csv('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/iris.csv', d3.autoType)).subscribe({
+        next: (stages: any) => {
+          // const data = Object.assign(stages)
+          if (this.studyCadencePlot) {
+            const stagesSummary = stages
+              .filter((s: any) => s.days <= this.cadenceMaxDaysControl.value! && s.days > this.cadenceMinDaysControl.value! && s.stage != 'Invalid / Suspended' && s.stage != 'Complete')
+              // .map((s: any) => {s.days = Math.floor(s.days / 10) * 10; return s})
+            this.studyCadencePlot.nativeElement.replaceChildren(
+              cadenceViolin(stagesSummary, 'stage', 'days', this.cadenceBandwidthControl.value, this.cadenceBucketsControl.value)
             )
           }
         }
@@ -233,6 +231,8 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
   }
 
   _studyPipelineSummary(stages: PipelineStage[]) {
+    const colors = d3[`schemeRdBu`][7].slice(1, 6)
+    colors[2] = '#c5c5c5'
     return Plot.plot({
       x: {
         type: "band",
@@ -244,19 +244,18 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
           'Design Finalized',
           'Results Available',
           'Complete',
-          'Invalid / Suspended',
         ]
       },
       color: {
         legend: true,
         // type: "linear",
-        scheme: 'warm',
+        range: colors,
         domain: [
-          '> 1 year',
+          '< 30 days',
+          '< 90 days',
           '< 1 year',
           '< 6 months',
-          '< 90 days',
-          '< 30 days',
+          '> 1 year',
         ]
       },
       marks: [

@@ -31,7 +31,7 @@ export interface ScanLog {
       useCases: string[] | null,
       studyType: string[] |null,
       tags: string[] |null,
-      studyLeads: string[] | null,
+      studyLead: string[] | null,
       startDate: string|null,
       endDate: string|null,
       protocol: string|null,

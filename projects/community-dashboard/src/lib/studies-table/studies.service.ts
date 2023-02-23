@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RestDelegate, RestMemory } from '@community-dashboard/rest';
 import { ScanLog, ScanLogsService } from '../scan-logs.service';
 import * as d3 from 'd3'
-import { map } from 'rxjs';
+import { map, shareReplay } from 'rxjs';
 
 export interface Study  {
   id: number,
@@ -50,12 +50,12 @@ export class StudiesService extends RestDelegate<Study> {
             useCases: commits[0].readmeCommit!.summary?.useCases,
             type: commits[0].readmeCommit!.summary?.studyType,
             tags: commits[0].readmeCommit!.summary?.tags,
-            lead: commits[0].readmeCommit!.summary?.studyLeads,
+            lead: this._nullIfDash(commits[0].readmeCommit!.summary?.studyLead) as string[],
             start: commits[0].readmeCommit!.summary?.startDate,
             end: commits[0].readmeCommit!.summary?.endDate,
-            protocol: this._nullIfDash(commits[0].readmeCommit!.summary?.protocol),
+            protocol: this._nullIfDash(commits[0].readmeCommit!.summary?.protocol) as string,
             publications: commits[0].readmeCommit!.summary?.publications,
-            results: this._nullIfDash(commits[0].readmeCommit!.summary?.results),
+            results: this._nullIfDash(commits[0].readmeCommit!.summary?.results) as string,
             lastUpdate: authorDate ? new Date(authorDate) : null
           }
           i += 1
@@ -63,13 +63,20 @@ export class StudiesService extends RestDelegate<Study> {
         return {
           '/studies': studies
         }
-      })
+      }),
+      shareReplay(1)
     ))
     super(rest, '', 'studies')
   }
 
-  _nullIfDash(s: string | undefined | null) {
-    return s === '-' ? null : s
+  _nullIfDash(s: string | undefined | null | string[]) {
+    if (s === '-') {
+      return null
+    }
+    if (s instanceof Array && s[0] === '-') {
+      return null
+    }
+    return s
   }
 
 }

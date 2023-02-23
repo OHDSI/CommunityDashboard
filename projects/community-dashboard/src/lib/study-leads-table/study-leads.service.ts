@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestDelegate, RestMemory } from '@community-dashboard/rest';
+import { map } from 'rxjs';
 import { StudiesService } from '../studies-table/studies.service';
 
 export interface StudyLead {
@@ -15,15 +16,11 @@ export interface StudyLead {
 export class StudyLeadsService extends RestDelegate<StudyLead> {
 
   constructor(
-    private studiesService: StudiesService,
+    studiesService: StudiesService,
   ) {
-    const leads: {[key: string]: any} = {}
-    const rest = new RestMemory({
-      '/study-leads': leads
-    })
-    super(rest, '', 'study-leads')
-    this.studiesService.find().subscribe(
-      ss => {
+    const rest = new RestMemory(studiesService.find().pipe(
+      map(ss => {
+        const leads: {[key: string]: any} = {}
         const DAYS = 1000 * 3600 * 24
         const now = new Date()
         ss.forEach(s => {
@@ -45,8 +42,13 @@ export class StudyLeadsService extends RestDelegate<StudyLead> {
             }
           }
         })
-      }
-    )
+        return leads
+      }),
+      map(leads => ({
+        '/study-leads': leads
+      }))
+    ))
+    super(rest, '', 'study-leads')
   }
 
 }

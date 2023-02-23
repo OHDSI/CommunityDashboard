@@ -29,7 +29,7 @@ export class StudyExceptionsTableComponent implements AfterViewInit {
 
   EXCEPTIONS = EXCEPTIONS
   dataSource: TableDataSource<StudyException> = new TableDataSource(this.studyExceptionsService)
-  count = this.studyExceptionsService.count.bind(this.studyExceptionsService)
+  count: number | null = null
 
   @Input()
   displayedColumns: string[] = ["studyRepo", "exception"]
@@ -39,6 +39,7 @@ export class StudyExceptionsTableComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
+    this.studyExceptionsService.count().subscribe(c => this.count = c)
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;

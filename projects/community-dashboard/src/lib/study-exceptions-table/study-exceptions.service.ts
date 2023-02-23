@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Rest, RestDelegate, RestMemory } from '@community-dashboard/rest';
+import { map } from 'rxjs';
 import { ScanLogsService } from '../scan-logs.service';
 
 export const EXCEPTIONS: {[key: string]: string} = {
@@ -22,18 +23,15 @@ export interface StudyException {
 export class StudyExceptionsService extends RestDelegate<StudyException> {
 
   constructor(
-    private scanLogsService: ScanLogsService,
+    scanLogsService: ScanLogsService,
   ) {
-    const studyExceptions: {[key: string]: any} = {}
-    const rest = new RestMemory({
-      '/study-exceptions': studyExceptions
-    })
-    super(rest, '', 'study-exceptions')
-    this.scanLogsService.cache.subscribe({
-      next: (ls: any) => {
+    const rest = new RestMemory(scanLogsService.cache.pipe(
+      map((ls: any) => {
+        const studyExceptions: {[key: string]: any} = {}
         const allExceptions = ls.flatMap((l: any) => {
           const es = []
           if (
+            !l.readmeCommit?.summary ||
             !l.readmeCommit?.summary.studyLead ||
             (l.readmeCommit && !l.readmeCommit.summary.studyLead.length) ||
             l.readmeCommit?.summary.studyLead.includes('-')
@@ -45,7 +43,7 @@ export class StudyExceptionsService extends RestDelegate<StudyException> {
               exception: 'MISSING_LEAD'
             })
           }
-          const stage = l.readmeCommit?.summary.status
+          const stage = l.readmeCommit?.summary?.status
           if (!stage) {
             es.push({
               id: 0,
@@ -72,7 +70,7 @@ export class StudyExceptionsService extends RestDelegate<StudyException> {
           }
           if (
             (stage === 'Complete' || stage === 'Results Available') &&
-            (!l.readmeCommit!.summary.results || l.readmeCommit!.summary.results === '-')
+            (!l.readmeCommit!.summary?.results || l.readmeCommit!.summary?.results === '-')
           ) {
             es.push({
               id: 0,
@@ -83,7 +81,7 @@ export class StudyExceptionsService extends RestDelegate<StudyException> {
           }
           if (
             (stage === 'Complete' || stage === 'Results Available' || stage === 'Design Finalized') &&
-            (!l.readmeCommit!.summary.protocol || l.readmeCommit!.summary.protocol === '-')
+            (!l.readmeCommit!.summary?.protocol || l.readmeCommit!.summary?.protocol === '-')
           ) {
             es.push({
               id: 0,
@@ -99,8 +97,13 @@ export class StudyExceptionsService extends RestDelegate<StudyException> {
           studyExceptions[i] = e
           i += 1
         }
-      }
-    })
+        return studyExceptions
+      }),
+      map(studyExceptions => ({
+        '/study-exceptions': studyExceptions
+      }))
+    ))
+    super(rest, '', 'study-exceptions')
   }
 
 }
