@@ -1,6 +1,6 @@
 {
   "name": "@community-dashboard/rest",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "peerDependencies": {
     "@angular/cdk": "^15.0.3",
     "@angular/common": "^15.0.0",

@@ -76,9 +76,14 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
     next: _ => this.renderPlots()
   })
 
+  studyProgressMaxDaysControllSubscription = this.studyProgressMaxDaysControl.valueChanges.pipe(debounceTime(1000)).subscribe({
+    next: _ => this.renderPlots()
+  })
+
   ngOnDestroy(): void {
     this.countMetricsControlSubscription.unsubscribe()
     this.studyProgressControlSubscription.unsubscribe()
+    this.studyProgressMaxDaysControllSubscription.unsubscribe()
   }
 
   scheme(i: number) {
@@ -188,8 +193,8 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
       d.studyType.join(' ').toLowerCase().includes(search.toLowerCase())
   }
 
-  _studyProgressPlot(data: unknown[]) {
-    
+  _studyProgressPlot(data: any[]) {
+    data = data.filter(d => !this.studyProgressMaxDaysControl.value || d['days'] <= this.studyProgressMaxDaysControl.value)
     const log = this.studyProgressControl.value!.includes('logScale') ? {type: 'log'} : {}
     return add_tooltips(Plot.plot({
       marginLeft: 150,
@@ -207,7 +212,6 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
         ]
       },
       x: {
-        domain: [0, 180],
         ...log
       },
       color: {
