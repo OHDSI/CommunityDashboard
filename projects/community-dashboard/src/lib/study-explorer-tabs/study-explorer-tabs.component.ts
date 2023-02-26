@@ -17,6 +17,7 @@ import add_tooltips from '../tooltips'
 import cadenceViolin from './cadence-violin'
 import { MatInputModule } from '@angular/material/input';
 import { PipelineStage, StudyPipelineSummaryService } from '../study-pipeline-summary.service';
+import { StudyTimelineService } from '../study-timeline.service';
 
 @Component({
   selector: 'app-study-explorer-tabs',
@@ -50,7 +51,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
   exceptionMetrics = ['count']
   studyProgressControl = new FormControl<string[]>([])
   studyProgressSearchControl = new FormControl('Covid')
-  studyProgressMaxDaysControl = new FormControl(180)
+  studyProgressMaxDaysControl = new FormControl(365)
   countMetricsControl = new FormControl<string[]>([...this.countMetrics])
   daysMetricsControl = new FormControl<string[]>([...this.daysMetrics])
   studyProgressSummary = ''
@@ -58,16 +59,28 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
   cadenceMaxDaysControl = new FormControl(365)
   cadenceBucketsControl = new FormControl(40)
   cadenceBandwidthControl = new FormControl(10)
+  timelineMetricsControl = new FormControl<string[]>([
+    "updatesLast30",
+    "activeStudiesLast30",
+    "newStudiesLast30",
+    "studiesStartedLast30",
+    "designFinalizedLast30",
+    "resultsAvailableLast30",
+    "studiesCompletedLast30",
+  ])
 
   constructor(
     private studyLeadsService: StudyLeadsService,
     private studyExceptionSummariesService: StudyExceptionSummariesService,
     private studyPipelineService: StudyPipelineService,
     private studyPipelineSummaryService: StudyPipelineSummaryService,
+    private studyTimelineService: StudyTimelineService,
   ) {}
 
   ngAfterViewInit(): void {
-    this.renderPlots()
+    setTimeout(() => {
+      this.renderPlots()
+    }, 500)
   }
 
   renderSubscription = merge(
@@ -79,6 +92,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
     this.cadenceMaxDaysControl.valueChanges,
     this.cadenceBucketsControl.valueChanges,
     this.cadenceBandwidthControl.valueChanges,
+    this.timelineMetricsControl.valueChanges,
   ).subscribe({
     next: _ => this.renderPlots()
   })
@@ -136,11 +150,12 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
     }
     
     if(this.timelineCountsPlot) {
-      from(d3.csv('/assets/sf-temperatures.csv')).subscribe({
-        next: (sftemps: any) => {
+      this.studyTimelineService.find().subscribe({
+      // from(d3.csv('/assets/sf-temperatures.csv')).subscribe({
+        next: (tl: any) => {
           if(this.timelineCountsPlot.nativeElement) {
             this.timelineCountsPlot.nativeElement?.replaceChildren(
-              this._timelinePlot(sftemps)
+              this._timelinePlot(tl)
             )
           }
         }
@@ -265,9 +280,20 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
     })
   }
 
-  _timelinePlot(sftemps: any) {
-    // For colors: https://observablehq.com/@observablehq/plot-line#cell-207
-    for (const t of sftemps) {
+  _timelinePlot(tl: any) {
+    const colors: any = {
+      "updatesLast30": this.scheme(0),
+      "activeStudiesLast30": this.scheme(1),
+      "newStudiesLast30": this.scheme(2),
+      "studiesStartedLast30": this.scheme(3),
+      "designFinalizedLast30": this.scheme(4),
+      "resultsAvailableLast30": this.scheme(5),
+      "studiesCompletedLast30": this.scheme(6),
+    }
+    const marks = this.timelineMetricsControl.value!.map(v => {
+      return Plot.line(tl, Plot.windowY({k: 14, x: "date", y: v, stroke: colors[v]}))
+    })
+    for (const t of tl) {
       t['date'] = new Date(t['date'])
     }
     return Plot.plot({
@@ -275,11 +301,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
         grid: true,
         label: "Count"
       },
-      marks: [
-        Plot.line(sftemps, Plot.windowY({k: 14, x: "date", y: "low", stroke: "#4e79a7"})),
-        Plot.line(sftemps, Plot.windowY({k: 14, x: "date", y: "high", stroke: "#e15759"})),
-        Plot.ruleY([32]) // freezing
-      ]
+      marks
     })
   }
 

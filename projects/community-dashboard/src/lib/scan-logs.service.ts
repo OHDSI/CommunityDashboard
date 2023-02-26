@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
-import { RestDelegate, RestMemory } from '@community-dashboard/rest';
-import { concatMap, from, map, Observable, of, reduce, shareReplay, tap } from 'rxjs';
-import { ReadmeSummariesService } from './studies-table/readme-summaries.service';
-import { RepoSummariesService } from './studies-table/repo-summaries.service';
+import { Inject, Injectable } from '@angular/core';
+import { Rest, RestDelegate, RestToken } from '@community-dashboard/rest';
+import { Observable, shareReplay } from 'rxjs';
 
 export enum Status {
   COMPLETE = 'complete',
@@ -47,42 +45,9 @@ export interface ScanLog {
 export class ScanLogsService extends RestDelegate<ScanLog> {
 
   constructor(
-    repoSummariesService: RepoSummariesService,
-    readmeSummariesService: ReadmeSummariesService
+    @Inject(RestToken) rest: Rest
   ) {
-    const rest = new RestMemory(repoSummariesService.find().pipe(
-      concatMap((rs) => {
-        return from(rs).pipe(
-          concatMap(r => {
-            return readmeSummariesService.find({
-              delegate: {scope: {repo: r.name}}
-            }).pipe(
-              concatMap(ss => {
-                return ss.map(s => ({
-                  id: s.sha,
-                  repository: r!,
-                  readmeCommit: {
-                    repoName: r.name,
-                    sha: s.sha,
-                    author: s.author,
-                    summary: s.summary
-                  }
-                }))
-              })
-            )
-          })
-        )
-      }),
-      reduce((acc, l) => {acc[l.readmeCommit.sha] = l; return acc}, {} as {[key: string]: ScanLog}),
-      map(ls => ({
-        '/scan-logs': ls
-      })),
-      map(test => {
-        return test
-      })
-    ))
-    super(rest, '', 'scan-logs')
-
+    super(rest, '', 'scanLogs')
   }
 
   _cache: Observable<ScanLog[]> | null = null

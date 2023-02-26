@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScanLog, ScanLogsService } from '../scan-logs.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'lib-test',
@@ -11,8 +12,9 @@ import { ScanLog, ScanLogsService } from '../scan-logs.service';
 })
 export class TestComponent {
 
-  data = this.scanLogsService.cache
-  data2 = this.scanLogsService.cache
+  data = this.scanLogsService.cache.pipe(
+    map((s: any) => JSON.stringify(s))
+  )
 
   constructor(
     private scanLogsService: ScanLogsService

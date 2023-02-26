@@ -74,6 +74,61 @@
     </ng-template>
   </mat-tab>
 
+  <mat-tab label="Timeline">
+    <ng-template matTabContent>
+      <div class="flex-container flex-direction-column">
+        <div #timelineCountsPlot class="align-self-center plot-margin-top"></div>
+        <div>
+          <label>Moving 30 Day Averages</label>
+          <mat-selection-list [formControl]="timelineMetricsControl">
+            <mat-list-option value="updatesLast30">
+              <div class="flex-container">
+                <div [style]="'background: '+scheme(0)" class="legend-choice-box"></div>
+                <div>updates</div>
+              </div>
+            </mat-list-option>
+            <mat-list-option value="activeStudiesLast30">
+              <div class="flex-container">
+                <div [style]="'background: '+scheme(1)" class="legend-choice-box"></div>
+                <div>active studies</div>
+              </div>
+            </mat-list-option>
+            <mat-list-option value="newStudiesLast30">
+              <div class="flex-container">
+                <div [style]="'background: '+scheme(2)" class="legend-choice-box"></div>
+                <div>new studies</div>
+              </div>
+            </mat-list-option>
+            <mat-list-option value="studiesStartedLast30">
+              <div class="flex-container">
+                <div [style]="'background: '+scheme(3)" class="legend-choice-box"></div>
+                <div>studies started</div>
+              </div>
+            </mat-list-option>
+            <mat-list-option value="designFinalizedLast30">
+              <div class="flex-container">
+                <div [style]="'background: '+scheme(4)" class="legend-choice-box"></div>
+                <div>design finalized</div>
+              </div>
+            </mat-list-option>
+            <mat-list-option value="resultsAvailableLast30">
+              <div class="flex-container">
+                <div [style]="'background: '+scheme(5)" class="legend-choice-box"></div>
+                <div>results available</div>
+              </div>
+            </mat-list-option>
+            <mat-list-option value="studiesCompletedLast30">
+              <div class="flex-container">
+                <div [style]="'background: '+scheme(6)" class="legend-choice-box"></div>
+                <div>studies completed</div>
+              </div>
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
   <mat-tab label="Study Progress">
     <ng-template matTabContent>
       <div class="flex-container flex-direction-column">
@@ -107,60 +162,6 @@
                 <div class="mat-caption">new studies per month (last 3 months)</div>
               </div>        
             </mat-list-option> -->
-          </mat-selection-list>
-        </div>
-      </div>
-    </ng-template>
-  </mat-tab>
-
-  <mat-tab label="Timeline">
-    <ng-template matTabContent>
-      <div class="flex-container flex-direction-column">
-        <div #timelineCountsPlot class="align-self-center plot-margin-top"></div>
-        <div>
-          <mat-selection-list>
-            <mat-list-option disabled>
-              <div class="flex-container">
-                <div [style]="'background: '+scheme(0)" class="legend-choice-box"></div>
-                <div>total updates</div>
-              </div>
-            </mat-list-option>
-            <mat-list-option disabled>
-              <div class="flex-container">
-                <div [style]="'background: '+scheme(1)" class="legend-choice-box"></div>
-                <div>active studies</div>
-              </div>
-            </mat-list-option>
-            <mat-list-option disabled>
-              <div class="flex-container">
-                <div [style]="'background: '+scheme(2)" class="legend-choice-box"></div>
-                <div>new studies (avg. last 30 days)</div>
-              </div>
-            </mat-list-option>
-            <mat-list-option disabled>
-              <div class="flex-container">
-                <div [style]="'background: '+scheme(3)" class="legend-choice-box"></div>
-                <div>studies started (avg. last 30 days)</div>
-              </div>
-            </mat-list-option>
-            <mat-list-option disabled>
-              <div class="flex-container">
-                <div [style]="'background: '+scheme(4)" class="legend-choice-box"></div>
-                <div>design finalized (avg. last 30 days)</div>
-              </div>
-            </mat-list-option>
-            <mat-list-option disabled>
-              <div class="flex-container">
-                <div [style]="'background: '+scheme(5)" class="legend-choice-box"></div>
-                <div>results available (avg. last 30 days)</div>
-              </div>
-            </mat-list-option>
-            <mat-list-option disabled>
-              <div class="flex-container">
-                <div [style]="'background: '+scheme(6)" class="legend-choice-box"></div>
-                <div>studies completed (avg. last 30 days)</div>
-              </div>
-            </mat-list-option>
           </mat-selection-list>
         </div>
       </div>
