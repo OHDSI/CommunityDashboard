@@ -1,52 +1,82 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { concatMap } from 'rxjs/operators';
-import { Observable, merge, of } from 'rxjs';
-import { RestDelegate } from './rest-delegate';
-import { Filter, Where } from './rest';
+import { Observable, combineLatest, switchMap, tap, startWith, map } from 'rxjs';
 
-export class TableDataSource<T extends {[key: string]: any}> extends DataSource<T> {
-  paginator: MatPaginator | undefined;
-  sort: MatSort | undefined;
+export interface TableData {[key: string]: TableFieldValue}
+export type TableFieldValue = TableFieldPrimitive | TableFieldPrimitive[] | TableData | TableData[] | undefined
+export type TableFieldPrimitive = string | number | boolean
+
+export interface TableQuery {
+  where?: TableQueryWhere,
+  orderBy?: [string, 'asc' | 'desc' | ''][],
+  limit?: number,
+  startAfter?: TableData
+}
+
+export type Operator = '==' | 'in'
+export type TableQueryWhere = [string, Operator, TableFieldPrimitive | TableFieldPrimitive[]][]
+
+export interface TableDataService<T extends TableData> {
+
+  valueChanges: {
+    (params?: TableQuery)
+    : Observable<T[] | null>
+  }
+
+  count: {
+    (params?: TableQuery)
+    : Observable<number>
+  }
+}
+
+export class TableDataSource<T extends TableData> extends DataSource<T> {
+  paginator: MatPaginator | undefined
+  sort: MatSort | undefined
+  lastRow?: T
 
   constructor(
-    private rest: RestDelegate<T>,
-    private where?: Where,
-    private filter?: Observable<Filter | {}>,
+    private service: TableDataService<T>,
+    private where?: Observable<TableQueryWhere>,
   ) {
     super();
   }
 
   connect(): Observable<T[]> {
     if (this.paginator && this.sort) {
-      const events = [
-        of({}), this.rest.changes, this.paginator.page, this.sort.sortChange,
-        ...this.filter ? [this.filter] : []
-      ]
-      return merge(...events)
-        .pipe(
-          concatMap((f) => this.find(f)),
-        );
+      const whereChanges = []
+      if (this.where) {
+        whereChanges.push(this.where.pipe(
+          tap(_ => this.lastRow = undefined)
+        ))
+      }
+      return combineLatest([
+        this.paginator.page.pipe(startWith(null)),
+        this.sort.sortChange.pipe(
+          startWith(null),
+          tap(_ => this.lastRow = undefined)
+        ),
+        ...whereChanges
+      ]).pipe(
+        switchMap(([_, sort, where]) => {
+          const orderBy: {orderBy?: TableQuery['orderBy']} = {}
+          if (sort) {
+            orderBy!.orderBy = [[sort.active, sort.direction]]
+          }
+          return this.service.valueChanges({
+            ...where,
+            ...orderBy,
+            limit: this.paginator!.pageSize,
+            startAfter: this.lastRow
+          }).pipe(
+            map(p => p ?? []),
+            tap(p => this.lastRow = p[p.length - 1])
+          )
+        })
+      )
     } else {
       throw Error('Please set the paginator and sort on the data source before connecting.');
     }
-  }
-
-  find(f: any) {
-    if ('where' in f) {
-      this.where = f.where
-    } else {
-      this.where = undefined
-    }
-    const skip = this.paginator!.pageIndex * this.paginator!.pageSize;
-    const order = (!this.sort || !this.sort.active || this.sort.direction === '') ?
-      undefined
-      :
-      [`${this.sort.active} ${this.sort.direction}`]
-    return this.rest.find({
-      filter: {skip, limit: this.paginator!.pageSize, order, where: this.where}
-    })
   }
 
   disconnect(): void {}
