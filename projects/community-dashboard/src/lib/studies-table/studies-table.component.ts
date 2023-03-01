@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
-import { TableDataSource } from '@community-dashboard/rest';
+import { TableDataSourceLegacy as TableDataSource  } from '@community-dashboard/rest';
 import { Subscription } from 'rxjs';
 import { StudiesService, Study } from './studies.service';
 

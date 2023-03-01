@@ -3,7 +3,7 @@ import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
-import { TableDataSource } from '@community-dashboard/rest';
+import { TableDataSourceLegacy as TableDataSource  } from '@community-dashboard/rest';
 import { CourseStat, CourseStatsService } from './course-stats.service';
 
 @Component({

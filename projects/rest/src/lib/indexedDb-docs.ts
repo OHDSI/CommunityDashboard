@@ -2,7 +2,7 @@ import { Observable } from "rxjs";
 import { ArrayUnion, Docs } from "./docs";
 import { TableData, TableQuery } from "./table-data-source";
 
-export class IndexedDbDocs<T extends TableData> implements Docs {
+export class IndexedDbDocs implements Docs {
 
   constructor(
   ) {}
@@ -26,6 +26,13 @@ export class IndexedDbDocs<T extends TableData> implements Docs {
     path: string,
     partial?: TableData,
     arrayUnion?: ArrayUnion,
+  }): Observable<void> {
+    throw new Error('not implemented')
+  }
+
+  replaceById(params: {
+    path: string,
+    doc: TableData,
   }): Observable<void> {
     throw new Error('not implemented')
   }

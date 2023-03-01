@@ -39,6 +39,13 @@ export interface Docs {
     }): Observable<void>
   }
 
+  replaceById: {
+    (params: {
+      path: string,
+      doc: TableData,
+    }): Observable<void>
+  }
+
 }
 
 export abstract class DocsTableDataService<T extends TableData> implements TableDataService<T> {
@@ -52,17 +59,11 @@ export abstract class DocsTableDataService<T extends TableData> implements Table
   ){}
 
   valueChanges(params?: TableQuery): Observable<T[] | null> {
-    if (!params) {
-      params = {}
-    }
-    return this.switchWhere(params, null, (params) => this.params.docs.valueChanges<T>(params))
+    return this.switchWhere(null, (params) => this.params.docs.valueChanges<T>(params), params)
   }
 
   count(params?: TableQuery): Observable<number> {
-    if (!params) {
-      params = {}
-    }
-    return this.switchWhere(params, 0, (params) => this.params.docs.count(params))
+    return this.switchWhere(0, (params) => this.params.docs.count(params), params)
   }
 
   create(params: {
@@ -86,19 +87,32 @@ export abstract class DocsTableDataService<T extends TableData> implements Table
     })
   }
 
-  private switchWhere<S>(params: TableQuery, ifNull: S, fn: (params: DocsQuery) => Observable<S>): Observable<S> {
-    if (this.params.where) {
+  replaceById(params: {
+    id: string,
+    doc: T,
+  }): Observable<void> {
+    return this.params.docs.replaceById({
+      path: `${this.params.path}/${params.id}`,
+      doc: params.doc,
+    })
+  }
+
+  private switchWhere<S>(ifNull: S, fn: (params: DocsQuery) => Observable<S>, params?: TableQuery): Observable<S> {
+    // Originally, I was merging the where queries. But, this didn't make sense for most use
+    // cases. Now if a where is passed it just overrides this.params.where.
+    if (params?.where || !this.params.where) {
+      return fn(this.toDocsQuery({...params}))
+    } else {
       return this.params.where.pipe(
         switchMap(w => {
           if (!w) {
             return of(ifNull)
           }
-          const mergedParams = {...params, where: [...params.where ?? [], ...w]}
+          // const mergedParams = {...params, where: [...params.where ?? [], ...w]}
+          const mergedParams = {...params, where: w}
           return fn(this.toDocsQuery(mergedParams))
         })
       )
-    } else {
-      return fn(this.toDocsQuery(params))
     }
   }
 
