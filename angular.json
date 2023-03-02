@@ -3,39 +3,6 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "community-dashboard": {
-      "projectType": "library",
-      "root": "projects/community-dashboard",
-      "sourceRoot": "projects/community-dashboard/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/community-dashboard/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/community-dashboard/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/community-dashboard/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/community-dashboard/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
     "rest": {
       "projectType": "library",
       "root": "projects/rest",
@@ -77,7 +44,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:browser",
           "options": {
             "outputPath": "dist/navigation",
             "index": "projects/navigation/src/index.html",
@@ -93,7 +60,9 @@
             "styles": [
               "projects/navigation/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "extraWebpackConfig": "projects/navigation/webpack.config.js",
+            "commonChunk": false
           },
           "configurations": {
             "production": {
@@ -109,7 +78,8 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "extraWebpackConfig": "projects/navigation/webpack.prod.config.js"
             },
             "development": {
               "buildOptimizer": false,
@@ -127,21 +97,28 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "navigation:build:production"
+              "browserTarget": "navigation:build:production",
+              "extraWebpackConfig": "projects/navigation/webpack.prod.config.js"
             },
             "development": {
               "browserTarget": "navigation:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4300,
+            "publicHost": "http://localhost:4300",
+            "extraWebpackConfig": "projects/navigation/webpack.config.js"
+          }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "ngx-build-plus:extract-i18n",
           "options": {
-            "browserTarget": "navigation:build"
+            "browserTarget": "navigation:build",
+            "extraWebpackConfig": "projects/navigation/webpack.config.js"
           }
         },
         "test": {
@@ -160,6 +137,16 @@
               "projects/navigation/src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "navigation:build:production",
+            "firebaseProject": "study-site-manager",
+            "firebaseHostingSite": "ohdsi-community-dashboard"
           }
         }
       }

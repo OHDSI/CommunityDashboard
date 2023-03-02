@@ -1,10 +1,5 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
-  // "exclude": [
-  //   "node_modules",
-  //   "dist",
-  // ],
   "compilerOptions": {
     "allowJs": true,
     "checkJs": false,
@@ -23,12 +18,9 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "paths": {
-      "@community-dashboard/community-dashboard": [
-        "dist/community-dashboard"
-      ],
       "@community-dashboard/rest": [
         "dist/rest"
-      ],
+      ]
     },
     "target": "ES2022",
     "module": "es2020",
@@ -36,8 +28,7 @@
       "es2020",
       "dom"
     ],
-    "useDefineForClassFields": false,
-
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

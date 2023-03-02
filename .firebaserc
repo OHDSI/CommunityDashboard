@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "study-site-manager": {
+      "hosting": {
+        "navigation": [
+          "ohdsi-community-dashboard"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "study-site-manager"
+  }
+}

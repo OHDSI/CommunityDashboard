@@ -1,0 +1,25 @@
+<div class="mat-elevation-z8">
+  <table mat-table class="full-width white-space-nowrap" matSort aria-label="Elements">
+
+    <ng-container matColumnDef="studyRepo">
+      <td mat-cell *matCellDef="let row" [style]="{'max-width': '120px'}">
+        <a href="https://github.com/ohdsi-studies/{{row.studyRepo}}" target="_blank">{{row.studyRepo}}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="exception">
+      <td mat-cell *matCellDef="let row" [style.padding-left]="0" [style]="{'max-width': '120px'}">
+        {{EXCEPTIONS[row.exception]}}
+      </td>
+    </ng-container>
+    
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="(count)"
+      [pageIndex]="0"
+      [pageSize]="5"
+      aria-label="Select page">
+  </mat-paginator>
+</div>

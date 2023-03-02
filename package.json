@@ -7,15 +7,18 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --no-watch --no-progress",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js"
   },
   "private": true,
   "dependencies": {
+    "@angular-architects/module-federation": "^15.0.3",
     "@angular/animations": "^15.0.4",
     "@angular/cdk": "^15.0.3",
     "@angular/common": "^15.0.4",
     "@angular/compiler": "^15.0.4",
     "@angular/core": "^15.0.4",
+    "@angular/fire": "7.5.0",
     "@angular/forms": "^15.0.4",
     "@angular/material": "^15.0.3",
     "@angular/platform-browser": "^15.0.4",
@@ -24,7 +27,7 @@
     "@observablehq/plot": "^0.6.2",
     "d3": "^7.8.2",
     "htl": "^0.3.1",
-    "rxjs": "~7.5.0",
+    "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
@@ -35,6 +38,7 @@
     "@loopback/cli": "^4.1.7",
     "@types/jasmine": "~4.0.0",
     "@types/node": "^18.13.0",
+    "firebase": "^9.17.1",
     "is-docker": "^3.0.0",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
@@ -43,6 +47,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "ng-packagr": "^15.0.0",
+    "ngx-build-plus": "^15.0.0",
     "typescript": "~4.8.4"
   },
   "workspaces": [

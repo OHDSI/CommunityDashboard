@@ -1,0 +1,17 @@
+.legend-choice-box {
+  height: 20px;
+  width: 20px;
+  margin-right: 8px;
+}
+
+.not-full-height {
+  height: calc(100% - 1px);
+}
+
+.plot-margin-top {
+  margin-top: 12px;
+}
+
+.progress-option-width {
+  width: 200px;
+}
