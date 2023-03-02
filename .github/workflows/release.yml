@@ -3,9 +3,9 @@
 
 name: Notify the world of a release.
 on:
-  push
-  # release:
-  #   types: [published]
+  # push
+  release:
+    types: [published]
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -17,4 +17,5 @@ jobs:
           owner: rumor-ml
           repo: study-site-manager
           github_token: ${{ secrets.GH_TOKEN }}
+          workflow_file_name: package.yml
           client_payload: '{"repo": "ohdsi/CommunityDashboard", "ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
