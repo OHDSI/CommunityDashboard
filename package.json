@@ -3,7 +3,8 @@
   "name": "community-dashboard",
   "scripts": {
     "ng": "ng",
-    "build": "ng build",
+    "build": "ng build rest",
+    "serve": "yarn build && yarn ng serve-gh ${NG_ALLOWED_HOSTS:-}",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --no-watch --no-progress",
