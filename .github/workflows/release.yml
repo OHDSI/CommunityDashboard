@@ -3,7 +3,9 @@
 
 name: Notify the world of a release.
 on:
-  # push
+  push:
+    breanches:
+      live
   release:
     types: [published]
 jobs:
