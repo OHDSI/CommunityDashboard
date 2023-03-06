@@ -6,7 +6,7 @@ export const environment = {
       return localPort
     } else {
       // GH Codespaces is using a proxy.
-      const portProxy = `${location.protocol}//${location.hostname.replace('4200', '5001')}/`
+      const portProxy = `${location.protocol}//${location.hostname.replace('4300', '5001')}/`
       return portProxy
     }
   },
@@ -16,7 +16,7 @@ export const environment = {
       return localPort
     } else {
       // GH Codespaces is using a proxy.
-      const portProxy = `${location.protocol}//${location.hostname.replace('4200', '5001')}`
+      const portProxy = `${location.protocol}//${location.hostname.replace('4300', '5001')}`
       return portProxy
     }
   },

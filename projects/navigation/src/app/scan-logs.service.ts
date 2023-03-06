@@ -45,7 +45,7 @@ export interface ScanLog {
 export class ScanLogsService extends RestDelegate<ScanLog> {
 
   constructor(
-    @Inject(RestToken) rest: Rest
+    @Inject('RestToken') rest: Rest
   ) {
     super(rest, '', 'scanLogs')
   }

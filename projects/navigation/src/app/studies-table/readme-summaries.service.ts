@@ -31,7 +31,7 @@ export interface ReadmeSummaryDetails {
 export class ReadmeSummariesService extends RestDelegate<ReadmeSummary> {
 
   constructor(
-    @Inject(RestToken) rest: Rest,
+    @Inject('RestToken') rest: Rest,
   ) {
     super(
       rest, '', 'readmeSummaries',

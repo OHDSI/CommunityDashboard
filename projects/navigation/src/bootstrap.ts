@@ -6,7 +6,6 @@ import { provideRouter, Route } from '@angular/router';
 import { environment } from './app/environments/environment';
 import { AppComponent } from './app/app.component';
 import { RestMock } from './test/rest-mock.service';
-import { RestToken } from '@community-dashboard/rest';
 
 if (environment.production) {
   enableProdMode();
@@ -33,6 +32,7 @@ bootstrapApplication(AppComponent, {
     provideAnimations(),
     provideHttpClient(),
     {provide: 'environment', useValue: environment},
-    {provide: RestToken, useClass: RestMock},
+    // {provide: RestToken, useClass: RestMock},
+    {provide: 'RestToken', useClass: RestMock},
   ]
 })

@@ -13,7 +13,7 @@ export interface RepoSummary {
 export class RepoSummariesService extends RestDelegate<RepoSummary> {
 
   constructor(
-    @Inject(RestToken) rest: Rest,
+    @Inject('RestToken') rest: Rest,
   ) {
     super(rest, '', 'communityDashboardRepos')
   }

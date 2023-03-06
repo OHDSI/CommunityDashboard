@@ -26,7 +26,7 @@ export interface Publication  {
 export class PublicationsService extends RestDelegate<Publication> {
 
   constructor(
-    @Inject(RestToken) rest: Rest,
+    @Inject('RestToken') rest: Rest,
     @Inject('environment') private environment: any,
   ) {
     super(rest, '', 'publications')

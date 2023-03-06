@@ -20,7 +20,7 @@ export interface Funding {
 export class FundingService extends RestDelegate<Funding> {
 
   constructor(
-    @Inject(RestToken) rest: Rest
+    @Inject('RestToken') rest: Rest
   ) {
     super(rest, '', 'funding')
   }

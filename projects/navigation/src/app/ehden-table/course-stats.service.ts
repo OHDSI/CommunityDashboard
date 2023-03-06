@@ -20,7 +20,7 @@ export interface CourseStat {
 export class CourseStatsService extends RestDelegate<CourseStat> {
 
   constructor(
-    @Inject(RestToken) rest: Rest,
+    @Inject('RestToken') rest: Rest,
   ) {
     super(rest, '', 'course-stats')
   }

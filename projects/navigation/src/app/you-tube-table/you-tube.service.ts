@@ -26,7 +26,7 @@ export interface YouTubeVideo {
 export class YouTubeService extends RestDelegate<YouTubeVideo> {
 
   constructor(
-    @Inject(RestToken) rest: Rest,
+    @Inject('RestToken') rest: Rest,
     @Inject('environment') private environment: any,
   ) {
     super(rest, '', 'youtube')
