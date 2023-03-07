@@ -2,6 +2,7 @@ import { ErrorHandler, Injectable } from '@angular/core';
 import { RestDelegate, RestMemory } from '@community-dashboard/rest';
 import { ScanLog, ScanLogsService } from './scan-logs.service';
 import * as d3 from 'd3'
+import { map } from 'rxjs';
 
 export interface StudyPipelineStage {
   id: number,
@@ -24,16 +25,12 @@ export interface PipelineStage {
 export class StudyPipelineSummaryService extends RestDelegate<PipelineStage> {
 
   constructor(
-    private scanLogsService: ScanLogsService,
-    private errorHandler: ErrorHandler
+    scanLogsService: ScanLogsService,
+    errorHandler: ErrorHandler
   ) {
-    const stages: {[key: string]: PipelineStage} = {}
-    const rest = new RestMemory({
-      '/study-pipeline-summary': stages
-    })
-    super(rest, '', 'study-pipeline-summary')
-    this.scanLogsService.cache.subscribe({
-      next: (ls: any) => {
+    const rest = new RestMemory(scanLogsService.cache.pipe(
+      map((ls: any) => {
+        const stages: {[key: string]: PipelineStage} = {}
         const readmeCommits = ls.filter((l:any) => l.readmeCommit)
           .sort((a: any, b: any) => d3.descending(a.readmeCommit!.author.date, b.readmeCommit!.author.date))
         const byStudy = d3.group(readmeCommits, (c: ScanLog) => c.readmeCommit!.repoName) as Map<string, ScanLog[]>
@@ -48,7 +45,7 @@ export class StudyPipelineSummaryService extends RestDelegate<PipelineStage> {
         for (const [repoName, commits] of byStudy.entries()) {
           const lastAuthorDate = commits[0].readmeCommit!.author?.date
           if (!lastAuthorDate) {
-            this.errorHandler.handleError('last commit missing author date')
+            errorHandler.handleError('last commit missing author date')
             continue
           }
           const lastUpdate = new Date(new Date(lastAuthorDate))
@@ -57,7 +54,7 @@ export class StudyPipelineSummaryService extends RestDelegate<PipelineStage> {
             const newStatus = c.readmeCommit!.summary?.status && VALID_STATUS.includes(c.readmeCommit!.summary.status) ? c.readmeCommit!.summary.status : 'Invalid / Suspended'
             const authorDate = c.readmeCommit!.author?.date
             if (!authorDate) {
-              this.errorHandler.handleError('commit missing author date')
+              errorHandler.handleError('commit missing author date')
               continue
             }
             const promotionDate = new Date(new Date(authorDate))
@@ -90,70 +87,16 @@ export class StudyPipelineSummaryService extends RestDelegate<PipelineStage> {
             }
           }
         }
-      }
-    })
+        return {
+          '/study-pipeline-summary': stages
+        }
+      })
+    ))
+    super(rest, '', 'study-pipeline-summary')
   }
 
   _nullIfDash(s: string | undefined) {
     return s === '-' ? null : s
   }
-
-  // find(): Observable<StudyPipelineStage[]> {
-    // return this.scanLogsService.cache.pipe(
-    //   map(ls => {
-    //     const p: {[key: string]: any} = {
-    //       "Repo Created": {
-    //         stage: "Repo Created",
-    //         'studies at stage': 0,
-    //         'active studies at stage (last 30 days)': 0,
-    //         'days since last update': [],
-    //         'avg. days since last update': null,
-    //       },
-    //       "Started": {
-    //         stage: "Started",
-    //         'studies at stage': 0,
-    //         'active studies at stage (last 30 days)': 0,
-    //         'days since last update': [],
-    //         'avg. days since last update': null,
-    //       },
-    //       "Design Finalized": {
-    //         stage: "Design Finalized",
-    //         'studies at stage': 0,
-    //         'active studies at stage (last 30 days)': 0,
-    //         'days since last update': [],
-    //         'avg. days since last update': null,
-    //       },
-    //       "Results Available": {
-    //         stage: "Results Available",
-    //         'studies at stage': 0,
-    //         'active studies at stage (last 30 days)': 0,
-    //         'days since last update': [],
-    //         'avg. days since last update': null,
-    //       },
-    //     }
-    //     const average = (array: number[]) => array.reduce((a, b) => a + b) / array.length;
-    //     const DAYS = 1000 * 3600 * 24
-    //     const now = new Date()
-    //     ls.forEach(l => {
-    //       const stage = l.readmeCommit?.summary.status
-    //       if (!stage) { return }
-    //       if (!(stage in p)) { return }
-    //       p[stage]['studies at stage'] += 1
-    //       const updatedAt = new Date(l.repository!.updatedAt)
-    //       const daysSinceLastUpdate = (now.getTime() - updatedAt.getTime()) / DAYS
-    //       p[stage]['days since last update'].push(daysSinceLastUpdate)
-    //       if (daysSinceLastUpdate < 90) {
-    //         p[stage]['active studies at stage (last 30 days)'] += 1
-    //       }
-    //     })
-    //     Object.values(p).forEach(s => {
-    //       if(s['days since last update'].length) {
-    //         s['avg. days since last update'] = average(s['days since last update'])
-    //       }
-    //     })
-    //     return Object.values(p)
-    //   })
-    // )
-  // }
 
 }

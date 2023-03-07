@@ -126,7 +126,7 @@ export class RestMemory implements Rest {
         const f = params.filter ? filterMemory(d, params.filter) : d
         return f
       }),
-      // delay(500)
+      delay(500)
     )
   }
 

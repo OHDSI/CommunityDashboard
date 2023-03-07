@@ -1,5 +1,5 @@
 import { Observable, of, switchMap } from "rxjs";
-import { TableData, TableQuery, TableDataService, TableQueryWhere, TableFieldValue } from "./table-data-source";
+import { TableData, TableQuery, TableDataService, TableQueryWhereArray, TableFieldValue } from "./table-data-source";
 
 export type DocsQuery = TableQuery & {
   path: string,
@@ -13,7 +13,7 @@ export type ArrayUnion = {
 export interface Docs {
   
   valueChanges: {
-   <T>(params: DocsQuery)
+   <T extends TableData>(params: DocsQuery)
     : Observable<T[]>
   }
 
@@ -54,7 +54,7 @@ export abstract class DocsTableDataService<T extends TableData> implements Table
       docs: Docs,
       path: string,
       idField: string,
-      where?: Observable<TableQueryWhere | null>
+      where?: Observable<TableQueryWhereArray | null>
     }
   ){}
 

@@ -8,14 +8,16 @@ export type TableFieldValue = TableFieldPrimitive | TableFieldPrimitive[] | Tabl
 export type TableFieldPrimitive = string | number | boolean
 
 export interface TableQuery {
-  where?: TableQueryWhere,
-  orderBy?: [string, 'asc' | 'desc' | ''][],
+  where?: TableQueryWhereArray,
+  orderBy?: OrderBy[],
   limit?: number,
   startAfter?: TableData
 }
 
 export type Operator = '==' | 'in'
-export type TableQueryWhere = [string, Operator, TableFieldPrimitive | TableFieldPrimitive[]][]
+export type OrderBy = [string, 'asc' | 'desc' | '']
+export type TableQueryWhere = [string, Operator, TableFieldPrimitive | TableFieldPrimitive[]]
+export type TableQueryWhereArray = [string, Operator, TableFieldPrimitive | TableFieldPrimitive[]][]
 
 export interface TableDataService<T extends TableData> {
 
@@ -37,7 +39,7 @@ export class TableDataSource<T extends TableData> extends DataSource<T> {
 
   constructor(
     private service: TableDataService<T>,
-    private where?: Observable<TableQueryWhere>,
+    private where?: Observable<TableQueryWhereArray>,
   ) {
     super();
   }
