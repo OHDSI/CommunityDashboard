@@ -19,6 +19,7 @@ def create_app():
     app.config['DATABASE'] = os.path.join(TEST_DIR, 'test.db')
     app.config['SERPAPI_KEY'] = os.environ.get('SERPAPI_KEY')
     app.config['LOG_LEVEL'] = os.environ.get('LOG_LEVEL', 'INFO')
+    app.config['USE_SPACY'] = os.environ.get('USE_SPACY', False) != False
 
     dictConfig({
         'version': 1,

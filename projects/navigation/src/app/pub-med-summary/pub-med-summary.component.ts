@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,8 +25,25 @@ import { IframePlotComponent } from '../iframe-plot/iframe-plot.component';
     '../dashboard/dashboard-summary.css'
   ]
 })
-export class PubMedSummaryComponent {
+export class PubMedSummaryComponent implements AfterViewInit {
+  @ViewChild('plot', {read: ElementRef}) plot!: ElementRef
 
   @Input() orientation: 'horizontal' | 'vertical' = 'vertical'
+
+  ngAfterViewInit(): void {
+    this.renderPlot()
+  }
+
+  private renderPlot() {
+    // this.studyPipelineSummaryService.find().subscribe({
+    //   next: (stages: PipelineStage[]) => {
+    //     if (this.countsPlot) {
+    //       this.countsPlot.nativeElement.replaceChildren(
+    //         this._studyPipelineSummary(stages)
+    //       )
+    //     }
+    //   }
+    // })
+  }
   
 }

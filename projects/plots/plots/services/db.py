@@ -46,15 +46,15 @@ class DbSession:
         self.session.execute(f'DROP TABLE IF EXISTS {path};')
         self.session.execute(f'''
             CREATE TABLE {path} (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id TEXT PRIMARY KEY,
                 json JSON NOT NULL
             )
         ''')
-        with open(os.path.join(TEST_DIR, f'{path}.json')) as fd:
-            json_data = json.load(fd)
-            for r in json_data:
-                self.create(path, r)
-            self.session.commit()
+        # with open(os.path.join(TEST_DIR, f'{path}.json')) as fd:
+        #     json_data = json.load(fd)
+        #     for r in json_data:
+        #         self.create(path, r)
+        self.session.commit()
 
     def find(self, path: str, filter={}):
         where = ''
@@ -63,11 +63,11 @@ class DbSession:
         sql = f'SELECT * FROM {path}{where}'
         logging.info(sql)
         rows = self.session.execute(sql).fetchall()
-        return [json.loads(r['json']) for r in rows]
+        return [{"id": r['id'], "data": json.loads(r['json'])} for r in rows]
 
     def findById(self, path: str, id):
         row = self.session.execute(f'SELECT * FROM {path} WHERE id = ?', [id]).fetchone()
-        return json.loads(row)
+        return {"id": row['id'], "data": json.loads(row)}
 
     def replaceById(self, path: str, id, data):
         self.session.execute(

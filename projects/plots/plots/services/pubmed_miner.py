@@ -554,9 +554,10 @@ def makeCSVJSON(table, containerChosen: str, forUpdate: bool):
         upserts articles
 
     """
-    container = init_cosmos( 'pubmed')
-    container_ignore = init_cosmos( 'pubmed_ignore')
-    container_chosen = init_cosmos( containerChosen)
+    db = get_db()
+    # container = init_cosmos( 'pubmed')
+    # container_ignore = init_cosmos( 'pubmed_ignore')
+    # container_chosen = init_cosmos( containerChosen)
     if(forUpdate):
         data = fetchCurrentDataAndUpdate( 'pubmed')
         data_ignore = fetchCurrentDataAndUpdate('pubmed_ignore')
@@ -611,18 +612,10 @@ def makeCSVJSON(table, containerChosen: str, forUpdate: bool):
     ignore_list = getExistingIDandSearchStr( 'pubmed_ignore')[0]
     for k, v in data.items(): 
         if(k[6:len(k)] in ignore_list):
-            container_ignore.upsert_item({
-                    'id': k,
-                    'data': v
-                }
-            )
+            db.replaceById('pubmed_ignore', k, v)
         
         else:
-            container_chosen.upsert_item({
-                    'id': k,
-                    'data': v
-                }
-            )
+            db.replaceById(containerChosen, k, v)
 
 def getTimeOfLastUpdate():
 
@@ -682,7 +675,8 @@ def retrieveAsTable( fullRecord: bool, containerName):
         df: dataframe, either static or timeseries data
 
     """
-    container = init_cosmos( containerName)
+    db = get_db()
+    # container = init_cosmos( containerName)
     pmcID, pubmedID, nlmID, journalTitle, title = [],[],[],[],[]
     creationDate, affiliation, locID, countryOfPub, language = [],[],[],[],[]
     grantNum, fullAuthor, abstract, meshT, source, fullAuthorEdited = [],[],[],[],[],[]
@@ -701,7 +695,8 @@ def retrieveAsTable( fullRecord: bool, containerName):
                 'umlsIDspacy', 'umlsTermspacy', 'umlsStartChar', 'umlsEndChar', 'snomedIDs', 'snomedNames', 'termFreq'
                ]
 
-    for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
+    # for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
+    for item in db.find(containerName):
         lastIndex = len(item['data']['trackingChanges']) - 1
         if(fullRecord == False):
             startIndex = lastIndex
@@ -738,17 +733,18 @@ def retrieveAsTable( fullRecord: bool, containerName):
             fullAuthorGooScholar.append(item['data']['fullAuthorGooScholar'])
             googleScholarLink.append(item['data']['googleScholarLink'])
             
-            rxnormIDspacy.append(item['data']['rxnormIDspacy'])
-            rxnormTermspacy.append(item['data']['rxnormTermspacy'])
-            rxnormStartChar.append(item['data']['rxnormStartChar'])
-            rxnormEndChar.append(item['data']['rxnormEndChar'])
-            umlsIDspacy.append(item['data']['umlsIDspacy'])
-            umlsTermspacy.append(item['data']['umlsTermspacy'])
-            umlsStartChar.append(item['data']['umlsStartChar'])
-            umlsEndChar.append(item['data']['umlsEndChar'])
-            snomedIDs.append(item['data']['snomedIDs'])
-            snomedNames.append(item['data']['snomedNames'])
-            termFreq.append(item['data']['termFreq'])
+            if current_app.config['USE_SPACY']:
+                rxnormIDspacy.append(item['data']['rxnormIDspacy'])
+                rxnormTermspacy.append(item['data']['rxnormTermspacy'])
+                rxnormStartChar.append(item['data']['rxnormStartChar'])
+                rxnormEndChar.append(item['data']['rxnormEndChar'])
+                umlsIDspacy.append(item['data']['umlsIDspacy'])
+                umlsTermspacy.append(item['data']['umlsTermspacy'])
+                umlsStartChar.append(item['data']['umlsStartChar'])
+                umlsEndChar.append(item['data']['umlsEndChar'])
+                snomedIDs.append(item['data']['snomedIDs'])
+                snomedNames.append(item['data']['snomedNames'])
+                termFreq.append(item['data']['termFreq'])
 
         df = pd.DataFrame([pmcID, pubmedID, nlmID, journalTitle, title, creationDate, affiliation, 
                            locID, countryOfPub, language, grantNum, fullAuthor, abstract, meshT, source, 
@@ -1009,8 +1005,9 @@ def pushTableToDB(summaryTable, containerName, idName):
         Message indicating task success
 
     """
-    container = init_cosmos(containerName)
-    for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
+    # container = init_cosmos(containerName)
+    db = get_db()
+    for item in db.find(containerName):
         if(item['id'] == idName):
             print("Specified ID Name already exists. Updating...")
     results = {}
@@ -1018,7 +1015,7 @@ def pushTableToDB(summaryTable, containerName, idName):
         del summaryTable['abstract']
     results['data'] = summaryTable.to_json()
     results['id'] = idName
-    container.upsert_item(body = results)
+    db.replaceById(containerName, idName, results)
     print("Update completed.")
         
         
@@ -1035,11 +1032,12 @@ def retrieveAuthorSummaryTable(containerName, selectedID):
         outputDf: dataframe
 
     """
-    container = init_cosmos(containerName)
-    for item in container.query_items(query = str('SELECT * FROM ' + containerName), enable_cross_partition_query=True):
+    db = get_db()
+    # container = init_cosmos(containerName)
+    for item in db.find(containerName):
         if(item['id'] == selectedID):
             authorSum = json.dumps(item['data'], indent = True)
-            authorSum = json.loads(authorSum)
+            # authorSum = json.loads(authorSum)
             outputDf = pd.DataFrame(pd.read_json(authorSum))
             return outputDf
 
@@ -1057,8 +1055,12 @@ def checkAuthorRecord(newArticleTable, currentAuthorSummary, monthlyUpdate = Fal
         currentAuthorSummary: updated dataframe with added authorship
 
     """
-    placeHolder = list(currentAuthorSummary['uniqueAuthors'])[0]
-    faPlaceHolder = list(currentAuthorSummary['uniqueFirstAuthors'])[0]
+    if 'uniqueAuthors' in currentAuthorSummary:
+        placeHolder = list(currentAuthorSummary['uniqueAuthors'])[0]
+        faPlaceHolder = list(currentAuthorSummary['uniqueFirstAuthors'])[0]
+    else: # first run
+        placeholder = []
+        faPlaceHolder = []
 
     #clean first author 
     newArticleTable['firstAuthor'] = newArticleTable.apply(lambda x: x['firstAuthor'].replace("'", ""), axis = 1)
@@ -1112,9 +1114,13 @@ def calculateNewAuthors(currentAuthorSummary):
                                 number of new authors in total
 
     """
-    lastRowIndex = currentAuthorSummary['numberNewFirstAuthors'].shape[0]
-    currentAuthorSummary['numberNewFirstAuthors'][lastRowIndex-1] = currentAuthorSummary['cumulativeFirstAuthors'][lastRowIndex-1] - currentAuthorSummary['cumulativeFirstAuthors'][lastRowIndex-2]
-    currentAuthorSummary['numberNewAuthors'][lastRowIndex-1] = currentAuthorSummary['cumulativeAuthors'][lastRowIndex-1] - currentAuthorSummary['cumulativeAuthors'][lastRowIndex-2]
+    if 'numberNewFirstAuthors' in currentAuthorSummary:
+        lastRowIndex = currentAuthorSummary['numberNewFirstAuthors'].shape[0]
+        currentAuthorSummary['numberNewFirstAuthors'][lastRowIndex-1] = currentAuthorSummary['cumulativeFirstAuthors'][lastRowIndex-1] - currentAuthorSummary['cumulativeFirstAuthors'][lastRowIndex-2]
+        currentAuthorSummary['numberNewAuthors'][lastRowIndex-1] = currentAuthorSummary['cumulativeAuthors'][lastRowIndex-1] - currentAuthorSummary['cumulativeAuthors'][lastRowIndex-2]
+    else: # first update
+        currentAuthorSummary['numberNewFirstAuthors'] = currentAuthorSummary['cumulativeFirstAuthors']
+        currentAuthorSummary['numberNewAuthors'] = currentAuthorSummary['cumulativeAuthors']
                 
 #functions for NER
 def scispacyNER(text, lowerThreshold, upperThreshold, nlp):
@@ -1485,12 +1491,13 @@ def update_data():
         newArticlesTable, numNewArticles = identifyNewArticles(finalTable)
         
         if(numNewArticles > 0):
-            #NER and mapping of abstracts to SNOMED
-            newArticlesTable = scispacyOntologyNER(newArticlesTable, "rxnorm")
-            newArticlesTable = scispacyOntologyNER(newArticlesTable, "umls")
-            newArticlesTable = mapUmlsToSnomed(newArticlesTable, Keys.UMLSAPI_KEY)
-            newArticlesTable = findTermFreq(newArticlesTable)
-            newArticlesTable = newArticlesTable.reset_index(drop = True)
+            if current_app.config['USE_SPACY']:
+                #NER and mapping of abstracts to SNOMED
+                newArticlesTable = scispacyOntologyNER(newArticlesTable, "rxnorm")
+                newArticlesTable = scispacyOntologyNER(newArticlesTable, "umls")
+                newArticlesTable = mapUmlsToSnomed(newArticlesTable, Keys.UMLSAPI_KEY)
+                newArticlesTable = findTermFreq(newArticlesTable)
+                newArticlesTable = newArticlesTable.reset_index(drop = True)
             # if ('index' in newArticlesTable.columns):
             #     del newArticlesTable['index']
             #push new articles
@@ -1516,6 +1523,7 @@ def update_data():
             pushTableToDB(currentAuthorSummaryTable, 'dashboard', 'pubmed_authors')
             
         if(lastUpdated != dateMY):
+            asOfDate =  retrieveAsTable(False, 'pubmed')
             #merge in NER and snomed mapping columns
             finalTable = finalTable[finalTable.pubmedID.isin(asOfDate.pubmedID)]
             colList = ['pubmedID', 'rxnormIDspacy', 'rxnormTermspacy', 'rxnormStartChar', 'rxnormEndChar',
@@ -1536,8 +1544,13 @@ def update_data():
             #past years
             pastYears = pd.DataFrame(currentAuthorSummaryTable.iloc[0:-1])
             #this year
-            currentAuthorSummaryTable['uniqueFirstAuthors'][numRows - 1] = []
-            currentAuthorSummaryTable['uniqueAuthors'][numRows - 1] = []
+
+            if numRows == 1:
+                currentAuthorSummaryTable['uniqueFirstAuthors'] = [[]]
+                currentAuthorSummaryTable['uniqueAuthors'] = [[]]
+            else:
+                currentAuthorSummaryTable['uniqueFirstAuthors'][numRows - 1] = []
+                currentAuthorSummaryTable['uniqueAuthors'][numRows - 1] = []
             asOfThisYear = pd.DataFrame(currentAuthorSummaryTable.iloc[numRows - 1]).T
             #look for new authors and add to the list
             checkAuthorRecord(asOfDate, asOfThisYear, monthlyUpdate =True)

@@ -78,9 +78,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.renderPlots()
-    }, 500)
+    this.renderPlots()
   }
 
   renderSubscription = merge(

@@ -8,7 +8,7 @@ CREATE TABLE beta (
 );
 
 CREATE TABLE pubmed_ignore (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id TEXT PRIMARY KEY,
   json JSON NOT NULL
 );
 
