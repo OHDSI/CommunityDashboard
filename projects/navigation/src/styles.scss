@@ -182,10 +182,10 @@ body { margin: 0; font-family: Raleway, "Helvetica Neue", sans-serif; }
 
 @include mat.core();
 
-@include mat.all-component-themes(themes.$dark-theme);
+@include mat.all-component-themes(themes.$light-theme);
 // see typography bug https://github.com/angular/components/issues/24370
 @include mat.all-component-typographies(themes.$typography);
-@include custom-component-dark-themes(themes.$dark-theme);
+@include custom-component-light-themes(themes.$light-theme);
 
 .invert {
   $invert-theme: themes.$light-theme;

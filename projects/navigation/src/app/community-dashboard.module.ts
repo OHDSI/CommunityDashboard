@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'ehden', loadComponent: () => import('./ehden/ehden.component').then(mod => mod.EhdenComponent) },
   { path: 'study-explorer', loadComponent: () => import('./study-explorer/study-explorer.component').then(mod => mod.StudyExplorerComponent) },
   { path: 'funding', loadComponent: () => import('./funding/funding.component').then(mod => mod.FundingComponent) },
-  { path: 'test', loadComponent: () => import('./test/test.component').then(mod => mod.TestComponent) },
+  // { path: 'test', loadComponent: () => import('./test/test.component').then(mod => mod.TestComponent) },
 ]
 
 @NgModule({

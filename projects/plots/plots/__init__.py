@@ -1,3 +1,4 @@
+from typing import Type
 from flask import Flask
 import dash_bootstrap_components as dbc
 from dash import Dash, html
@@ -5,18 +6,20 @@ import dash
 import os
 from logging.config import dictConfig
 from dotenv import load_dotenv
+from plots.services.sqlite_db import SqliteDb
+from plots.services.db import Db
 
 TEST_DIR = os.path.join(os.path.dirname(__file__), 'test')
 
 _dash_app = None
-def create_app():
+def create_app(DbClass:Type[Db]=SqliteDb):
     global _dash_app
     
     app = Flask(__name__)
 
     load_dotenv()
+    app.config['Db'] = DbClass
     app.config['ENTREZ_EMAIL'] = os.environ.get('ENTREZ_EMAIL')
-    app.config['DATABASE'] = os.path.join(TEST_DIR, 'test.db')
     app.config['SERPAPI_KEY'] = os.environ.get('SERPAPI_KEY')
     app.config['LOG_LEVEL'] = os.environ.get('LOG_LEVEL', 'INFO')
     app.config['USE_SPACY'] = os.environ.get('USE_SPACY', False) != False
@@ -43,10 +46,9 @@ def create_app():
     from flask_cors import CORS
     CORS(app)
 
-    from plots.blueprints import user_routes, youtube_routes, pubmed_routes, ehden_routes
-    app.register_blueprint(user_routes.bp)
+    from plots.blueprints import youtube_routes, pubmed_miner, ehden_routes
     app.register_blueprint(youtube_routes.bp)
-    app.register_blueprint(pubmed_routes.bp)
+    app.register_blueprint(pubmed_miner.bp)
     app.register_blueprint(ehden_routes.bp)
 
     _dash_app = Dash(

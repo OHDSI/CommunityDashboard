@@ -1,99 +1,41 @@
-import json
-import time
-from azure.cosmos import CosmosClient, PartitionKey
 import pandas as pd
-import ast
-import re
 import click
 from flask import g, current_app
-import sqlite3
-import logging
-import os.path
+from abc import ABC, abstractmethod
 
-from plots.services import youtube_miner
+class Db(ABC):
 
-TEST_DIR = os.path.join(os.path.dirname(__file__), '../test')
-
-class DbSession:
-
-    def __init__(self):
-        self.session = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        self.session.row_factory = sqlite3.Row
-
+    @abstractmethod
     def close(self):
-        self.session.close()
+        ...
 
+    @abstractmethod
     def init_db(self):
-        with current_app.open_resource('test/schema.sql') as f:
-            self.session.executescript(f.read().decode('utf8'))
-        self._load_dashboard_fixture('pubmed_authors')
-        self._load_fixture('ehden_course_completions')
-        self._load_fixture('ehden_users')
-        self._load_fixture('youtube_monthly')
-        self._load_fixture('youtube')
-        self._load_fixture('researchers')
-        self._load_fixture('pubmed')
+        ...
 
-    def _load_dashboard_fixture(self, id):
-        with open(os.path.join(TEST_DIR, f'{id}.json')) as fd:
-            json_data = json.load(fd)
-            self.replaceById('dashboard', id, json_data)
+    @abstractmethod
+    def find(self, path: str, filter={}): # -> {id: string, data: {}}[]
+        ...
 
-    def _load_fixture(self, path):
-        self.session.execute(f'DROP TABLE IF EXISTS {path};')
-        self.session.execute(f'''
-            CREATE TABLE {path} (
-                id TEXT PRIMARY KEY,
-                json JSON NOT NULL
-            )
-        ''')
-        # with open(os.path.join(TEST_DIR, f'{path}.json')) as fd:
-        #     json_data = json.load(fd)
-        #     for r in json_data:
-        #         self.create(path, r)
-        self.session.commit()
+    @abstractmethod
+    def findById(self, path: str, id): # -> {id: string, data: {}}
+        ...
 
-    def find(self, path: str, filter={}):
-        where = ''
-        if ('where' in filter):
-            where = ' WHERE ' + ' AND '.join([f"{k} = '{v}'" for k, v in filter['where'].items()])
-        sql = f'SELECT * FROM {path}{where}'
-        logging.info(sql)
-        rows = self.session.execute(sql).fetchall()
-        return [{"id": r['id'], "data": json.loads(r['json'])} for r in rows]
-
-    def findById(self, path: str, id):
-        row = self.session.execute(f'SELECT * FROM {path} WHERE id = ?', [id]).fetchone()
-        return {"id": row['id'], "data": json.loads(row)}
-
+    @abstractmethod
     def replaceById(self, path: str, id, data):
-        self.session.execute(
-            f'INSERT INTO {path} (id, json) VALUES (?, ?) ON CONFLICT(id) DO UPDATE SET json=excluded.json;',
-            [id, json.dumps(data)]
-        )
-        self.session.commit()
+        ...
 
+    @abstractmethod
     def create(self, path: str, data):
-        self.session.execute(
-            f'INSERT INTO {path} (json) VALUES (?)',
-            [json.dumps(data)]
-        )
-        self.session.commit()
+        ...
 
+    @abstractmethod
     def deleteById(self, path: str, id):
-        self.session.execute(
-            f'DELETE FROM {path} WHERE id = ?',
-            [id]
-        )
-        self.session.commit()
+        ...
 
-
-def get_db() -> DbSession:
+def get_db() -> Db:
     if 'db' not in g:
-        g.db = DbSession()
+        g.db = current_app.config['Db']()
     return g.db
 
 
