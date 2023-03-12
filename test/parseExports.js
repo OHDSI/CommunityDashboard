@@ -33,7 +33,7 @@ async function main(){
     pubmedArticles: await fromCsv('test/exports/dashboard_pubmedArticlesJson.csv'),
     pubmedAuthors: await fromCsv('test/exports/dashboard_pubmedAuthorsJson.csv'),
     youtubeAnnual: JSON.parse(await fs.readFile('test/exports/dashboard_youtubeAnnualJson.json'))['data'],
-    ehden: JSON.parse(await fs.readFile('test/exports/ehdenJson.json'))['data'].reduce((acc, e) => ({...acc, ...e}), {}),
+    ehden: {"0": JSON.parse(await fs.readFile('test/exports/ehdenJson.json'))['data'].reduce((acc, e) => ({...acc, ...e}), {})},
     pubmed: JSON.parse(await fs.readFile('test/exports/pubmedJson.json')),
     youtube: JSON.parse(await fs.readFile('test/exports/youtubeJson.json')),
   }

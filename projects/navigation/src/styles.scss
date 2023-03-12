@@ -188,17 +188,17 @@ body { margin: 0; font-family: Raleway, "Helvetica Neue", sans-serif; }
 @include custom-component-light-themes(themes.$light-theme);
 
 .invert {
-  $invert-theme: themes.$light-theme;
+  $invert-theme: themes.$dark-theme;
   color: map.get(map.get($invert-theme, 'foreground'), 'text') !important;
   background: map.get(map.get($invert-theme, 'background'), 'background') !important;
 }
 
-.light-theme {
-  @include mat.all-component-colors(themes.$light-theme);
-  @include custom-component-light-themes(themes.$light-theme);
+.dark-theme {
+  @include mat.all-component-colors(themes.$dark-theme);
+  @include custom-component-light-themes(themes.$dark-theme);
 
   .invert {
-    $invert-theme: themes.$dark-theme;
+    $invert-theme: themes.$light-theme;
     color: map.get(map.get($invert-theme, 'foreground'), 'text') !important;
     background: map.get(map.get($invert-theme, 'background'), 'background') !important;
   }
