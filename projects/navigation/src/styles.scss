@@ -231,6 +231,11 @@ body { margin: 0; font-family: Raleway, "Helvetica Neue", sans-serif; }
   color: map.get($palette, 'default') !important;
 }
 
+.color-secondary {
+  $color-config: mat.get-color-config(themes.$dark-theme);
+  color: map.get(map.get($color-config, 'foreground'), 'secondary-text') !important;
+}
+
 // from community dashboard
 .header-text {
   $color-config: mat.get-color-config(themes.$dark-theme);

@@ -8,3 +8,9 @@
   bottom: 8px;
   z-index: 1;
 }
+
+.verbage-position {
+  position: absolute;
+  bottom: 0;
+  margin-right: 16px;
+}

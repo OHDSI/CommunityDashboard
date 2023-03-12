@@ -2,8 +2,8 @@
   <div class="headline">
     <mat-card-header class="absolute">
       <mat-card-title class="header-text headline-title">Network Studies</mat-card-title>
-      <p style="color: white">
-        <!-- [...A brief about network studies.] -->
+      <p style="color: white" class="mat-headline-5">
+        BETA
       </p>
     </mat-card-header>
     <!-- <img mat-card-image src="/assets/orange-texture.png" class="full-width"> -->
@@ -15,6 +15,15 @@
         <span matListItemTitle class="metric">{{m.value}}</span>
         <span matListItemLine>{{m.name}}</span>
       </mat-list-item>
+    </div>
+    <div class="verbage-position">
+      <p>
+        Network studies are observational research studies conducted across institutions.  Network studies form the foundation of reproducible science with published protocols, computable cohort definitions, analysis, and results.
+      </p>
+      <p class="mat-headline-6 color-secondary">BETA VERSION </p>
+      <p class="mat-caption color-secondary">The network dashboard is based upon automatic parsing of OHDSI/network-studies and may show incomplete information. It does not include all studies conducted or completed in the OHDSI community. If you would like to understand the parsing algorithm used for this data harvesting and assist in gathering complete information, please reach out to 
+        <a href="mailto:nagy@ohdsi.org">nagy@ohdsi.org</a>
+      </p>
     </div>
   </mat-card-content>
 </mat-card>
