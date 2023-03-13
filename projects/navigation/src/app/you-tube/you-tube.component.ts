@@ -37,7 +37,7 @@ export class YouTubeComponent {
         }
        } else if (breakpoints[Breakpoints.Small]) {
         return {
-          columns: ['Title', 'Date Published', 'Total Views', 'Recent Views', 'SNOMED Terms (n)'],
+          columns: ['Title', 'Date Published', 'Total Views', 'SNOMED Terms (n)'],
           tiles: [
             { cols: 6, rows: 4, portal: this.youTubeWelcomePortal, inputs: {} },
             { cols: 6, rows: 4, portal: this.youTubeTabs, inputs: {} },
@@ -45,7 +45,7 @@ export class YouTubeComponent {
         }
      } else {
         return {
-          columns: ['Title', 'Date Published', 'Length', 'Total Views', 'Recent Views', 'SNOMED Terms (n)'],
+          columns: ['Title', 'Date Published', 'Length', 'Total Views', 'SNOMED Terms (n)'],
           tiles: [
             { cols: 4, rows: 4, portal: this.youTubeWelcomePortal, inputs: {} },
             { cols: 8, rows: 4, portal: this.youTubeTabs, inputs: {} },

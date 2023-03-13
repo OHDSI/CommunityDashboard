@@ -3,8 +3,9 @@ import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
-import { TableDataSourceLegacy as TableDataSource  } from '@community-dashboard/rest';
-import { YouTubeVideo, YouTubeService } from './you-tube.service';
+import { TableDataSource  } from '@community-dashboard/rest';
+import { YouTube, YouTubeService } from '../youtube/youtube.service';
+import * as d3 from 'd3'
 
 @Component({
   selector: 'app-you-tube-table',
@@ -21,8 +22,8 @@ import { YouTubeVideo, YouTubeService } from './you-tube.service';
 export class YouTubeTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<YouTubeVideo>;
-  dataSource: TableDataSource<YouTubeVideo>;
+  @ViewChild(MatTable) table!: MatTable<YouTube>;
+  dataSource: TableDataSource<YouTube>;
 
   @Input()
   displayedColumns!: string[]
@@ -37,5 +38,9 @@ export class YouTubeTableComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+  latestViewCount(y: YouTube) {
+    return y.counts.sort((a, b) => d3.descending(a.checkedOn, b.checkedOn))[0]['viewCount']
   }
 }
