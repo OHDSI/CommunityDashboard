@@ -38,7 +38,7 @@ export class PubMedSummaryComponent implements AfterViewInit, OnDestroy {
   ){}
 
   ngAfterViewInit(): void {
-    this.pubmedService.summary().subscribe(ys => 
+    this.pubmedServiceSubscription = this.pubmedService.summary().subscribe(ys => 
       this.plot.nativeElement.replaceChildren(renderPlot(ys))
     )
   }

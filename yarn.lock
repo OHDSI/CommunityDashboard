@@ -2066,6 +2066,8 @@ __metadata:
 "@community-dashboard/community-dashboard@workspace:projects/navigation":
   version: 0.0.0-use.local
   resolution: "@community-dashboard/community-dashboard@workspace:projects/navigation"
+  dependencies:
+    tinyduration: ^3.2.4
   peerDependencies:
     "@angular/animations": ^15.0.4
     "@angular/cdk": ^15.0.3
@@ -7848,6 +7850,7 @@ __metadata:
     ng-packagr: ^15.0.0
     ngx-build-plus: ^15.0.0
     rxjs: ~7.8.0
+    tinyduration: ^3.2.4
     tslib: ^2.3.0
     typescript: ~4.8.4
     zone.js: ~0.11.4
@@ -16669,6 +16672,13 @@ __metadata:
   version: 2.0.0
   resolution: "tildify@npm:2.0.0"
   checksum: 0f5fee93624c4afdf75ee224c3b65aece4817ba5317fd70f49eaf084ea720d73556a6ef3f50079425a773ba3b93805b4524d14057841d4e4336516fdbe80635b
+  languageName: node
+  linkType: hard
+
+"tinyduration@npm:^3.2.4":
+  version: 3.2.4
+  resolution: "tinyduration@npm:3.2.4"
+  checksum: 78d58f15a2d74109161a988959f3d7cac9436795430fa5ec7a563e6d467b55b14e175d48c9ef7e228235a44678175522711a5c6e561449b38e1c9bc8b1420463
   languageName: node
   linkType: hard
 

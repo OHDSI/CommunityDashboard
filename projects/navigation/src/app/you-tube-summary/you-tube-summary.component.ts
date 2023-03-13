@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -6,6 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { IframePlotComponent } from '../iframe-plot/iframe-plot.component';
+import { YouTubeService } from '../youtube/youtube.service';
+import { renderPlot } from '../youtube/youtube-annually-plot';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-you-tube-summary',
@@ -26,7 +29,23 @@ import { IframePlotComponent } from '../iframe-plot/iframe-plot.component';
   ]
 })
 export class YouTubeSummaryComponent {
+  @ViewChild('plot', {read: ElementRef}) plot!: ElementRef
 
   @Input() orientation: 'horizontal' | 'vertical' = 'vertical'
 
+  constructor(
+    private youTubeService: YouTubeService
+  ){}
+
+  ngAfterViewInit(): void {
+    this.youTubeServiceSubscription = this.youTubeService.annually().subscribe(ys => 
+      this.plot.nativeElement.replaceChildren(renderPlot(ys))
+    )
+  }
+
+  youTubeServiceSubscription?: Subscription
+
+  ngOnDestroy(): void {
+    this.youTubeServiceSubscription?.unsubscribe()
+  }
 }

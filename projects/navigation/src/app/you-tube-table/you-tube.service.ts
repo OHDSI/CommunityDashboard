@@ -4,7 +4,8 @@ import { map, Observable } from 'rxjs';
 
 export interface YouTubeVideo {
   "id": string,
-  "Title": string,
+  "title": string,
+  "termFreq": string,
   "titleText"?: string,
   "titleLink"?: string,
   "Duration": string,
@@ -45,12 +46,15 @@ export class YouTubeService extends RestDelegate<YouTubeVideo> {
   }): Observable<YouTubeVideo[]> {
     return super.find(params).pipe(
       map(p => { 
+        if (!p) {
+          return []
+        }
         return p.map((r) => {
           // n[n.find("[")+1:n.find("]")]
-          r.titleText = r['Title'].substring(1, r['Title'].indexOf(']'))
-          r.titleLink = r['Title'].substring(r['Title'].lastIndexOf('(')+1, r['Title'].length - 1)
-          r.snomedTerms = r["SNOMED Terms (n)"].substring(1, r['SNOMED Terms (n)'].lastIndexOf(']'))
-          r.snomedLink = `${this.environment.plots}${r['SNOMED Terms (n)'].substring(r['SNOMED Terms (n)'].lastIndexOf('(')+1, r['SNOMED Terms (n)'].length - 1)}`
+          r.titleText = r['title']
+          r.titleLink = `https://www.youtube.com/watch?v=${r['id']}`
+          r.snomedTerms = r['termFreq']
+          r.snomedLink = ''
           return r
         })
       })
