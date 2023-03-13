@@ -27,8 +27,10 @@ export class EhdenTableComponent implements AfterViewInit {
   @Input()
   displayedColumns!: string[]
 
+  count = this.courseStatsService.count()
+
   constructor(
-    public courseStatsService: CourseStatsService,
+    private courseStatsService: CourseStatsService,
   ) {
     this.dataSource = new TableDataSource(courseStatsService);
   }

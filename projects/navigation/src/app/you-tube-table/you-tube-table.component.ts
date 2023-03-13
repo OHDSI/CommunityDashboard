@@ -28,8 +28,10 @@ export class YouTubeTableComponent implements AfterViewInit {
   @Input()
   displayedColumns!: string[]
 
+  count = this.youTubeService.count()
+
   constructor(
-    public youTubeService: YouTubeService,
+    private youTubeService: YouTubeService,
   ) {
     this.dataSource = new TableDataSource(youTubeService);
   }
