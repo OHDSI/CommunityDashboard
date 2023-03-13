@@ -26,7 +26,7 @@ export class PubMedTabsComponent implements OnDestroy, AfterViewInit {
   ){}
 
   ngAfterViewInit(): void {
-    this.pubmedService.summary().subscribe(ys => 
+    this.pubmedServiceSubscription = this.pubmedService.summary().subscribe(ys => 
       this.publicationsCitationsPlot.nativeElement.replaceChildren(renderPlot(ys))
     )
   }

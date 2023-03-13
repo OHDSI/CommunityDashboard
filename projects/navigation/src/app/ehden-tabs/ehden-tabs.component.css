@@ -9,3 +9,8 @@
 .not-full-height {
   height: calc(100% - 1px);
 }
+
+::ng-deep .ehden-svg-tabs svg {
+  height: 100%;
+  width: 100%;
+}

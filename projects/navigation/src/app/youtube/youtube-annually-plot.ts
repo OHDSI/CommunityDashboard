@@ -5,9 +5,11 @@ import { YouTubeAnnualSummary } from "./youtube.service";
 const PRIMARY = '#20425a'
 const SECONDARY = '#ff9800'
 
-export function renderPlot(ys: YouTubeAnnualSummary[]) {
+export function renderPlot(ys: YouTubeAnnualSummary[], height?: number) {
   // https://observablehq.com/@d3/bar-line-chart
-  const height = 400
+  if (!height) {
+    height = 400
+  }
   const width = 640
   const margin = ({top: 20, right: 60, bottom: 30, left: 40})
 
@@ -29,7 +31,7 @@ export function renderPlot(ys: YouTubeAnnualSummary[]) {
     .y((d: YouTubeAnnualSummary) => y2(d.cumulativeHoursWatched))
 
   const xAxis = (g: any) => g
-    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .attr("transform", `translate(0,${height! - margin.bottom})`)
     .call(d3.axisBottom(x)
         .tickValues(d3.ticks(...d3.extent(x.domain()), width / 40).filter((v: any) => x(v) !== undefined))
         .tickSizeOuter(0))

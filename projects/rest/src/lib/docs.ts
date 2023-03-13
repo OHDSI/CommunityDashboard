@@ -1,5 +1,5 @@
 import { Observable, of, switchMap } from "rxjs";
-import { TableData, TableQuery, TableDataService, TableQueryWhereArray, TableFieldValue } from "./table-data-source";
+import { TableData, TableQuery, TableDataService, TableQueryWhere, TableFieldValue } from "./table-data-source";
 
 export type DocsQuery = TableQuery & {
   path: string,
@@ -48,13 +48,20 @@ export interface Docs {
 
 }
 
+/**
+ * Delegates the implementation of the TableDataService
+ * to a Docs for a particular TableData.
+ * 
+ * Optionally, constrain all TableData with a where defined
+ * during construction.
+ */
 export abstract class DocsTableDataService<T extends TableData> implements TableDataService<T> {
 
   constructor(private params: {
       docs: Docs,
       path: string,
       idField: string,
-      where?: Observable<TableQueryWhereArray | null>
+      where?: Observable<TableQueryWhere[] | null>
     }
   ){}
 
@@ -97,9 +104,14 @@ export abstract class DocsTableDataService<T extends TableData> implements Table
     })
   }
 
+  /**
+   * 
+   * @returns the "inner" observable from fn using the latest this.params.where 
+   *          "outer" observable, or ifNull when this.params.where emits null.
+   */
   private switchWhere<S>(ifNull: S, fn: (params: DocsQuery) => Observable<S>, params?: TableQuery): Observable<S> {
     // Originally, I was merging the where queries. But, this didn't make sense for most use
-    // cases. Now if a where is passed it just overrides this.params.where.
+    // cases. Now if params.where is passed it just overrides this.params.where.
     if (params?.where || !this.params.where) {
       return fn(this.toDocsQuery({...params}))
     } else {

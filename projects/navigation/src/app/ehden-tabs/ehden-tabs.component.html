@@ -1,7 +1,8 @@
-<mat-tab-group color="accent" backgroundColor="primary" class="not-full-height outline">
+<mat-tab-group color="accent" backgroundColor="primary" class="not-full-height outline ehden-svg-tabs">
   <mat-tab label="Users">
     <ng-template matTabContent>
-      <app-iframe-plot  path="plots/ehden-users"></app-iframe-plot>
+      <!-- <app-iframe-plot  path="plots/ehden-users"></app-iframe-plot> -->
+      <div #ehdenUsersAnnuallyPlot class="full-height"></div>
     </ng-template>
   </mat-tab>
   <mat-tab label="Course Completions">

@@ -42,7 +42,7 @@ export class IframePlotComponent implements OnDestroy {
 
   ngAfterViewInit(): void {
     setTimeout(() => { this.dashDelay = true}, 2000)
-    setTimeout(() => { this.retryDelay = true}, 5000)
+    setTimeout(() => { this.retryDelay = true}, 10000)
     this.plotSubscription = this.iframeTokenBucketService.subscribePlotDequeue(() => this.plot())
     new ResizeObserver(() => {
       this.iframeTokenBucketService.queueResize()

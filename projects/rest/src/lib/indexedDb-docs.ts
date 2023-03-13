@@ -1,6 +1,6 @@
 import { map, Observable, of } from "rxjs";
 import { ArrayUnion, Docs, DocsQuery } from "./docs";
-import { OrderBy, TableData, TableQuery, TableQueryWhere, TableQueryWhereArray } from "./table-data-source";
+import { OrderBy, TableData, TableQuery, TableQueryWhere } from "./table-data-source";
 
 export class IndexedDbDocs implements Docs {
 
@@ -79,7 +79,7 @@ export class IndexedDbDocs implements Docs {
     return f
   }
 
-  private filterAnd<T extends TableData>(f: T[], a: TableQueryWhereArray) {
+  private filterAnd<T extends TableData>(f: T[], a: TableQueryWhere[]) {
     for (const q of a) {
       f = this.filter(f, q)
     }

@@ -5,10 +5,10 @@ import { Observable, combineLatest, switchMap, tap, startWith, map } from 'rxjs'
 
 export interface TableData {[key: string]: TableFieldValue}
 export type TableFieldValue = TableFieldPrimitive | TableFieldPrimitive[] | TableData | TableData[] | undefined
-export type TableFieldPrimitive = string | number | boolean
+export type TableFieldPrimitive = string | number | boolean | null
 
 export interface TableQuery {
-  where?: TableQueryWhereArray,
+  where?: TableQueryWhere[],
   orderBy?: OrderBy[],
   limit?: number,
   startAfter?: TableData
@@ -17,7 +17,7 @@ export interface TableQuery {
 export type Operator = '==' | 'in'
 export type OrderBy = [string, 'asc' | 'desc' | '']
 export type TableQueryWhere = [string, Operator, TableFieldPrimitive | TableFieldPrimitive[]]
-export type TableQueryWhereArray = [string, Operator, TableFieldPrimitive | TableFieldPrimitive[]][]
+export type TableQueryWhereArray = TableQueryWhere[]
 
 export interface TableDataService<T extends TableData> {
 
@@ -39,7 +39,7 @@ export class TableDataSource<T extends TableData> extends DataSource<T> {
 
   constructor(
     private service: TableDataService<T>,
-    private where?: Observable<TableQueryWhereArray>,
+    private where?: Observable<TableQueryWhere[]>,
   ) {
     super();
   }
