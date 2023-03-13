@@ -3,8 +3,8 @@ import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
-import { TableDataSourceLegacy as TableDataSource } from '@community-dashboard/rest';
-import { Publication, PublicationsService } from './publications.service';
+import { TableDataSource } from '@community-dashboard/rest';
+import { Publication, PubmedService } from '../publications/pubmed.service';
 
 @Component({
   selector: 'app-pub-med-table',
@@ -24,13 +24,15 @@ export class PubMedTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<Publication>;
   dataSource: TableDataSource<Publication>;
 
+  count = this.pubmedService.count()
+
   @Input()
   displayedColumns!: string[]
 
   constructor(
-    public publicationsService: PublicationsService,
+    private pubmedService: PubmedService,
   ) {
-    this.dataSource = new TableDataSource(publicationsService);
+    this.dataSource = new TableDataSource(pubmedService);
   }
 
   ngAfterViewInit(): void {

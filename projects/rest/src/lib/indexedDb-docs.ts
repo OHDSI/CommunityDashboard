@@ -19,8 +19,15 @@ export class IndexedDbDocs implements Docs {
     )
   }
 
-  count(params: TableQuery): Observable<number> {
-    throw new Error('not implemented')
+  count<T extends TableData>(params: DocsQuery): Observable<number> {
+    return this.params.tables.pipe(
+      map(ts => this._getTableOrThrow(ts, params.path)),
+      map(table => {
+        const d = Object.values({...table}) as T[]
+        const f = this.filterMemory<T>(d, params)
+        return f.length
+      }),
+    )
   }
 
   create(params: {
