@@ -70,7 +70,6 @@ export abstract class DocsTableDataService<T extends TableData> implements Table
   }
 
   count(params?: TableQuery): Observable<number> {
-    console.log('count', this.params.path)
     return this.switchWhere(0, (params) => this.params.docs.count(params), params)
   }
 

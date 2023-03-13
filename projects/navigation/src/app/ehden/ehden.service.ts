@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Docs, DocsTableDataService, DocsToken, TableFieldValue } from '@community-dashboard/rest';
+import { Docs, DocsTableDataService, DocsToken, TableFieldValue, TableQuery, TableDataService } from '@community-dashboard/rest';
 import { map, Observable } from 'rxjs';
 import * as td from 'tinyduration'
 import * as d3 from 'd3';
@@ -21,19 +21,22 @@ export interface Ehden {
     "completions": string,
     "year": string | null
   }[],
-  "course_stats": {
-    "course_id": string,
-    "course_fullname": string,
-    "course_shortname": string,
-    "category": string | null,
-    "started": string,
-    "completions": string,
-    "course_started": string,
-    "teachers": {
-      "firstname": string,
-      "lastname": string
-    }[]
-  }[],
+  "course_stats": CourseStat[],
+}
+
+export interface CourseStat {
+  [key: string]: TableFieldValue,
+  "course_id": string,
+  "course_fullname": string,
+  "course_shortname": string,
+  "category": string | null,
+  "started": string,
+  "completions": string,
+  "course_started": string,
+  "teachers": {
+    "firstname": string,
+    "lastname": string
+  }[]
 }
 
 @Injectable({
@@ -47,4 +50,29 @@ export class EhdenService extends DocsTableDataService<Ehden> {
     super({docs, path: 'ehden', idField: 'id'})
   }
 
+}
+
+@Injectable({
+  providedIn: "root"
+})
+export class CourseStatsService implements TableDataService<CourseStat> {
+
+  constructor(
+    private ehdenService: EhdenService
+  ) { }
+
+  valueChanges(params?: TableQuery): Observable<CourseStat[] | null> {
+    return this.ehdenService.valueChanges(params).pipe(
+      map(es => {
+        if (!es) {
+          return es
+        }
+        return es[0].course_stats
+      })
+    )
+  }
+
+  count(params?: TableQuery): Observable<number> {
+    return this.ehdenService.count()
+  }
 }

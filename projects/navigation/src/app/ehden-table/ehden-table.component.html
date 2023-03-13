@@ -4,7 +4,7 @@
     <ng-container matColumnDef="course_fullname">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>course_fullname</th>
       <td mat-cell *matCellDef="let row">
-        <a [href]="row.courseFullNameLink">{{row.courseFullNameText}}</a>
+        <a href="https://academy.ehden.eu/course/view.php?id={{row.course_id}}">{{row.course_fullname}}</a>
       </td>
     </ng-container>
 
