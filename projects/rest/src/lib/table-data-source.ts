@@ -62,7 +62,7 @@ export class TableDataSource<T extends TableData> extends DataSource<T> {
       ]).pipe(
         switchMap(([_, sort, where]) => {
           const orderBy: {orderBy?: TableQuery['orderBy']} = {}
-          if (sort) {
+          if (sort.active) {
             orderBy!.orderBy = [[sort.active, sort.direction]]
           }
           return this.service.valueChanges({
