@@ -17,7 +17,7 @@ import add_tooltips from '../tooltips'
 import cadenceViolin from './cadence-violin'
 import { MatInputModule } from '@angular/material/input';
 import { PipelineStage, StudyPipelineStage, StudyPipelineSummaryService } from '../study-pipeline-summary.service';
-import { StudyTimelineService } from '../study-timeline.service';
+import { StudyTimelineService, TimelineDay } from '../study-timeline.service';
 
 @Component({
   selector: 'app-study-explorer-tabs',
@@ -289,6 +289,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
       "resultsAvailableLast30": this.scheme(5),
       "studiesCompletedLast30": this.scheme(6),
     }
+    tl.sort((a: TimelineDay, b: TimelineDay) => d3.ascending(a.date, b.date))
     const marks = this.timelineMetricsControl.value!.map(v => {
       return Plot.line(tl, Plot.windowY({k: 14, x: "date", y: v, stroke: colors[v]}))
     })
@@ -298,7 +299,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
     return Plot.plot({
       y: {
         grid: true,
-        label: "Count"
+        label: "Monthly Counts"
       },
       marks
     })
