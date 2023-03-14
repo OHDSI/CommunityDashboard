@@ -43,12 +43,7 @@ export class StudyPipelineSummaryService extends RestDelegate<PipelineStage> {
           'Complete',
         ]
         for (const [repoName, commits] of byStudy.entries()) {
-          const lastAuthorDate = commits[0].readmeCommit!.author?.date
-          if (!lastAuthorDate) {
-            errorHandler.handleError('last commit missing author date')
-            continue
-          }
-          const lastUpdate = new Date(new Date(lastAuthorDate))
+          const lastUpdate = new Date()
           const status = commits[0].readmeCommit!.summary?.status && VALID_STATUS.includes(commits[0].readmeCommit!.summary.status) ? commits[0].readmeCommit!.summary.status : 'Invalid / Suspended'
           const earliestUpdate = commits[commits.length - 1].readmeCommit!.author!.date!
           let statusChange = new Date(earliestUpdate).getTime()
