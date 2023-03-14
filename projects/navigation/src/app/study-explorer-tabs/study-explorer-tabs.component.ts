@@ -126,8 +126,15 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
     }
 
     if (this.studyCadencePlot?.nativeElement) {
+      const order: any = {
+        'Repo Created': 0,
+        'Started': 1,
+        'Design Finalized': 2,
+        'Results Available': 3,
+      }
       const stagesSummary = ss
         .filter((s: any) => s.days <= this.cadenceMaxDaysControl.value! && s.days > this.cadenceMinDaysControl.value! && s.stage != 'Invalid / Suspended' && s.stage != 'Complete')
+        .sort((a, b) => d3.ascending(order[a.stage], order[b.stage]))
       this.studyCadencePlot.nativeElement.replaceChildren(
         cadenceViolin(stagesSummary, 'stage', 'days', this.cadenceBandwidthControl.value, this.cadenceBucketsControl.value)
       )

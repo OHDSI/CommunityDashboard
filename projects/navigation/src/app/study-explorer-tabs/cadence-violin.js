@@ -1,7 +1,7 @@
 import * as d3 from "d3"
 
-const height = 500
-const width = 900
+const height = 400
+const width = 640
 const margin = {left: 40, bottom: 40, right: 20, top: 20}
 
 const cadenceViolin = (data, xVar, yVar, bandwidth, buckets) => {
