@@ -245,7 +245,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
   }
 
   _studyPipelineSummary(stages: PipelineStage[]) {
-    const colors = d3[`schemeRdBu`][7].slice(1, 6)
+    const colors = d3[`schemeRdBu`][8].slice(1, 7)
     colors[2] = '#c5c5c5'
     return Plot.plot({
       x: {
@@ -267,9 +267,10 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
         domain: [
           '< 30 days',
           '< 90 days',
-          '< 1 year',
           '< 6 months',
-          '> 1 year',
+          '< 1 year',
+          '< 2 years',
+          '> 2 years',
         ]
       },
       marks: [

@@ -29,7 +29,7 @@ export class PubMedComponent {
     map(({ breakpoints }) => {
       if (breakpoints[Breakpoints.XSmall]) {
         return {
-          columns: ['Creation Date', 'Authors', 'Publication'],
+          columns: ['creationDate', 'fullAuthorEdited', 'title'],
           tiles: [
             { cols: 12, rows: 4, portal: this.pubMedWelcomePortal, inputs: {} },
             { cols: 12, rows: 4, portal: this.pubMedTabs, inputs: {} },
@@ -37,7 +37,7 @@ export class PubMedComponent {
         }
        } else if (breakpoints[Breakpoints.Small]) {
         return {
-          columns: ['Creation Date', 'Authors', 'Publication', 'SNOMED Terms (n)'],
+          columns: ['creationDate', 'fullAuthorEdited', 'title', 'termFreq'],
           tiles: [
             { cols: 6, rows: 4, portal: this.pubMedWelcomePortal, inputs: {} },
             { cols: 6, rows: 4, portal: this.pubMedTabs, inputs: {} },
@@ -45,7 +45,7 @@ export class PubMedComponent {
         }
      } else {
         return {
-          columns: ['PubMed ID', 'Creation Date', 'Authors', 'Publication', 'Journal', 'SNOMED Terms (n)', 'Citation Count'],
+          columns: ['pubmedID', 'creationDate', 'fullAuthorEdited', 'title', 'journalTitle', 'termFreq', 'numCitations'],
           tiles: [
             { cols: 4, rows: 4, portal: this.pubMedWelcomePortal, inputs: {} },
             { cols: 8, rows: 4, portal: this.pubMedTabs, inputs: {} },

@@ -70,8 +70,10 @@ export class StudyPipelineSummaryService extends RestDelegate<PipelineStage> {
             days = '< 6 months'
           } else if (atStage < 365) {
             days = '< 1 year'
+          } else if (atStage < (365 * 2)) {
+            days = '< 2 years'
           } else {
-            days = '> 1 year'
+            days = '> 2 years'
           }
           const key = `${status} ${days}`
           if (!(key in stages)) {

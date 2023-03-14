@@ -1,41 +1,41 @@
 <div class="mat-elevation-z8">
   <table mat-table class="full-width" matSort aria-label="Elements">
 
-    <ng-container matColumnDef="PubMed ID">
+    <ng-container matColumnDef="pubmedID">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>PubMed ID</th>
       <td mat-cell *matCellDef="let row">{{row['pubmedID']}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="Creation Date">
+    <ng-container matColumnDef="creationDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Creation Date</th>
       <td mat-cell *matCellDef="let row">{{row['creationDate']}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="Authors">
+    <ng-container matColumnDef="fullAuthorEdited">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Authors</th>
       <td mat-cell *matCellDef="let row">{{row['fullAuthorEdited']}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="Publication">
+    <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Publication</th>
       <td mat-cell *matCellDef="let row">
         <a [href]="row.googleScholarLink">{{row.title}}</a>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="Journal">
+    <ng-container matColumnDef="journalTitle">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Journal</th>
       <td mat-cell *matCellDef="let row">{{row['journalTitle']}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="SNOMED Terms (n)">
+    <ng-container matColumnDef="termFreq">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>SNOMED Terms (n)</th>
       <td mat-cell *matCellDef="let row">
         <a>{{row.termFreq}}</a>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="Citation Count">
+    <ng-container matColumnDef="numCitations">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Citation Count</th>
       <td mat-cell *matCellDef="let row">{{row['numCitations']}}</td>
     </ng-container>
