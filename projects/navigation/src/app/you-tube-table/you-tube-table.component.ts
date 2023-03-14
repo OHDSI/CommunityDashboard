@@ -4,7 +4,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { TableDataSource  } from '@community-dashboard/rest';
-import { YouTube, YouTubeService } from '../youtube/youtube.service';
+import { YouTube, YouTubeServiceWithCountsSummary } from '../youtube/youtube.service';
 import * as d3 from 'd3'
 
 @Component({
@@ -31,7 +31,7 @@ export class YouTubeTableComponent implements AfterViewInit {
   count = this.youTubeService.count()
 
   constructor(
-    private youTubeService: YouTubeService,
+    private youTubeService: YouTubeServiceWithCountsSummary,
   ) {
     this.dataSource = new TableDataSource(youTubeService);
   }
@@ -42,7 +42,4 @@ export class YouTubeTableComponent implements AfterViewInit {
     this.table.dataSource = this.dataSource;
   }
 
-  latestViewCount(y: YouTube) {
-    return y.counts.sort((a, b) => d3.descending(a.checkedOn, b.checkedOn))[0]['viewCount']
-  }
 }

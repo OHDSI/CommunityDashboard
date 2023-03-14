@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { Docs, DocsTableDataService, DocsToken, TableFieldValue, TableQuery, TableDataService } from '@community-dashboard/rest';
-import { map, Observable } from 'rxjs';
+import { Docs, DocsTableDataService, DocsToken, TableFieldValue, TableQuery, TableDataService, IndexedDbDocs } from '@community-dashboard/rest';
+import { map, Observable, shareReplay } from 'rxjs';
 import * as td from 'tinyduration'
 import * as d3 from 'd3';
 
@@ -58,21 +58,45 @@ export class EhdenService extends DocsTableDataService<Ehden> {
 export class CourseStatsService implements TableDataService<CourseStat> {
 
   constructor(
-    private ehdenService: EhdenService
+    private courseStatsDb: CourseStatsDb
   ) { }
 
   valueChanges(params?: TableQuery): Observable<CourseStat[] | null> {
-    return this.ehdenService.valueChanges(params).pipe(
-      map(es => {
-        if (!es) {
-          return es
-        }
-        return es[0].course_stats
-      })
-    )
+    return this.courseStatsDb.valueChanges({
+      path: 'courseStats',
+      idField: 'id',
+      ...params
+    })
   }
 
   count(params?: TableQuery): Observable<number> {
-    return this.ehdenService.count()
+    return this.courseStatsDb.count({
+      path: 'courseStats',
+      idField: 'id',
+      ...params
+    })
   }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+class CourseStatsDb extends IndexedDbDocs {
+
+  constructor(
+    ehdenService: EhdenService
+  ) {
+    super({tables: ehdenService.valueChanges().pipe(
+      map(es => ({'/courseStats': es?.reduce((acc, e) => {
+        if (e.course_stats) {
+          for (const c of e.course_stats) {
+            acc[c.course_id] = c
+          }
+        }
+        return acc
+      }, {} as {[key: string]: CourseStat}) ?? {} })),
+      shareReplay(1)
+    )})
+  }
+    
 }

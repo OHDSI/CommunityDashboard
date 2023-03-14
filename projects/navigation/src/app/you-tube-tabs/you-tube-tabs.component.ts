@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { IframePlotComponent } from '../iframe-plot/iframe-plot.component';
-import { YouTubeService } from '../youtube/youtube.service';
+import { YouTubeServiceWithCountsSummary } from '../youtube/youtube.service';
 import { renderPlot } from '../youtube/youtube-annually-plot';
 import { Subscription } from 'rxjs';
 
@@ -22,7 +22,7 @@ export class YouTubeTabsComponent {
   @ViewChild('youTubeAnnualPlot', {read: ElementRef}) youTubeAnnualPlot!: ElementRef
 
   constructor(
-    private youTubeService: YouTubeService
+    private youTubeService: YouTubeServiceWithCountsSummary
   ){}
 
   ngAfterViewInit(): void {

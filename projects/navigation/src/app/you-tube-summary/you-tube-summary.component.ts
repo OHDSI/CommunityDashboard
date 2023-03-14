@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { IframePlotComponent } from '../iframe-plot/iframe-plot.component';
-import { YouTubeService } from '../youtube/youtube.service';
+import { YouTubeServiceWithCountsSummary } from '../youtube/youtube.service';
 import { renderPlot } from '../youtube/youtube-annually-plot';
 import { Subscription } from 'rxjs/internal/Subscription';
 
@@ -34,7 +34,7 @@ export class YouTubeSummaryComponent {
   @Input() orientation: 'horizontal' | 'vertical' = 'vertical'
 
   constructor(
-    private youTubeService: YouTubeService
+    private youTubeService: YouTubeServiceWithCountsSummary
   ){}
 
   ngAfterViewInit(): void {

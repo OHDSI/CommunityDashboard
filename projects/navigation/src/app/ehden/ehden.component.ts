@@ -29,7 +29,7 @@ export class EhdenComponent {
     map(({ breakpoints }) => {
       if (breakpoints[Breakpoints.XSmall]) {
         return {
-          columns: ['course_fullname', 'started', 'completions'],
+          columns: ['course_id', 'started', 'completions'],
           tiles: [
             { cols: 12, rows: 4, portal: this.ehdenWelcomePortal, inputs: {} },
             { cols: 12, rows: 4, portal: this.ehdenTabs, inputs: {} },
@@ -37,7 +37,7 @@ export class EhdenComponent {
         }
        } else if (breakpoints[Breakpoints.Small]) {
         return {
-          columns: ['course_fullname', 'started', 'completions', 'course_started'],
+          columns: ['course_id', 'started', 'completions', 'course_started'],
           tiles: [
             { cols: 6, rows: 4, portal: this.ehdenWelcomePortal, inputs: {} },
             { cols: 6, rows: 4, portal: this.ehdenTabs, inputs: {} },
@@ -45,7 +45,7 @@ export class EhdenComponent {
         }
      } else {
         return {
-          columns: ['course_fullname', 'course_shortname', 'category', 'started', 'completions', 'course_started'],
+          columns: ['course_id', 'course_shortname', 'category', 'started', 'completions', 'course_started'],
           tiles: [
             { cols: 4, rows: 4, portal: this.ehdenWelcomePortal, inputs: {} },
             { cols: 8, rows: 4, portal: this.ehdenTabs, inputs: {} },
