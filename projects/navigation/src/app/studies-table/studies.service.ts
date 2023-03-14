@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { RestDelegate, RestMemory } from '@community-dashboard/rest';
+import { IndexedDbDocs, TableDataService, TableFieldValue, TableQuery } from '@community-dashboard/rest';
 import { ScanLog, ScanLogsService } from '../scan-logs.service';
 import * as d3 from 'd3'
-import { map, shareReplay } from 'rxjs';
+import { map, Observable, shareReplay} from 'rxjs';
+import { ReadmeSummariesService, ReadmeSummary } from './readme-summaries.service';
 
 export interface Study  {
-  id: number,
+  // https://stackoverflow.com/questions/70956050/how-do-i-declare-object-value-type-without-declaring-key-type
+  [key: string]: TableFieldValue,
+  id: string,
   title?: string | null,
   gitRepo: string | null,
   status?: string | null,
@@ -18,65 +21,114 @@ export interface Study  {
   protocol?: string | null,
   publications?: string | null,
   results?: string | null,
-  lastUpdate: Date | null,
+  lastUpdate: string | null,
+  daysSinceStatusChange: number | null,
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudiesService extends RestDelegate<Study> {
+export class StudiesService implements TableDataService<Study> {
 
   constructor(
-    scanLogsService: ScanLogsService,
+    private studiesDb: StudiesDb,
+  ) {}
+
+  valueChanges(params?: TableQuery): Observable<Study[] | null> {
+    return this.studiesDb.valueChanges({
+      path: 'studies',
+      idField: 'id',
+      ...params
+    })
+  }
+
+  count(params?: TableQuery): Observable<number> {
+    return this.studiesDb.count({
+      path: 'studies',
+      idField: 'id',
+      ...params
+    })
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+class StudiesDb extends IndexedDbDocs {
+
+  constructor(
+    readmeSummariesService: ReadmeSummariesService,
   ) {
-    
-    const rest = new RestMemory(scanLogsService.cache.pipe(
-      map((ls: any) => {
-        const studies: {[key: string]: Study} = {}
-        const readmeCommits = ls.filter((l: any) => l.readmeCommit)
-          // .map(c => {
-          //   (c as any).readmeCommit!.author.date = new Date(c.readmeCommit!.author.date)
-          // })
-          .sort((a: any, b: any) => d3.descending(a.readmeCommit!.author.date, b.readmeCommit!.author.date))
-        const byStudy = d3.group(readmeCommits, (c: ScanLog) => c.readmeCommit!.repoName) as {values: () => ScanLog[][]}
-        let i = 0
-        for (const commits of byStudy.values()) {
-          const authorDate = commits[0].readmeCommit!.author?.date
-          studies[i] = {
-            id: i,
-            title: commits[0].readmeCommit!.summary?.title,
-            gitRepo: commits[0].readmeCommit!.repoName,
-            status: commits[0].readmeCommit!.summary?.status,
-            useCases: commits[0].readmeCommit!.summary?.useCases,
-            type: commits[0].readmeCommit!.summary?.studyType,
-            tags: commits[0].readmeCommit!.summary?.tags,
-            lead: this._nullIfDash(commits[0].readmeCommit!.summary?.studyLead) as string[],
-            start: commits[0].readmeCommit!.summary?.startDate,
-            end: commits[0].readmeCommit!.summary?.endDate,
-            protocol: this._nullIfDash(commits[0].readmeCommit!.summary?.protocol) as string,
-            publications: commits[0].readmeCommit!.summary?.publications,
-            results: this._nullIfDash(commits[0].readmeCommit!.summary?.results) as string,
-            lastUpdate: authorDate ? new Date(authorDate) : null
-          }
-          i += 1
-        }
-        return {
-          '/studies': studies
-        }
-      }),
+    super({tables: readmeSummariesService.valueChanges().pipe(
+      map(rs => ({'/studies': toStudies(rs)})),
       shareReplay(1)
-    ))
-    super(rest, '', 'studies')
+    )})
   }
+    
+}
 
-  _nullIfDash(s: string | undefined | null | string[]) {
-    if (s === '-') {
-      return null
-    }
-    if (s instanceof Array && s[0] === '-') {
-      return null
-    }
-    return s
+function toStudies(rs: ReadmeSummary[] | null): {[key:string]: Study} {
+  if (!rs) {
+    return {}
   }
+  const now = new Date()
+  // const studies: {[key: string]: Study} = {}
+  const readmeCommits = rs
+    .sort((a, b) => d3.descending(a.author.date, b.author.date))
+  const byStudy: Map<string, ReadmeSummary[]> = d3.group(readmeCommits, (c: ReadmeSummary) => c.denormRepo.name)
+  const studies = [...byStudy.entries()].reduce((acc, [repoName, cs]) => {
+    if (cs[0].denormRepo.name === 'EmptyStudyRepository') {
+      return acc
+    }
+    const l = getLastStatusChange(cs)
+    const a = cs[0].author?.date
+    const lastUpdate = a ?? null
+    const b = l.author?.date
+    const daysSinceStatusChange = b ? Math.floor(days(now.getTime() - (new Date(b)).getTime())) : null
+    acc[repoName] = {
+      id: repoName,
+      title: cs[0].summary?.title,
+      gitRepo: cs[0].denormRepo.name,
+      status: cs[0].summary?.status,
+      useCases: cs[0].summary?.useCases,
+      type: cs[0].summary?.studyType,
+      tags: cs[0].summary?.tags,
+      lead: _nullIfDash(cs[0].summary?.studyLead) as string[],
+      start: cs[0].summary?.startDate,
+      end: cs[0].summary?.endDate,
+      protocol: _nullIfDash(cs[0].summary?.protocol) as string,
+      publications: cs[0].summary?.publications,
+      results: _nullIfDash(cs[0].summary?.results) as string,
+      lastUpdate,
+      daysSinceStatusChange,
+    }
+    return acc
+  }, {} as {[key:string]: Study})
+  return studies
+}
 
+function getLastStatusChange(commits: ReadmeSummary[]): ReadmeSummary {
+  const s = commits[0].summary?.status
+  const l = commits.find(c => c.summary?.status !== s)
+  if (!l) {
+    return commits[commits.length - 1]
+  }
+  return l
+}
+
+function days(milliseconds: number) {
+  const seconds = milliseconds / 1000
+  const minutes = seconds / 60
+  const hours = minutes / 60
+  return hours / 24
+}
+
+function _nullIfDash(s: string | undefined | null | string[]) {
+  if (s === '-') {
+    return null
+  }
+  if (s instanceof Array && s[0] === '-') {
+    return null
+  }
+  return s
 }

@@ -5,8 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
-import { TableDataSourceLegacy as TableDataSource  } from '@community-dashboard/rest';
-import { Subscription } from 'rxjs';
+import { TableDataSource  } from '@community-dashboard/rest';
+import { Observable, of, Subscription } from 'rxjs';
 import { StudiesService, Study } from './studies.service';
 
 @Component({
@@ -31,10 +31,10 @@ export class StudiesTableComponent implements AfterViewInit, OnDestroy {
   @Input() stage!: string
 
   dataSource!: TableDataSource<Study>
-  count: number | null = null
+  count?: Observable<number | null>
 
   @Input()
-  displayedColumns: string[] = ["title", "lastUpdate", "protocol", "results"]
+  displayedColumns: string[] = ["title", "daysAtStage", "lastUpdate", "protocol", "results"]
 
   constructor(
     private studiesService: StudiesService,
@@ -43,15 +43,12 @@ export class StudiesTableComponent implements AfterViewInit, OnDestroy {
   countSubscription?: Subscription
 
   ngOnDestroy(): void {
-      this.countSubscription?.unsubscribe()
+    this.countSubscription?.unsubscribe()
   }
 
-
   ngAfterViewInit(): void {
-    this.countSubscription = this.studiesService.count({filter: {where: {status: this.stage}}}).subscribe(
-      c => this.count = c
-    )
-    this.dataSource = new TableDataSource(this.studiesService, {status: this.stage})
+    setTimeout(() => this.count = this.studiesService.count({where: [['status', '==', this.stage]]}))
+    this.dataSource = new TableDataSource(this.studiesService, of([['status', '==', this.stage]]))
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;

@@ -2,10 +2,49 @@ import { map, Observable, of } from "rxjs";
 import { ArrayUnion, Docs, DocsQuery } from "./docs";
 import { OrderBy, TableData, TableQuery, TableQueryWhere } from "./table-data-source";
 
+interface JsonExport {
+  [key:string]: { // collection name
+    [key: string]: JsonDoc // doc id
+  }
+}
+
+interface JsonDoc { 
+  [key: string]: unknown,
+  subCollection?: JsonExport
+}
+
+export interface FixtureIndex {
+  [key: string]: { // path
+    [key: string]: unknown
+  }
+}
+
+export function parseExport(e: JsonExport, index?: FixtureIndex): FixtureIndex {
+  if (!index) {
+    index = {}
+  }
+
+  return Object.entries(e).reduce((accIndex: FixtureIndex, [collectionNamestring, collection]: [string, {[key: string]: JsonDoc}]) => {
+    
+    const docs = Object.entries(collection).reduce((accCollection, [id, doc]) => {
+      const {subCollection, ...data} = doc
+      accCollection[id] = data
+      if (subCollection) {
+        parseExport(subCollection, accIndex)
+      }
+      return accCollection
+    }, {} as {[key: string]: JsonDoc})
+    
+    const path: string = `/${collectionNamestring}`
+    accIndex[path] = docs
+    return accIndex
+  }, index)
+}
+
 export class IndexedDbDocs implements Docs {
 
   constructor(private params: {
-    tables: Observable<{[key: string]: {[key: string]: object}}>,
+    tables: Observable<{[key: string]: {[key: string]: unknown}}>,
   }) {}
 
   valueChanges<T extends TableData>(params: DocsQuery): Observable<T[]> {
@@ -52,7 +91,7 @@ export class IndexedDbDocs implements Docs {
     throw new Error('not implemented')
   }
 
-  _getTableOrThrow(tables: {[key: string]: {[key: string]: object}}, path: string, scope?: string) {
+  _getTableOrThrow(tables: {[key: string]: {[key: string]: unknown}}, path: string, scope?: string) {
     if (!scope) {
       scope = ''
     }

@@ -1,6 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
-import { Rest, RestDelegate, RestToken } from '@community-dashboard/rest';
-import { Observable, shareReplay } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { TableFieldValue, TableDataService, TableQuery } from '@community-dashboard/rest';
+import { map, Observable, shareReplay } from 'rxjs';
+import { ReadmeSummariesService, ReadmeSummary } from './studies-table/readme-summaries.service';
 
 export enum Status {
   COMPLETE = 'complete',
@@ -9,6 +10,8 @@ export enum Status {
 }
 
 export interface ScanLog {
+  // https://stackoverflow.com/questions/70956050/how-do-i-declare-object-value-type-without-declaring-key-type
+  [key: string]: TableFieldValue,
   id: string,
   repository?: {
     name: string,
@@ -42,12 +45,20 @@ export interface ScanLog {
 @Injectable({
   providedIn: 'root'
 })
-export class ScanLogsService extends RestDelegate<ScanLog> {
+export class ScanLogsService implements TableDataService<ScanLog> {
 
   constructor(
-    @Inject('RestToken') rest: Rest
-  ) {
-    super(rest, '', 'scanLogs')
+    private readmeSummariesService: ReadmeSummariesService,
+  ) {}
+
+  valueChanges(params?: TableQuery): Observable<ScanLog[] | null> {
+    return this.readmeSummariesService.valueChanges(params).pipe(
+      map(rs => toScanLog(rs))
+    )
+  }
+
+  count(params?: TableQuery | undefined): Observable<number> {
+    return this.readmeSummariesService.count(params)
   }
 
   _cache: Observable<ScanLog[]> | null = null
@@ -55,9 +66,32 @@ export class ScanLogsService extends RestDelegate<ScanLog> {
     if (this._cache) {
       return this._cache
     } else {
-      this._cache = this.find().pipe(shareReplay(1))
+      this._cache = this.readmeSummariesService.valueChanges().pipe(
+        map(rs => {
+          return toScanLog(rs)
+        }),
+        shareReplay(1)
+      )
       return this._cache
     }
   }
 
+}
+
+function toScanLog(rs: ReadmeSummary[] | null) {
+  if (!rs) {
+    return []
+  }
+  return rs.map(r => {
+    return {
+      id: r.id!,
+      repository: r.denormRepo,
+      readmeCommit: {
+        repoName: r.denormRepo.name,
+        sha: r.sha,
+        author: r.author,
+        summary: r.summary
+      }
+    }
+  })
 }

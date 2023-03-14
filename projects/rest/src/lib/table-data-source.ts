@@ -55,7 +55,7 @@ export class TableDataSource<T extends TableData> extends DataSource<T> {
       return combineLatest([
         this.paginator.page.pipe(startWith(null)),
         this.sort.sortChange.pipe(
-          startWith(null),
+          startWith(this.sort),
           tap(_ => this.lastRow = undefined)
         ),
         ...whereChanges
@@ -66,13 +66,13 @@ export class TableDataSource<T extends TableData> extends DataSource<T> {
             orderBy!.orderBy = [[sort.active, sort.direction]]
           }
           return this.service.valueChanges({
-            ...where,
+            where,
             ...orderBy,
             limit: this.paginator!.pageSize,
             startAfter: this.lastRow
           }).pipe(
             map(p => p ?? []),
-            tap(p => this.lastRow = p[p.length - 1])
+            tap(p => this.lastRow = p[p.length - 1]),
           )
         })
       )

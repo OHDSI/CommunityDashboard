@@ -55,9 +55,6 @@ export class RestDelegate<T extends {[key: string]: any}> {
       scope: {[key: string]: string},
     }
   }): Observable<T[]> {
-    if (this.path === 'communityDashboardRepos') {
-      console.log('debug')
-    }
     if (this.activeWhere && this.activeWhere[this.exampleFk] === null) {
       return of([])
     }

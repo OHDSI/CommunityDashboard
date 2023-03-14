@@ -1,45 +1,46 @@
 import { Inject, Injectable } from '@angular/core';
-import { Rest, RestDelegate, RestToken } from '@community-dashboard/rest';
+import { Docs, DocsTableDataService, TableFieldValue } from '@community-dashboard/rest';
 
 export interface ReadmeSummary {
-  sha: string,
-  author: {
-    name?: string;
-    email?: string;
-    date?: string;
+  // https://stackoverflow.com/questions/70956050/how-do-i-declare-object-value-type-without-declaring-key-type
+  [key: string]: TableFieldValue,
+  id?: string,
+  "summary": {
+    "useCases": string[]
+    "protocol": string,
+    "studyLead": string[],
+    "endDate": string,
+    "studyType": string[]
+    "title": string,
+    "results": string,
+    "startDate": string,
+    "status": string,
+    "tags": string[],
+    // "studyLeads": null,
+    "publications": string
   } | null,
-  summary: ReadmeSummaryDetails | null
-}
-
-export interface ReadmeSummaryDetails {
-  title: string | null,
-  status: string | null,
-  useCases: string[] | null,
-  studyType: string[] |null,
-  tags: string[] |null,
-  studyLead: string[] |null,
-  startDate: string|null,
-  endDate: string|null,
-  protocol: string|null,
-  publications: string|null,
-  results: string|null,
+  "author": {
+    "date": string,
+    "name": string,
+    "email": string
+  },
+  "denormRepo": {
+    "watchersCount": number,
+    "name": string,
+    "updatedAt": string
+  },
+  "sha": string
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReadmeSummariesService extends RestDelegate<ReadmeSummary> {
+export class ReadmeSummariesService extends DocsTableDataService<ReadmeSummary> {
 
   constructor(
-    @Inject('RestToken') rest: Rest,
+    @Inject('DocsToken') docs: Docs
   ) {
-    super(
-      rest, '', 'readmeSummaries',
-      undefined, undefined, undefined, undefined, {
-        scope: (scope) => `/communityDashboardRepos/${scope['repo']}`
-      }
-    )
+    super({docs, path: 'communityDashboardRepoReadmeSummaries', idField: 'id'})
   }
-  
 
 }

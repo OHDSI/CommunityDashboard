@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { first, map, Observable } from 'rxjs';
 import { ScanLogsService, Status } from '../scan-logs.service';
 import { StudiesService } from '../studies-table/studies.service';
 import { EXCEPTIONS } from './study-exceptions.service';
@@ -20,7 +20,8 @@ export class StudyExceptionSummariesService {
   ) {}
 
   find(): Observable<StudyExceptionSummary[]> {
-    return this.studiesService.find().pipe(
+    return this.studiesService.valueChanges().pipe(
+      first(),
       map(ss => {
         const e: {[key: string]: any} = {
           'MISSING_PROTOCOL': {
@@ -44,7 +45,7 @@ export class StudyExceptionSummariesService {
             count: 0,
           },
         }
-        ss.forEach(s => {
+        ss!.forEach(s => {
           if (
             !s.lead ||
             s.lead.includes('-')

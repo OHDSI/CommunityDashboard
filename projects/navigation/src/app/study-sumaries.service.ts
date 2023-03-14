@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, map, Observable } from 'rxjs';
+import { combineLatest, first, map, Observable } from 'rxjs';
 import { StudiesService } from './studies-table/studies.service';
 import { StudyExceptionSummariesService } from './study-exceptions-table/study-exception-summaries.service';
 
@@ -20,7 +20,7 @@ export class StudySumariesService {
 
   find(): Observable<StudySummary[]> {
     return combineLatest([
-      this.studiesService.find(),
+      this.studiesService.valueChanges().pipe(first()),
       this.studyExceptionSummariesService.find(),
     ]).pipe(
       map(([ss, es]) => {
@@ -45,7 +45,7 @@ export class StudySumariesService {
         es.forEach(e => {
           summary['Exceptions'].value += e.count
         })
-        ss.forEach(s => {
+        ss!.forEach(s => {
           const stage = s.status
           if (!stage) { return }
           if ([
