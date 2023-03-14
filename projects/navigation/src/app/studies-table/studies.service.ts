@@ -76,7 +76,7 @@ function toStudies(rs: ReadmeSummary[] | null): {[key:string]: Study} {
     .sort((a, b) => d3.descending(a.author.date, b.author.date))
   const byStudy: Map<string, ReadmeSummary[]> = d3.group(readmeCommits, (c: ReadmeSummary) => c.denormRepo.name)
   const studies = [...byStudy.entries()].reduce((acc, [repoName, cs]) => {
-    if (cs[0].denormRepo.name === 'EmptyStudyRepository') {
+    if (['EmptyStudyRepository', 'StudyRepoTemplate'].includes(cs[0].denormRepo.name)) {
       return acc
     }
     const l = getLastStatusChange(cs)

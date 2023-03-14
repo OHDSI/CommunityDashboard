@@ -87,7 +87,7 @@ function toStudyPromotions(rs: ReadmeSummary[] | null, errorHandler: ErrorHandle
   const byStudy: Map<string, ReadmeSummary[]> = d3.group(readmeCommits, (c: ReadmeSummary) => c.denormRepo.name)
   let i = 0
   const promotions = [...byStudy.entries()].reduce((acc, [repoName, cs]) => {
-    if (cs[0].denormRepo.name === 'EmptyStudyRepository') {
+    if (['EmptyStudyRepository', 'StudyRepoTemplate'].includes(cs[0].denormRepo.name)) {
       return acc
     }
     const startAuthorDate = cs[0].author?.date
@@ -105,12 +105,13 @@ function toStudyPromotions(rs: ReadmeSummary[] | null, errorHandler: ErrorHandle
         continue
       }
       const newDate = new Date(new Date(newAuthorDate))
-      if (newStatus !== status) {
+      const stage = newStatus && VALID_STATUS.includes(newStatus) ? newStatus : 'Invalid / Suspended'
+      if (newStatus !== status && stage !== 'Invalid / Suspended') {
         acc[i.toString()] = {
           id: i.toString(),
           repoName,
           days: (newDate.getTime() - startDate.getTime()) / DAYS,
-          stage: newStatus && VALID_STATUS.includes(newStatus) ? newStatus : 'Invalid / Suspended',
+          stage,
           tags: c.summary?.tags || [],
           useCases: c.summary?.useCases || [],
           studyType: c.summary?.studyType || [],

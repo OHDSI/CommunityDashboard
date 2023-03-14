@@ -220,7 +220,7 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
           'Design Finalized',
           'Started',
           'Repo Created',
-          'Invalid / Suspended',
+          // 'Invalid / Suspended',
         ]
       },
       x: {
