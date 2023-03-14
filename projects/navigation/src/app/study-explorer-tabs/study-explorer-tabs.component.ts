@@ -1,22 +1,22 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as Plot from "@observablehq/plot";
 import * as d3 from "d3"
-import { debounceTime, from, merge } from 'rxjs';
+import { combineLatest, debounceTime, from, merge, startWith, Subscription } from 'rxjs';
 import { StudyExceptionsTableComponent } from '../study-exceptions-table/study-exceptions-table.component';
 import { StudyLeadsTableComponent } from '../study-leads-table/study-leads-table.component';
 import { StudyLeadsService } from '../study-leads-table/study-leads.service';
 import { EXCEPTIONS } from '../study-exceptions-table/study-exceptions.service';
-import { StudyPipelineService, StudyPipelineStage, StudyPromotion } from '../study-pipeline.service';
+import { StudyPipelineService, StudyPromotion } from '../study-pipeline.service';
 import { StudyExceptionSummariesService } from '../study-exceptions-table/study-exception-summaries.service';
 import add_tooltips from '../tooltips'
 import cadenceViolin from './cadence-violin'
 import { MatInputModule } from '@angular/material/input';
-import { PipelineStage, StudyPipelineSummaryService } from '../study-pipeline-summary.service';
+import { PipelineStage, StudyPipelineStage, StudyPipelineSummaryService } from '../study-pipeline-summary.service';
 import { StudyTimelineService } from '../study-timeline.service';
 
 @Component({
@@ -38,6 +38,7 @@ import { StudyTimelineService } from '../study-timeline.service';
 })
 export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
 
+  @ViewChild('tabs') tabs!: MatTabGroup
   @ViewChild('studyProgress', {read: ElementRef}) studyProgress!: ElementRef
   @ViewChild('countsPlot', {read: ElementRef}) countsPlot!: ElementRef
   @ViewChild('studyCadencePlot', {read: ElementRef}) studyCadencePlot!: ElementRef
@@ -79,9 +80,14 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.renderPlots()
+    combineLatest([
+      this.studyPipelineService.valueChanges(),
+      this.tabs.selectedTabChange,
+      this.inputs.pipe(startWith(null))
+    ]).subscribe(([ss, _]) => {this.renderStudyPipeline(ss)})
   }
 
-  renderSubscription = merge(
+  inputs = merge(
     this.countMetricsControl.valueChanges,
     this.studyProgressControl.valueChanges,
     this.studyProgressSearchControl.valueChanges,
@@ -91,32 +97,44 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
     this.cadenceBucketsControl.valueChanges,
     this.cadenceBandwidthControl.valueChanges,
     this.timelineMetricsControl.valueChanges,
-  ).subscribe({
+  )
+
+  renderSubscription = this.inputs.subscribe({
     next: _ => this.renderPlots()
   })
 
+  studyPipelineSubscription?: Subscription
+
   ngOnDestroy(): void {
     this.renderSubscription.unsubscribe()
+    this.studyPipelineSubscription?.unsubscribe()
   }
 
   scheme(i: number) {
     return d3.schemeTableau10[i] as string
   }
 
-  renderPlots() {
-
-    if (this.studyProgress) {
-      // from(d3.csv('https://raw.githubusercontent.com/observablehq/plot/main/test/data/bls-metro-unemployment.csv')).subscribe({
-      this.studyPipelineService.find().subscribe({
-        next: (data: unknown[]) => {
-          if(this.studyProgress.nativeElement) {
-            this.studyProgress.nativeElement?.replaceChildren(
-              this._studyProgressPlot(data)
-            )
-          }
-        }
-      })
+  renderStudyPipeline(ss: StudyPromotion[] | null) {
+    if (!ss) {
+      return
     }
+
+    if (this.studyProgress?.nativeElement) {
+      this.studyProgress.nativeElement.replaceChildren(
+        this._studyProgressPlot(ss)
+      )
+    }
+
+    if (this.studyCadencePlot?.nativeElement) {
+      const stagesSummary = ss
+        .filter((s: any) => s.days <= this.cadenceMaxDaysControl.value! && s.days > this.cadenceMinDaysControl.value! && s.stage != 'Invalid / Suspended' && s.stage != 'Complete')
+      this.studyCadencePlot.nativeElement.replaceChildren(
+        cadenceViolin(stagesSummary, 'stage', 'days', this.cadenceBandwidthControl.value, this.cadenceBucketsControl.value)
+      )
+    }
+  }
+
+  renderPlots() {
 
     if (this.countsPlot) {
       this.studyPipelineSummaryService.find().subscribe({
@@ -124,23 +142,6 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
           if (this.countsPlot) {
             this.countsPlot.nativeElement.replaceChildren(
               this._studyPipelineSummary(stages)
-            )
-          }
-        }
-      })
-    }
-    
-    if (this.studyCadencePlot) {
-      this.studyPipelineService.find().subscribe({
-      // from(d3.csv('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/iris.csv', d3.autoType)).subscribe({
-        next: (stages: any) => {
-          // const data = Object.assign(stages)
-          if (this.studyCadencePlot) {
-            const stagesSummary = stages
-              .filter((s: any) => s.days <= this.cadenceMaxDaysControl.value! && s.days > this.cadenceMinDaysControl.value! && s.stage != 'Invalid / Suspended' && s.stage != 'Complete')
-              // .map((s: any) => {s.days = Math.floor(s.days / 10) * 10; return s})
-            this.studyCadencePlot.nativeElement.replaceChildren(
-              cadenceViolin(stagesSummary, 'stage', 'days', this.cadenceBandwidthControl.value, this.cadenceBucketsControl.value)
             )
           }
         }

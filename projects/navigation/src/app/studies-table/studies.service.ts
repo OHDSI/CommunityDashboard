@@ -72,7 +72,6 @@ function toStudies(rs: ReadmeSummary[] | null): {[key:string]: Study} {
     return {}
   }
   const now = new Date()
-  // const studies: {[key: string]: Study} = {}
   const readmeCommits = rs
     .sort((a, b) => d3.descending(a.author.date, b.author.date))
   const byStudy: Map<string, ReadmeSummary[]> = d3.group(readmeCommits, (c: ReadmeSummary) => c.denormRepo.name)

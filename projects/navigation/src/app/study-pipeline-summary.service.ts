@@ -50,6 +50,8 @@ export class StudyPipelineSummaryService extends RestDelegate<PipelineStage> {
           }
           const lastUpdate = new Date(new Date(lastAuthorDate))
           const status = commits[0].readmeCommit!.summary?.status && VALID_STATUS.includes(commits[0].readmeCommit!.summary.status) ? commits[0].readmeCommit!.summary.status : 'Invalid / Suspended'
+          const earliestUpdate = commits[commits.length - 1].readmeCommit!.author!.date!
+          let statusChange = new Date(earliestUpdate).getTime()
           for (const c of commits) {
             const newStatus = c.readmeCommit!.summary?.status && VALID_STATUS.includes(c.readmeCommit!.summary.status) ? c.readmeCommit!.summary.status : 'Invalid / Suspended'
             const authorDate = c.readmeCommit!.author?.date
@@ -59,32 +61,33 @@ export class StudyPipelineSummaryService extends RestDelegate<PipelineStage> {
             }
             const promotionDate = new Date(new Date(authorDate))
             if (newStatus !== status) {
-              let days
-              const atStage = (lastUpdate.getTime() - promotionDate.getTime()) / DAYS
-              if (atStage < 30) {
-                days = '< 30 days'
-              } else if (atStage < 90) {
-                days = '< 90 days'
-              } else if (atStage < 180) {
-                days = '< 6 months'
-              } else if (atStage < 365) {
-                days = '< 1 year'
-              } else {
-                days = '> 1 year'
-              }
-              const key = `${status} ${days}`
-              if (!(key in stages)) {
-                stages[key] = {
-                  id: key,
-                  count: 1,
-                  stage: status,
-                  days
-                }
-              } else {
-                stages[key].count += 1
-              }
+              statusChange = promotionDate.getTime()
               break
             }
+          }
+          let days
+          const atStage = (lastUpdate.getTime() - statusChange) / DAYS
+          if (atStage < 30) {
+            days = '< 30 days'
+          } else if (atStage < 90) {
+            days = '< 90 days'
+          } else if (atStage < 180) {
+            days = '< 6 months'
+          } else if (atStage < 365) {
+            days = '< 1 year'
+          } else {
+            days = '> 1 year'
+          }
+          const key = `${status} ${days}`
+          if (!(key in stages)) {
+            stages[key] = {
+              id: key,
+              count: 1,
+              stage: status,
+              days
+            }
+          } else {
+            stages[key].count += 1
           }
         }
         return {
