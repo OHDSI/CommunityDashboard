@@ -1,13 +1,12 @@
 import { AfterViewInit, Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Funding, FundingService } from '../funding.service';
-import { map, startWith } from 'rxjs';
+import { Funding, FundingServiceSearchable } from '../funding.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { Id, TableDataSourceLegacy as TableDataSource } from '@community-dashboard/rest';
+import { Id, TableDataSource } from '@community-dashboard/rest';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -46,25 +45,13 @@ export class FundingTableComponent implements AfterViewInit, OnDestroy {
   @Input() stage!: string
 
   searchControl = new FormControl('')
-  filter = this.searchControl.valueChanges.pipe(
-    map(v => {
-      if (v === '') {
-        return {}
-      }
-      return {
-        where: {
-          or: [
-            {'LOCATION FOUND': {like: v}},
-            {'LOCATION FOUND 2': {like: v}},
-            {'AGENCY': {like: v}},
-            {'OPPORTUNITY DETAILS': {like: v}},
-          ]
-        }
-      }
+  searchSub = this.searchControl.valueChanges.subscribe(
+    (v => {
+      this.fundingService.search.next(v ?? '')
     })
   )
   dataSource!: TableDataSource<Funding>
-  count!: number
+  count = this.fundingService.count()
 
   @Input()
   displayedColumns: string[] = [
@@ -81,30 +68,21 @@ export class FundingTableComponent implements AfterViewInit, OnDestroy {
   columnsToDisplayWithExpand = ['expand', ...this.displayedColumns]
   expanded: {id: Id} | null = null
 
-  records = this.fundingService.find().pipe(
-    map(r => JSON.stringify(r))
-  )
-
   constructor(
-    private fundingService: FundingService,
+    private fundingService: FundingServiceSearchable,
   ) {}
 
   ngAfterViewInit(): void {
     this.dataSource = new TableDataSource(
-      this.fundingService, undefined, 
-      this.filter
+      this.fundingService
     )
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
 
-  filterSub = this.filter.pipe(startWith({})).subscribe(f => {
-    this.fundingService.count({filter: f}).subscribe(c => this.count = c)
-  })
-
   ngOnDestroy(): void {
-    this.filterSub.unsubscribe()
+    this.searchSub.unsubscribe()
   }
 
   // search(d: StudyPromotion) {
