@@ -33,6 +33,9 @@ export class EhdenSummaryComponent {
 
   @Input() orientation: 'horizontal' | 'vertical' = 'vertical'
 
+  courseCount = this.ehdenService.courseCount()
+  completionCount = this.ehdenService.courseCompletions()
+
   constructor(
     private ehdenService: EhdenService
   ){}

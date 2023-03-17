@@ -22,7 +22,7 @@ export interface YouTube {
   "snomedIDs": string[],
   "snomedNames": string[],
   "termFreq": string,
-  "latestViewCount": string,
+  "latestViewCount": number,
 }
 
 export interface YouTubeAnnualSummary {
@@ -99,6 +99,26 @@ export class YouTubeServiceWithCountsSummary implements TableDataService<YouTube
       })
     )
   }
+
+  hoursWatched(): Observable<number> {
+    return this.annually().pipe(
+      map(as => {
+        const currentYear = as[as.length - 1]
+        return currentYear.cumulativeHoursWatched
+      })
+    )
+  }
+
+  videosPublished(): Observable<number> {
+    return this.valueChanges().pipe(
+      map(ys => {
+        if (!ys) {
+          return 0
+        }
+        return ys.length
+      })
+    )
+  }
 }
 
 @Injectable({
@@ -125,5 +145,5 @@ function inHours(d: td.Duration) {
 }
 
 function latestViewCount(counts: YouTube['counts']) {
-  return counts.sort((a, b) => d3.descending(a.checkedOn, b.checkedOn))[0]['viewCount']
+  return +counts.sort((a, b) => d3.descending(a.checkedOn, b.checkedOn))[0]['viewCount']
 }

@@ -50,6 +50,33 @@ export class EhdenService extends DocsTableDataService<Ehden> {
     super({docs, path: 'ehden', idField: 'id'})
   }
 
+  courseCount(): Observable<number> {
+    return this.valueChanges().pipe(
+      map(es => {
+        if (!es) {
+          return 0
+        }
+        return es[0].course_stats.length
+      })
+    )
+  }
+
+  courseCompletions(): Observable<number> {
+    return this.valueChanges().pipe(
+      map(es => {
+        if (!es) {
+          return 0
+        }
+        return es[0].completions.reduce((acc, c) => {
+          if (c.year === null) {
+            return acc
+          }
+          return acc + +c.completions
+        }, 0)
+      })
+    )
+  }
+
 }
 
 @Injectable({

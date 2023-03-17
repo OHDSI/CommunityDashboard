@@ -6,22 +6,22 @@
   <mat-card-content class="full-height flex-container" [class.flex-direction-column]="orientation == 'vertical'">
     <mat-list *ngIf="orientation == 'horizontal'; else verticalMetrics" class="fit-content metrics">
       <mat-list-item style="min-width: 175px">
-        <span matListItemTitle class="metric">19</span>
+        <span matListItemTitle class="metric">{{courseCount|async}}</span>
         <span matListItemLine>Number of Courses</span>
       </mat-list-item>
       <mat-list-item style="min-width: 175px">
-        <span matListItemTitle class="metric">3,146</span>
+        <span matListItemTitle class="metric">{{completionCount|async}}</span>
         <span>Course Completions</span>
       </mat-list-item>
     </mat-list>
     <ng-template #verticalMetrics>
       <div class="flex-container flex-wrap">
         <mat-list-item class="width-unset" style="min-width: 175px">
-          <span matListItemTitle class="metric">19</span>
+          <span matListItemTitle class="metric">{{courseCount|async}}</span>
           <span matListItemLine>Number of Courses</span>
         </mat-list-item>
         <mat-list-item class="width-unset" style="min-width: 175px">
-          <span matListItemTitle class="metric">3,146</span>
+          <span matListItemTitle class="metric">{{completionCount|async}}</span>
           <span>Course Completions</span>
         </mat-list-item>
       </div>
