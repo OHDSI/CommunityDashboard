@@ -6,7 +6,6 @@ import * as d3 from 'd3';
 export interface Publication {
   // https://stackoverflow.com/questions/70956050/how-do-i-declare-object-value-type-without-declaring-key-type
   [key: string]: TableFieldValue,
-  id?: string,
   "pmcID": string,
   "pubmedID": string,
   "nlmID": string,
@@ -58,7 +57,7 @@ export class PubmedService extends DocsTableDataService<Publication> {
   constructor(
     @Inject('DocsToken') docs: Docs
   ) {
-    super({docs, path: 'pubmedArticles', idField: 'id'})
+    super({docs, path: 'pubmedArticles', idField: 'pubmedID'})
   }
 
   summary(): Observable<PublicationSummary[]> {

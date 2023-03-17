@@ -35,7 +35,8 @@ export interface TableDataService<T extends TableData> {
 export class TableDataSource<T extends TableData> extends DataSource<T> {
   paginator: MatPaginator | undefined
   sort: MatSort | undefined
-  lastRow?: T
+  lastRow: {[key: number]: T} = {}
+  pageSize?: number
 
   constructor(
     private service: TableDataService<T>,
@@ -49,18 +50,33 @@ export class TableDataSource<T extends TableData> extends DataSource<T> {
       const whereChanges = []
       if (this.where) {
         whereChanges.push(this.where.pipe(
-          tap(_ => this.lastRow = undefined)
+          tap(_ => {
+            this.lastRow = {}
+            this.paginator!.firstPage()
+          })
         ))
       }
       return combineLatest([
-        this.paginator.page.pipe(startWith(null)),
+        this.paginator.page.pipe(
+          startWith(null),
+          tap(page => {
+            if (page?.pageSize !== this.pageSize) {
+              this.lastRow = {}
+              this.paginator!.firstPage()
+            }
+            this.pageSize = page?.pageSize
+          })
+        ),
         this.sort.sortChange.pipe(
           startWith(this.sort),
-          tap(_ => this.lastRow = undefined)
+          tap(_ => {
+            this.lastRow = {}
+            this.paginator!.firstPage()
+          })
         ),
         ...whereChanges
       ]).pipe(
-        switchMap(([_, sort, where]) => {
+        switchMap(([page, sort, where]) => {
           const orderBy: {orderBy?: TableQuery['orderBy']} = {}
           if (sort.active) {
             orderBy!.orderBy = [[sort.active, sort.direction]]
@@ -69,10 +85,10 @@ export class TableDataSource<T extends TableData> extends DataSource<T> {
             where,
             ...orderBy,
             limit: this.paginator!.pageSize,
-            startAfter: this.lastRow
+            startAfter: this.lastRow[page?.pageIndex ?? 0]
           }).pipe(
             map(p => p ?? []),
-            tap(p => this.lastRow = p[p.length - 1]),
+            tap(p => this.lastRow[this.paginator!.pageIndex + 1] = p[p.length - 1]),
           )
         })
       )
