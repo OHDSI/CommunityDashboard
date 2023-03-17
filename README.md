@@ -30,7 +30,7 @@ in [VSCode](https://code.visualstudio.com/docs/devcontainers/containers),
 and [other tools](https://containers.dev/supporting), or you
 can use the spec as a reference to set up your local environment of choice.
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=584238132&machine=standardLinux32gb&location=EastUs&devcontainer_path=.devcontainer%2Fdevcontainer.json)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=499117121)
 
 > Note for new developers: The commands below may publish their results
 > via a web app. Your IDE may launch the browser window before

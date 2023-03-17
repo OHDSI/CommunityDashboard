@@ -64,7 +64,7 @@ export class CourseStatsService implements TableDataService<CourseStat> {
   valueChanges(params?: TableQuery): Observable<CourseStat[] | null> {
     return this.courseStatsDb.valueChanges({
       path: 'courseStats',
-      idField: 'id',
+      idField: 'course_id',
       ...params
     })
   }
@@ -72,7 +72,7 @@ export class CourseStatsService implements TableDataService<CourseStat> {
   count(params?: TableQuery): Observable<number> {
     return this.courseStatsDb.count({
       path: 'courseStats',
-      idField: 'id',
+      idField: 'course_id',
       ...params
     })
   }
