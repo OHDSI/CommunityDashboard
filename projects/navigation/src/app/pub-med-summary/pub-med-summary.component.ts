@@ -33,6 +33,9 @@ export class PubMedSummaryComponent implements AfterViewInit, OnDestroy {
 
   @Input() orientation: 'horizontal' | 'vertical' = 'vertical'
 
+  totalAuthors = this.pubmedService.totalAuthors()
+  totalManuscripts = this.pubmedService.totalManuscripts()
+
   constructor(
     private pubmedService: PubmedService
   ){}

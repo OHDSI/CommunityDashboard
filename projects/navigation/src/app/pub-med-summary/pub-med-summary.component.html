@@ -6,22 +6,22 @@
   <mat-card-content class="full-height flex-container" [class.flex-direction-column]="orientation == 'vertical'">
     <mat-list *ngIf="orientation == 'horizontal'; else verticalMetrics" class="fit-content metrics">
       <mat-list-item style="min-width: 175px">
-        <span matListItemTitle class="metric">508</span>
+        <span matListItemTitle class="metric">{{totalManuscripts|async}}</span>
         <span matListItemLine>PubMed Manuscripts</span>
       </mat-list-item>
       <mat-list-item>
-        <span matListItemTitle class="metric">2,057</span>
+        <span matListItemTitle class="metric">{{totalAuthors|async}}</span>
         <span>PubMed Authors</span>
       </mat-list-item>
     </mat-list>
     <ng-template #verticalMetrics>
       <div class="flex-container flex-wrap">
         <mat-list-item class="width-unset" style="min-width: 175px">
-          <span matListItemTitle class="metric">508</span>
+          <span matListItemTitle class="metric">{{totalManuscripts|async}}</span>
           <span matListItemLine>PubMed Manuscripts</span>
         </mat-list-item>
         <mat-list-item class="width-unset" style="min-width: 175px">
-          <span matListItemTitle class="metric">2,057</span>
+          <span matListItemTitle class="metric">{{totalAuthors|async}}</span>
           <span>PubMed Authors</span>
         </mat-list-item>
       </div>

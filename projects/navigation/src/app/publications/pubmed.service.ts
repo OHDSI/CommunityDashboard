@@ -82,4 +82,30 @@ export class PubmedService extends DocsTableDataService<Publication> {
       })
     )
   }
+
+  totalAuthors(): Observable<number> {
+    return this.valueChanges().pipe(
+      map(ps => {
+        if (!ps) {
+          return 0
+        }
+        const authors = ps.reduce((acc, p) => {
+          p.fullAuthorEdited.slice(1, p.fullAuthor.length - 1).split("' '").forEach(s => acc.add(s))
+          return acc
+        }, new Set())
+        return authors.size
+      })
+    )
+  }
+
+  totalManuscripts(): Observable<number> {
+    return this.valueChanges().pipe(
+      map(ps => {
+        if (!ps) {
+          return 0
+        }
+        return ps.length
+      })
+    )
+  }
 }

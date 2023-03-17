@@ -9,6 +9,7 @@ import { IframePlotComponent } from '../iframe-plot/iframe-plot.component';
 import { YouTubeServiceWithCountsSummary } from '../youtube/youtube.service';
 import { renderPlot } from '../youtube/youtube-annually-plot';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-you-tube-summary',
@@ -32,6 +33,13 @@ export class YouTubeSummaryComponent {
   @ViewChild('plot', {read: ElementRef}) plot!: ElementRef
 
   @Input() orientation: 'horizontal' | 'vertical' = 'vertical'
+
+  hoursWatched = this.youTubeService.hoursWatched().pipe(
+    map(h => {
+      return `${Math.floor(h / 1000)}K+`
+    })
+  )
+  videosPublished = this.youTubeService.videosPublished()
 
   constructor(
     private youTubeService: YouTubeServiceWithCountsSummary
