@@ -60,7 +60,7 @@ export class TableDataSource<T extends TableData> extends DataSource<T> {
         this.paginator.page.pipe(
           startWith(null),
           tap(page => {
-            if (page?.pageSize !== this.pageSize) {
+            if (this.pageSize !== undefined && page?.pageSize !== this.pageSize) {
               this.lastRow = {}
               this.paginator!.firstPage()
             }
