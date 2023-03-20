@@ -1,8 +1,11 @@
 import json
+
+import pytest
 from plots.services.db import get_db
-from projects.plots.plots.services.pubmed import PubmedArticle
+from plots.services.pubmed import PubmedArticle
 from . import nlp
 
+@pytest.mark.focus
 def test_NlpSpacy_create_fixture(app):
     db = get_db()
     n = nlp.NlpSpacy()

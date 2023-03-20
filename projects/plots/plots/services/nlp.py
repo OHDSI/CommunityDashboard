@@ -23,6 +23,7 @@ class NlpSpacy(Nlp):
     def __init__(self):
         import scispacy
         import spacy
+        from scispacy.linking import EntityLinker
         self.nlp = spacy.load("en_ner_bc5cdr_md")
         self.nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": "umls"})
 
