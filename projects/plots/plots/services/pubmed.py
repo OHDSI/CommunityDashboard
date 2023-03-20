@@ -55,9 +55,9 @@ class PubmedBioPython(Pubmed):
             )
         )
         for r in records:
-            yield from_medline_record(r)
+            yield asPubmedArticle(r)
 
-def from_medline_record(r: Medline.Record) -> PubmedArticle:
+def asPubmedArticle(r: Medline.Record) -> PubmedArticle:
     return PubmedArticle(
         r.get('PMC', None),
         r['PMID'],

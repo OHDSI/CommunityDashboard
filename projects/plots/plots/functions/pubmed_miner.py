@@ -1,3 +1,4 @@
+from typing import List
 from plots.services.db import get_db, asdict
 from plots.services.pubmed import get_pubmed, PubmedArticle
 from plots.services.google_scholar import get_google_scholar
@@ -20,10 +21,17 @@ def updated_pubmed_google_scholar(u: DatabaseTrigger[PubmedArticle]):
     search = _search_string_for_article(u.value)
     db.replaceById('google_scholar', u.value.pubmedId, asdict(google_scholar.find(search)))
 
-def updated_pubmed_nlp(u: DatabaseTrigger[PubmedArticle]):
+def nlp():
     db = get_db()
-    n = get_nlp()
-    db.replaceById('nlp', u.value.pubmedId, n.nlp(u.value.abstract))
+    articles: List[PubmedArticle] = []
+    for r in db.find('pubmed'):
+        a = PubmedArticle(**r.count)
+        if a.abstract and not db.findById('nlp', a.pubmedID):
+            articles.append(a)
+    if len(articles):
+        n = get_nlp() # Don't load the heavy models unless we know there is work to do.
+        for a in articles:
+            db.replaceById('nlp', a.pubmedId, asdict(n.nlpDocument(a.abstract)))
 
 def _combine_all_pubmed_search_terms():
     pubmed = get_pubmed()

@@ -1,16 +1,20 @@
 from abc import ABC, abstractmethod
 from collections.abc import Iterable
-from typing import NamedTuple
+from typing import List, NamedTuple
 
 from flask import current_app, g
 
+class NlpEntity(NamedTuple):
+    text: str
+    start_char: int
+    end_char: int
 class NlpDocument(NamedTuple):
-    ents: Iterable[str]
+    ents: List[NlpEntity]
 
 class Nlp(ABC):
 
     @abstractmethod
-    def nlp(self, text: str) -> NlpDocument:
+    def nlpDocument(self, text: str) -> NlpDocument:
         ...
 
 def get_nlp() -> Nlp:
@@ -27,6 +31,11 @@ class NlpSpacy(Nlp):
         self.nlp = spacy.load("en_ner_bc5cdr_md")
         self.nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": "umls"})
 
-    def nlp(self, text: str) -> NlpDocument:
+    def nlpDocument(self, text: str) -> NlpDocument:
         doc = self.nlp(text)
-        return NlpDocument(doc.ents)
+        return asNlpDoc(doc)
+    
+def asNlpDoc(d: dict) -> NlpDocument:
+    return NlpDocument(
+        [NlpEntity(e.text, e.start_char, e.end_char) for e in d.ents]
+    )

@@ -2,7 +2,7 @@ import json
 import logging
 import os
 import sqlite3
-from typing import NamedTuple, TypeVar
+from typing import NamedTuple, TypeVar, Union
 import click
 from flask import g, current_app
 from abc import ABC, abstractmethod
@@ -30,7 +30,7 @@ class Db(ABC):
         ...
 
     @abstractmethod
-    def findById(self, path: str, id) -> Row:
+    def findById(self, path: str, id) -> Union[Row, None]:
         ...
 
     @abstractmethod

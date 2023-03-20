@@ -12,4 +12,5 @@ def test_pubmed_miner_emulate_scheduler(app):
     for r in db.find('pubmed'):
         e = DatabaseTrigger(None, None, PubmedArticle(**r.data))
         pubmed_miner.updated_pubmed_google_scholar(e)
-        pubmed_miner.updated_pubmed_nlp(e)
+
+    pubmed_miner.nlp()
