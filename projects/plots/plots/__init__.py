@@ -6,10 +6,7 @@ import dash
 import os
 from logging.config import dictConfig
 from dotenv import load_dotenv
-from plots.services.sqlite_db import SqliteDb
-from plots.services.db import Db
-
-TEST_DIR = os.path.join(os.path.dirname(__file__), 'test')
+from plots.services.db import Db, SqliteDb
 
 _dash_app = None
 def create_app(DbClass:Type[Db]=SqliteDb):
@@ -46,9 +43,8 @@ def create_app(DbClass:Type[Db]=SqliteDb):
     from flask_cors import CORS
     CORS(app)
 
-    from plots.blueprints import youtube_routes, pubmed_miner, ehden_routes
+    from plots.blueprints import youtube_routes, ehden_routes
     app.register_blueprint(youtube_routes.bp)
-    app.register_blueprint(pubmed_miner.bp)
     app.register_blueprint(ehden_routes.bp)
 
     _dash_app = Dash(
