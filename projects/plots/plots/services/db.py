@@ -89,7 +89,8 @@ class SqliteDb(Db):
 
     def __init__(self):
         self.session = sqlite3.connect(
-            os.path.join(PROJECT_TEST_DIR, 'test.db'),
+            # os.path.join(PROJECT_TEST_DIR, 'test.db'),
+            ":memory:",
             detect_types=sqlite3.PARSE_DECLTYPES
         )
         self.session.row_factory = sqlite3.Row
@@ -98,21 +99,30 @@ class SqliteDb(Db):
         self.session.close()
 
     def init_db(self):
-        self._load_json('pubmed.json')
+        self._init_table('pubmed')
+        self._init_table('google_scholar')
+        self._init_table('nlp')
 
-    def _load_json(self, data_file):
+    def _init_table(self, path):
+        self.session.execute(f'DROP TABLE IF EXISTS {path};')
+        self.session.execute(f'''
+            CREATE TABLE {path} (
+                id TEXT PRIMARY KEY,
+                json JSON NOT NULL
+            )
+        ''')
+
+    def load_fixture(self, data_file):
         with open(os.path.join(DATA_TEST_DIR, data_file)) as fd:
             for path, index in json.load(fd).items():
-                self.session.execute(f'DROP TABLE IF EXISTS {path};')
-                self.session.execute(f'''
-                    CREATE TABLE {path} (
-                        id TEXT PRIMARY KEY,
-                        json JSON NOT NULL
-                    )
-                ''')
+                self._init_table(path)
                 for id, data in index.items():
                     self.replaceById(path, id, data)
         self.session.commit()
+
+    def export_fixture(self, path, data_file):
+        with open(os.path.join(DATA_TEST_DIR, data_file), 'w') as fd:
+            json.dump({path: {r.id: r.data for r in self.find(path)}}, fd, indent=2)
 
     def find(self, path: str, filter={}) -> Iterable[Row]:
         where = ''
@@ -123,8 +133,10 @@ class SqliteDb(Db):
         rows = self.session.execute(sql).fetchall()
         return [Row(r['id'], json.loads(r['json'])) for r in rows]
 
-    def findById(self, path: str, id) -> Row:
+    def findById(self, path: str, id) -> Union[Row, None]:
         row = self.session.execute(f'SELECT * FROM {path} WHERE id = ?', [id]).fetchone()
+        if not row:
+            return None
         return Row(row['id'], json.loads(row))
 
     def replaceById(self, path: str, id, data):
