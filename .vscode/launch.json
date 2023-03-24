@@ -24,7 +24,7 @@
       "justMyCode": true  
     },
     {
-      "name": "debug pytest",
+      "name": "pytest",
       "type": "python",
       "request": "launch",
       "cwd": "${workspaceFolder}/projects/plots",
@@ -33,6 +33,20 @@
       "env": {
         "PLOTS_ENV": "development",
       },
+      "jinja": true,
+      "justMyCode": true  
+    },
+    {
+      "name": "pytest -m focus",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/projects/plots",
+      "module": "pytest",
+      "console": "integratedTerminal",
+      "env": {
+        "PLOTS_ENV": "development",
+      },
+      "args": ["-m", "focus"],
       "jinja": true,
       "justMyCode": true  
     }

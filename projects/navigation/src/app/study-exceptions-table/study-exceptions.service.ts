@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Rest, RestDelegate, RestMemory } from '@community-dashboard/rest';
 import { map } from 'rxjs';
-import { ScanLogsService } from '../scan-logs.service';
+import { ScanLog, ScanLogsService } from '../scan-logs.service';
+import * as d3 from 'd3'
 
 export const EXCEPTIONS: {[key: string]: string} = {
   MISSING_PROTOCOL: 'design finalized w/o protocol',
@@ -26,9 +27,11 @@ export class StudyExceptionsService extends RestDelegate<StudyException> {
     scanLogsService: ScanLogsService,
   ) {
     const rest = new RestMemory(scanLogsService.cache.pipe(
-      map((ls: any) => {
+      map((ls: ScanLog[]) => {
+        ls.sort((a, b) => d3.descending(a.readmeCommit?.author?.date, b.readmeCommit?.author?.date))
+        const latestCommit = d3.rollup(ls, (v: ScanLog[]) => v[0], (d: ScanLog) => d.repository?.name)
         const studyExceptions: {[key: string]: any} = {}
-        const allExceptions = ls.flatMap((l: any) => {
+        const allExceptions = [...latestCommit.values()].flatMap((l: any) => {
           const es = []
           if (
             !l.readmeCommit?.summary ||

@@ -6,19 +6,27 @@ import dash
 import os
 from logging.config import dictConfig
 from dotenv import load_dotenv
-from plots.services.sqlite_db import SqliteDb
-from plots.services.db import Db
-
-TEST_DIR = os.path.join(os.path.dirname(__file__), 'test')
+from plots.services.db import Db, SqliteDb
+from plots.services.pubmed import Pubmed, PubmedBioPython
+from plots.services.google_scholar import GoogleScholarBase, GoogleScholar
+from plots.services.nlp import Nlp, NlpSpacy
 
 _dash_app = None
-def create_app(DbClass:Type[Db]=SqliteDb):
+def create_app(
+    DbClass:Type[Db]=SqliteDb,
+    PubmedClass:Type[Pubmed]=PubmedBioPython,
+    GoogleScholarClass:Type[GoogleScholarBase]=GoogleScholar,
+    NlpClass:Type[Nlp]=NlpSpacy
+):
     global _dash_app
     
     app = Flask(__name__)
 
-    load_dotenv()
     app.config['Db'] = DbClass
+    app.config['Pubmed'] = PubmedClass
+    app.config['GoogleScholar'] = GoogleScholarClass
+    app.config['Nlp'] = NlpClass
+    load_dotenv()
     app.config['ENTREZ_EMAIL'] = os.environ.get('ENTREZ_EMAIL')
     app.config['SERPAPI_KEY'] = os.environ.get('SERPAPI_KEY')
     app.config['LOG_LEVEL'] = os.environ.get('LOG_LEVEL', 'INFO')
@@ -46,9 +54,8 @@ def create_app(DbClass:Type[Db]=SqliteDb):
     from flask_cors import CORS
     CORS(app)
 
-    from plots.blueprints import youtube_routes, pubmed_miner, ehden_routes
+    from plots.blueprints import youtube_routes, ehden_routes
     app.register_blueprint(youtube_routes.bp)
-    app.register_blueprint(pubmed_miner.bp)
     app.register_blueprint(ehden_routes.bp)
 
     _dash_app = Dash(
