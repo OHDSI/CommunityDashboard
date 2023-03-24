@@ -14,7 +14,7 @@ export interface TableQuery {
   startAfter?: TableData
 }
 
-export type Operator = '==' | 'in'
+export type Operator = '==' | 'in' | 'array-contains'
 export type OrderBy = [string, 'asc' | 'desc' | '']
 export type TableQueryWhere = [string, Operator, TableFieldPrimitive | TableFieldPrimitive[]]
 export type TableQueryWhereArray = TableQueryWhere[]

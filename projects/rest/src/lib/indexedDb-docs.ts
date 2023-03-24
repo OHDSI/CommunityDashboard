@@ -1,6 +1,6 @@
 import { map, Observable, of } from "rxjs";
 import { ArrayUnion, Docs, DocsQuery } from "./docs";
-import { OrderBy, TableData, TableQuery, TableQueryWhere } from "./table-data-source";
+import { OrderBy, TableData, TableQuery, TableQueryWhere, TableFieldPrimitive } from "./table-data-source";
 
 interface JsonExport {
   [key:string]: { // collection name
@@ -136,6 +136,12 @@ export class IndexedDbDocs implements Docs {
     const operator = q[1]
     if (operator === '==') {
       return [...f.filter(r => r[q[0]] === q[2])]
+    }
+    if (operator === 'array-contains') {
+      return [...f.filter(r => (r[q[0]] as TableFieldPrimitive[]).includes(q[2] as TableFieldPrimitive))]
+    }
+    if (operator === 'in') {
+      return [...f.filter(r => (q[2] as TableFieldPrimitive[]).includes(r[q[0]] as TableFieldPrimitive))]
     }
     throw new Error('Operator not implemented for IndexedDb.')
   }

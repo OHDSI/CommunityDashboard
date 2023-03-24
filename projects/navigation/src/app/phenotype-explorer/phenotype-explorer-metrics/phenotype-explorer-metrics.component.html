@@ -1,0 +1,28 @@
+<mat-card class="full-height" appearance="outlined">
+  <div class="headline">
+    <mat-card-header class="absolute">
+      <mat-card-title class="header-text headline-title">Welcome</mat-card-title>
+      <mat-card-subtitle class="header-text headline-subtitle">
+        to the Phenotype Library
+      </mat-card-subtitle>
+      <p style="color: white" class="mat-headline-5">
+        BETA
+      </p>
+    </mat-card-header>
+    <!-- <img mat-card-image src="/assets/orange-texture.png" class="full-width"> -->
+    <div mat-card-image class="full-width aspect-16-9 hero"></div>
+  </div>
+  <mat-card-content class="full-height">
+    <div class="flex-container flex-wrap flex-basis-min-content">
+      <!-- <mat-list-item *ngFor="let m of completionMetrics|async" class="width-unset" style="min-width: 150px">
+        <span matListItemTitle class="metric">{{m.value}}</span>
+        <span matListItemLine>{{m.name}}</span>
+      </mat-list-item> -->
+    </div>
+    <div>
+      <p>
+        This is an automated dashboard generated from the <a href="https://raw.githubusercontent.com/OHDSI/PhenotypeLibrary" target="_blank">Github Repo for the Phenotype Library</a>.
+      </p>
+    </div>
+  </mat-card-content>
+</mat-card>
