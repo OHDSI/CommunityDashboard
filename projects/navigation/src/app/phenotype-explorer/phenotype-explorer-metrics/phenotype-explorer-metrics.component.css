@@ -1,0 +1,10 @@
+.headline {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.absolute {
+  position: absolute;
+  bottom: 8px;
+  z-index: 1;
+}
