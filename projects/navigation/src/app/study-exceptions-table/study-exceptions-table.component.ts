@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
-import { TableDataSourceLegacy as TableDataSource  } from '@community-dashboard/rest';
+import { TableDataSource  } from '@community-dashboard/rest';
 import { EXCEPTIONS, StudyException, StudyExceptionsService } from './study-exceptions.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class StudyExceptionsTableComponent implements AfterViewInit {
 
   EXCEPTIONS = EXCEPTIONS
   dataSource: TableDataSource<StudyException> = new TableDataSource(this.studyExceptionsService)
-  count: number | null = null
+  count = this.studyExceptionsService.count()
 
   @Input()
   displayedColumns: string[] = ["studyRepo", "exception"]
@@ -39,7 +39,6 @@ export class StudyExceptionsTableComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this.studyExceptionsService.count().subscribe(c => this.count = c)
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
