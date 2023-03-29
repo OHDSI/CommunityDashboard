@@ -40,11 +40,13 @@ export class PhenotypeExplorerTableComponentComponent implements AfterViewInit, 
   @ViewChild(MatTable) table!: MatTable<Phenotype>;
   @ViewChild('hashTagInput') hashTagInput!: ElementRef<HTMLInputElement>;
 
+  searchControl = new FormControl('')
+  hashTagControl = new FormControl('');
+  statusControl = new FormControl('');
+
   dataSource!: TableDataSource<Phenotype>
   count = this.phenotypeService.count()
-
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  hashTagControl = new FormControl('');
   filteredHashTags: Observable<string[]> = this.hashTagControl.valueChanges.pipe(
     startWith(null),
     concatMap((h: string | null) => (h ? this._filter(h) : of(null))),
@@ -54,8 +56,6 @@ export class PhenotypeExplorerTableComponentComponent implements AfterViewInit, 
   allHashTags: Observable<string[]> = this.phenotypeService.hashtags.pipe(
     map(hs => [...hs])
   );
-
-  statusControl = new FormControl('');
   status = this.phenotypeService.status
 
   @Input()
@@ -79,9 +79,15 @@ export class PhenotypeExplorerTableComponentComponent implements AfterViewInit, 
   statusControlSubscription = this.statusControl.valueChanges.subscribe(
     s => this.phenotypeService.filterStatus.next(s)
   )
+  searchSub = this.searchControl.valueChanges.subscribe(
+    (v => {
+      this.phenotypeService.search.next(v ?? '')
+    })
+  )
 
   ngOnDestroy(): void {
     this.statusControlSubscription.unsubscribe()
+    this.searchSub.unsubscribe()
   }
 
   threadNumber(href: string) {

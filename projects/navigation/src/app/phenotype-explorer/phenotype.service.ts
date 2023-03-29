@@ -31,6 +31,7 @@ export interface Phenotype {
 })
 export class PhenotypeService implements TableDataService<Phenotype> {
 
+  search = this.phenotypeDb.search
   hashtags = this.phenotypeDb.hashtags
   status = this.phenotypeDb.status
   filterStatus = new BehaviorSubject<string|null>(null)
@@ -92,11 +93,23 @@ class PhenotypeDb extends IndexedDbDocs {
 
   hashtags: Observable<Set<string>>
   status: Observable<Set<string>>
+  search: BehaviorSubject<string>
 
   constructor(
   ) {
-    const tables = getPhenotypes()
+    const search = new BehaviorSubject('')
+    const tables = combineLatest([
+      getPhenotypes(),
+      search
+    ]).pipe(
+      map(([ps, s]) => searchQuery(ps, s)),
+      map(ps => ({'/phenotypes': ps.reduce((acc, p) => {
+        acc[p.cohortId] = p
+        return acc
+      }, {} as {[key: string]: Phenotype})}))
+    )
     super({tables})
+    this.search = search
     this.hashtags = tables.pipe(
       map(ts => {
         return Object.values(ts['/phenotypes']).reduce((acc, p) => {
@@ -120,15 +133,19 @@ class PhenotypeDb extends IndexedDbDocs {
     
 }
 
-function getPhenotypes(): Observable<{'/phenotypes': {[key: string]: Phenotype}}> {
+function getPhenotypes(): Observable<Phenotype[]> {
   return from(d3.csv(PHENOTYPE_LIB_URL)).pipe(
     map((rows) => {
-      const phenotypes: {[key: string]: Phenotype} = {}
+      const phenotypes: Phenotype[] = []
       for (const r of rows as {[key: string]: any}[]) {
         const p = {...r, hashTag: r['hashTag'].split(',').map((h: string) => h.trim())} as Phenotype
-        phenotypes[p['cohortId']] = p
+        phenotypes.push(p)
       }
-      return {'/phenotypes': phenotypes}
+      return phenotypes
     })
   )
+}
+
+function searchQuery(ps: Phenotype[], s: string) {
+  return s === '' ? ps : ps.filter(p => p.cohortName.toLowerCase().includes(s.toLowerCase()))
 }
