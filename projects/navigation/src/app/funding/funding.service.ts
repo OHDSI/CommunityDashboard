@@ -95,9 +95,9 @@ class FundingDbSearchable extends IndexedDbDocs {
 
 function searchQuery(fs: Funding[], s: string) {
   return fs.filter(f => {
-    return f['LOCATION FOUND'].toLowerCase().includes(s) ||
-      f['LOCATION FOUND 2'].toLowerCase().includes(s) ||
-      f['AGENCY'].toLowerCase().includes(s) ||
-      f['OPPORTUNITY DETAILS'].toLowerCase().includes(s)
+    return f['LOCATION FOUND'].toLowerCase().includes(s.toLowerCase()) ||
+      f['LOCATION FOUND 2'].toLowerCase().includes(s.toLowerCase()) ||
+      f['AGENCY'].toLowerCase().includes(s.toLowerCase()) ||
+      f['OPPORTUNITY DETAILS'].toLowerCase().includes(s.toLowerCase())
   })
 }

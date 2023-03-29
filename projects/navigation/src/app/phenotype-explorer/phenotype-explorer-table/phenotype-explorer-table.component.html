@@ -1,6 +1,10 @@
 <div class="mat-elevation-z8">
 
-  <form class="example-form">
+  <form class="display-flex justify-content-center form-field-gap">
+    <mat-form-field appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput [formControl]="searchControl" cdkFocusInitial>
+    </mat-form-field>
     <mat-form-field class="example-chip-list" appearance="fill">
       <mat-label>hashTags</mat-label>
       <mat-chip-grid #chipGrid aria-label="Hash tag selection">
