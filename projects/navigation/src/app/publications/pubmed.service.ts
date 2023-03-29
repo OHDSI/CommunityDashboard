@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { Docs, DocsTableDataService, DocsToken, TableFieldValue } from '@community-dashboard/rest';
-import { map, Observable } from 'rxjs';
+import { Docs, DocsTableDataService, DocsToken, index, IndexedDbDocs, TableDataService, TableFieldValue, TableQuery } from '@community-dashboard/rest';
+import { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';
 import * as d3 from 'd3';
 
 export interface Publication {
@@ -108,4 +108,74 @@ export class PubmedService extends DocsTableDataService<Publication> {
       })
     )
   }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PubmedServiceSearchable implements TableDataService<Publication> {
+
+  search: BehaviorSubject<string>
+
+  constructor(
+    private pubmedDbSearchable: PubmedDbSearchable
+  ) {
+    this.search = this.pubmedDbSearchable.search
+  }
+
+  valueChanges(params?: TableQuery): Observable<Publication[] | null> {
+    return this.pubmedDbSearchable.valueChanges({
+      path: 'pubmedDbSearchable',
+      idField: 'id',
+      ...params
+    })
+  }
+
+  count(params?: TableQuery): Observable<number> {
+    return this.pubmedDbSearchable.count({
+      path: 'pubmedDbSearchable',
+      idField: 'id',
+      ...params
+    })
+  }
+
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+class PubmedDbSearchable extends IndexedDbDocs {
+
+  search: BehaviorSubject<string>
+
+  constructor(
+    pubmedService: PubmedService
+  ) {
+    const search = new BehaviorSubject<string>('')
+    super({tables: combineLatest([
+      pubmedService.valueChanges(),
+      search
+    ]).pipe(
+      map(([ps, s]) => {
+        if (!ps) {
+          return {'/pubmedDbSearchable': {}}
+        }
+        if (s.length) {
+          return {'/pubmedDbSearchable': index(searchQuery(ps, s.toLowerCase()))}
+        }
+        return {'/pubmedDbSearchable': index(ps)}
+      }),
+      shareReplay(1)
+    )})
+    this.search = search
+  }
+    
+}
+
+function searchQuery(ps: Publication[], s: string) {
+  return ps.filter(p => {
+    return p['fullAuthorEdited'].toLowerCase().includes(s.toLowerCase()) ||
+      p['title'].toLowerCase().includes(s.toLowerCase()) ||
+      p['journalTitle'].toLowerCase().includes(s.toLowerCase())
+  })
 }
