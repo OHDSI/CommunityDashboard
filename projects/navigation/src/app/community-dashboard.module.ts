@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'youtube', loadComponent: () => import('./you-tube/you-tube.component').then(mod => mod.YouTubeComponent) },
   { path: 'ehden', loadComponent: () => import('./ehden/ehden.component').then(mod => mod.EhdenComponent) },
   { path: 'study-explorer', loadComponent: () => import('./study-explorer/study-explorer.component').then(mod => mod.StudyExplorerComponent) },
-  { path: 'funding', loadComponent: () => import('./funding/funding.component').then(mod => mod.FundingComponent) },
+  { path: 'opportunities', loadComponent: () => import('./funding/funding.component').then(mod => mod.FundingComponent) },
   { path: 'phenotype-explorer', loadComponent: () => import('./phenotype-explorer/phenotype-explorer.component').then(mod => mod.PhenotypeExplorerComponent) },
 ]
 
