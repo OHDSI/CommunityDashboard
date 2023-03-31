@@ -119,7 +119,6 @@ class PhenotypeDb extends IndexedDbDocs {
           return acc
         }, new Set<string>())
       }),
-      tap(hs => {console.log(hs)})
     )
     this.status = tables.pipe(
       map(ts => {

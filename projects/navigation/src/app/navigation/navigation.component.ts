@@ -24,7 +24,7 @@ export class NavigationComponent {
     {routerLink: '/youtube'},
     {routerLink: '/ehden'},
     {routerLink: '/study-explorer'},
-    {routerLink: '/funding'},
+    {routerLink: '/opportunities'},
     {routerLink: '/phenotype-explorer'},
   ]
 

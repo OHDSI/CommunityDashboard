@@ -3,6 +3,7 @@ import { CdkPortalOutletAttachedRef, ComponentPortal, PortalModule } from '@angu
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { PhenotypeExplorerMetricsComponent } from './phenotype-explorer-metrics/phenotype-explorer-metrics.component';
 import { PhenotypeExplorerTableComponentComponent } from './phenotype-explorer-table/phenotype-explorer-table.component';
@@ -30,24 +31,36 @@ export class PhenotypeExplorerComponent {
       if (breakpoints[Breakpoints.XSmall]) {
         return {
           tiles: [
-            { cols: 12, rows: 2, portal: this.phenotypeExplorerMetricsComponentComponent, inputs: {} },
-            { cols: 12, rows: 2, portal: this.phenotypeExplorerTabsComponentComponent, inputs: {} },
+            { cols: 12, rows: 3, portal: this.phenotypeExplorerMetricsComponentComponent, inputs: {} },
+            { cols: 12, rows: 0, portal: this.phenotypeExplorerTabsComponentComponent, inputs: {} },
           ]
         }
        } else if (breakpoints[Breakpoints.Small]) {
         return {
           tiles: [
-            { cols: 6, rows: 2, portal: this.phenotypeExplorerMetricsComponentComponent, inputs: {} },
-            { cols: 6, rows: 2, portal: this.phenotypeExplorerTabsComponentComponent, inputs: {} },
+            { cols: 6, rows: 3, portal: this.phenotypeExplorerMetricsComponentComponent, inputs: {} },
+            { cols: 6, rows: 0, portal: this.phenotypeExplorerTabsComponentComponent, inputs: {} },
           ]
         }
      } else {
         return {
           tiles: [
-            { cols: 4, rows: 2, portal: this.phenotypeExplorerMetricsComponentComponent, inputs: {} },
-            { cols: 8, rows: 2, portal: this.phenotypeExplorerTabsComponentComponent, inputs: {} },
+            { cols: 4, rows: 3, portal: this.phenotypeExplorerMetricsComponentComponent, inputs: {} },
+            { cols: 8, rows: 0, portal: this.phenotypeExplorerTabsComponentComponent, inputs: {} },
           ]
         }
+      }
+    })
+  );
+
+  displayedColumns: Observable<string[]> = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]).pipe(
+    map(({ breakpoints }) => {
+      if (breakpoints[Breakpoints.XSmall]) {
+        return ['cohortId', 'cohortName', 'modifiedDate']
+       } else if (breakpoints[Breakpoints.Small]) {
+        return ['cohortId', 'cohortName', 'modifiedDate']
+      } else {
+        return ['cohortId', 'cohortName', 'modifiedDate', 'status', 'hashTag']
       }
     })
   );
