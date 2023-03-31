@@ -161,15 +161,22 @@ class PubmedDbSearchable extends IndexedDbDocs {
           return {'/pubmedDbSearchable': {}}
         }
         if (s.length) {
-          return {'/pubmedDbSearchable': index(searchQuery(ps, s.toLowerCase()))}
+          return {'/pubmedDbSearchable': withPubmedId(searchQuery(ps, s.toLowerCase()))}
         }
-        return {'/pubmedDbSearchable': index(ps)}
+        return {'/pubmedDbSearchable': withPubmedId(ps)}
       }),
       shareReplay(1)
     )})
     this.search = search
   }
     
+}
+
+function withPubmedId(ps: Publication[]): {[key: string]: Publication} {
+  return ps.reduce((acc, p) => {
+    acc[p.pubmedID] = p
+    return acc
+  }, {} as {[key: string]: Publication})
 }
 
 function searchQuery(ps: Publication[], s: string) {
