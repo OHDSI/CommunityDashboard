@@ -13,6 +13,8 @@ import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { concatMap, map, Observable, of, startWith, tap } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
@@ -27,18 +29,31 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatChipsModule,
     MatIconModule,
+    MatButtonModule,
     ReactiveFormsModule,
     FormsModule,
     CommonModule
   ],
   templateUrl: './phenotype-explorer-table.component.html',
-  styleUrls: ['./phenotype-explorer-table.component.css']
+  styleUrls: ['./phenotype-explorer-table.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class PhenotypeExplorerTableComponentComponent implements AfterViewInit, OnDestroy{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Phenotype>;
   @ViewChild('hashTagInput') hashTagInput!: ElementRef<HTMLInputElement>;
+
+  @Input()
+  displayedColumns: string[] = [
+    'cohortId', 'cohortName', 'modifiedDate', 'status', 'hashTag'
+  ]
 
   searchControl = new FormControl('')
   hashTagControl = new FormControl('');
@@ -57,11 +72,11 @@ export class PhenotypeExplorerTableComponentComponent implements AfterViewInit, 
     map(hs => [...hs])
   );
   status = this.phenotypeService.status
-
-  @Input()
-  displayedColumns: string[] = [
-    'cohortId', 'cohortName', 'status','Forum', 'modifiedDate','hashTag', 'publications', 'networkStudies'
-  ]
+  expanded: {id: string} | null = null
+  
+  get columnsToDisplayWithExpand() {
+    return ['expand', ...this.displayedColumns]
+  } 
 
   constructor(
     private phenotypeService: PhenotypeService,
@@ -127,5 +142,13 @@ export class PhenotypeExplorerTableComponentComponent implements AfterViewInit, 
     return this.allHashTags.pipe(
       map(hs => hs.filter(h => h.toLowerCase().includes(filterValue)))
     );
+  }
+
+  toggleRow(row: Phenotype) {
+    if (this.expanded?.id === row.cohortId) {
+      this.expanded = null
+    } else {
+      this.expanded = {id: row.cohortId}
+    }
   }
 }

@@ -2,3 +2,37 @@
   gap: 16px;
   padding-top: 16px;
 }
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-detail-row {
+  height: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  margin-left: 48px;
+}
+
+.mat-column-expand {
+  width: 10px;
+  padding: 0;
+}
+
+.mat-column-status {
+  width: 175px;
+}
+
+.mat-column-hashTag {
+  width: 175px;
+}
+
+.mat-column-cohortName {
+  max-width: 200px;
+}
+
+.mat-column-modifiedDate {
+  width: 100px;
+}

@@ -126,7 +126,7 @@ export class PubmedServiceSearchable implements TableDataService<Publication> {
   valueChanges(params?: TableQuery): Observable<Publication[] | null> {
     return this.pubmedDbSearchable.valueChanges({
       path: 'pubmedDbSearchable',
-      idField: 'id',
+      idField: 'pubmedID',
       ...params
     })
   }
@@ -134,7 +134,7 @@ export class PubmedServiceSearchable implements TableDataService<Publication> {
   count(params?: TableQuery): Observable<number> {
     return this.pubmedDbSearchable.count({
       path: 'pubmedDbSearchable',
-      idField: 'id',
+      idField: 'pubmedID',
       ...params
     })
   }

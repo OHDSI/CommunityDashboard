@@ -9,5 +9,5 @@
       </div>
     </mat-grid-tile>
   </mat-grid-list>
-    <app-phenotype-explorer-table-component></app-phenotype-explorer-table-component>
+    <app-phenotype-explorer-table-component [displayedColumns]="(displayedColumns|async)!"></app-phenotype-explorer-table-component>
 </div>
