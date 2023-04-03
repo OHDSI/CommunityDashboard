@@ -1,13 +1,9 @@
-.mat-column-AGENCY.columnWidth {
-  max-width: 100px;
-}
-
-.mat-column-title.columnWidth {
+.mat-column-NAME {
   max-width: 300px;
 }
 
-.mat-column-DATE-ADDED.columnWidth {
-  max-width: 100px;
+.mat-column-SPONSOR-S- {
+  max-width: 300px;
 }
 
 .example-element-row td {

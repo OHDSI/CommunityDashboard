@@ -1,9 +1,9 @@
-.mat-column-AGENCY.columnWidth {
-  max-width: 100px;
+.mat-column-JOURNAL.columnWidth {
+  max-width: 300px;
 }
 
-.mat-column-OPPORTUNITY-DETAILS.columnWidth {
-  max-width: 200px;
+.mat-column-THEME.columnWidth {
+  max-width: 300px;
 }
 
 .mat-column-SUBMISSION-DEADLINE-S--IN-2023.columnWidth {
