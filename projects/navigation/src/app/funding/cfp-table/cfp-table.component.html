@@ -1,0 +1,91 @@
+<div class="mat-elevation-z8">
+
+  <table mat-table class="full-width white-space-nowrap" matSort multiTemplateDataRows aria-label="Elements">
+
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+      <td mat-cell *matCellDef="let row">
+        <!-- <button mat-icon-button aria-label="expand row" (click)="toggleRow(row); $event.stopPropagation()">
+          <mat-icon *ngIf="expanded?.id !== row.id">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="expanded?.id === row.id">keyboard_arrow_up</mat-icon>
+        </button> -->
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let row" [attr.colspan]="columnsToDisplayWithExpand.length">
+        <!-- <div class="example-element-detail"
+             [@detailExpand]="row.id == expanded?.id ? 'expanded' : 'collapsed'">
+          <div class="example-element-description">
+            <div>{{row['OPPORTUNITY DETAILS']}}</div>
+          </div>
+          <div class="display-flex">
+            <div class="white-space-break-spaces detail">
+              <div class="mat-headline-6">
+                Budget
+              </div>
+              <div>{{row['BUDGET']}}</div>
+            </div>
+            <div class="white-space-break-spaces detail">
+              <div class="mat-headline-6">
+                Number of Years
+              </div>
+              <div>{{row['NUMBER YEARS']}}</div>
+            </div>
+          </div>
+        </div> -->
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="DATE ADDED">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        DATE ADDED
+      </th>
+      <td mat-cell *matCellDef="let row">
+        {{row["DATE ADDED"]}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="JOURNAL">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="columnWidth">
+        JOURNAL
+      </th>
+      <td mat-cell *matCellDef="let row" class="columnWidth">
+        <a href="{{row['OPPORTUNITY LINK']}}" target="_blank">{{row["JOURNAL"]}}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="THEME">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="columnWidth"> 
+        THEME
+      </th>
+      <td mat-cell *matCellDef="let row" class="columnWidth">
+        {{row["THEME"]}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="SUBMISSION DEADLINE">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="columnWidth">
+        SUBMISSION DEADLINE
+      </th>
+      <td mat-cell *matCellDef="let row" class="columnWidth">
+        {{row["SUBMISSION DEADLINE"]}}
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplayWithExpand;"
+      class="example-element-row action"
+      [class.example-expanded-row]="expanded?.id === row.id"
+      (click)="toggleRow(row)"
+    ></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="count|async"
+      [pageIndex]="0"
+      [pageSize]="5"
+      aria-label="Select page">
+  </mat-paginator>
+</div>
