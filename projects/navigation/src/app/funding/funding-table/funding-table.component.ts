@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Funding, FundingServiceSearchable } from '../funding.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTable, MatTableModule } from '@angular/material/table';
@@ -11,6 +10,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { FundingOp, FundingOpsService } from '../funding-ops.service';
 
 @Component({
   selector: 'lib-funding-table',
@@ -40,7 +40,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class FundingTableComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<Funding>;
+  @ViewChild(MatTable) table!: MatTable<FundingOp>;
 
   @Input() stage!: string
 
@@ -50,7 +50,7 @@ export class FundingTableComponent implements AfterViewInit, OnDestroy {
       this.fundingService.search.next(v ?? '')
     })
   )
-  dataSource!: TableDataSource<Funding>
+  dataSource!: TableDataSource<FundingOp>
   count = this.fundingService.count()
 
   @Input()
@@ -69,7 +69,7 @@ export class FundingTableComponent implements AfterViewInit, OnDestroy {
   expanded: {id: Id} | null = null
 
   constructor(
-    private fundingService: FundingServiceSearchable,
+    private fundingService: FundingOpsService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -94,7 +94,7 @@ export class FundingTableComponent implements AfterViewInit, OnDestroy {
   //     d.studyType.join(' ').toLowerCase().includes(search.toLowerCase())
   // }
 
-  toggleRow(row: Funding) {
+  toggleRow(row: FundingOp) {
     if (this.expanded?.id === row.id) {
       this.expanded = null
     } else {

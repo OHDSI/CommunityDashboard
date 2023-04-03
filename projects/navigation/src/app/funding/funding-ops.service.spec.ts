@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FundingService } from './funding.service';
+import { CfpOpsService } from './cfp-ops.service';
 
-describe('FundingService', () => {
-  let service: FundingService;
+describe('CfpOpsService', () => {
+  let service: CfpOpsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FundingService);
+    service = TestBed.inject(CfpOpsService);
   });
 
   it('should be created', () => {
