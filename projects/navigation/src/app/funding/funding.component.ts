@@ -4,6 +4,7 @@ import { FundingTableComponent } from './funding-table/funding-table.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CfpTableComponent } from './cfp-table/cfp-table.component';
 import { CollaborationTableComponent } from './collaboration-table/collaboration-table.component';
+import { EventTableComponent } from './event-table/event-table.component';
 
 @Component({
   selector: 'lib-funding',
@@ -12,6 +13,7 @@ import { CollaborationTableComponent } from './collaboration-table/collaboration
     FundingTableComponent,
     CfpTableComponent,
     CollaborationTableComponent,
+    EventTableComponent,
     MatTabsModule,
     CommonModule
   ],

@@ -10,10 +10,10 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CfpOpsService, CfpOp } from '../cfp-ops.service';
+import { EventOp, EventOpsService } from '../event-ops.service';
 
 @Component({
-  selector: 'app-cfp-table',
+  selector: 'app-event-table',
   standalone: true,
   imports: [
     MatInputModule,
@@ -27,8 +27,8 @@ import { CfpOpsService, CfpOp } from '../cfp-ops.service';
     ReactiveFormsModule,
     CommonModule
   ],
-  templateUrl: './cfp-table.component.html',
-  styleUrls: ['./cfp-table.component.css'],
+  templateUrl: './event-table.component.html',
+  styleUrls: ['./event-table.component.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -37,34 +37,43 @@ import { CfpOpsService, CfpOp } from '../cfp-ops.service';
     ]),
   ],
 })
-export class CfpTableComponent implements AfterViewInit, OnDestroy {
+export class EventTableComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<CfpOp>;
+  @ViewChild(MatTable) table!: MatTable<EventOp>;
 
   @Input() stage!: string
 
-  dataSource!: TableDataSource<CfpOp>
-  count = this.cfpOpsService.count()
+  searchControl = new FormControl('')
+  searchSub = this.searchControl.valueChanges.subscribe(
+    (v => {
+      this.eventService.search.next(v ?? '')
+    })
+  )
+  dataSource!: TableDataSource<EventOp>
+  count = this.eventService.count()
 
   @Input()
   displayedColumns: string[] = [
     // "DATE ADDED",
-    // "OPPORTUNITY LINK",
-    "JOURNAL",
-    "THEME",
-    "SUBMISSION DEADLINE",
+    // "WEB LINK",
+    "NAME",
+    "SPONSOR(S)",
+    // "EVENT DATE(S)",
+    // "LOCATION(S)",
+    // "PRESNTAION SUBMISSION DEADLINE",
+    "REGISTRATION DEADLINE",
   ]
   columnsToDisplayWithExpand = ['expand', ...this.displayedColumns]
   expanded: {id: Id} | null = null
 
   constructor(
-    private cfpOpsService: CfpOpsService,
+    private eventService: EventOpsService,
   ) {}
 
   ngAfterViewInit(): void {
     this.dataSource = new TableDataSource(
-      this.cfpOpsService
+      this.eventService
     )
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -72,6 +81,7 @@ export class CfpTableComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.searchSub.unsubscribe()
   }
 
   // search(d: StudyPromotion) {
@@ -83,7 +93,7 @@ export class CfpTableComponent implements AfterViewInit, OnDestroy {
   //     d.studyType.join(' ').toLowerCase().includes(search.toLowerCase())
   // }
 
-  toggleRow(row: CfpOp) {
+  toggleRow(row: EventOp) {
     if (this.expanded?.id === row.id) {
       this.expanded = null
     } else {
