@@ -57,7 +57,7 @@ export class PubmedService extends DocsTableDataService<Publication> {
   constructor(
     @Inject('DocsToken') docs: Docs
   ) {
-    super({docs, path: 'pubmedArticles', idField: 'pubmedID'})
+    super({docs, path: 'pubmedArticles', idField: 'id'})
   }
 
   summary(): Observable<PublicationSummary[]> {
@@ -126,7 +126,7 @@ export class PubmedServiceSearchable implements TableDataService<Publication> {
   valueChanges(params?: TableQuery): Observable<Publication[] | null> {
     return this.pubmedDbSearchable.valueChanges({
       path: 'pubmedDbSearchable',
-      idField: 'pubmedID',
+      idField: 'id',
       ...params
     })
   }
@@ -134,7 +134,7 @@ export class PubmedServiceSearchable implements TableDataService<Publication> {
   count(params?: TableQuery): Observable<number> {
     return this.pubmedDbSearchable.count({
       path: 'pubmedDbSearchable',
-      idField: 'pubmedID',
+      idField: 'id',
       ...params
     })
   }
