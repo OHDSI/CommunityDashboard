@@ -22,7 +22,7 @@ def test_google_scholar_create_fixture(app):
     db.load_fixture('pubmed.json')
 
     for r in db.find('pubmed'):
-        e = DatabaseTrigger(None, None, PubmedArticle(**r.data))
+        e = DatabaseTrigger(None, None, r.data)
         pubmed_miner.updated_pubmed_google_scholar(e)
     assert len(list(db.find('google_scholar'))) > 0
 
@@ -38,3 +38,14 @@ def test_nlp_create_fixture(app):
     assert len(list(db.find('nlp'))) > 0
 
     db.export_fixture('nlp', 'nlp.json')
+
+@pytest.mark.skip('Integration test. Run to regenerate test fixture.')
+def test_umls_create_fixture(app):
+    db = get_db()
+    db.init_db()
+    db.load_fixture('nlp.json')
+
+    pubmed_miner.umls()
+    assert len(list(db.find('umls'))) > 0
+
+    db.export_fixture('umls', 'umls.json')
