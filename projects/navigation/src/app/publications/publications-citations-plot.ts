@@ -12,7 +12,7 @@ export function renderPlot(ys: PublicationSummary[]) {
   const margin = ({top: 20, right: 60, bottom: 30, left: 40})
 
   const x = d3.scaleBand()
-    .domain(ys.map(d => d.year.getFullYear()))
+    .domain(ys.map(d => d.year))
     .rangeRound([margin.left, width - margin.right])
     .padding(0.1)
 
@@ -25,7 +25,7 @@ export function renderPlot(ys: PublicationSummary[]) {
     .rangeRound([height - margin.bottom, margin.top])
 
   const line = d3.line()
-    .x((d: PublicationSummary) => x(d.year.getFullYear()) + x.bandwidth() / 2)
+    .x((d: PublicationSummary) => x(d.year) + x.bandwidth() / 2)
     .y((d: PublicationSummary) => y2(d.cumulativeCitations))
 
   const xAxis = (g: any) => g
@@ -68,7 +68,7 @@ export function renderPlot(ys: PublicationSummary[]) {
     .selectAll("rect")
     .data(ys)
     .join("rect")
-      .attr("x", (d: PublicationSummary) => x(d.year.getFullYear()))
+      .attr("x", (d: PublicationSummary) => x(d.year))
       .attr("width", x.bandwidth())
       .attr("y", (d: PublicationSummary) => y1(d.n))
       .attr("height", (d: PublicationSummary) => y1(0) - y1(d.n));
@@ -87,12 +87,12 @@ export function renderPlot(ys: PublicationSummary[]) {
     .selectAll("rect")
     .data(ys)
     .join("rect")
-      .attr("x", (d: PublicationSummary) => x(d.year.getFullYear()))
+      .attr("x", (d: PublicationSummary) => x(d.year))
       .attr("width", x.bandwidth())
       .attr("y", 0)
       .attr("height", height)
     .append("title")
-      .text((d: PublicationSummary) => `${d.year.getFullYear()}
+      .text((d: PublicationSummary) => `${d.year}
 ${d.n.toLocaleString("en")} publications
 ${d.cumulativeCitations.toLocaleString("en")} total citations (cumulative)`);
 

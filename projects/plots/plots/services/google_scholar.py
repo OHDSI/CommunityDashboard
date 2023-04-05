@@ -49,6 +49,9 @@ class GoogleScholar(GoogleScholarBase):
     
 def asGoogleScholarSearch(d: dict) -> GoogleScholarSearch:
     results = []
+    if 'organic_results' not in d:
+        print('no results', d)
+        raise 'no results'
     for r in d['organic_results']:
         authors = []
         for a in r['publication_info'].get('authors', []):

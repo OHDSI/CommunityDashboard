@@ -60,6 +60,6 @@ export class PubMedTableComponent implements AfterViewInit, OnDestroy {
   }
 
   formatAuthors(fullAuthorEdited: string) {
-    return fullAuthorEdited.slice(1, fullAuthorEdited.length - 2).split("' '").join(', ')
+    return fullAuthorEdited
   }
 }

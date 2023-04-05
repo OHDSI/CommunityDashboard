@@ -1,3 +1,4 @@
+from time import sleep
 from typing import List
 from plots.services.db import get_db, asdict
 from plots.services.pubmed import get_pubmed, PubmedArticle
@@ -37,7 +38,7 @@ def nlp():
         #     print(f'failed to parse {r.data}')
         #     continue
         try:
-            if a['pubmed']['abstract'] and not a['nlp']:
+            if a['pubmed']['abstract'] and not 'nlp' in a:
                 articles.append(a)
         except KeyError:
             print(f'failed to parse {a}')
@@ -52,10 +53,13 @@ def nlp():
 def umls():
     db = get_db()
     umlsSearch = get_umls()
-    for r in db.find('nlp'):
-        snomed = [umlsSearch.find(e['text']) for e in r.data['ents']]
-        db.replaceById('umls', r.id, {'snomed': snomed})
-        db.updateById('pubmedJoined', r.id, {'snomed': snomed})
+    # for r in db.find('nlp'):
+    for r in db.find('pubmedJoined'):
+        sleep(1)
+        if ('nlp' in r.data and not 'snomed' in r.data):
+            snomed = [{'snomed': umlsSearch.find(e['text']), 'start_char': e['start_char'], 'end_char': e['end_char']} for e in r.data['nlp']['ents']]
+            db.replaceById('snomed', r.id, {'ents': snomed})
+            db.updateById('pubmedJoined', r.id, {'snomed': {'ents': snomed}})
 
 def _combine_all_pubmed_search_terms():
     pubmed = get_pubmed()
