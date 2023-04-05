@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { IndexedDbDocs, FixtureIndex, parseExport, records } from '@community-dashboard/rest';
 import dbExportsJson from '../../../../test/exports/all.json'
 import repoExportsJson from '../../../../test/exports/2-0-export.json'
+import pubmedExportsJson from '../../../../test/exports/pubmedJoined.json'
 import { of } from 'rxjs'
 import { FUNDING_FIXTURE } from './funding-fixture';
 
@@ -11,6 +12,7 @@ const repoExports = repoExportsJson as {[key:string]: any}
 export const FIXTURES: FixtureIndex = {
   ...parseExport(dbExports),
   ...parseExport(repoExports),
+  ...parseExport(pubmedExportsJson),
   '/funding': records(FUNDING_FIXTURE),
 }
 

@@ -38,6 +38,10 @@ class Db(ABC):
         ...
 
     @abstractmethod
+    def updateById(self, path: str, id, data):
+        ...
+
+    @abstractmethod
     def create(self, path: str, data):
         ...
 
@@ -102,6 +106,8 @@ class SqliteDb(Db):
         self._init_table('pubmed')
         self._init_table('google_scholar')
         self._init_table('nlp')
+        self._init_table('umls')
+        self._init_table('pubmedJoined')
 
     def _init_table(self, path):
         self.session.execute(f'DROP TABLE IF EXISTS {path};')
@@ -111,6 +117,7 @@ class SqliteDb(Db):
                 json JSON NOT NULL
             )
         ''')
+        self.session.commit()
 
     def load_fixture(self, data_file):
         with open(os.path.join(DATA_TEST_DIR, data_file)) as fd:
@@ -145,6 +152,9 @@ class SqliteDb(Db):
             [id, json.dumps(data)]
         )
         self.session.commit()
+
+    def updateById(self, path: str, id, data):
+        self.replaceById(path, id, data) # Not implemented.
 
     def create(self, path: str, data):
         self.session.execute(

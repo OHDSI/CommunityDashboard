@@ -3,44 +3,62 @@ import { Docs, DocsTableDataService, DocsToken, index, IndexedDbDocs, TableDataS
 import { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';
 import * as d3 from 'd3';
 
+// export interface Publication {
+//   // https://stackoverflow.com/questions/70956050/how-do-i-declare-object-value-type-without-declaring-key-type
+//   [key: string]: TableFieldValue,
+//   "id": string,
+//   "pubmed": {
+//     "fullAuthor": string[],
+//     "grantNum": string|null,
+//     "meshT": string[],
+//     "language": string[]
+//     "nlmID": string,
+//     "abstract": string,
+//     "source": string,
+//     "creationDate": string,
+//     "title": string,
+//     "pubmedID": string,
+//     "affiliation": string[],
+//     "countryOfPub": string[],
+//     "pmcID": string|null,
+//     "journalTitle": string,
+//     "locID": string,
+//   },
+//   "google_scholar": {
+//     "created_at": string,
+//     "results": {
+//       "summary": string,
+//       "total_citations": number,
+//       "citations_link": string,
+//       "versions_link": string,
+//       "link": string,
+//       "title": string,
+//       "authors": {
+//         "name": string,
+//         "link": string
+//       }[]
+//     }[]
+//   },
+//   "snomed": {
+//     "ents": {
+//       "end_char": number,
+//       "start_char": number,
+//       "snomed": string
+//     }[]
+//   }
+// }
+
 export interface Publication {
   // https://stackoverflow.com/questions/70956050/how-do-i-declare-object-value-type-without-declaring-key-type
   [key: string]: TableFieldValue,
-  "pmcID": string,
+  "id": string,
   "pubmedID": string,
-  "nlmID": string,
-  "journalTitle": string,
-  "title": string,
   "creationDate": string,
-  "affiliation": string,
-  "locID": string,
-  "countryOfPub": string,
-  "language": string,
-  "grantNum": string,
-  "fullAuthor": string,
-  "meshT": string,
-  "source": string,
   "fullAuthorEdited": string,
-  "firstAuthor": string,
-  "pubYear": number,
-  "titleAuthorStr": string,
-  "datePulled": string,
-  "foundInGooScholar": string,
-  "numCitations": number,
-  "levenProb": string,
-  "fullAuthorGooScholar": string,
-  "googleScholarLink": string,
-  "rxnormIDspacy": string,
-  "rxnormTermspacy": string,
-  "rxnormStartChar": string,
-  "rxnormEndChar": string,
-  "umlsIDspacy": string,
-  "umlsTermspacy": string,
-  "umlsStartChar": string,
-  "umlsEndChar": string,
-  "snomedIDs": string,
-  "snomedNames": string,
-  "termFreq": string
+  "title": string,
+  "journalTitle": string,
+  "termFreq": string,
+  "numCitations": number | null,
 }
 
 export interface PublicationSummary {
@@ -57,7 +75,36 @@ export class PubmedService extends DocsTableDataService<Publication> {
   constructor(
     @Inject('DocsToken') docs: Docs
   ) {
-    super({docs, path: 'pubmedArticles', idField: 'id'})
+    super({docs, path: 'pubmedJoined', idField: 'id'})
+  }
+
+  override valueChanges(params?: TableQuery): Observable<Publication[] | null> {
+    return super.valueChanges(params).pipe(
+      map(ps => {
+        if (!ps) {
+          return null
+        }
+        return ps.flatMap((p: any) => {
+          if (!p.pubmed) {
+            // console.log('could not parse pubmed', p)
+            return []
+          }
+          return [{
+            id: p.pubmed.pubmedID,
+            pubmedID: p.pubmed.pubmedID,
+            creationDate: p.pubmed.creationDate,
+            fullAuthorEdited: p.pubmed.fullAuthor?.map((a: string) => {
+              const [last, first] = a.split(', ')
+              return `${first} ${last}`
+            }).join(', ') ?? '',
+            title: p.pubmed.title,
+            journalTitle: p.pubmed.journalTitle,
+            termFreq: p.snomed?.ents.map((e: any) => e.snomed).join(', ') ?? '',
+            numCitations: p.google_scholar?.results[0]?.total_citations ?? null
+          } as Publication]
+        })
+      })
+    )
   }
 
   summary(): Observable<PublicationSummary[]> {
@@ -67,12 +114,12 @@ export class PubmedService extends DocsTableDataService<Publication> {
           return []
         }
         const r: Map<Date, {n: number, nCitations: number}> = d3.rollup(
-          ps.sort((a, b) => d3.ascending(a.pubYear, b.pubYear)), 
+          ps.sort((a, b) => d3.ascending(a.creationDate, b.creationDate)), 
           (v: Publication[]) => ({
             n: v.length,
             nCitations: d3.sum(v, (d: Publication) => d.numCitations)
           }),
-          (d: Publication) => new Date(d.pubYear, 0)
+          (d: Publication) => new Date(d.creationDate).getFullYear()
         )
         const ys = Array.from(r.entries()).map(([year, summary]) => ({year, ...summary}))
         const publicationSummaries = (Array.from(d3.cumsum(ys.map(y => y.nCitations))) as number[]).map((c, i) => {
@@ -90,7 +137,7 @@ export class PubmedService extends DocsTableDataService<Publication> {
           return 0
         }
         const authors = ps.reduce((acc, p) => {
-          p.fullAuthorEdited.slice(1, p.fullAuthor.length - 1).split("' '").forEach(s => acc.add(s))
+          p.fullAuthorEdited
           return acc
         }, new Set())
         return authors.size
