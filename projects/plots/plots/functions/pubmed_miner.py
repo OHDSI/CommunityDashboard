@@ -15,38 +15,38 @@ def created_pubmed_scan():
     db = get_db()
     for a in _combine_all_pubmed_search_terms():
         db.replaceById('pubmed', a.pubmedID, asdict(a))
-        db.updateById('pubmedJoined', a.pubmedID, asdict(a))
+        db.updateById('pubmedJoined', a.pubmedID, {'pubmed': asdict(a)})
 
 def updated_pubmed_google_scholar(u: DatabaseTrigger[PubmedArticle]):
     db = get_db()
     google_scholar = get_google_scholar()
-    p = PubmedArticle(**u.value)
+    p = u.value['fields']
     search = _search_string_for_article(p)
-    db.replaceById('google_scholar', p.pubmedID, asdict(google_scholar.find(search)))
-    db.updateById('pubmedJoined', p.pubmedID, asdict(google_scholar.find(search)))
+    results = asdict(google_scholar.find(search))
+    db.replaceById('google_scholar', p['pubmedID']['stringValue'], results)
+    db.updateById('pubmedJoined', p['pubmedID']['stringValue'], {'google_scholar': results})
 
 def nlp():
     db = get_db()
     articles: List[PubmedArticle] = []
-    for r in db.find('pubmed'):
+    for r in db.find('pubmedJoined'):
         a = r.data
         # try:
         #     a = PubmedArticle(**r.data)
         # except TypeError:
         #     print(f'failed to parse {r.data}')
         #     continue
-        # This is a poorly performing join, but since there's
-        # only a few hundred articles I'm not bothered by it for now.
         try:
-            if a['abstract'] and not db.findById('nlp', a['pubmedID']):
+            if a['pubmed']['abstract'] and not a['nlp']:
                 articles.append(a)
         except KeyError:
             print(f'failed to parse {a}')
     if len(articles):
         n = get_nlp() # Don't load the heavy models unless we know there is work to do.
         for a in articles:
-            db.replaceById('nlp', a['pubmedID'], asdict(n.nlpDocument(a['abstract'])))
-            db.updateById('pubmedJoined', a['pubmedID'], asdict(n.nlpDocument(a['abstract'])))
+            nlp_doc = asdict(n.nlpDocument(a['pubmed']['abstract']))
+            db.replaceById('nlp', a['pubmed']['pubmedID'], nlp_doc)
+            db.updateById('pubmedJoined', a['pubmed']['pubmedID'], {'nlp': nlp_doc})
 
 
 def umls():
@@ -66,9 +66,9 @@ def _combine_all_pubmed_search_terms():
             index[a.pubmedID] = a
     return index.values()
 
-def _search_string_for_article(a: PubmedArticle) -> str:
-    terms = [a.title]
-    if a.fullAuthor:
-        last, first = a.fullAuthor[0].split(', ')
+def _search_string_for_article(a: dict) -> str:
+    terms = [a['title']['stringValue']]
+    if a['fullAuthor']:
+        last, first = a['fullAuthor']['arrayValue']['values'][0]['stringValue'].split(', ')
         terms.append(f'{first} {last}')
     return ' '.join(terms)
