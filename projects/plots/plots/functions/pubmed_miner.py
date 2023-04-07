@@ -54,8 +54,8 @@ def umls():
     db = get_db()
     umlsSearch = get_umls()
     # for r in db.find('nlp'):
-    for r in db.find('pubmedJoined'):
-        sleep(1)
+    pubmedJoined = [r for r in db.find('pubmedJoined')]
+    for r in pubmedJoined:
         if ('nlp' in r.data and not 'snomed' in r.data):
             snomed = [{'snomed': umlsSearch.find(e['text']), 'start_char': e['start_char'], 'end_char': e['end_char']} for e in r.data['nlp']['ents']]
             db.replaceById('snomed', r.id, {'ents': snomed})

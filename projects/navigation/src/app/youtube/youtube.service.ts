@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@angular/core';
+import { ErrorHandler, Inject, Injectable } from '@angular/core';
 import { Docs, DocsTableDataService, DocsToken, IndexedDbDocs, TableDataService, TableFieldValue, TableQuery } from '@community-dashboard/rest';
-import { map, Observable, shareReplay } from 'rxjs';
+import { combineLatest, map, Observable, shareReplay } from 'rxjs';
 import * as td from 'tinyduration'
 import * as d3 from 'd3';
 
@@ -25,6 +25,13 @@ export interface YouTube {
   "latestViewCount": number,
 }
 
+export interface YouTubeException {
+  // https://stackoverflow.com/questions/70956050/how-do-i-declare-object-value-type-without-declaring-key-type
+  [key: string]: TableFieldValue,
+  id?: string,
+  youtubeId: string
+}
+
 export interface YouTubeAnnualSummary {
   year: number,
   contentHours: number,
@@ -47,10 +54,22 @@ export class YouTubeService extends DocsTableDataService<YouTube> {
 @Injectable({
   providedIn: 'root'
 })
+export class YouTubeExceptionService extends DocsTableDataService<YouTubeException> {
+
+  constructor(
+    @Inject('DocsToken') docs: Docs
+  ) {
+    super({docs, path: 'youtube-exceptions', idField: 'id'})
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
 export class YouTubeServiceWithCountsSummary implements TableDataService<YouTube> {
 
   constructor(
-    private withCountSummaryDb: WithCountSummaryDb,
+    private withCountSummaryDb: YouTubeTransformedDb,
   ) {}
 
   valueChanges(params?: TableQuery): Observable<YouTube[] | null> {
@@ -124,12 +143,26 @@ export class YouTubeServiceWithCountsSummary implements TableDataService<YouTube
 @Injectable({
   providedIn: 'root'
 })
-class WithCountSummaryDb extends IndexedDbDocs {
+class YouTubeTransformedDb extends IndexedDbDocs {
 
   constructor(
-    youtubeService: YouTubeService
+    youtubeService: YouTubeService,
+    youtubeExceptionService: YouTubeExceptionService,
+    errorHandler: ErrorHandler,
   ) {
-    super({tables: youtubeService.valueChanges().pipe(
+    const d = combineLatest([
+      youtubeService.valueChanges(),
+      youtubeExceptionService.valueChanges(),
+    ])
+    super({tables: d.pipe(
+      map(([ys, es]) => {
+        if (!ys || !es) {
+          errorHandler.handleError('Expected youtube data to always be available.')
+          return []
+        }
+        const filtered = es.map(e => e.youtubeId)
+        return ys.filter(y => y.id && !filtered.includes(y.id))
+      }),
       map(ys => ({'/youtubeWithCountSummary': ys?.reduce((acc, y) => {
         acc[y.id!] = {...y, latestViewCount: latestViewCount(y.counts) }
         return acc
