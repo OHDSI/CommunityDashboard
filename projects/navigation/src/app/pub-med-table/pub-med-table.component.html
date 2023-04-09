@@ -57,7 +57,9 @@
     </ng-container>
     
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.exception]="row.exception"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.exception]="row.exception"
+      [hidden]="!(user|async) && row.exception"
+    ></tr>
   </table>
 
   <mat-paginator #paginator
