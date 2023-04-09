@@ -1,4 +1,4 @@
-import { Component, ComponentRef } from '@angular/core';
+import { Component, ComponentRef, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -7,6 +7,8 @@ import { CdkPortalOutletAttachedRef, ComponentPortal, PortalModule } from '@angu
 import { PubMedWelcomeComponent } from '../pub-med-welcome/pub-med-welcome.component';
 import { PubMedTabsComponent } from '../pub-med-tabs/pub-med-tabs.component';
 import { PubMedTableComponent } from '../pub-med-table/pub-med-table.component';
+import { AuthService } from '@community-dashboard/rest';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-pub-med',
@@ -25,19 +27,23 @@ export class PubMedComponent {
   pubMedWelcomePortal = new ComponentPortal(PubMedWelcomeComponent)
   pubMedTabs = new ComponentPortal(PubMedTabsComponent)
 
-  layout = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]).pipe(
-    map(({ breakpoints }) => {
-      if (breakpoints[Breakpoints.XSmall]) {
+  layout = combineLatest([
+    this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]),
+    this.authService.user
+  ]).pipe(
+    map(([b, u]) => {
+      const auth = u ? ['delete'] : []
+      if (b.breakpoints[Breakpoints.XSmall]) {
         return {
-          columns: ['creationDate', 'fullAuthorEdited', 'title'],
+          columns: [...auth, 'creationDate', 'fullAuthorEdited', 'title'],
           tiles: [
             { cols: 12, rows: 4, portal: this.pubMedWelcomePortal, inputs: {} },
             { cols: 12, rows: 4, portal: this.pubMedTabs, inputs: {} },
           ]
         }
-       } else if (breakpoints[Breakpoints.Small]) {
+       } else if (b.breakpoints[Breakpoints.Small]) {
         return {
-          columns: ['creationDate', 'fullAuthorEdited', 'title', 'termFreq'],
+          columns: [...auth, 'creationDate', 'fullAuthorEdited', 'title', 'termFreq'],
           tiles: [
             { cols: 6, rows: 4, portal: this.pubMedWelcomePortal, inputs: {} },
             { cols: 6, rows: 4, portal: this.pubMedTabs, inputs: {} },
@@ -45,7 +51,7 @@ export class PubMedComponent {
         }
      } else {
         return {
-          columns: ['pubmedID', 'creationDate', 'fullAuthorEdited', 'title', 'journalTitle', 'termFreq', 'numCitations'],
+          columns: [...auth, 'creationDate', 'fullAuthorEdited', 'title', 'journalTitle', 'termFreq', 'numCitations'],
           tiles: [
             { cols: 4, rows: 4, portal: this.pubMedWelcomePortal, inputs: {} },
             { cols: 8, rows: 4, portal: this.pubMedTabs, inputs: {} },
@@ -57,6 +63,7 @@ export class PubMedComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
+    @Inject('AuthToken') private authService: AuthService,
   ) {}
 
   setInputs(ref: CdkPortalOutletAttachedRef, inputs: object) {

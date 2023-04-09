@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { Docs, DocsTableDataService, DocsToken, index, IndexedDbDocs, TableDataService, TableFieldValue, TableQuery } from '@community-dashboard/rest';
 import { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';
 import * as d3 from 'd3';
+import { PublicationsManualService } from './publications-manual.service';
+import { PublicationExceptionService } from './publication-exception.service';
 
 // export interface Publication {
 //   // https://stackoverflow.com/questions/70956050/how-do-i-declare-object-value-type-without-declaring-key-type
@@ -59,6 +61,12 @@ export interface Publication {
   "journalTitle": string,
   "termFreq": string,
   "numCitations": number | null,
+}
+
+interface Searchable {
+  "fullAuthorEdited": string,
+  "title": string,
+  "journalTitle": string,
 }
 
 export interface PublicationSummary {
@@ -196,21 +204,25 @@ class PubmedDbSearchable extends IndexedDbDocs {
   search: BehaviorSubject<string>
 
   constructor(
-    pubmedService: PubmedService
+    pubmedService: PubmedService,
+    publicationsManualService: PublicationsManualService,
+    publicationExceptionService: PublicationExceptionService,
   ) {
     const search = new BehaviorSubject<string>('')
     super({tables: combineLatest([
+      publicationsManualService.valueChanges(),
       pubmedService.valueChanges(),
+      publicationExceptionService.valueChanges(),
       search
     ]).pipe(
-      map(([ps, s]) => {
-        if (!ps) {
-          return {'/pubmedDbSearchable': {}}
-        }
+      map(([ms, ps, es, s]) => {
+        const msWithId: Searchable[] = ms?.map(m => ({...m, manualPublicationId: m.id})) ?? []
+        const psWithException: Searchable[] = ps?.map(p => ({...p, exception: es?.filter((e) => e.pubmedID === p.pubmedID)[0]?.id ?? false})) ?? []
+        const combined: Searchable[] = msWithId.concat(psWithException)
         if (s.length) {
-          return {'/pubmedDbSearchable': withPubmedId(searchQuery(ps, s.toLowerCase()))}
+          return {'/pubmedDbSearchable': index(searchQuery(combined, s))}
         }
-        return {'/pubmedDbSearchable': withPubmedId(ps)}
+        return {'/pubmedDbSearchable': index(combined)}
       }),
       shareReplay(1)
     )})
@@ -219,14 +231,7 @@ class PubmedDbSearchable extends IndexedDbDocs {
     
 }
 
-function withPubmedId(ps: Publication[]): {[key: string]: Publication} {
-  return ps.reduce((acc, p) => {
-    acc[p.pubmedID] = p
-    return acc
-  }, {} as {[key: string]: Publication})
-}
-
-function searchQuery(ps: Publication[], s: string) {
+function searchQuery(ps: Searchable[], s: string) {
   return ps.filter(p => {
     return p['fullAuthorEdited'].toLowerCase().includes(s.toLowerCase()) ||
       p['title'].toLowerCase().includes(s.toLowerCase()) ||

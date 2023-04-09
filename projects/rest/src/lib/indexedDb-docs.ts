@@ -1,6 +1,8 @@
-import { map, Observable, of } from "rxjs";
+import { delay, first, map, Observable, of, Subject, tap } from "rxjs";
 import { ArrayUnion, Docs, DocsQuery } from "./docs";
 import { OrderBy, TableData, TableQuery, TableQueryWhere, TableFieldPrimitive } from "./table-data-source";
+import { combineLatest } from "rxjs/internal/observable/combineLatest";
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 
 interface JsonExport {
   [key:string]: { // collection name
@@ -43,12 +45,18 @@ export function parseExport(e: JsonExport, index?: FixtureIndex): FixtureIndex {
 
 export class IndexedDbDocs implements Docs {
 
+  changes = new BehaviorSubject<any>(null)
+  tableChanges = combineLatest([
+    this.changes,
+    this.params.tables,
+  ]).pipe(map(([_, ts]) => ts))
+
   constructor(private params: {
     tables: Observable<{[key: string]: {[key: string]: unknown}}>,
   }) {}
 
   valueChanges<T extends TableData>(params: DocsQuery): Observable<T[]> {
-    return this.params.tables.pipe(
+    return this.tableChanges.pipe(
       map(ts => this._getTableOrThrow(ts, params.path)),
       map(table => {
         const d = Object.values({...table}) as T[]
@@ -59,7 +67,7 @@ export class IndexedDbDocs implements Docs {
   }
 
   count<T extends TableData>(params: DocsQuery): Observable<number> {
-    return this.params.tables.pipe(
+    return this.tableChanges.pipe(
       map(ts => this._getTableOrThrow(ts, params.path)),
       map(table => {
         const d = Object.values({...table}) as T[]
@@ -73,7 +81,18 @@ export class IndexedDbDocs implements Docs {
     path: string,
     doc: TableData
   }): Observable<string> {
-    throw new Error('not implemented')
+    return this.params.tables.pipe(
+      first(),
+      map(ts => this._getTableOrThrow(ts, params.path)),
+      map(t => {
+        const id = Object.keys(t).length.toString()
+        const n = {...params.doc, id}
+        t[id] = n
+        return id
+      }),
+      delay(2000),
+      tap(_ => this.changes.next({}))
+    )
   }
 
   updateById(params: {
@@ -89,6 +108,22 @@ export class IndexedDbDocs implements Docs {
     doc: TableData,
   }): Observable<void> {
     throw new Error('not implemented')
+  }
+
+  deleteById(params: {
+    path: string,
+  }): Observable<void> {
+    const segments = params.path.split('/')
+    const path = segments.slice(0, segments.length - 1).join('/')
+    const id = segments[segments.length - 1]
+    return this.params.tables.pipe(
+      first(),
+      map(ts => this._getTableOrThrow(ts, path)),
+      map((t) => {
+        delete t[id]
+      }),
+      tap(_ => this.changes.next({}))
+    )
   }
 
   _getTableOrThrow(tables: {[key: string]: {[key: string]: unknown}}, path: string, scope?: string) {

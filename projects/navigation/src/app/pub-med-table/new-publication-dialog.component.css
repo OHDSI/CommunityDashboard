@@ -1,0 +1,10 @@
+.form-width {
+  width: 300px;
+}
+
+.in-progress {
+  position: fixed;
+  top: 50%;
+  left: calc(50% - 50px);
+}
+

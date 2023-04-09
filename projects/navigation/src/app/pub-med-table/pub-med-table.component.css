@@ -2,3 +2,12 @@
   gap: 16px;
   padding-top: 16px;
 }
+
+.position-new-publication {
+  position: absolute;
+  left: 8px;
+}
+
+.exception {
+  background: red !important;
+}
