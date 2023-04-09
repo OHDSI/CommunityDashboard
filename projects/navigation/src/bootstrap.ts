@@ -7,6 +7,7 @@ import { environment } from './app/environments/environment';
 import { AppComponent } from './app/app.component';
 import { RestMock } from './test/rest-mock.service';
 import { DocsMock } from './test/docs-mock.service';
+import { AuthMockService } from './test/auth-mock.service';
 
 if (environment.production) {
   enableProdMode();
@@ -36,5 +37,6 @@ bootstrapApplication(AppComponent, {
     // {provide: RestToken, useClass: RestMock},
     {provide: 'RestToken', useClass: RestMock},
     {provide: 'DocsToken', useClass: DocsMock},
+    {provide: 'AuthToken', useClass: AuthMockService},
   ]
 })

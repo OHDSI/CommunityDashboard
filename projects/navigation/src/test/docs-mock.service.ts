@@ -3,6 +3,8 @@ import { IndexedDbDocs, FixtureIndex, parseExport, records } from '@community-da
 import dbExportsJson from '../../../../test/exports/all.json'
 import repoExportsJson from '../../../../test/exports/2-0-export.json'
 import pubmedExportsJson from '../../../../test/exports/pubmedJoined.json'
+import publicationsManualJson from '../../../../test/exports/publicationsManual.json'
+import publicationExceptionJson from '../../../../test/exports/publication-exception.json'
 import youtubeExceptionExportsJson from '../../../../test/exports/youtube-exceptions.json'
 import { of } from 'rxjs'
 import { FUNDING_FIXTURE } from './funding-fixture';
@@ -15,6 +17,8 @@ export const FIXTURES: FixtureIndex = {
   ...parseExport(repoExports),
   ...parseExport(pubmedExportsJson),
   ...parseExport(youtubeExceptionExportsJson),
+  ...parseExport(publicationsManualJson),
+  ...parseExport(publicationExceptionJson),
   '/funding': records(FUNDING_FIXTURE),
 }
 

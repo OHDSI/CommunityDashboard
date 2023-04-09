@@ -46,6 +46,12 @@ export interface Docs {
     }): Observable<void>
   }
 
+  deleteById: {
+    (params: {
+      path: string,
+    }): Observable<void>
+  }
+
 }
 
 /**
@@ -101,6 +107,14 @@ export abstract class DocsTableDataService<T extends TableData> implements Table
     return this.params.docs.replaceById({
       path: `${this.params.path}/${params.id}`,
       doc: params.doc,
+    })
+  }
+
+  deleteById(params: {
+    id: string
+  }): Observable<void> {
+    return this.params.docs.deleteById({
+      path: `${this.params.path}/${params.id}`
     })
   }
 

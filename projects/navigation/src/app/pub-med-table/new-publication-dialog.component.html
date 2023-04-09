@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Add New Publication</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="display-flex flex-direction-column form-width">
+    <mat-form-field appearance="fill">
+      <mat-label>Creation Date</mat-label>
+      <input matInput [formControl]="creationDateControl" cdkFocusInitial>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Authors</mat-label>
+      <input matInput [formControl]="authorsControl" >
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput [formControl]="titleControl" >
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Journal</mat-label>
+      <input matInput [formControl]="journalControl" >
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>SNOMED Terms</mat-label>
+      <textarea matInput [formControl]="snomedTermsControl"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Number of Citations</mat-label>
+      <input matInput [formControl]="numCitationsControl" >
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="addPublication()" [disabled]="!form.valid || inProgress">Save Publication</button>
+  <mat-spinner *ngIf="inProgress" class="in-progress"></mat-spinner>
+</mat-dialog-actions>
