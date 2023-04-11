@@ -57,12 +57,12 @@ export class EventTableComponent implements AfterViewInit, OnDestroy {
   displayedColumns: string[] = [
     // "DATE ADDED",
     // "WEB LINK",
+    "EVENT DATE(S)",
     "NAME",
     "SPONSOR(S)",
-    // "EVENT DATE(S)",
-    // "LOCATION(S)",
+    "LOCATION(S)",
     // "PRESNTAION SUBMISSION DEADLINE",
-    "REGISTRATION DEADLINE",
+    // "REGISTRATION DEADLINE",
   ]
   columnsToDisplayWithExpand = ['expand', ...this.displayedColumns]
   expanded: {id: Id} | null = null

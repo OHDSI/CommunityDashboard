@@ -6,6 +6,14 @@
   max-width: 300px;
 }
 
+.mat-column-LOCATION-S- {
+  max-width: 300px;
+}
+
+.mat-column-EVENT-DATE-S- {
+  max-width: 200px;
+}
+
 .example-element-row td {
   border-bottom-width: 0;
 }
