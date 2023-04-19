@@ -1,0 +1,4834 @@
+{
+  "youTubeJoined": {
+    "y1cPsX1YfCk": {
+      "id": "y1cPsX1YfCk",
+      "title": "DevCon 2022 Workshop: HADES Introduction (Adam Black)",
+      "duration": "PT26M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "113",
+      "publishedAt": "2022-04-27T17:30:50Z"
+    },
+    "EKnBM_M4fb4": {
+      "id": "EKnBM_M4fb4",
+      "title": "SOS Challenge Tutorial: Phenotype Development - Outcome Design (Gowtham Rao, Apr. 11)",
+      "duration": "PT45M44S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "29",
+      "publishedAt": "2023-04-12T17:18:06Z"
+    },
+    "UJt9qE8Dflo": {
+      "id": "UJt9qE8Dflo",
+      "title": "OHDSI2022 \"Everything Is Awesome\" Closing",
+      "duration": "PT5M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "327",
+      "publishedAt": "2022-10-16T16:06:54Z"
+    },
+    "XdM_9ozP75o": {
+      "id": "XdM_9ozP75o",
+      "title": "Meet The 2022 Titans: Jamie Gilbert (Nov. 1 Community Call)",
+      "duration": "PT5M50S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "16",
+      "publishedAt": "2022-11-02T18:49:15Z"
+    },
+    "ejykBxa4c50": {
+      "id": "ejykBxa4c50",
+      "title": "Meet The 2022 Titans: Fan Bu (Nov. 1 Community Call)",
+      "duration": "PT7M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "48",
+      "publishedAt": "2022-11-02T18:36:36Z"
+    },
+    "SEkC6zVKtgk": {
+      "id": "SEkC6zVKtgk",
+      "title": "OHDSI2022 Tutorial Session 1: Overview of OHDSI Journey (Patrick Ryan)",
+      "duration": "PT31M50S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "387",
+      "publishedAt": "2022-10-31T16:46:49Z"
+    },
+    "a9ZJURNRbUg": {
+      "id": "a9ZJURNRbUg",
+      "title": "Tutorial: Broadsea (Lee Evans)",
+      "duration": "PT6M37S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "138",
+      "publishedAt": "2022-11-22T19:31:20Z"
+    },
+    "xndfmB-J7GQ": {
+      "id": "xndfmB-J7GQ",
+      "title": "Meet The 2022 Titans: Paul Nagy (Nov. 1 Community Call)",
+      "duration": "PT4M16S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "30",
+      "publishedAt": "2022-11-02T19:10:04Z"
+    },
+    "5X8OE5DggXU": {
+      "id": "5X8OE5DggXU",
+      "title": "Congratulations, Peter Rijnbeek, from the OHDSI community!",
+      "duration": "PT18M36S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "110",
+      "publishedAt": "2023-03-06T15:59:07Z"
+    },
+    "Tt_hAbowtJY": {
+      "id": "Tt_hAbowtJY",
+      "title": "Meet The 2022 Titans: Melanie Philofsky (Nov. 1 Community Call)",
+      "duration": "PT7M32S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "48",
+      "publishedAt": "2022-11-02T18:29:08Z"
+    },
+    "Jj0_GnS8ttY": {
+      "id": "Jj0_GnS8ttY",
+      "title": "OHDSI2022 Tutorial Session 8: Recap of OHDSI Journey (George Hripcsak)",
+      "duration": "PT9M18S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "58",
+      "publishedAt": "2022-10-31T17:19:09Z"
+    },
+    "0Nhwf81TRak": {
+      "id": "0Nhwf81TRak",
+      "title": "Future Directions of OHDSI (Oct. 25 Community Call)",
+      "duration": "PT53M19S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "147",
+      "publishedAt": "2022-10-25T18:55:55Z"
+    },
+    "q14_haSpqo0": {
+      "id": "q14_haSpqo0",
+      "title": "Geographic Information System (GIS) WG Purpose & 2023 Goals",
+      "duration": "PT3M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "18",
+      "publishedAt": "2023-02-23T17:21:44Z"
+    },
+    "z07JiTP17yo": {
+      "id": "z07JiTP17yo",
+      "title": "FHIR and OMOP Initiative Update (Christian Reich, April 19 Community Call)",
+      "duration": "PT10M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "521",
+      "publishedAt": "2022-04-19T18:13:19Z"
+    },
+    "aSLLfbGhnGE": {
+      "id": "aSLLfbGhnGE",
+      "title": "Welcome To OHDSI",
+      "duration": "PT2M17S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "426",
+      "publishedAt": "2023-01-23T19:39:57Z"
+    },
+    "E9DT2cUJkyk": {
+      "id": "E9DT2cUJkyk",
+      "title": "10-Minute Tutorial: PheKnowLator (Tiffany Callahan)",
+      "duration": "PT10M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "187",
+      "publishedAt": "2022-06-21T18:49:55Z"
+    },
+    "QN79LkLC5A8": {
+      "id": "QN79LkLC5A8",
+      "title": "Phenotype Phebruary Week 1 Update (Feb. 7 Community Call)",
+      "duration": "PT21M53S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "50",
+      "publishedAt": "2023-02-07T19:26:04Z"
+    },
+    "Lh_ynzRHeHw": {
+      "id": "Lh_ynzRHeHw",
+      "title": "OHDSI2022 Tutorial Session 2: OMOP Common Data Model./Vocabulary (Clair Blacketer/Melanie Philofsky)",
+      "duration": "PT1H24M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "605",
+      "publishedAt": "2022-10-31T16:46:46Z"
+    },
+    "MYclrJwSsPo": {
+      "id": "MYclrJwSsPo",
+      "title": "Risk of COVID-19 Diagnosis & Hospitalisation in Patients with Osteoarthritis or Back Pain ... (Xie)",
+      "duration": "PT9M37S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "32",
+      "publishedAt": "2023-03-21T17:43:00Z"
+    },
+    "uwMqLTIrq5U": {
+      "id": "uwMqLTIrq5U",
+      "title": "OHDSI2022 Tutorial Session 5: Characterization (Kristin Kostka)",
+      "duration": "PT39M13S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "167",
+      "publishedAt": "2022-10-31T17:18:58Z"
+    },
+    "VbmRWjeVIAA": {
+      "id": "VbmRWjeVIAA",
+      "title": "What Can OHDSI Accomplish Together in 2023 (Patrick Ryan, Jan. 10 Community Call)",
+      "duration": "PT45M40S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "217",
+      "publishedAt": "2023-01-10T18:45:46Z"
+    },
+    "gk4EXcYlAaY": {
+      "id": "gk4EXcYlAaY",
+      "title": "Presentation: Transforming and evaluating the UK Biobank to the OMOP CDM for ... (Vaclav Papez)",
+      "duration": "PT9M36S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "49",
+      "publishedAt": "2022-12-06T21:21:20Z"
+    },
+    "Ded-u0hAGVQ": {
+      "id": "Ded-u0hAGVQ",
+      "title": "Debate: Study Diagnostics: Nice-to-have vs. Essential requirements (Prieto-Alhambra v. Schuemie)",
+      "duration": "PT24M11S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "82",
+      "publishedAt": "2022-05-17T18:19:25Z"
+    },
+    "NtGnGxwitIQ": {
+      "id": "NtGnGxwitIQ",
+      "title": "Tutorial: PHOEBE 2.0 (Anna Ostropolets)",
+      "duration": "PT9M39S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "176",
+      "publishedAt": "2022-11-22T19:10:47Z"
+    },
+    "GJVpskKlKpo": {
+      "id": "GJVpskKlKpo",
+      "title": "Debate: Phenotype Development: One-size-fits-all vs. Tailored-per-databases (Shoiabi v. Golozar)",
+      "duration": "PT23M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "96",
+      "publishedAt": "2022-05-17T18:19:22Z"
+    },
+    "Ta1sl_kvZKU": {
+      "id": "Ta1sl_kvZKU",
+      "title": "Collaborating Towards Standardized Vocabularies (Anna Ostropolets, 24Jan2023 Community Call)",
+      "duration": "PT8M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "92",
+      "publishedAt": "2023-01-24T18:33:06Z"
+    },
+    "DJZP5z6r-QE": {
+      "id": "DJZP5z6r-QE",
+      "title": "OHDSI2022: Objective Diagnostics: A pathway to provably reliable evidence   (M. Schuemie/P. Ryan)",
+      "duration": "PT1H20M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "188",
+      "publishedAt": "2022-10-31T14:03:42Z"
+    },
+    "GuysQYZ_9yI": {
+      "id": "GuysQYZ_9yI",
+      "title": "Open-Source Community Call (Presentation by Aedin Culhane, Oct. 26, 2022)",
+      "duration": "PT57M33S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "50",
+      "publishedAt": "2022-11-04T15:45:58Z"
+    },
+    "qk9qJv2Sqi8": {
+      "id": "qk9qJv2Sqi8",
+      "title": "Paul Nagy Interview (February 2023 Early-Stage Researcher WG Career Series)",
+      "duration": "PT1H54S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "35",
+      "publishedAt": "2023-03-07T18:38:19Z"
+    },
+    "HYrk6gf_jho": {
+      "id": "HYrk6gf_jho",
+      "title": "FHIR & OMOP WG Purpose & 2023 Goals",
+      "duration": "PT3M",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "27",
+      "publishedAt": "2023-02-28T21:05:06Z"
+    },
+    "aOtNxBIA4_o": {
+      "id": "aOtNxBIA4_o",
+      "title": "Is fluoroquinolone use really associated with the ... (Janetzki, SOS Challenge Presentation)",
+      "duration": "PT11M29S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "82",
+      "publishedAt": "2023-03-07T19:06:19Z"
+    },
+    "JcbynSNHO0Q": {
+      "id": "JcbynSNHO0Q",
+      "title": "Factors Influencing Background Incidence Rate Calculation  ... (Anna Ostropolets, 6/14/22)",
+      "duration": "PT10M39S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "43",
+      "publishedAt": "2022-06-14T18:00:24Z"
+    },
+    "HhQ9x3bsv4o": {
+      "id": "HhQ9x3bsv4o",
+      "title": "Clinical Registry Efforts Within OHDSI (Sept. 13 Community Call)",
+      "duration": "PT50M20S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "431",
+      "publishedAt": "2022-09-13T19:12:43Z"
+    },
+    "AEcMV02P834": {
+      "id": "AEcMV02P834",
+      "title": "Debate: Use source codelist 'as is' for verbatim replication vs consider it as a starting point",
+      "duration": "PT22M47S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "76",
+      "publishedAt": "2023-03-14T17:23:24Z"
+    },
+    "bGUPje0LAiA": {
+      "id": "bGUPje0LAiA",
+      "title": "Panel: Building Organizational Support In Your Community (Aug. 2 Community Call)",
+      "duration": "PT38M4S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "183",
+      "publishedAt": "2022-08-02T18:04:25Z"
+    },
+    "1gIYUs0Y96Q": {
+      "id": "1gIYUs0Y96Q",
+      "title": "DevCon 2022 Workshop: Data Quality Dashboard (Clair Blacketer)",
+      "duration": "PT29M11S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "255",
+      "publishedAt": "2022-04-27T19:45:48Z"
+    },
+    "8-gx_4CsikM": {
+      "id": "8-gx_4CsikM",
+      "title": "Phenotype Phebruary 2023 Discussion: Parkinson's Disease",
+      "duration": "PT1H3M7S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "48",
+      "publishedAt": "2023-02-09T18:53:32Z"
+    },
+    "ON5iqZRYxlI": {
+      "id": "ON5iqZRYxlI",
+      "title": "Introduction to Phenotype Phebruary (Jan. 31 Community Call)",
+      "duration": "PT43M26S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "189",
+      "publishedAt": "2023-01-31T19:05:51Z"
+    },
+    "oa9TrQhzdMA": {
+      "id": "oa9TrQhzdMA",
+      "title": "The DARWIN EU Initiative (Peter Rijnbeek, May 3 Community Call)",
+      "duration": "PT45M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "400",
+      "publishedAt": "2022-05-03T19:10:11Z"
+    },
+    "BM8lxXhq6kY": {
+      "id": "BM8lxXhq6kY",
+      "title": "On The Journey Video Podcast (October 2022)",
+      "duration": "PT5M58S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "36",
+      "publishedAt": "2022-10-02T18:01:06Z"
+    },
+    "rkJICPp4HWQ": {
+      "id": "rkJICPp4HWQ",
+      "title": "OHDSI Workgroup Purposes and 2023 OKRs (Feb. 7 Update)",
+      "duration": "PT18M22S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "57",
+      "publishedAt": "2023-02-07T18:45:15Z"
+    },
+    "87AvkE-x514": {
+      "id": "87AvkE-x514",
+      "title": "New CDM Update Process Presentation & Discussion (July 26 community call)",
+      "duration": "PT46M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "178",
+      "publishedAt": "2022-07-26T18:16:06Z"
+    },
+    "KUKVWuxqGAU": {
+      "id": "KUKVWuxqGAU",
+      "title": "Healthcare Systems Special Interest Group Purpose & 2023 Goals",
+      "duration": "PT2M56S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "13",
+      "publishedAt": "2023-02-28T20:11:04Z"
+    },
+    "2RNKiydvEa0": {
+      "id": "2RNKiydvEa0",
+      "title": "Debate: Where should we focus OHDSI\u2019s open-source development activities (Oct. 4 Community Call)",
+      "duration": "PT20M20S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "87",
+      "publishedAt": "2022-10-04T18:22:03Z"
+    },
+    "jlOtN6WdTBU": {
+      "id": "jlOtN6WdTBU",
+      "title": "DevCon Panel: Putting The Pieces Together (Representatives from Microsoft, Google, Amazon, Broadsea)",
+      "duration": "PT59M36S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "144",
+      "publishedAt": "2022-04-25T19:07:57Z"
+    },
+    "__QOZdYKeQY": {
+      "id": "__QOZdYKeQY",
+      "title": "10-Minute Tutorial: Cohort definition Application Programming in R or \"CAPR\" (Martin Lavallee)",
+      "duration": "PT10M28S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "217",
+      "publishedAt": "2022-06-21T18:50:13Z"
+    },
+    "WXZCAZS6BsI": {
+      "id": "WXZCAZS6BsI",
+      "title": "DevCon 2022 Workshop: ATLAS (Anthony Sena)",
+      "duration": "PT32M24S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "135",
+      "publishedAt": "2022-04-27T17:15:58Z"
+    },
+    "lu4fcOXdlJs": {
+      "id": "lu4fcOXdlJs",
+      "title": "TreatmentPatterns: An R package to facilitate the standardized development and analysis ... (Markus)",
+      "duration": "PT8M15S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "114",
+      "publishedAt": "2022-09-07T16:36:15Z"
+    },
+    "8Zoon9hGTm0": {
+      "id": "8Zoon9hGTm0",
+      "title": "Logistic regression models for PLP based on massive observational data ... (Henrik John, 06/14/22)",
+      "duration": "PT7M43S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "81",
+      "publishedAt": "2022-06-14T17:54:13Z"
+    },
+    "g2m5dIxK_qc": {
+      "id": "g2m5dIxK_qc",
+      "title": "OHDSI Overview (Patrick Ryan \u2022 June 7, 2022)",
+      "duration": "PT10M39S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "157",
+      "publishedAt": "2022-06-09T15:26:45Z"
+    },
+    "a6bFNGK5yOY": {
+      "id": "a6bFNGK5yOY",
+      "title": "2022 European Symposium Recap (Nigel Hughes, June 28 Community Call)",
+      "duration": "PT46M40S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "110",
+      "publishedAt": "2022-06-28T17:34:08Z"
+    },
+    "WpvEwBGv3S4": {
+      "id": "WpvEwBGv3S4",
+      "title": "10-Minute Tutorial: Patient-Level Prediction or \"PLP\" (Jenna Reps)",
+      "duration": "PT14M8S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "242",
+      "publishedAt": "2022-06-21T18:50:03Z"
+    },
+    "pmn0yUSXYgc": {
+      "id": "pmn0yUSXYgc",
+      "title": "SOS Challenge Tutorial: Data Diagnostics (Clair Blacketer, Mui Van Zandt, Sarah Seager, Apr 4)",
+      "duration": "PT49M47S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "140",
+      "publishedAt": "2023-04-04T18:43:47Z"
+    },
+    "hMQoNLxYazA": {
+      "id": "hMQoNLxYazA",
+      "title": "Open-Source Software and Science ... Obviously (Martijn Schuemie, DevCon2022)",
+      "duration": "PT32M8S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "215",
+      "publishedAt": "2022-04-25T14:28:01Z"
+    },
+    "mUPb5WowyGI": {
+      "id": "mUPb5WowyGI",
+      "title": "Recommended Best Practices for Modeling Pregnancy Episodes & Mother-Child Linkage (May 10 Comm Call)",
+      "duration": "PT40M29S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "119",
+      "publishedAt": "2022-05-10T18:43:46Z"
+    },
+    "CY7miYO_IuU": {
+      "id": "CY7miYO_IuU",
+      "title": "State of the OHDSI Open-Source Community (Adam Black and Paul Nagy, DevCon2022)",
+      "duration": "PT13M44S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "112",
+      "publishedAt": "2022-04-25T15:00:31Z"
+    },
+    "fz7SLXNY-6Q": {
+      "id": "fz7SLXNY-6Q",
+      "title": "An ETL-process design for data harmonization to participate in int'l research with German RWD (Peng)",
+      "duration": "PT6M",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "78",
+      "publishedAt": "2023-03-21T17:43:32Z"
+    },
+    "QVY2EwcIKaQ": {
+      "id": "QVY2EwcIKaQ",
+      "title": "Oncology Workgroup Update (Asieh Golozar, April 19 Community Call)",
+      "duration": "PT8M55S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "135",
+      "publishedAt": "2022-04-19T18:16:50Z"
+    },
+    "iABBk1uO0gQ": {
+      "id": "iABBk1uO0gQ",
+      "title": "Welcome To OHDSI (Oct. 18 Community Call)",
+      "duration": "PT52M8S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "96",
+      "publishedAt": "2022-10-18T20:07:07Z"
+    },
+    "hmP3WPA_6x8": {
+      "id": "hmP3WPA_6x8",
+      "title": "OHDSI2022: Lightning Talks (Seinen, Shoaibi, Londhe, Yang, Naderalvojoud, Zhang, Park, Dhingra)",
+      "duration": "PT56M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "267",
+      "publishedAt": "2022-10-31T14:44:05Z"
+    },
+    "6vGFaXcGkno": {
+      "id": "6vGFaXcGkno",
+      "title": "Collaborating Towards Standardized Data Networks (Clair Blacketer, 24Jan2023 Community Call)",
+      "duration": "PT10M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "69",
+      "publishedAt": "2023-01-24T18:44:22Z"
+    },
+    "bM76vlqJUAw": {
+      "id": "bM76vlqJUAw",
+      "title": "Expanding maternal and infant data from EHRs for pregnancy research (Nov. 15 Community Call)",
+      "duration": "PT14M43S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "61",
+      "publishedAt": "2022-11-15T18:25:07Z"
+    },
+    "7M8SHL12ykc": {
+      "id": "7M8SHL12ykc",
+      "title": "CDM Workshop, Part 2 (Clair Blacketer, Melanie Philofsky, Anthony Molinaro, Frank DeFalco \u2022 Mar 15)",
+      "duration": "PT41M18S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "196",
+      "publishedAt": "2022-03-15T18:34:13Z"
+    },
+    "s6GiJ85rmyQ": {
+      "id": "s6GiJ85rmyQ",
+      "title": "Save Our Sisyphus Challenge - Network Study Collaboration (Patrick Ryan, 24Jan2023 Community Call)",
+      "duration": "PT15M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "85",
+      "publishedAt": "2023-01-24T19:01:44Z"
+    },
+    "aO83g3h9-Uk": {
+      "id": "aO83g3h9-Uk",
+      "title": "2022 European Symposium Day 1, Part 1 (Introduction and Cruise Around the OHDSI Europe Community)",
+      "duration": "PT2H4M50S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "314",
+      "publishedAt": "2022-06-29T19:56:07Z"
+    },
+    "qRAaAx6B9ns": {
+      "id": "qRAaAx6B9ns",
+      "title": "Debate: Network Studies: As many databases as possible/enough to answer quickly (Oct. 4 Comm Call)",
+      "duration": "PT20M15S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "77",
+      "publishedAt": "2022-10-04T18:22:09Z"
+    },
+    "CNNfbFpAKVQ": {
+      "id": "CNNfbFpAKVQ",
+      "title": "OHDSI2022 Tutorial Session 6: Estimation (Martijn Schuemie)",
+      "duration": "PT51M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "128",
+      "publishedAt": "2022-10-31T17:19:02Z"
+    },
+    "EkzoBqKDBq8": {
+      "id": "EkzoBqKDBq8",
+      "title": "2022 OHDSI Symposium",
+      "duration": "PT2M20S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "48",
+      "publishedAt": "2023-04-03T15:31:32Z"
+    },
+    "uIcUVL-fhc0": {
+      "id": "uIcUVL-fhc0",
+      "title": "A database of pediatric drug effects to evaluate ontogenic mechanisms from child ... (Giangreco)",
+      "duration": "PT4M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "20",
+      "publishedAt": "2022-09-06T17:08:03Z"
+    },
+    "hSxJTIX-nfU": {
+      "id": "hSxJTIX-nfU",
+      "title": "The EHDEN Portal (Julia Kurps \u2022 Aug. 30 Community Call)",
+      "duration": "PT23M43S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "93",
+      "publishedAt": "2022-08-30T17:31:14Z"
+    },
+    "F2khY46QylE": {
+      "id": "F2khY46QylE",
+      "title": "Eye Care and Vision Research Workgroup Introduction (Sally Baxter, April 19 Community Call)",
+      "duration": "PT14M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "92",
+      "publishedAt": "2022-04-19T18:27:20Z"
+    },
+    "W-4APXWqFw8": {
+      "id": "W-4APXWqFw8",
+      "title": "Community Updates \u2022 Aug. 16 Community Call",
+      "duration": "PT9M9S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "71",
+      "publishedAt": "2022-08-16T18:24:57Z"
+    },
+    "7btRllusG_g": {
+      "id": "7btRllusG_g",
+      "title": "DevCon 2022 Workshop: Patient-Level Prediction (Jenna Reps)",
+      "duration": "PT30M39S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "112",
+      "publishedAt": "2022-04-27T17:36:31Z"
+    },
+    "TGFvNBoRWZw": {
+      "id": "TGFvNBoRWZw",
+      "title": "The EHDEN Academy (Nigel Hughes \u2022 Aug. 30 Community Call)",
+      "duration": "PT22M19S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "85",
+      "publishedAt": "2022-08-30T17:53:06Z"
+    },
+    "jf1wNxtOI1Q": {
+      "id": "jf1wNxtOI1Q",
+      "title": "OHDSI HTA Challenge (Sept. 27 Community Call)",
+      "duration": "PT52M7S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "111",
+      "publishedAt": "2022-09-27T18:53:22Z"
+    },
+    "ISBh0_HwQX8": {
+      "id": "ISBh0_HwQX8",
+      "title": "Early-Stage Researchers Speaker Series #1: Asieh Golozar",
+      "duration": "PT58M16S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "111",
+      "publishedAt": "2022-08-15T18:44:33Z"
+    },
+    "G_95UB9yrnk": {
+      "id": "G_95UB9yrnk",
+      "title": "Presentation: Adjusting for indirectly measured confounding using large-scale ... (Linying Zhang)",
+      "duration": "PT7M6S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "68",
+      "publishedAt": "2022-12-06T21:21:47Z"
+    },
+    "A2zmIIl8oO8": {
+      "id": "A2zmIIl8oO8",
+      "title": "IBD characterization (Chen Yanover, 5/24/22)",
+      "duration": "PT7M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "93",
+      "publishedAt": "2022-05-25T03:39:46Z"
+    },
+    "O5f4VImQBCs": {
+      "id": "O5f4VImQBCs",
+      "title": "Phenotype Algorithms for the Identification and Characterization of VATT in RWD ... (Shoaibi)",
+      "duration": "PT11M5S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "54",
+      "publishedAt": "2022-09-06T17:20:59Z"
+    },
+    "nctS302KE_c": {
+      "id": "nctS302KE_c",
+      "title": "On The Journey Video Podcast (February 2023)",
+      "duration": "PT7M6S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "37",
+      "publishedAt": "2023-02-01T15:50:48Z"
+    },
+    "d8jIAm9cssM": {
+      "id": "d8jIAm9cssM",
+      "title": "Geographic Information System Workgroup Update (Aug. 23 Community Call)",
+      "duration": "PT9M16S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "52",
+      "publishedAt": "2022-08-23T14:38:36Z"
+    },
+    "JLSIDfkP-vI": {
+      "id": "JLSIDfkP-vI",
+      "title": "Around The OHDSI Workgroups (Looking At 2022 OKRs \u2022 May 31 Community Call)",
+      "duration": "PT45M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "82",
+      "publishedAt": "2022-05-31T22:12:08Z"
+    },
+    "SAENZ-29pQw": {
+      "id": "SAENZ-29pQw",
+      "title": "Registry Workgroup Update (Aug. 23 Community Call)",
+      "duration": "PT6M26S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "61",
+      "publishedAt": "2022-08-23T17:24:15Z"
+    },
+    "cGyvuQr3NW8": {
+      "id": "cGyvuQr3NW8",
+      "title": "Debate: Source chart review adjudication is needed for phenotype evaluation for reliable evidence",
+      "duration": "PT22M47S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "78",
+      "publishedAt": "2023-03-14T17:37:14Z"
+    },
+    "mFtTqVw1THg": {
+      "id": "mFtTqVw1THg",
+      "title": "Early-Stage Researchers Workgroup Update (Faaizah Arshad, July 19 Community Call)",
+      "duration": "PT4M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "75",
+      "publishedAt": "2022-07-19T18:34:19Z"
+    },
+    "d7yd8sox8Y0": {
+      "id": "d7yd8sox8Y0",
+      "title": "2022 European Symposium Day 1, Session 3 (Presentations, Closing)",
+      "duration": "PT1H45M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "153",
+      "publishedAt": "2022-06-29T21:17:08Z"
+    },
+    "qFTm3ivX0qM": {
+      "id": "qFTm3ivX0qM",
+      "title": "Analysis of Dual Combination Therapies Used in Treatment of Hypertension ... (Yuan Lu, 06/14/22)",
+      "duration": "PT8M54S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "46",
+      "publishedAt": "2022-06-14T17:44:26Z"
+    },
+    "An_q9fNKz0g": {
+      "id": "An_q9fNKz0g",
+      "title": "OHDSI 2022 Year In Review",
+      "duration": "PT45M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "152",
+      "publishedAt": "2022-12-13T20:21:29Z"
+    },
+    "wWJ1bLMMmJE": {
+      "id": "wWJ1bLMMmJE",
+      "title": "Registry WG Purpose & 2023 Goals",
+      "duration": "PT3M7S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "12",
+      "publishedAt": "2023-02-23T17:07:17Z"
+    },
+    "HMgzJKvdnWA": {
+      "id": "HMgzJKvdnWA",
+      "title": "On The Journey Video Podcast (November 2022)",
+      "duration": "PT7M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "28",
+      "publishedAt": "2022-11-01T21:32:30Z"
+    },
+    "7wUilx580PE": {
+      "id": "7wUilx580PE",
+      "title": "Design Prediction Models & Develop Multiple Models Using PatientLevelPrediction V6 (J. Reps)",
+      "duration": "PT19M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "52",
+      "publishedAt": "2023-01-12T19:03:17Z"
+    },
+    "1QSW6TtniEs": {
+      "id": "1QSW6TtniEs",
+      "title": "Comparison of mortality, morbidities & healthcare resources utilization between ... (I Lam, 5/24/22)",
+      "duration": "PT5M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "43",
+      "publishedAt": "2022-05-25T03:38:21Z"
+    },
+    "MdWIUQP7rRE": {
+      "id": "MdWIUQP7rRE",
+      "title": "Health Equity Workgroup Update (Aug. 23 Community Call)",
+      "duration": "PT11M50S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "44",
+      "publishedAt": "2022-08-23T17:27:44Z"
+    },
+    "Eg4UFNmk_QY": {
+      "id": "Eg4UFNmk_QY",
+      "title": "Health Analytics Data-to-Evidence Suite (HADES) WG Update (Martijn Schuemie, July 19 Community Call)",
+      "duration": "PT11M55S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "134",
+      "publishedAt": "2022-07-19T18:45:24Z"
+    },
+    "0lUJRnui9Ts": {
+      "id": "0lUJRnui9Ts",
+      "title": "HADES WG Purpose & 2023 Goals",
+      "duration": "PT2M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "17",
+      "publishedAt": "2023-02-22T16:36:38Z"
+    },
+    "LkLev0oJ2GY": {
+      "id": "LkLev0oJ2GY",
+      "title": "Phenotype Development & Evaluation WG Update (Gowtham Rao/James Weaver, July 19 Community Call)",
+      "duration": "PT11M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "91",
+      "publishedAt": "2022-07-19T18:34:44Z"
+    },
+    "PdOz0oiYSCc": {
+      "id": "PdOz0oiYSCc",
+      "title": "State of the Open-Source Community (Apr. 26 Community Call)",
+      "duration": "PT43M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "86",
+      "publishedAt": "2022-04-26T18:39:06Z"
+    },
+    "oAltmvuzHkQ": {
+      "id": "oAltmvuzHkQ",
+      "title": "2022 OHDSI Asia-Pacific (APAC) Regional Updates (Aug. 9 Community Call)",
+      "duration": "PT34M9S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "112",
+      "publishedAt": "2022-08-12T15:46:52Z"
+    },
+    "h7Hq76NLhUo": {
+      "id": "h7Hq76NLhUo",
+      "title": "PORPOISE Network Study Description and Call for Collaboration (Behzad Naderalvojoud, PhD \u2022\u00a0Aug. 2)",
+      "duration": "PT9M47S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "54",
+      "publishedAt": "2022-08-02T17:49:09Z"
+    },
+    "JGq8DHIPjjU": {
+      "id": "JGq8DHIPjjU",
+      "title": "Phenotype Phebruary Week 2 Update (Feb. 14 Community Call)",
+      "duration": "PT21M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "32",
+      "publishedAt": "2023-02-14T21:32:26Z"
+    },
+    "Y7uDc0xu9SQ": {
+      "id": "Y7uDc0xu9SQ",
+      "title": "Development/external validation of pred. models for adverse health outcomes in rheumatoid ... (Yang)",
+      "duration": "PT6M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "50",
+      "publishedAt": "2022-09-06T17:11:13Z"
+    },
+    "xwm3S8UAvmc": {
+      "id": "xwm3S8UAvmc",
+      "title": "On The Journey Video Podcast (June 2022)",
+      "duration": "PT8M6S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "49",
+      "publishedAt": "2022-05-31T17:30:57Z"
+    },
+    "w6UeItRwWa8": {
+      "id": "w6UeItRwWa8",
+      "title": "OHDSI Steering Group Update (Jody-Ann McLeggon, April 19 Community Call)",
+      "duration": "PT6M19S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "38",
+      "publishedAt": "2022-04-19T18:17:08Z"
+    },
+    "mHBOdPTqzm8": {
+      "id": "mHBOdPTqzm8",
+      "title": "On The Journey Video Podcast (April 2023)",
+      "duration": "PT7M2S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "50",
+      "publishedAt": "2023-04-01T16:51:57Z"
+    },
+    "0M5P9gh6FnE": {
+      "id": "0M5P9gh6FnE",
+      "title": "Dentistry WG Purpose & 2023 Goals",
+      "duration": "PT1M43S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "18",
+      "publishedAt": "2023-02-23T17:20:46Z"
+    },
+    "v3xuIttaAEI": {
+      "id": "v3xuIttaAEI",
+      "title": "OHDSI 2022 Mad Minutes (Oct. 11 Community Call)",
+      "duration": "PT15M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "53",
+      "publishedAt": "2022-10-11T22:15:39Z"
+    },
+    "SHOwIMDcVSA": {
+      "id": "SHOwIMDcVSA",
+      "title": "SOS Challenge Tutorial: Phenotype Development - Exposure Design (Asieh Golozar, Apr. 11)",
+      "duration": "PT25M58S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "40",
+      "publishedAt": "2023-04-11T17:43:16Z"
+    },
+    "bd0htzO1hx4": {
+      "id": "bd0htzO1hx4",
+      "title": "OHDSI Workgroup Purposes and 2023 OKRs (Feb. 14 Update)",
+      "duration": "PT21M35S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "53",
+      "publishedAt": "2023-02-14T20:57:14Z"
+    },
+    "po0CyYdiAbs": {
+      "id": "po0CyYdiAbs",
+      "title": "Nov. 11 Open Source Working Group (Laurier Arp presentation)",
+      "duration": "PT2H10M24S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "31",
+      "publishedAt": "2022-11-22T18:58:47Z"
+    },
+    "f5Qaxv_TgLY": {
+      "id": "f5Qaxv_TgLY",
+      "title": "On The Journey Video Podcast (January 2023)",
+      "duration": "PT8M6S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "46",
+      "publishedAt": "2023-01-10T17:45:54Z"
+    },
+    "ra4KKyGFPJ4": {
+      "id": "ra4KKyGFPJ4",
+      "title": "Presentation: Comparative risk of thrombosis with thrombocytopenia syndrome ... (Xintong Li)",
+      "duration": "PT6M9S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "50",
+      "publishedAt": "2022-12-06T21:21:01Z"
+    },
+    "ecfO2hfiDuo": {
+      "id": "ecfO2hfiDuo",
+      "title": "On The Journey Video Podcast (July 2022)",
+      "duration": "PT9M19S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "47",
+      "publishedAt": "2022-06-30T17:47:03Z"
+    },
+    "Q7j-3QbCsYE": {
+      "id": "Q7j-3QbCsYE",
+      "title": "OHDSI 2022 Symposium Preview",
+      "duration": "PT46M14S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "78",
+      "publishedAt": "2022-09-20T18:10:39Z"
+    },
+    "f1p7Xi14-Iw": {
+      "id": "f1p7Xi14-Iw",
+      "title": "Tutorial: Strategus (Anthony Sena)",
+      "duration": "PT10M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "78",
+      "publishedAt": "2022-11-22T19:11:15Z"
+    },
+    "toH08pe_ODo": {
+      "id": "toH08pe_ODo",
+      "title": "New Adopter and Community Member Introductions (July 12 Community Call)",
+      "duration": "PT46M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "75",
+      "publishedAt": "2022-07-12T18:54:40Z"
+    },
+    "9mAYxORb4qw": {
+      "id": "9mAYxORb4qw",
+      "title": "Saying Goodbye To 2022 (Dec. 20 Community Call)",
+      "duration": "PT1H2M19S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "112",
+      "publishedAt": "2022-12-20T20:35:30Z"
+    },
+    "UkmVkPVXNU4": {
+      "id": "UkmVkPVXNU4",
+      "title": "SOS Challenge Tutorial: Data Diagnostics (Mui Van Zandt, Jing Li, Apr. 4)",
+      "duration": "PT50M2S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "89",
+      "publishedAt": "2023-04-05T15:41:41Z"
+    },
+    "gPC0q7z8Olg": {
+      "id": "gPC0q7z8Olg",
+      "title": "Applying the Decentralized Generalized Linear Mixed Effects Model (dGEM) ... (Jessie Tong, 5/24)",
+      "duration": "PT8M34S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "76",
+      "publishedAt": "2022-05-25T03:41:44Z"
+    },
+    "_9znvEBaO7c": {
+      "id": "_9znvEBaO7c",
+      "title": "Local Impact of OHDSI: Columbia (Presentation by Karthik Natarajan, Apr 20 Community Call)",
+      "duration": "PT13M28S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "90",
+      "publishedAt": "2021-04-20T18:32:03Z"
+    },
+    "7AraOsTynD4": {
+      "id": "7AraOsTynD4",
+      "title": "Extract Data & Develop A Single Model using PatientLevelPrediction V6 (Jenna Reps)",
+      "duration": "PT38M36S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "74",
+      "publishedAt": "2023-01-12T19:02:36Z"
+    },
+    "uAKP-Q8A-Uk": {
+      "id": "uAKP-Q8A-Uk",
+      "title": "Meet The 2022 Titans: Egill Fridgeirsson (Nov. 1 Community Call)",
+      "duration": "PT5M5S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "8",
+      "publishedAt": "2022-11-02T18:51:13Z"
+    },
+    "aLLJHsnGWJA": {
+      "id": "aLLJHsnGWJA",
+      "title": "Data Network Quality WG Purpose & 2023 Goals",
+      "duration": "PT1M29S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "11",
+      "publishedAt": "2023-02-22T16:15:45Z"
+    },
+    "aajESPZEbDM": {
+      "id": "aajESPZEbDM",
+      "title": "SOS Challenge Overview (Jody-Ann McLeggon, Mar. 28)",
+      "duration": "PT7M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "51",
+      "publishedAt": "2023-03-28T17:51:17Z"
+    },
+    "fulXwaCendg": {
+      "id": "fulXwaCendg",
+      "title": "SOS Challenge Tutorial: Phenotype Development - Exposure Design (Christian Reich, Apr. 11)",
+      "duration": "PT17M3S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "25",
+      "publishedAt": "2023-04-12T17:17:59Z"
+    },
+    "nksBdTB4Udw": {
+      "id": "nksBdTB4Udw",
+      "title": "Integrating real-world data to assess cardiac ablation device outcomes in a multicenter ... (Yu)",
+      "duration": "PT7M16S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "25",
+      "publishedAt": "2023-03-21T17:43:56Z"
+    },
+    "zTOxkJyGwoo": {
+      "id": "zTOxkJyGwoo",
+      "title": "Quality assessment of CDM databases across the OHDSI-AP network (Chungsoo Kim, 5/24/22)",
+      "duration": "PT6M39S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "51",
+      "publishedAt": "2022-05-25T03:39:13Z"
+    },
+    "yFx3uOx7J04": {
+      "id": "yFx3uOx7J04",
+      "title": "Open-Source Community WG Purpose & 2023 Goals",
+      "duration": "PT3M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "16",
+      "publishedAt": "2023-02-22T16:15:34Z"
+    },
+    "z7A9DdCAKS4": {
+      "id": "z7A9DdCAKS4",
+      "title": "On The Journey Video Podcast (May 2022)",
+      "duration": "PT7M4S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "33",
+      "publishedAt": "2022-05-01T20:21:29Z"
+    },
+    "0G8LFnhKSck": {
+      "id": "0G8LFnhKSck",
+      "title": "How can OHDSI support collaborator mothers to advance their personal and professional development?",
+      "duration": "PT41M1S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "30",
+      "publishedAt": "2022-05-10T18:27:22Z"
+    },
+    "xtkAPFd1GTE": {
+      "id": "xtkAPFd1GTE",
+      "title": "Meet The 2022 Titans: Xintong Li (Nov. 1 Community Call)",
+      "duration": "PT5M50S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "19",
+      "publishedAt": "2022-11-02T18:57:49Z"
+    },
+    "YbezazRDZ8Q": {
+      "id": "YbezazRDZ8Q",
+      "title": "CDM Vocabulary Subgroup Purpose & 2023 Goals",
+      "duration": "PT2M45S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "14",
+      "publishedAt": "2023-02-23T17:20:29Z"
+    },
+    "emu4mN0k_Vw": {
+      "id": "emu4mN0k_Vw",
+      "title": "Analyzing the Effect of Hypertension on Retinal Thickness Using Radiology CDM (ChulHyoung Park)",
+      "duration": "PT13M53S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "33",
+      "publishedAt": "2022-11-08T18:40:30Z"
+    },
+    "wf1q1o9lQgo": {
+      "id": "wf1q1o9lQgo",
+      "title": "OHDSI Publications Dashboard",
+      "duration": "PT5M54S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "39",
+      "publishedAt": "2022-06-14T17:47:52Z"
+    },
+    "uJIgMuDOYX8": {
+      "id": "uJIgMuDOYX8",
+      "title": "Seng Chan You Interview (March 2023 Early-Stage Researcher WG Career Series)",
+      "duration": "PT55M7S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "20",
+      "publishedAt": "2023-04-13T14:16:24Z"
+    },
+    "swSC-IQdXms": {
+      "id": "swSC-IQdXms",
+      "title": "Characterization of Health by OHDSI Asia-Pacific chapter to identify Temporal Effect ... (S.C. You)",
+      "duration": "PT7M20S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "21",
+      "publishedAt": "2022-05-25T03:40:35Z"
+    },
+    "rKFazzGgpuY": {
+      "id": "rKFazzGgpuY",
+      "title": "Workgroup Updates: Patient-Level Prediction (Jenna Reps, Nov. 29, 2022)",
+      "duration": "PT8M59S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "53",
+      "publishedAt": "2022-11-29T17:57:35Z"
+    },
+    "7cN3Wgq5Jvo": {
+      "id": "7cN3Wgq5Jvo",
+      "title": "Workgroup Updates: Medical Devices (Asiyah Lin, Nov. 29, 2022)",
+      "duration": "PT5M9S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "31",
+      "publishedAt": "2022-11-29T17:57:11Z"
+    },
+    "f4XsgkIMPJI": {
+      "id": "f4XsgkIMPJI",
+      "title": "Learning PLP Models: Evaluation of Ensembles for Increasing Model Transportability (J Reps, 6/14/22)",
+      "duration": "PT9M58S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "24",
+      "publishedAt": "2022-06-14T17:42:00Z"
+    },
+    "w9lQu-A_7A0": {
+      "id": "w9lQu-A_7A0",
+      "title": "Rates of Antipsychotic Drug Prescribing Among People Living With Dementia During ... (Hao Luo)",
+      "duration": "PT7M2S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "27",
+      "publishedAt": "2023-03-21T17:42:12Z"
+    },
+    "m9Veb9nYfoo": {
+      "id": "m9Veb9nYfoo",
+      "title": "OHDSI Workgroup Purposes and 2023 OKRs (Feb. 21 Update)",
+      "duration": "PT23M14S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "31",
+      "publishedAt": "2023-02-21T20:20:20Z"
+    },
+    "Bam5xkG42_Q": {
+      "id": "Bam5xkG42_Q",
+      "title": "Welcome To OHDSI (June 7 Community Call)",
+      "duration": "PT45M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "98",
+      "publishedAt": "2022-06-07T20:43:56Z"
+    },
+    "dKiioz8bYuI": {
+      "id": "dKiioz8bYuI",
+      "title": "Development of an automated comparator ranking algorithm for the REWARD initiative (Justin Bohn)",
+      "duration": "PT2M2S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "54",
+      "publishedAt": "2022-11-09T20:00:39Z"
+    },
+    "Keoinf6HCtw": {
+      "id": "Keoinf6HCtw",
+      "title": "On The Journey Video Podcast (September 2022)",
+      "duration": "PT6M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "30",
+      "publishedAt": "2022-08-31T14:52:57Z"
+    },
+    "oyWfVnkB6y4": {
+      "id": "oyWfVnkB6y4",
+      "title": "Methods Research WG Purpose & 2023 Goals",
+      "duration": "PT1M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "23",
+      "publishedAt": "2023-02-15T21:59:30Z"
+    },
+    "GWXRpa-DuzM": {
+      "id": "GWXRpa-DuzM",
+      "title": "Meet The 2022 Titans: Ajit Londhe (Nov. 1 Community Call)",
+      "duration": "PT4M35S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "16",
+      "publishedAt": "2022-11-02T19:09:35Z"
+    },
+    "wTPBlmKV1cw": {
+      "id": "wTPBlmKV1cw",
+      "title": "Use Strategus & OHDSI modules to Develop an OHDSI Prediction Development Network Study (Jenna Reps)",
+      "duration": "PT15M54S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "23",
+      "publishedAt": "2023-01-12T19:05:47Z"
+    },
+    "EVGnXKyQIBo": {
+      "id": "EVGnXKyQIBo",
+      "title": "Safety outcomes of selective serotonin reuptake inhibitors in adolescent ADHD w/ comorbid ... (Kim)",
+      "duration": "PT7M36S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "26",
+      "publishedAt": "2023-03-21T17:44:21Z"
+    },
+    "sXk6eI_Ivy8": {
+      "id": "sXk6eI_Ivy8",
+      "title": "Phenotype Phebruary Week 4 Update (Feb. 28 Community Call)",
+      "duration": "PT15M34S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "25",
+      "publishedAt": "2023-02-28T18:52:52Z"
+    },
+    "DLA5JDShlU0": {
+      "id": "DLA5JDShlU0",
+      "title": "Latin America WG Purpose & 2023 Goals",
+      "duration": "PT2M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "6",
+      "publishedAt": "2023-02-28T20:36:55Z"
+    },
+    "JWxDW26JYcw": {
+      "id": "JWxDW26JYcw",
+      "title": "Demo: PheValuator (Joel Swerdel, from Phenotype Development WG meeting, November 2022",
+      "duration": "PT53M20S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "48",
+      "publishedAt": "2022-12-08T18:40:13Z"
+    },
+    "0cD-GJmaAes": {
+      "id": "0cD-GJmaAes",
+      "title": "SOS Challenge Tutorial: Phenotype Development - Outcome Design (Anna Ostropolets, Apr. 11)",
+      "duration": "PT20M1S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "52",
+      "publishedAt": "2023-04-11T17:43:30Z"
+    },
+    "Luyp6QXZ1nA": {
+      "id": "Luyp6QXZ1nA",
+      "title": "Introducing OHDSI's newest workgroup: Dentistry (Robert Koski)",
+      "duration": "PT1M31S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "34",
+      "publishedAt": "2022-11-03T22:25:05Z"
+    },
+    "AquAWf55nbI": {
+      "id": "AquAWf55nbI",
+      "title": "On The Journey Video Podcast (March 2023)",
+      "duration": "PT7M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "33",
+      "publishedAt": "2023-03-01T16:49:48Z"
+    },
+    "cVNpUhw5roo": {
+      "id": "cVNpUhw5roo",
+      "title": "Eyecare & Vision Research WG Purpose & 2023 Goals",
+      "duration": "PT2M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "2",
+      "publishedAt": "2023-02-28T20:14:52Z"
+    },
+    "B_zVYU7rqsM": {
+      "id": "B_zVYU7rqsM",
+      "title": "Meet The 2022 Titans: Craig Sachson (Nov. 1 Community Call)",
+      "duration": "PT4M32S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "17",
+      "publishedAt": "2022-11-02T19:18:27Z"
+    },
+    "YN5KiQCBCQI": {
+      "id": "YN5KiQCBCQI",
+      "title": "Surgery & Perioperative Medicine WG Purpose & 2023 Goals",
+      "duration": "PT2M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "13",
+      "publishedAt": "2023-02-22T20:11:03Z"
+    },
+    "MPQk7Wa6TYs": {
+      "id": "MPQk7Wa6TYs",
+      "title": "Perinatal and Reproductive Health WG Purpose & 2023 Goals",
+      "duration": "PT2M59S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "13",
+      "publishedAt": "2023-02-28T21:22:50Z"
+    },
+    "xyJmjm41nkI": {
+      "id": "xyJmjm41nkI",
+      "title": "Clinical Trials WG Purpose & 2023 Goals",
+      "duration": "PT3M47S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "18",
+      "publishedAt": "2023-02-28T20:53:25Z"
+    },
+    "hk9aCRsYO7w": {
+      "id": "hk9aCRsYO7w",
+      "title": "On The Journey Video Podcast (December 2022)",
+      "duration": "PT8M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "29",
+      "publishedAt": "2022-12-05T13:40:46Z"
+    },
+    "45TU2zB0dG0": {
+      "id": "45TU2zB0dG0",
+      "title": "Empirical assessment of alternative methods for identifying seasonality in observat'l ... (Molinaro)",
+      "duration": "PT8M16S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "25",
+      "publishedAt": "2022-09-06T17:10:53Z"
+    },
+    "WaA-gcYxOsU": {
+      "id": "WaA-gcYxOsU",
+      "title": "Real world safety of treatments for multiple sclerosis (Nicole Pratt, 5/24/22)",
+      "duration": "PT8M34S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "42",
+      "publishedAt": "2022-05-25T03:37:29Z"
+    },
+    "ozDly0mNoDY": {
+      "id": "ozDly0mNoDY",
+      "title": "Phenotype Phebruary 2023 Discussion: Appendicitis Peer Review",
+      "duration": "PT1H39M26S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "16",
+      "publishedAt": "2023-02-09T19:07:43Z"
+    },
+    "ZRHThc03zbw": {
+      "id": "ZRHThc03zbw",
+      "title": "PheValuator Tutorial (Joel Swerdel, Apr 12, 2023)",
+      "duration": "PT15M38S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "13",
+      "publishedAt": "2023-04-14T20:15:26Z"
+    },
+    "l67EqfDMRI0": {
+      "id": "l67EqfDMRI0",
+      "title": "Steering WG Purpose & 2023 Goals",
+      "duration": "PT3M29S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "8",
+      "publishedAt": "2023-02-22T16:36:33Z"
+    },
+    "hCQoqi6FqWM": {
+      "id": "hCQoqi6FqWM",
+      "title": "Prior-Preconditioned Conjugate Gradient Method for Accelerated Gibbs Sampling ... A Nishimura (6/14)",
+      "duration": "PT5M56S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "45",
+      "publishedAt": "2022-06-14T18:04:27Z"
+    },
+    "_Bo1zlVmsiQ": {
+      "id": "_Bo1zlVmsiQ",
+      "title": "Presentation: PheValuator 2.0: Methodological improvements for the PheValuator ... (Joel Swerdel)",
+      "duration": "PT5M9S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "39",
+      "publishedAt": "2022-12-06T21:22:04Z"
+    },
+    "XEXh2_dlNbI": {
+      "id": "XEXh2_dlNbI",
+      "title": "Vaccine Vocabulary WG Purpose & 2023 Goals",
+      "duration": "PT2M3S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "11",
+      "publishedAt": "2023-02-28T20:53:32Z"
+    },
+    "CVjnESh96LM": {
+      "id": "CVjnESh96LM",
+      "title": "On The Journey Video Podcast (August 2022)",
+      "duration": "PT6M24S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "27",
+      "publishedAt": "2022-07-30T19:20:26Z"
+    },
+    "JLt4TyzELaY": {
+      "id": "JLt4TyzELaY",
+      "title": "Common Data Model WG Purpose & 2023 Goals",
+      "duration": "PT2M3S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "38",
+      "publishedAt": "2023-02-15T21:43:05Z"
+    },
+    "BPCTNouqwKE": {
+      "id": "BPCTNouqwKE",
+      "title": "Psychiatry WG Purpose & 2023 Goals",
+      "duration": "PT2M31S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "8",
+      "publishedAt": "2023-02-28T20:35:15Z"
+    },
+    "YK9mqIPJO2Q": {
+      "id": "YK9mqIPJO2Q",
+      "title": "ATLAS/WebAPI WG Purpose & 2023 Goals",
+      "duration": "PT3M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "9",
+      "publishedAt": "2023-02-23T17:06:30Z"
+    },
+    "_eFXWfST6wg": {
+      "id": "_eFXWfST6wg",
+      "title": "Medical Devices WG Purpose & 2023 Goals",
+      "duration": "PT6M16S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "11",
+      "publishedAt": "2023-02-28T20:55:18Z"
+    },
+    "81Aaq_jlLSI": {
+      "id": "81Aaq_jlLSI",
+      "title": "Early-Stage Researchers WG Purpose & 2023 Goals",
+      "duration": "PT3M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "12",
+      "publishedAt": "2023-02-28T20:10:00Z"
+    },
+    "QRD7z_tVQME": {
+      "id": "QRD7z_tVQME",
+      "title": "Characterization: incidence of progressive multifocal  ... (Alshammary, SOS Challenge Presentation)",
+      "duration": "PT11M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "50",
+      "publishedAt": "2023-03-07T19:12:05Z"
+    },
+    "Yih6LBc6csY": {
+      "id": "Yih6LBc6csY",
+      "title": "Health Equity WG Purpose & 2023 Goals",
+      "duration": "PT1M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "13",
+      "publishedAt": "2023-02-28T20:47:41Z"
+    },
+    "a-r4o_SZrEk": {
+      "id": "a-r4o_SZrEk",
+      "title": "DevCon 2022 Workshop: Cyclops (Marc Suchard)",
+      "duration": "PT29M59S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "50",
+      "publishedAt": "2022-04-27T17:31:09Z"
+    },
+    "INk4JKwNm44": {
+      "id": "INk4JKwNm44",
+      "title": "OHDSI2022: Presentation of the 2020 and 2021 Titan Awards",
+      "duration": "PT9M11S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "19",
+      "publishedAt": "2022-10-31T17:18:42Z"
+    },
+    "waZekW2Rj04": {
+      "id": "waZekW2Rj04",
+      "title": "Presentation: Integrating real-world data from Brazil & Pakistan into the OMOP CDM ... (Sara Khalid)",
+      "duration": "PT7M10S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "33",
+      "publishedAt": "2022-12-06T21:20:32Z"
+    },
+    "v7MKAamCqQk": {
+      "id": "v7MKAamCqQk",
+      "title": "Tutorial: ARES - A Data Network Feasibility Tool",
+      "duration": "PT12M3S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "162",
+      "publishedAt": "2022-11-15T18:34:27Z"
+    },
+    "lhXdliE_YfI": {
+      "id": "lhXdliE_YfI",
+      "title": "Intravitreal Anti-VEGF and Kidney Failure (Cai, SOS Challenge Presentation)",
+      "duration": "PT6M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "78",
+      "publishedAt": "2023-03-07T19:07:48Z"
+    },
+    "s25sVt7isEw": {
+      "id": "s25sVt7isEw",
+      "title": "Patient-Level Prediction WG Purpose & 2023 Goals",
+      "duration": "PT4M34S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "24",
+      "publishedAt": "2023-02-28T21:23:27Z"
+    },
+    "QKJxZN56dZU": {
+      "id": "QKJxZN56dZU",
+      "title": "DevCon 2022 Final Update",
+      "duration": "PT3M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "65",
+      "publishedAt": "2022-04-19T18:32:11Z"
+    },
+    "U_ppqe7wUhg": {
+      "id": "U_ppqe7wUhg",
+      "title": "Tutorial: Automated Comparator Selection (Justin Bohn)",
+      "duration": "PT9M3S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "66",
+      "publishedAt": "2022-11-22T19:10:17Z"
+    },
+    "OCVYdmhACmI": {
+      "id": "OCVYdmhACmI",
+      "title": "Amongst people w/ psoriasis, does exposure to Risankizumab ... (Yiu, SOS Challenge Presentation)",
+      "duration": "PT10M43S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "51",
+      "publishedAt": "2023-03-07T19:06:42Z"
+    },
+    "Aj4x6g7n3Mc": {
+      "id": "Aj4x6g7n3Mc",
+      "title": "SOS Challenge Tutorial: Initiating A Network Study (Marc Suchard, Mar. 28)",
+      "duration": "PT40M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "219",
+      "publishedAt": "2023-03-28T20:08:54Z"
+    },
+    "MnlQVoF4d-U": {
+      "id": "MnlQVoF4d-U",
+      "title": "Natural Language Processing WG Purpose & 2023 Goals",
+      "duration": "PT2M2S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "31",
+      "publishedAt": "2023-02-23T17:05:50Z"
+    },
+    "35jtNdxwVEA": {
+      "id": "35jtNdxwVEA",
+      "title": "10-Minute Tutorials: Creating Cohort Definitions/ATLAS (Asieh Golozar, Apr 13 OHDSI Community Call)",
+      "duration": "PT12M8S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1357",
+      "publishedAt": "2021-04-13T19:25:31Z"
+    },
+    "B3tUzWk5R9A": {
+      "id": "B3tUzWk5R9A",
+      "title": "Tutorial: Einstein-ATLAS (Selvin Soby)",
+      "duration": "PT10M",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "163",
+      "publishedAt": "2022-11-22T19:30:53Z"
+    },
+    "divzuN_kiso": {
+      "id": "divzuN_kiso",
+      "title": "DevCon 2022 Workshop: White Rabbit/RabbitInAHat (Maxim Moinat)",
+      "duration": "PT26M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "254",
+      "publishedAt": "2022-04-27T18:43:30Z"
+    },
+    "vUmfJbR0REo": {
+      "id": "vUmfJbR0REo",
+      "title": "SOS Challenge Tutorial: Initiating A Network Study (Seng Chan You, Mar. 28)",
+      "duration": "PT51M20S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "134",
+      "publishedAt": "2023-03-29T16:26:30Z"
+    },
+    "SP8Cg1_K4wA": {
+      "id": "SP8Cg1_K4wA",
+      "title": "OHDSI2022 Tutorial Session 4: Phenotype Evaluations (Gowtham Rao)",
+      "duration": "PT48M18S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "148",
+      "publishedAt": "2022-10-31T17:18:55Z"
+    },
+    "wYgk-qn-teo": {
+      "id": "wYgk-qn-teo",
+      "title": "2022 European Symposium Day 1, Part 2 (Collaborator Showcase Presentations, EHDEN Portal Launch)",
+      "duration": "PT1H20M47S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "291",
+      "publishedAt": "2022-06-29T20:42:31Z"
+    },
+    "UU9Wf0iE6Vo": {
+      "id": "UU9Wf0iE6Vo",
+      "title": "OHDSI2022: State of the Community/FDA Presentation (George Hripcsak/Patricia Lloyd)",
+      "duration": "PT33M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "106",
+      "publishedAt": "2022-10-31T13:58:05Z"
+    },
+    "55k4kRz6BEE": {
+      "id": "55k4kRz6BEE",
+      "title": "DevCon 2022 Workshop: WebAPI (Anthony Sena)",
+      "duration": "PT24M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "191",
+      "publishedAt": "2022-04-27T17:43:43Z"
+    },
+    "A1mqcfn-EKI": {
+      "id": "A1mqcfn-EKI",
+      "title": "OHDSI2022: OHDSI support for regulatory authorities (Fan Bu, Seng Chan You, Peter Rijnbeek)",
+      "duration": "PT55M11S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "91",
+      "publishedAt": "2022-10-31T14:40:28Z"
+    },
+    "q0_YVjBgHyA": {
+      "id": "q0_YVjBgHyA",
+      "title": "OMOP CDM Workshop (March 2022)",
+      "duration": "PT1H17M31S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1249",
+      "publishedAt": "2022-03-16T18:29:55Z"
+    },
+    "FU8DqF1mcDQ": {
+      "id": "FU8DqF1mcDQ",
+      "title": "ATLAS Tutorial: Characterizations",
+      "duration": "PT10M42S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "2411",
+      "publishedAt": "2019-05-26T12:36:00Z"
+    },
+    "IvVtNtuE-xc": {
+      "id": "IvVtNtuE-xc",
+      "title": "OHDSI 2020: OMOP Cancer Model \u2013 Making the OMOP Common Data Model fit for Cancer Research",
+      "duration": "PT7M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "973",
+      "publishedAt": "2020-10-22T14:43:56Z"
+    },
+    "vHMkBaHJrDA": {
+      "id": "vHMkBaHJrDA",
+      "title": "2019 Tutorials - OMOP Common Data Model and Standardized Vocabularies (Full Tutorial)",
+      "duration": "PT6H4M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "10110",
+      "publishedAt": "2019-11-18T19:00:03Z"
+    },
+    "24QZzHA35Cc": {
+      "id": "24QZzHA35Cc",
+      "title": "ATLAS Tutorial: Data Sources - Condition Occurrence",
+      "duration": "PT6M59S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1355",
+      "publishedAt": "2019-05-23T18:31:38Z"
+    },
+    "h4mZOBzcqsg": {
+      "id": "h4mZOBzcqsg",
+      "title": "2018 OMOP Common Data Model and Standardized Vocabularies Tutorial (1 of 5)",
+      "duration": "PT54M34S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "4196",
+      "publishedAt": "2018-11-30T20:23:09Z"
+    },
+    "2HM_pts6l5Y": {
+      "id": "2HM_pts6l5Y",
+      "title": "Clair Blacketer Discusses the CDM, Data Quality Dashboards & More",
+      "duration": "PT1M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "310",
+      "publishedAt": "2019-09-27T17:08:38Z"
+    },
+    "_vSQQDBhXVg": {
+      "id": "_vSQQDBhXVg",
+      "title": "ATLAS Tutorial: Profiles",
+      "duration": "PT7M1S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1050",
+      "publishedAt": "2019-05-28T10:39:53Z"
+    },
+    "XUyOG_iTLD8": {
+      "id": "XUyOG_iTLD8",
+      "title": "OHDSI2021 Closing Ceremony",
+      "duration": "PT26M8S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "397",
+      "publishedAt": "2021-09-17T13:30:28Z"
+    },
+    "BulmuH32y_Y": {
+      "id": "BulmuH32y_Y",
+      "title": "Using the PatientLevelPrediction Version 6 Shiny App",
+      "duration": "PT16M42S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "54",
+      "publishedAt": "2023-01-12T19:04:12Z"
+    },
+    "EKFunYX6m-I": {
+      "id": "EKFunYX6m-I",
+      "title": "Competing risk regression models in cohort studies with the R package Cohort Method (Kelli Li)",
+      "duration": "PT6M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "375",
+      "publishedAt": "2021-11-30T19:37:45Z"
+    },
+    "5jZhZmzl0Co": {
+      "id": "5jZhZmzl0Co",
+      "title": "2019 OHDSI Tutorials - Data Quality (1 of 3)",
+      "duration": "PT1H24M38S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "859",
+      "publishedAt": "2019-11-18T17:36:46Z"
+    },
+    "bQqvzEcXQOs": {
+      "id": "bQqvzEcXQOs",
+      "title": "OHDSI US 2019: 8 - Personalizing Surgery for Colorectal Cancer (Gogenur/Klebanov)",
+      "duration": "PT28M44S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "212",
+      "publishedAt": "2019-11-01T18:12:14Z"
+    },
+    "RSUgYA6_Kb4": {
+      "id": "RSUgYA6_Kb4",
+      "title": "2019 OHDSI Tutorials - Data Quality (2 of 3)",
+      "duration": "PT1H45M18S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "659",
+      "publishedAt": "2019-11-18T17:37:34Z"
+    },
+    "ELKu7qNPbp0": {
+      "id": "ELKu7qNPbp0",
+      "title": "2019 OHDSI Tutorials - Patient-Level Prediction (5 of 5)",
+      "duration": "PT1H42M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "381",
+      "publishedAt": "2019-11-07T21:16:30Z"
+    },
+    "2tTfxYlwCrg": {
+      "id": "2tTfxYlwCrg",
+      "title": "Get To Know What OHDSI Is All About",
+      "duration": "PT2M19S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "5089",
+      "publishedAt": "2019-09-23T15:31:56Z"
+    },
+    "WXo1Ti8QAkU": {
+      "id": "WXo1Ti8QAkU",
+      "title": "10-Minute Tutorial: PheValuator (Joel Swerdel)",
+      "duration": "PT9M2S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "150",
+      "publishedAt": "2022-06-21T18:44:34Z"
+    },
+    "Ea9gfrRodWY": {
+      "id": "Ea9gfrRodWY",
+      "title": "Assessing Racial Fairness of Dialysis Allocation in End-Stage Renal Disease (Linying Zhang)",
+      "duration": "PT18M15S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "20",
+      "publishedAt": "2022-11-08T18:42:27Z"
+    },
+    "VDsZiSzfgqM": {
+      "id": "VDsZiSzfgqM",
+      "title": "OHDSI COVID-19 Study-A-Thon \u2022 Global Closing Call",
+      "duration": "PT2H19M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1867",
+      "publishedAt": "2020-03-30T03:52:01Z"
+    },
+    "Cueuvq0-xXc": {
+      "id": "Cueuvq0-xXc",
+      "title": "ATLAS Tutorial: Data Sources - Dashboard",
+      "duration": "PT3M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "4830",
+      "publishedAt": "2019-05-23T16:15:07Z"
+    },
+    "xo2dfTThMiE": {
+      "id": "xo2dfTThMiE",
+      "title": "3 European Health Data and Evidence Network EHDEN",
+      "duration": "PT24M28S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "128",
+      "publishedAt": "2019-09-12T17:41:25Z"
+    },
+    "cg2LgOo1tb8": {
+      "id": "cg2LgOo1tb8",
+      "title": "Health Equity Research Assessment (HERA) Characterization (presented by No\u00e9mie Elhadad \u2022\u00a0Nov. 16)",
+      "duration": "PT1M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "61",
+      "publishedAt": "2021-11-16T19:47:35Z"
+    },
+    "sB365t9IcWs": {
+      "id": "sB365t9IcWs",
+      "title": "Creating Reproducible Studies (Martijn Schuemie, March 29, 2022)",
+      "duration": "PT8M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "67",
+      "publishedAt": "2022-03-29T18:09:48Z"
+    },
+    "rdniIztguys": {
+      "id": "rdniIztguys",
+      "title": "ATLAS Tutorial: Cohort Pathways",
+      "duration": "PT7M29S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1699",
+      "publishedAt": "2019-05-26T20:41:41Z"
+    },
+    "UhadIp6_lcg": {
+      "id": "UhadIp6_lcg",
+      "title": "The journey toward Patient-Level Prediction",
+      "duration": "PT45M16S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "159",
+      "publishedAt": "2016-10-31T21:10:43Z"
+    },
+    "UiAyMawkeGY": {
+      "id": "UiAyMawkeGY",
+      "title": "COVID19 Final Call \u2022 Conclusion / Q&A (14)",
+      "duration": "PT31M7S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1147",
+      "publishedAt": "2020-04-22T14:13:44Z"
+    },
+    "Ppsn_08z5FE": {
+      "id": "Ppsn_08z5FE",
+      "title": "OHDSI PatientLevelPrediction Multiple Models Example",
+      "duration": "PT13M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "55",
+      "publishedAt": "2019-02-26T19:59:35Z"
+    },
+    "5x3nh53ub7Q": {
+      "id": "5x3nh53ub7Q",
+      "title": "Detecting PTSD & self-harm among US Veterans using positive unlabeled Learning (Christophe Lambert)",
+      "duration": "PT6M58S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "61",
+      "publishedAt": "2021-11-30T19:40:08Z"
+    },
+    "W9uf1IIhDQs": {
+      "id": "W9uf1IIhDQs",
+      "title": "OHDSI PatientLevelPrediction Single Model Example",
+      "duration": "PT20M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "223",
+      "publishedAt": "2019-02-26T19:57:35Z"
+    },
+    "qJcva2a5U80": {
+      "id": "qJcva2a5U80",
+      "title": "ATLAS Tutorial: Data Sources - Person",
+      "duration": "PT3M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1957",
+      "publishedAt": "2019-05-23T16:49:45Z"
+    },
+    "1YcZKOldMrI": {
+      "id": "1YcZKOldMrI",
+      "title": "OHDSI2020 Plenary Session: Large Scale Network Phenotype Development, Evaluation & Characterization",
+      "duration": "PT1H45M17S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "555",
+      "publishedAt": "2020-10-21T21:11:28Z"
+    },
+    "OD00odnPFXc": {
+      "id": "OD00odnPFXc",
+      "title": "DevCon 2022 Workshop: CohortDiagnostics (James Gilbert)",
+      "duration": "PT24M1S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "78",
+      "publishedAt": "2022-04-27T17:23:40Z"
+    },
+    "q4q1yAFlQrs": {
+      "id": "q4q1yAFlQrs",
+      "title": "OHDSI Tool Ecosystem",
+      "duration": "PT6H13M58S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "676",
+      "publishedAt": "2018-05-01T14:49:49Z"
+    },
+    "-GV3bHd3U18": {
+      "id": "-GV3bHd3U18",
+      "title": "PROTEUS Presentation (July 13 Community Call)",
+      "duration": "PT48M39S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "111",
+      "publishedAt": "2021-07-13T18:09:38Z"
+    },
+    "sl1tkcNT17U": {
+      "id": "sl1tkcNT17U",
+      "title": "ATLAS Tutorial: Incidence Rates",
+      "duration": "PT9M24S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1293",
+      "publishedAt": "2019-05-27T12:10:05Z"
+    },
+    "y7CXONEMLoI": {
+      "id": "y7CXONEMLoI",
+      "title": "CDM Workshop, Part 1 (Clair Blacketer, Frank DeFalco, Kristin Kostka, Maxim Moinat \u2022 March 8, 2022)",
+      "duration": "PT37M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "322",
+      "publishedAt": "2022-03-08T18:45:12Z"
+    },
+    "V3hVgIOV6Z8": {
+      "id": "V3hVgIOV6Z8",
+      "title": "Epically OHDSI: Episode 1",
+      "duration": "PT3M4S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "445",
+      "publishedAt": "2018-04-04T20:31:20Z"
+    },
+    "Nyd29JyJlP4": {
+      "id": "Nyd29JyJlP4",
+      "title": "ATLAS Tutorial: Search Example #2 (ACE Inhibitors)",
+      "duration": "PT5M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1374",
+      "publishedAt": "2019-05-24T20:39:02Z"
+    },
+    "w1fd9v--Usg": {
+      "id": "w1fd9v--Usg",
+      "title": "Improvement of Digital Phenotyping Performance by SNOMED CT for Rare Endocrine Diseases (Namki Hong)",
+      "duration": "PT10M59S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "30",
+      "publishedAt": "2021-08-17T17:23:13Z"
+    },
+    "nBORfscefxU": {
+      "id": "nBORfscefxU",
+      "title": "OHDSI 2020: TiDE: Open Source Text de-identification Pipeline for Clinical Notes in the OMOP-CDM",
+      "duration": "PT8M6S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "280",
+      "publishedAt": "2020-10-22T18:25:37Z"
+    },
+    "Pt5iNer6yDY": {
+      "id": "Pt5iNer6yDY",
+      "title": "2018 OHDSI Symposium - Lightning Talks (Kyu-pyo Kim)",
+      "duration": "PT7M36S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "58",
+      "publishedAt": "2018-11-08T19:15:43Z"
+    },
+    "JQY-o93gNyk": {
+      "id": "JQY-o93gNyk",
+      "title": "2017 OHDSI Population Level Estimation Tutorial (1 of 7)",
+      "duration": "PT1H7M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "466",
+      "publishedAt": "2017-11-02T16:37:56Z"
+    },
+    "uB5i8WHUmL0": {
+      "id": "uB5i8WHUmL0",
+      "title": "OHDSI Datathon in Korea (2019)",
+      "duration": "PT3M22S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "191",
+      "publishedAt": "2019-08-14T19:08:48Z"
+    },
+    "0jDTTW5nUyI": {
+      "id": "0jDTTW5nUyI",
+      "title": "OHDSI Face To Face (June 2-4, 2019)",
+      "duration": "PT3M",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "453",
+      "publishedAt": "2019-06-05T17:51:57Z"
+    },
+    "_0ORWhLHoXg": {
+      "id": "_0ORWhLHoXg",
+      "title": "OHDSI US 2019: 2 - Building Confidence In R-W Data: Data Quality Reporting (Williams/Blacketer)",
+      "duration": "PT39M28S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "358",
+      "publishedAt": "2019-10-08T19:30:29Z"
+    },
+    "ahZzi-VlRS0": {
+      "id": "ahZzi-VlRS0",
+      "title": "2018  OHDSI Cohort Definition and Phenotyping Tutorial (1 of 4)",
+      "duration": "PT3H16M15S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "568",
+      "publishedAt": "2019-02-07T21:24:12Z"
+    },
+    "dIP_QhBju5U": {
+      "id": "dIP_QhBju5U",
+      "title": "OHDSI 2020: EHDEN Academy - a global educational collaboration with OHDSI",
+      "duration": "PT7M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "523",
+      "publishedAt": "2020-10-22T17:52:19Z"
+    },
+    "tHUKZJbAeU0": {
+      "id": "tHUKZJbAeU0",
+      "title": "OHDSI2021 Day 1 Plenary: OHDSI's Impact On The COVID-19 Pandemic",
+      "duration": "PT2H26M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "520",
+      "publishedAt": "2021-09-15T12:08:29Z"
+    },
+    "qiTXEkLt7qs": {
+      "id": "qiTXEkLt7qs",
+      "title": "ATLAS Tutorial: Prediction",
+      "duration": "PT11M10S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1307",
+      "publishedAt": "2019-05-28T11:16:19Z"
+    },
+    "Jp3wHEa_jR0": {
+      "id": "Jp3wHEa_jR0",
+      "title": "OHDSI Work With The FDA Best Around Vaccine Surveillance (March 23 OHDSI Community Call)",
+      "duration": "PT51M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1645",
+      "publishedAt": "2021-03-24T01:15:36Z"
+    },
+    "1-FF8xkg0xs": {
+      "id": "1-FF8xkg0xs",
+      "title": "2019 OHDSI Korea Symposium - Introduction and Welcome",
+      "duration": "PT27M58S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "287",
+      "publishedAt": "2020-02-21T20:55:25Z"
+    },
+    "p_3n4bwM7u4": {
+      "id": "p_3n4bwM7u4",
+      "title": "OHDSI US 2019: 6B - OMOP CDM Oncology Module at Work",
+      "duration": "PT7M47S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "297",
+      "publishedAt": "2019-11-18T14:25:08Z"
+    },
+    "6qnxh25L2Mg": {
+      "id": "6qnxh25L2Mg",
+      "title": "2019 OHDSI Tutorials - Patient-Level Prediction (2 of 5)",
+      "duration": "PT1H14S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "340",
+      "publishedAt": "2019-11-07T21:13:23Z"
+    },
+    "eNrBDeQBbWU": {
+      "id": "eNrBDeQBbWU",
+      "title": "Extracting OHDSI Concepts from Clinical Narratives for COVID (Jan. 25 Community Call)",
+      "duration": "PT47M44S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "251",
+      "publishedAt": "2022-01-25T20:46:46Z"
+    },
+    "8ksrXjT1faU": {
+      "id": "8ksrXjT1faU",
+      "title": "10-Minute Tutorials: Cohort Diagnostics (Gowtham Rao, June 8 OHDSI Community Call)",
+      "duration": "PT12M58S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "326",
+      "publishedAt": "2021-06-08T18:30:29Z"
+    },
+    "iKsxwxOoIMQ": {
+      "id": "iKsxwxOoIMQ",
+      "title": "2017 OHDSI CDM & Vocabulary Tutorial (5 of 5)",
+      "duration": "PT55M8S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "800",
+      "publishedAt": "2017-11-13T21:48:12Z"
+    },
+    "Nfrqo_qubNU": {
+      "id": "Nfrqo_qubNU",
+      "title": "Data Visualization Challenge - Discussion & Submissions (March 30 OHDSI Community Call)",
+      "duration": "PT40M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "307",
+      "publishedAt": "2021-03-30T20:56:35Z"
+    },
+    "4lQ_H0U6qm4": {
+      "id": "4lQ_H0U6qm4",
+      "title": "Book of OHDSI Announcement",
+      "duration": "PT2M5S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "221",
+      "publishedAt": "2019-09-19T18:40:08Z"
+    },
+    "kn6MCYs0neM": {
+      "id": "kn6MCYs0neM",
+      "title": "The OHDSI Vocabulary Journey (March 22 OHDSI Community Call)",
+      "duration": "PT45M29S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "203",
+      "publishedAt": "2022-03-22T17:55:11Z"
+    },
+    "T03GC4IBrLo": {
+      "id": "T03GC4IBrLo",
+      "title": "Common Data Model & Extract, Transform and Load Tutorial",
+      "duration": "PT3H27M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "9688",
+      "publishedAt": "2016-11-07T03:30:58Z"
+    },
+    "czPEIkqyCII": {
+      "id": "czPEIkqyCII",
+      "title": "James Wiggins Discusses The Collaboration Between AWS And OHDSI",
+      "duration": "PT1M40S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "264",
+      "publishedAt": "2020-01-16T16:53:15Z"
+    },
+    "yISL9K9A0d8": {
+      "id": "yISL9K9A0d8",
+      "title": "OHDSI US 2019: 1 - This Is Our Community (Hripcsak/Krumholz)",
+      "duration": "PT50M37S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "261",
+      "publishedAt": "2019-10-08T19:26:52Z"
+    },
+    "m7mGWmZpnoE": {
+      "id": "m7mGWmZpnoE",
+      "title": "Patrick Ryan Presents on the OHDSI Study-A-Thon to the COVID-19 Evidence Accelerator Community.",
+      "duration": "PT13M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "251",
+      "publishedAt": "2020-04-16T21:15:28Z"
+    },
+    "obBvy8g08QI": {
+      "id": "obBvy8g08QI",
+      "title": "2018 OMOP Common Data Model and Standardized Vocabularies Tutorial (5 of 5)",
+      "duration": "PT25M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "618",
+      "publishedAt": "2018-11-09T22:27:00Z"
+    },
+    "UEGdAU-JI1c": {
+      "id": "UEGdAU-JI1c",
+      "title": "OHDSI US 2019: 7 - The EHDEN Academy and Oxford Study-A-Thon (Rijnbeek/Prieto-Alhambra)",
+      "duration": "PT29M28S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "359",
+      "publishedAt": "2019-11-01T17:04:46Z"
+    },
+    "FCHxAQOBptE": {
+      "id": "FCHxAQOBptE",
+      "title": "Demo: Getting Vocabularies Into My OMOP CDM (Michael Kallfelz \u2022 Nov. 9 OHDSI Community Call)",
+      "duration": "PT10M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "245",
+      "publishedAt": "2021-11-09T19:18:11Z"
+    },
+    "CFNMLXrqzhQ": {
+      "id": "CFNMLXrqzhQ",
+      "title": "OHDSI2020 State of the Community Presentation",
+      "duration": "PT38M17S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "552",
+      "publishedAt": "2020-10-21T21:20:33Z"
+    },
+    "IGWLnCaJTio": {
+      "id": "IGWLnCaJTio",
+      "title": "Vaccine AESI Characterization Study Presentation (George Hripcsak, 2/23/21 OHDSI Community Call)",
+      "duration": "PT15M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "169",
+      "publishedAt": "2021-02-23T18:57:39Z"
+    },
+    "ZN1QxfR6F2g": {
+      "id": "ZN1QxfR6F2g",
+      "title": "OHDSI2020 Panel - Building Trust: Evidence and its Communication",
+      "duration": "PT1H9S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "215",
+      "publishedAt": "2020-10-21T18:42:45Z"
+    },
+    "7GgURvxlBPc": {
+      "id": "7GgURvxlBPc",
+      "title": "2017 OHDSI Symposium - Welcome: OHDSI Where\u2019s Our Journey (Patrick Ryan)",
+      "duration": "PT53M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "307",
+      "publishedAt": "2017-10-31T21:32:32Z"
+    },
+    "WEjhn101KL0": {
+      "id": "WEjhn101KL0",
+      "title": "PIONEER Prostate Cancer Study-A-Thon Report (May 18 Community Call)",
+      "duration": "PT46M2S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "276",
+      "publishedAt": "2021-05-18T18:28:16Z"
+    },
+    "etSuTvkoSxU": {
+      "id": "etSuTvkoSxU",
+      "title": "Extending the OMOP CDM to store the output of NLP pipelines (Presentation by Alberto Labarga)",
+      "duration": "PT9M8S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "179",
+      "publishedAt": "2021-11-30T19:36:34Z"
+    },
+    "D3Gbym0dJkw": {
+      "id": "D3Gbym0dJkw",
+      "title": "OHDSI 2020: Detailed Cancer-Specific Analytics in the Remote OHDSI Network Settings",
+      "duration": "PT8M22S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "176",
+      "publishedAt": "2020-10-22T17:30:19Z"
+    },
+    "LE-Kwyr84KA": {
+      "id": "LE-Kwyr84KA",
+      "title": "OHDSI COVID-19 Study-A-Thon \u2022 Day 2, Call 2 (Global Update)",
+      "duration": "PT23M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "237",
+      "publishedAt": "2020-03-27T17:00:13Z"
+    },
+    "4Xbh1p982K8": {
+      "id": "4Xbh1p982K8",
+      "title": "OHDSI US 2019: 6F - Net Clinical Benefit of Ticagrelor compared to Clopidogrel",
+      "duration": "PT6M",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "163",
+      "publishedAt": "2019-11-18T15:22:00Z"
+    },
+    "fy5BMZvGfUI": {
+      "id": "fy5BMZvGfUI",
+      "title": "Adverse Events of Special Interest within COVID-19 Subjects (Erica Voss \u2022 Nov. 16)",
+      "duration": "PT7M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "215",
+      "publishedAt": "2021-11-16T20:19:14Z"
+    },
+    "rmM_Xbj5wR0": {
+      "id": "rmM_Xbj5wR0",
+      "title": "Name That Result: How Many Ways Can You Get From Data to Evidence via OMOP/OHDSI (Apr 5 Comm Call)",
+      "duration": "PT44M36S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "96",
+      "publishedAt": "2022-04-05T17:47:10Z"
+    },
+    "6hZH5Yf1-Fo": {
+      "id": "6hZH5Yf1-Fo",
+      "title": "OHDSI Professional Development Breakout: Open-Source Software Development",
+      "duration": "PT41M48S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "224",
+      "publishedAt": "2021-06-15T18:35:30Z"
+    },
+    "a3i0Wqyw5hM": {
+      "id": "a3i0Wqyw5hM",
+      "title": "10-Minute Tutorials: ATC Hierarchy (Christian Reich, June 8 OHDSI Community Call)",
+      "duration": "PT12M32S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "223",
+      "publishedAt": "2021-06-08T19:28:20Z"
+    },
+    "9N8ZrQl2UcY": {
+      "id": "9N8ZrQl2UcY",
+      "title": "Recap: Women In Real-World Analytics Leadership Forum",
+      "duration": "PT2M20S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "609",
+      "publishedAt": "2019-09-16T03:18:51Z"
+    },
+    "HyF2N8IpBBg": {
+      "id": "HyF2N8IpBBg",
+      "title": "2018 Overview of the OHDSI Analysis Ecosystem (1 of 6)",
+      "duration": "PT1H31M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "272",
+      "publishedAt": "2019-05-29T18:34:58Z"
+    },
+    "FRmRg_304WU": {
+      "id": "FRmRg_304WU",
+      "title": "Long COVID Phenotyping and Vaccine Effectiveness Methods (Kristin Kostka/Annika Jodicke, Nov. 16)",
+      "duration": "PT9M35S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "128",
+      "publishedAt": "2021-11-16T21:40:19Z"
+    },
+    "UuGHGOFb7A4": {
+      "id": "UuGHGOFb7A4",
+      "title": "UK Biobank/Registry Workgroup Update (May 4 OHDSI Community Call)",
+      "duration": "PT9M58S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "128",
+      "publishedAt": "2021-05-04T18:04:29Z"
+    },
+    "1GPSs5YtiTw": {
+      "id": "1GPSs5YtiTw",
+      "title": "EUMAEUS Presentation (June 29 Community Call)",
+      "duration": "PT51M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "194",
+      "publishedAt": "2021-06-29T19:47:28Z"
+    },
+    "6nQT5_jDWOA": {
+      "id": "6nQT5_jDWOA",
+      "title": "2019 OHDSI Tutorials - Patient-Level Prediction (1 of 5)",
+      "duration": "PT39M58S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "483",
+      "publishedAt": "2019-11-07T21:12:28Z"
+    },
+    "RCS0zG0oBxg": {
+      "id": "RCS0zG0oBxg",
+      "title": "2017 OHDSI Population Level Estimation Tutorial (2 of 7)",
+      "duration": "PT27M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "166",
+      "publishedAt": "2017-11-02T16:38:16Z"
+    },
+    "2x89GnIbsjU": {
+      "id": "2x89GnIbsjU",
+      "title": "OHDSI2021 Preview: Tutorial - Building Conceptsets (Day 1)",
+      "duration": "PT1M22S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "224",
+      "publishedAt": "2021-08-23T18:18:12Z"
+    },
+    "uznDng7quto": {
+      "id": "uznDng7quto",
+      "title": "OHDSI COVID-19 Study-A-Thon \u2022 Day 2, Call 3",
+      "duration": "PT38M16S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "220",
+      "publishedAt": "2020-03-28T00:08:32Z"
+    },
+    "StpV40yl1UE": {
+      "id": "StpV40yl1UE",
+      "title": "OHDSI PatientLevelPrediction Shiny App Result Viewer",
+      "duration": "PT7M6S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "415",
+      "publishedAt": "2019-03-09T00:12:35Z"
+    },
+    "j5siu-hI0P4": {
+      "id": "j5siu-hI0P4",
+      "title": "Prognostic Significance of Liver Metastasis in Non-Small Cell Lung Cancer (Asieh Golozar, Nov. 16)",
+      "duration": "PT7M18S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "142",
+      "publishedAt": "2021-11-16T19:42:21Z"
+    },
+    "3mOAZTaiI28": {
+      "id": "3mOAZTaiI28",
+      "title": "COVID19 Final Call \u2022 The Journey Through Patient-Level Prediction (6)",
+      "duration": "PT6M38S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "82",
+      "publishedAt": "2020-04-10T20:08:22Z"
+    },
+    "sGwrjhznV34": {
+      "id": "sGwrjhznV34",
+      "title": "How Did OHDSI Do In 2021? OKR End-Of-Year-Review (Patrick Ryan, Dec. 7 Community Call)",
+      "duration": "PT42M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "152",
+      "publishedAt": "2021-12-07T19:09:07Z"
+    },
+    "DVL43h3XkDE": {
+      "id": "DVL43h3XkDE",
+      "title": "OHDSI Engine of Impact Project (Paul Nagy \u2022 March 8 Community Call)",
+      "duration": "PT9M32S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "96",
+      "publishedAt": "2022-03-08T18:32:24Z"
+    },
+    "Ic4DRjO4ce8": {
+      "id": "Ic4DRjO4ce8",
+      "title": "Healthcare Systems Special Interest Group Update (Melanie Philofsky \u2022 Feb. 8 Community Call)",
+      "duration": "PT8M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "129",
+      "publishedAt": "2022-02-08T19:13:07Z"
+    },
+    "MI5Q5DdWouw": {
+      "id": "MI5Q5DdWouw",
+      "title": "2017 OHDSI Development Architecture Tutorial (2 of 8)",
+      "duration": "PT1H14M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "257",
+      "publishedAt": "2017-11-10T20:45:25Z"
+    },
+    "ACmREOMZrg4": {
+      "id": "ACmREOMZrg4",
+      "title": "OHDSI US 2019: 4 - Proving Reliable Real-World Evidence: Replicating RCTs using LEGEND (Ryan)",
+      "duration": "PT51M14S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "194",
+      "publishedAt": "2019-10-08T19:30:17Z"
+    },
+    "7bkGPd1MpCY": {
+      "id": "7bkGPd1MpCY",
+      "title": "OHDSI Debate: RWE studies are best run as a distributed network analysis vs. centralized data repo.",
+      "duration": "PT25M4S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "127",
+      "publishedAt": "2021-05-11T20:05:00Z"
+    },
+    "NGT9QCSKf3E": {
+      "id": "NGT9QCSKf3E",
+      "title": "2021 APAC Symposium Morning Presentations",
+      "duration": "PT2H48M33S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "193",
+      "publishedAt": "2021-11-18T17:34:35Z"
+    },
+    "ylJQ421O-vU": {
+      "id": "ylJQ421O-vU",
+      "title": "Jan. 12 OHDSI Call - Where Are We Going In 2021",
+      "duration": "PT45M13S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "181",
+      "publishedAt": "2021-01-12T21:54:17Z"
+    },
+    "dhlRZ6M6X20": {
+      "id": "dhlRZ6M6X20",
+      "title": "The OHDSI 2021 Reproducibility Challenge (Anna Ostropolets, March 29, 2022)",
+      "duration": "PT11M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "57",
+      "publishedAt": "2022-03-29T18:01:39Z"
+    },
+    "BC-15UE-YGg": {
+      "id": "BC-15UE-YGg",
+      "title": "Asia-Pacific (APAC) Regional Updates (Aug. 3 Community Call)",
+      "duration": "PT33M53S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "324",
+      "publishedAt": "2021-08-27T18:49:10Z"
+    },
+    "MS8OTwmugMU": {
+      "id": "MS8OTwmugMU",
+      "title": "OHDSI US 2019: 9 - Predicting breast cancer to improve screening (Beaton/Kostka/Reps/Ostropolets)",
+      "duration": "PT21M39S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "169",
+      "publishedAt": "2019-11-01T18:41:52Z"
+    },
+    "5l_63-FfNms": {
+      "id": "5l_63-FfNms",
+      "title": "Phenotype Phebruary Introduction (Patrick Ryan \u2022 Feb. 1 Community Call)",
+      "duration": "PT47M13S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "219",
+      "publishedAt": "2022-02-01T19:00:14Z"
+    },
+    "sS5oxXIcxT4": {
+      "id": "sS5oxXIcxT4",
+      "title": "2017 OHDSI Symposium - Patrick's Closing",
+      "duration": "PT40M34S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "163",
+      "publishedAt": "2017-10-31T21:38:43Z"
+    },
+    "IG2dnGIRxeI": {
+      "id": "IG2dnGIRxeI",
+      "title": "Tutorial: Developing & Evaluating Phenotypes as part of Phenotype Phebruary (Gowtham Rao)",
+      "duration": "PT17M55S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "163",
+      "publishedAt": "2022-02-16T19:11:47Z"
+    },
+    "IX7KrZLLUTw": {
+      "id": "IX7KrZLLUTw",
+      "title": "The OHDSI Reproducibility Service (Asieh Golozar, March 29, 2022)",
+      "duration": "PT12M34S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "120",
+      "publishedAt": "2022-03-29T18:34:28Z"
+    },
+    "Z0Xrv00gwWg": {
+      "id": "Z0Xrv00gwWg",
+      "title": "2018 OHDSI Patient Level Prediction Tutorial (2 of 6)",
+      "duration": "PT41M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "156",
+      "publishedAt": "2019-02-12T20:05:53Z"
+    },
+    "ZpzTZyaZRSs": {
+      "id": "ZpzTZyaZRSs",
+      "title": "Oncology Workgroup Update (Mar. 9, 2021 OHDSI Community Call)",
+      "duration": "PT10M14S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "155",
+      "publishedAt": "2021-03-09T21:57:32Z"
+    },
+    "16_KN9F2NZY": {
+      "id": "16_KN9F2NZY",
+      "title": "ATLAS Enhancements from Project TITAN (Ajit Londhe, Aug. 17 OHDSI Community Call)",
+      "duration": "PT8M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "113",
+      "publishedAt": "2021-08-17T17:05:29Z"
+    },
+    "nFAgRPGS4L8": {
+      "id": "nFAgRPGS4L8",
+      "title": "Characterization - What Is Currently Happening In OHDSI (Moderated by Aniek Markus and Anthony Sena)",
+      "duration": "PT34M55S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "76",
+      "publishedAt": "2022-03-01T19:44:18Z"
+    },
+    "EFcQKxtmPfA": {
+      "id": "EFcQKxtmPfA",
+      "title": "2017 OHDSI Development Architecture Tutorial (3 of 8)",
+      "duration": "PT28M56S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "266",
+      "publishedAt": "2017-11-10T20:45:19Z"
+    },
+    "bI027B4I3jI": {
+      "id": "bI027B4I3jI",
+      "title": "2020 Asia-Pacific Symposium Plenary Session: LEGEND and CORAZON studies",
+      "duration": "PT1H25M37S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "99",
+      "publishedAt": "2020-12-11T20:04:48Z"
+    },
+    "OXYKpF6Nve4": {
+      "id": "OXYKpF6Nve4",
+      "title": "Medical Imaging Workgroup Update (Paul Nagy \u2022 Feb. 22 Community Call)",
+      "duration": "PT12M6S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "109",
+      "publishedAt": "2022-02-22T19:18:56Z"
+    },
+    "1103b_wYGMI": {
+      "id": "1103b_wYGMI",
+      "title": "OHDSI US 2019: 6G - Delivering on demand evidence via an informatics consultation service",
+      "duration": "PT9M5S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "92",
+      "publishedAt": "2019-11-18T15:41:48Z"
+    },
+    "d7tHezbjf6E": {
+      "id": "d7tHezbjf6E",
+      "title": "OHDSI Overview (presentation by Patrick Ryan during Sept. 21 Community Call)",
+      "duration": "PT10M3S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "238",
+      "publishedAt": "2021-09-21T18:23:51Z"
+    },
+    "nx6vJCLpndY": {
+      "id": "nx6vJCLpndY",
+      "title": "2017 OHDSI Development Architecture Tutorial (5 of 8)",
+      "duration": "PT44M35S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "238",
+      "publishedAt": "2017-11-10T20:45:09Z"
+    },
+    "ws4gDkCuJtQ": {
+      "id": "ws4gDkCuJtQ",
+      "title": "2019 OHDSI Korea Symposium, Session 5: Adopting the OMOP CDM to Enable Standardized Analytics",
+      "duration": "PT57M7S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "171",
+      "publishedAt": "2020-02-22T17:07:42Z"
+    },
+    "gotTh7ILeXw": {
+      "id": "gotTh7ILeXw",
+      "title": "OHDSI European Symposium",
+      "duration": "PT4H37M17S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "171",
+      "publishedAt": "2018-05-24T20:26:56Z"
+    },
+    "oBsfg9hfrpI": {
+      "id": "oBsfg9hfrpI",
+      "title": "OHDSI PatientLevelPrediction Validating Existing Prediction Models",
+      "duration": "PT16M29S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "132",
+      "publishedAt": "2019-03-09T00:20:23Z"
+    },
+    "0SKNtot5Plc": {
+      "id": "0SKNtot5Plc",
+      "title": "OHDSI Coordinating Center & Sponsorship Program (George Hripcsak, April 12 Community Call)",
+      "duration": "PT26M45S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "98",
+      "publishedAt": "2022-04-12T17:38:30Z"
+    },
+    "ZV35TZnF_1Y": {
+      "id": "ZV35TZnF_1Y",
+      "title": "2019 OHDSI Tutorials - Patient-Level Prediction (4 of 5)",
+      "duration": "PT29M6S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "160",
+      "publishedAt": "2019-11-18T14:00:17Z"
+    },
+    "8M3YCphqWfs": {
+      "id": "8M3YCphqWfs",
+      "title": "OHDSI COVID-19 Study-A-Thon \u2022 Day 3, Call 1",
+      "duration": "PT11M29S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "123",
+      "publishedAt": "2020-03-28T11:50:39Z"
+    },
+    "C3D3qFLrxl4": {
+      "id": "C3D3qFLrxl4",
+      "title": "Sept. 28 Community Call (Including CDM v5.4 Update)",
+      "duration": "PT16M45S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "82",
+      "publishedAt": "2021-09-28T18:53:34Z"
+    },
+    "sMDoBLc_xSU": {
+      "id": "sMDoBLc_xSU",
+      "title": "2018 OHDSI Symposium - Lightning Talks (Clair Blacketer)",
+      "duration": "PT6M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "117",
+      "publishedAt": "2018-11-08T19:37:34Z"
+    },
+    "pHnFfVX7VWI": {
+      "id": "pHnFfVX7VWI",
+      "title": "OHDSI2020: Covariate Balance of Potential Unmeasured Confounding Using L-S Propensity Score Modeling",
+      "duration": "PT8M31S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "202",
+      "publishedAt": "2020-10-22T14:51:37Z"
+    },
+    "t6iJ9jt_B04": {
+      "id": "t6iJ9jt_B04",
+      "title": "2021 OHDSI Global Symposium Preview",
+      "duration": "PT44M54S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "146",
+      "publishedAt": "2021-08-10T18:32:35Z"
+    },
+    "xNR3liK1Pbs": {
+      "id": "xNR3liK1Pbs",
+      "title": "On The Journey Video Podcast (September 2021)",
+      "duration": "PT5M13S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "85",
+      "publishedAt": "2021-08-28T13:29:23Z"
+    },
+    "WiFLLfVRFho": {
+      "id": "WiFLLfVRFho",
+      "title": "OHDSI COVID-19 Study-A-Thon \u2022 Day 1, Call 3",
+      "duration": "PT30M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "137",
+      "publishedAt": "2020-03-27T00:15:18Z"
+    },
+    "YsxoutDtgbY": {
+      "id": "YsxoutDtgbY",
+      "title": "2019 OHDSI Tutorials -\u00a0Population-Level Estimation (2 of 4)",
+      "duration": "PT1H24M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "185",
+      "publishedAt": "2019-11-07T21:27:58Z"
+    },
+    "65Yy0r8U4Tk": {
+      "id": "65Yy0r8U4Tk",
+      "title": "5 OHDSI Standardized Analytics for Evidence Generation",
+      "duration": "PT39M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "80",
+      "publishedAt": "2019-09-12T18:55:59Z"
+    },
+    "2WdwBASZYLk": {
+      "id": "2WdwBASZYLk",
+      "title": "10-Minute Tutorials: ATHENA (Michael Kallfelz, April 13 OHDSI Community Call)",
+      "duration": "PT12M58S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1283",
+      "publishedAt": "2021-04-13T19:24:59Z"
+    },
+    "tEI7XCK6xuw": {
+      "id": "tEI7XCK6xuw",
+      "title": "OHDSI Forum 101",
+      "duration": "PT1M17S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "101",
+      "publishedAt": "2019-10-17T18:16:54Z"
+    },
+    "pAolZu5PmCU": {
+      "id": "pAolZu5PmCU",
+      "title": "Phenotype Development & Evaluation WG Update (Presentation by Gowtham Rao \u2022 Oct. 5 Community Call)",
+      "duration": "PT6M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "99",
+      "publishedAt": "2021-10-05T18:06:52Z"
+    },
+    "eh7nEDMgyO0": {
+      "id": "eh7nEDMgyO0",
+      "title": "Final Symposium Preparations (Sept. 7 Community Call)",
+      "duration": "PT38M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "124",
+      "publishedAt": "2021-09-07T18:39:42Z"
+    },
+    "4hKau9aa90E": {
+      "id": "4hKau9aa90E",
+      "title": "OHDSI US 2019: 6E - Comparing 102 psychotropic drug regimens for diabetes mellitus risk",
+      "duration": "PT8M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "75",
+      "publishedAt": "2019-11-18T15:02:20Z"
+    },
+    "AY1zeoeFcW8": {
+      "id": "AY1zeoeFcW8",
+      "title": "Early-Stage Researchers Workgroup Update (July 20 Community Call)",
+      "duration": "PT5M13S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "97",
+      "publishedAt": "2021-07-20T17:45:26Z"
+    },
+    "ekxNS84A6xQ": {
+      "id": "ekxNS84A6xQ",
+      "title": "OHDSI 2020 Closing Ceremony (with Titan Awards)",
+      "duration": "PT36M24S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "164",
+      "publishedAt": "2020-10-22T20:34:29Z"
+    },
+    "aE5HE7I_4Bc": {
+      "id": "aE5HE7I_4Bc",
+      "title": "Health Equity Workgroup Update (Presentation by Jake Gillberg \u2022 Oct. 5 Community Call)",
+      "duration": "PT11M43S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "95",
+      "publishedAt": "2021-10-05T17:44:32Z"
+    },
+    "3tZJvXIKn-g": {
+      "id": "3tZJvXIKn-g",
+      "title": "Phenotype Phebruary Daily Updates",
+      "duration": "PT46M45S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "120",
+      "publishedAt": "2022-03-09T23:43:20Z"
+    },
+    "j2FWwH5d5J0": {
+      "id": "j2FWwH5d5J0",
+      "title": "Creation of a Patient-Level Prediction Model Library (Presentation by Ross Williams | Mar. 16)",
+      "duration": "PT9M12S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "94",
+      "publishedAt": "2021-03-16T19:49:25Z"
+    },
+    "d8xFf8_HBB0": {
+      "id": "d8xFf8_HBB0",
+      "title": "What Is The OHDSI Symposium?",
+      "duration": "PT3M9S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "156",
+      "publishedAt": "2019-09-02T13:10:04Z"
+    },
+    "6Sd5e7tfOHY": {
+      "id": "6Sd5e7tfOHY",
+      "title": "What Is The Book Of OHDSI",
+      "duration": "PT5M2S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "149",
+      "publishedAt": "2019-12-17T15:04:49Z"
+    },
+    "SdCf4bg219s": {
+      "id": "SdCf4bg219s",
+      "title": "OHDSI 2020: Towards Clinical Eligibility Crit. Optimization for Interventional COVID-19 Clin Trials",
+      "duration": "PT6M59S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "86",
+      "publishedAt": "2020-10-22T18:00:42Z"
+    },
+    "pm0qpD1Sg8k": {
+      "id": "pm0qpD1Sg8k",
+      "title": "Prediction - What Is Currently Happening In OHDSI (Moderated by Jenna Reps and Ross Williams)",
+      "duration": "PT50M50S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "84",
+      "publishedAt": "2022-03-01T19:24:41Z"
+    },
+    "PZMhVnEK3gs": {
+      "id": "PZMhVnEK3gs",
+      "title": "Open-Source Governance Workshop, Part 2 (Nov. 29, 2021)",
+      "duration": "PT1H59M20S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "79",
+      "publishedAt": "2021-11-29T21:06:20Z"
+    },
+    "dzML65xs4Pg": {
+      "id": "dzML65xs4Pg",
+      "title": "Local Impact of OHDSI: U. of Colorado-Denver (Presentation by Lisa Schilling, Apr 20 Community Call)",
+      "duration": "PT14M19S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "102",
+      "publishedAt": "2021-04-20T18:26:02Z"
+    },
+    "RTXHx_Y-TG8": {
+      "id": "RTXHx_Y-TG8",
+      "title": "Introducing CAPR R Package - A Programmatic Approach to Cohort Design (M. Lavallee \u2022 2/2/21)",
+      "duration": "PT27M45S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "132",
+      "publishedAt": "2021-02-02T18:32:53Z"
+    },
+    "4eL16J6vixk": {
+      "id": "4eL16J6vixk",
+      "title": "Best Practices For Prediction Using Observational Data (Presentation by Jenna Reps | Mar 16, 2021)",
+      "duration": "PT8M59S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "98",
+      "publishedAt": "2021-03-16T18:49:28Z"
+    },
+    "_lSOIi3TXtY": {
+      "id": "_lSOIi3TXtY",
+      "title": "OHDSI Estimation Methods Tutorial - Part 2",
+      "duration": "PT33M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "209",
+      "publishedAt": "2016-11-15T14:13:18Z"
+    },
+    "kwD1dkfVHrE": {
+      "id": "kwD1dkfVHrE",
+      "title": "The Meta-Information Architecture of the National COVID Cohort Collaborative (Dave Eichmann)",
+      "duration": "PT8M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "77",
+      "publishedAt": "2021-08-17T17:48:02Z"
+    },
+    "6d2DpMegcLA": {
+      "id": "6d2DpMegcLA",
+      "title": "2017 OHDSI Development Architecture Tutorial (4 of 8)",
+      "duration": "PT34M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "125",
+      "publishedAt": "2017-11-29T18:27:09Z"
+    },
+    "VwS9Qw3IrWE": {
+      "id": "VwS9Qw3IrWE",
+      "title": "OHDSI2021 Preview: Using GatherTown for the Collaborator Showcase",
+      "duration": "PT7M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "202",
+      "publishedAt": "2021-08-23T19:19:57Z"
+    },
+    "S6_5MDXUQmQ": {
+      "id": "S6_5MDXUQmQ",
+      "title": "OHDSI 2020: Predictors of diagnostic transition from major depression disorder to bipolar disorder",
+      "duration": "PT7M29S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "94",
+      "publishedAt": "2020-10-22T18:12:12Z"
+    },
+    "Fv0s9yXn3cg": {
+      "id": "Fv0s9yXn3cg",
+      "title": "2018 OHDSI Cohort Definition and Phenotyping Tutorial (3 of 4)",
+      "duration": "PT35M30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "121",
+      "publishedAt": "2019-02-07T21:25:58Z"
+    },
+    "3d2HsQ4O1Iw": {
+      "id": "3d2HsQ4O1Iw",
+      "title": "Get Ready For The OHDSI 2020 Asia-Pacific (APAC) Symposium",
+      "duration": "PT3M20S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "56",
+      "publishedAt": "2020-10-29T18:54:48Z"
+    },
+    "S0pkPxkcWZw": {
+      "id": "S0pkPxkcWZw",
+      "title": "Meet The Titans (Oct. 12 Community Call)",
+      "duration": "PT45M39S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "89",
+      "publishedAt": "2021-10-12T20:38:46Z"
+    },
+    "NHuyT8w74BU": {
+      "id": "NHuyT8w74BU",
+      "title": "TUE   WO 4   PEDSnet Data Quality",
+      "duration": "PT1H51M13S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "117",
+      "publishedAt": "2019-11-18T17:38:56Z"
+    },
+    "5wxtnUKjsc4": {
+      "id": "5wxtnUKjsc4",
+      "title": "The History Of OHDSI \u2022\u00a0Nov. 23 Community Call",
+      "duration": "PT46M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "116",
+      "publishedAt": "2021-11-23T20:02:46Z"
+    },
+    "ukivyXKWKm8": {
+      "id": "ukivyXKWKm8",
+      "title": "OHDSI2020 Family Feud: Battle of the Titans (Episode 1)",
+      "duration": "PT35M42S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "88",
+      "publishedAt": "2020-11-10T15:23:56Z"
+    },
+    "i-YAaaC6xkw": {
+      "id": "i-YAaaC6xkw",
+      "title": "ATLAS 2.8 Release Overview (Christopher Knoll \u2022\u00a02/2/21 OHDSI Community Call)",
+      "duration": "PT13M8S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "115",
+      "publishedAt": "2021-02-02T18:34:09Z"
+    },
+    "y7ygTbbJF_g": {
+      "id": "y7ygTbbJF_g",
+      "title": "OHDSI2021 Day 2 Plenary: The Journey To Reliable Evidence",
+      "duration": "PT1H27M26S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "180",
+      "publishedAt": "2021-09-20T16:45:26Z"
+    },
+    "t8o_oCC9NTg": {
+      "id": "t8o_oCC9NTg",
+      "title": "Future Collaboration Opportunities in Open-Source Development Breakout (Nov. 2 OHDSI Community Call)",
+      "duration": "PT41M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "53",
+      "publishedAt": "2021-11-02T20:01:42Z"
+    },
+    "2szyimVPwjY": {
+      "id": "2szyimVPwjY",
+      "title": "On The Journey Video Podcast (October 2021)",
+      "duration": "PT7M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "25",
+      "publishedAt": "2021-10-01T03:09:02Z"
+    },
+    "HtkL2Smez0w": {
+      "id": "HtkL2Smez0w",
+      "title": "Phenotype Phebruary Update #3 (Patrick Ryan \u2022 Feb. 22 Community Call)",
+      "duration": "PT27M4S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "44",
+      "publishedAt": "2022-02-22T19:33:19Z"
+    },
+    "TcVLZgbYISI": {
+      "id": "TcVLZgbYISI",
+      "title": "On The Journey Video Podcast (November 2021)",
+      "duration": "PT5M5S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "46",
+      "publishedAt": "2021-11-01T14:59:41Z"
+    },
+    "uRLWU74k3qs": {
+      "id": "uRLWU74k3qs",
+      "title": "OHDSI2020 Family Feud: Battle of the Titans (Episode 2)",
+      "duration": "PT31M33S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "68",
+      "publishedAt": "2020-11-10T15:00:42Z"
+    },
+    "xxvJ_IhnXBo": {
+      "id": "xxvJ_IhnXBo",
+      "title": "Collaborator Showcase Submission Information",
+      "duration": "PT3M45S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "110",
+      "publishedAt": "2021-05-19T12:42:53Z"
+    },
+    "HkcF0AVH_AI": {
+      "id": "HkcF0AVH_AI",
+      "title": "OHDSI Study: Calculating background rates of adverse events of special interest for COVID vaccines",
+      "duration": "PT6M54S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "111",
+      "publishedAt": "2021-04-07T18:08:56Z"
+    },
+    "giH7lmZgluQ": {
+      "id": "giH7lmZgluQ",
+      "title": "Phenotype Phebruary Update #1 (Patrick Ryan \u2022 Feb. 8 Community Call)",
+      "duration": "PT32M53S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "83",
+      "publishedAt": "2022-02-08T19:18:57Z"
+    },
+    "cVJw7whybZE": {
+      "id": "cVJw7whybZE",
+      "title": "OHDSI Objectives & Key Results Mid-Year Review (June 1 Community Call)",
+      "duration": "PT48M40S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "105",
+      "publishedAt": "2021-06-01T18:22:01Z"
+    },
+    "ZqTdgHhhG2E": {
+      "id": "ZqTdgHhhG2E",
+      "title": "OHDSI Fun & Games  (May 25 Community Call)",
+      "duration": "PT40M48S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "79",
+      "publishedAt": "2021-05-25T19:14:27Z"
+    },
+    "DLrvBA93pf4": {
+      "id": "DLrvBA93pf4",
+      "title": "ATLAS Workgroup Update (Anthony Sena \u2022 Feb. 22 Community Call)",
+      "duration": "PT5M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "102",
+      "publishedAt": "2022-02-22T19:18:45Z"
+    },
+    "Rp57IPBMTmc": {
+      "id": "Rp57IPBMTmc",
+      "title": "On The Journey Video Podcast (April, 2021)",
+      "duration": "PT5M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "100",
+      "publishedAt": "2021-03-31T21:54:15Z"
+    },
+    "e-DuG8YkiIw": {
+      "id": "e-DuG8YkiIw",
+      "title": "On The Journey Video Podcast (May 2021)",
+      "duration": "PT5M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "60",
+      "publishedAt": "2021-04-30T14:34:43Z"
+    },
+    "ctPADsAoYpM": {
+      "id": "ctPADsAoYpM",
+      "title": "Clinical Trials Workgroup Update (Presentation by Mike Hamidi \u2022 Oct. 5 Community Call)",
+      "duration": "PT7M24S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "191",
+      "publishedAt": "2021-10-05T17:44:36Z"
+    },
+    "sdB5CBKB8vs": {
+      "id": "sdB5CBKB8vs",
+      "title": "What Makes A Strong OHDSI Symposium Submission?",
+      "duration": "PT2M53S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "90",
+      "publishedAt": "2019-06-17T15:40:16Z"
+    },
+    "RgQVWiZdX6Q": {
+      "id": "RgQVWiZdX6Q",
+      "title": "Medical Devices Workgroup Update (Mar. 9, 2021 OHDSI Community Call)",
+      "duration": "PT7M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "90",
+      "publishedAt": "2021-03-08T20:30:18Z"
+    },
+    "N3fqWS3U6Jg": {
+      "id": "N3fqWS3U6Jg",
+      "title": "Thank You, OHDSI! Holiday-Themed Final Community Call of 2021",
+      "duration": "PT57M11S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "89",
+      "publishedAt": "2021-12-14T20:05:58Z"
+    },
+    "a8zp2eKReWM": {
+      "id": "a8zp2eKReWM",
+      "title": "ATLAS Breakout Discussion (March 2 OHDSI Community Call)",
+      "duration": "PT39M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "88",
+      "publishedAt": "2021-03-02T20:43:04Z"
+    },
+    "JMiyPpU-Ahw": {
+      "id": "JMiyPpU-Ahw",
+      "title": "COVID19 Final Call \u2022 Clinical Characterization of COVID-19 (5)",
+      "duration": "PT7M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "87",
+      "publishedAt": "2020-04-06T20:44:58Z"
+    },
+    "xpJQsZvjQvM": {
+      "id": "xpJQsZvjQvM",
+      "title": "Future Collaboration Opportunities in Data Standards Breakout (Nov. 2 OHDSI Community Call)",
+      "duration": "PT46M11S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "39",
+      "publishedAt": "2021-11-02T18:45:54Z"
+    },
+    "as4QlWB8KU8": {
+      "id": "as4QlWB8KU8",
+      "title": "Estimation - What Is Currently Happening In OHDSI (Moderated by Marc Suchard)",
+      "duration": "PT35M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "53",
+      "publishedAt": "2022-03-01T19:01:54Z"
+    },
+    "DJ3a37iaYY8": {
+      "id": "DJ3a37iaYY8",
+      "title": "2018 OHDSI Symposium - Panel: Global Progress & Perspectives from the OHDSI Community",
+      "duration": "PT59M5S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "48",
+      "publishedAt": "2018-11-06T22:58:17Z"
+    },
+    "Px0O8C9CdSQ": {
+      "id": "Px0O8C9CdSQ",
+      "title": "CHARYBDIS Presentation (Kristin Kostka, 2/23/21 OHDSI Community Call)",
+      "duration": "PT11M53S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "85",
+      "publishedAt": "2021-02-23T18:45:24Z"
+    },
+    "OOW9YV9sbaQ": {
+      "id": "OOW9YV9sbaQ",
+      "title": "1 Welcome to the European OHDSI Journey",
+      "duration": "PT6M43S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "132",
+      "publishedAt": "2019-09-12T17:08:43Z"
+    },
+    "rZQOicVPNIQ": {
+      "id": "rZQOicVPNIQ",
+      "title": "Assessing Health Equity in Mental Healthcare Delivery Using a Federated Network Research Model",
+      "duration": "PT6M13S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "150",
+      "publishedAt": "2021-11-16T19:53:50Z"
+    },
+    "JNCODsQiSfA": {
+      "id": "JNCODsQiSfA",
+      "title": "OHDSI2021 Talk: David Madigan Introduces The OHDSI Reproducibility Service at the Roux Institute",
+      "duration": "PT25M48S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "173",
+      "publishedAt": "2021-09-17T15:05:37Z"
+    },
+    "g4bFakNVAZM": {
+      "id": "g4bFakNVAZM",
+      "title": "OHDSI COVID-19 Study-A-Thon \u2022 Day 4, Call 1",
+      "duration": "PT21M24S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "170",
+      "publishedAt": "2020-03-29T12:07:09Z"
+    },
+    "omAtNx9jeKk": {
+      "id": "omAtNx9jeKk",
+      "title": "OHDSI COVID-19 Study-A-Thon \u2022 Day 2, Call 1",
+      "duration": "PT14M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "165",
+      "publishedAt": "2020-03-27T11:38:43Z"
+    },
+    "zyFArqy5el0": {
+      "id": "zyFArqy5el0",
+      "title": "OHDSI 2020: R-A System Blockers/Susceptibility to COVID19: a Multinational Open Science Cohort Study",
+      "duration": "PT8M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "81",
+      "publishedAt": "2020-10-22T18:15:20Z"
+    },
+    "-fIrlNQIYaM": {
+      "id": "-fIrlNQIYaM",
+      "title": "Welcome To The Journey Q&A, Panel Introductions (2/9/21 OHDSI Community Call)",
+      "duration": "PT26M24S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "78",
+      "publishedAt": "2021-02-09T20:35:34Z"
+    },
+    "KLcOAC96v1Y": {
+      "id": "KLcOAC96v1Y",
+      "title": "Data Quality Workgroup Update (Clair Blacketer \u2022 Feb. 15 Community Call)",
+      "duration": "PT1M59S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "78",
+      "publishedAt": "2022-02-15T18:27:34Z"
+    },
+    "GNOCLcFgf0Q": {
+      "id": "GNOCLcFgf0Q",
+      "title": "Natural Language Processing Workgroup Update (Mar. 9, 2021 OHDSI Community Call)",
+      "duration": "PT7M33S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "119",
+      "publishedAt": "2021-03-09T20:02:38Z"
+    },
+    "3E-k8f85kWQ": {
+      "id": "3E-k8f85kWQ",
+      "title": "2017 OHDSI Patient Level Prediction Tutorial (4 of 7)",
+      "duration": "PT54M10S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "153",
+      "publishedAt": "2017-11-03T18:45:44Z"
+    },
+    "857acYSUhPY": {
+      "id": "857acYSUhPY",
+      "title": "OHDSI2021 Preview: State of the Community, COVID-19 Plenary, Collaborator Showcase (Day 3)",
+      "duration": "PT30S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "113",
+      "publishedAt": "2021-08-23T19:03:00Z"
+    },
+    "knFlYF10YVY": {
+      "id": "knFlYF10YVY",
+      "title": "2020 Asia-Pacific Symposium Regional Breakouts: Taiwan",
+      "duration": "PT1H44M10S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "73",
+      "publishedAt": "2020-12-15T22:18:27Z"
+    },
+    "4JMfCavS_qs": {
+      "id": "4JMfCavS_qs",
+      "title": "OHDSI Professional Development Breakout: Information/Data Management Breakout",
+      "duration": "PT44M48S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "72",
+      "publishedAt": "2021-06-15T19:20:31Z"
+    },
+    "_VXBKdzjEk8": {
+      "id": "_VXBKdzjEk8",
+      "title": "HADES Breakout Discussion (March 2 OHDSI Community Call)",
+      "duration": "PT39M53S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "55",
+      "publishedAt": "2021-03-02T21:19:30Z"
+    },
+    "iGVKmCC8Qwk": {
+      "id": "iGVKmCC8Qwk",
+      "title": "2017 OHDSI Symposium - Large-Scale Honest Incidence (George Hripcsak)",
+      "duration": "PT28M27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "142",
+      "publishedAt": "2017-10-31T21:33:50Z"
+    },
+    "C028vIwW1fQ": {
+      "id": "C028vIwW1fQ",
+      "title": "GIS - Geographic Information System Workgroup Update (May 4 OHDSI Community Call)",
+      "duration": "PT8M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "69",
+      "publishedAt": "2021-05-04T17:51:21Z"
+    },
+    "PUWw0zTXIyk": {
+      "id": "PUWw0zTXIyk",
+      "title": "2020 Asia-Pacific Symposium Regional Breakouts: China",
+      "duration": "PT2H18M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "38",
+      "publishedAt": "2020-12-15T21:27:31Z"
+    },
+    "IseBfMBb7l4": {
+      "id": "IseBfMBb7l4",
+      "title": "Future Collaboration Opportunities in Clinical Applications Breakout (Nov. 2 OHDSI Community Call)",
+      "duration": "PT41M",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "53",
+      "publishedAt": "2021-11-02T18:46:28Z"
+    },
+    "ttwWlANZaFY": {
+      "id": "ttwWlANZaFY",
+      "title": "On The Journey Video Podcast (December 2021)",
+      "duration": "PT6M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "49",
+      "publishedAt": "2021-12-01T21:29:44Z"
+    },
+    "DxG5Y-sf6v8": {
+      "id": "DxG5Y-sf6v8",
+      "title": "Electronic Health Records Workgroup Update (May 4 OHDSI Community Call)",
+      "duration": "PT5M12S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "68",
+      "publishedAt": "2021-05-04T18:07:29Z"
+    },
+    "wWMt9rFl64A": {
+      "id": "wWMt9rFl64A",
+      "title": "2019 OHDSI Tutorials - Patient-Level Prediction (3 of 5)",
+      "duration": "PT42M33S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "263",
+      "publishedAt": "2019-11-07T21:15:14Z"
+    },
+    "CmmnWXolEZs": {
+      "id": "CmmnWXolEZs",
+      "title": "OHDSI Overview (Patrick Ryan, 2/9/21 OHDSI Community Call)",
+      "duration": "PT8M9S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "134",
+      "publishedAt": "2021-02-09T18:55:27Z"
+    },
+    "bGax7MzHa-U": {
+      "id": "bGax7MzHa-U",
+      "title": "Welcome To OHDSI 2022 (Jan. 11 Community Call)",
+      "duration": "PT40M38S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "130",
+      "publishedAt": "2022-01-11T19:11:44Z"
+    },
+    "YSKlNFL-qDs": {
+      "id": "YSKlNFL-qDs",
+      "title": "OHDSI 2018",
+      "duration": "PT3M12S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "95",
+      "publishedAt": "2019-05-28T20:23:52Z"
+    },
+    "6-OQ2UFWq-g": {
+      "id": "6-OQ2UFWq-g",
+      "title": "OHDSI Study: EUMAEUS - Evaluating Use of Methods for Adverse Events Under Surveillance",
+      "duration": "PT6M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "125",
+      "publishedAt": "2021-04-07T18:11:36Z"
+    },
+    "gVrIjEw8Gbo": {
+      "id": "gVrIjEw8Gbo",
+      "title": "4 What Evidence Do We Want to Generate",
+      "duration": "PT42M",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "60",
+      "publishedAt": "2019-09-12T18:31:07Z"
+    },
+    "gjsgbVBb8tM": {
+      "id": "gjsgbVBb8tM",
+      "title": "Education Opportunities in OHDSI (Aug. 24 Community Call)",
+      "duration": "PT54M39S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "116",
+      "publishedAt": "2021-08-25T16:12:55Z"
+    },
+    "IBXtKF1qCAs": {
+      "id": "IBXtKF1qCAs",
+      "title": "OHDSI PLP/PLE Workgroup Update (Jan. 26 OHDSI Call)",
+      "duration": "PT10M3S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "114",
+      "publishedAt": "2021-01-26T19:10:20Z"
+    },
+    "dAeXpQ9waM4": {
+      "id": "dAeXpQ9waM4",
+      "title": "2018 OHDSI Patient Level Prediction Tutorial (4 of 6)",
+      "duration": "PT43M43S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "113",
+      "publishedAt": "2019-02-12T20:09:37Z"
+    },
+    "dJ9mELNDDok": {
+      "id": "dJ9mELNDDok",
+      "title": "Announcement of Open-Source Governance Workshop (Paul Nagy, Nov. 9 Community Call)",
+      "duration": "PT5M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "56",
+      "publishedAt": "2021-11-09T19:06:26Z"
+    },
+    "M332uvQYwGQ": {
+      "id": "M332uvQYwGQ",
+      "title": "Vaccine Vocabulary Workgroup Update (Presentation by Adam Black \u2022 Oct. 5 Community Call)",
+      "duration": "PT8M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "81",
+      "publishedAt": "2021-10-05T18:21:44Z"
+    },
+    "nzp0BQJQl14": {
+      "id": "nzp0BQJQl14",
+      "title": "COVID19 Final Call \u2022 Phenotype Development and Evaluation (4)",
+      "duration": "PT10M19S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "105",
+      "publishedAt": "2020-04-06T20:28:00Z"
+    },
+    "jRausBT0iQs": {
+      "id": "jRausBT0iQs",
+      "title": "OHDSI CDM Workgroup Update (Jan. 26 OHDSI Call)",
+      "duration": "PT9M40S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "54",
+      "publishedAt": "2021-01-26T18:58:35Z"
+    },
+    "2uaGED-Z1FY": {
+      "id": "2uaGED-Z1FY",
+      "title": "9 Closing Remarks",
+      "duration": "PT9M51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "45",
+      "publishedAt": "2019-09-12T22:32:45Z"
+    },
+    "_s4yPxFu2oU": {
+      "id": "_s4yPxFu2oU",
+      "title": "Phenotype Phebruary Update #2 (Patrick Ryan \u2022 Feb. 15 Community Call)",
+      "duration": "PT19M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "41",
+      "publishedAt": "2022-02-15T18:34:52Z"
+    },
+    "epD-XvEVnFc": {
+      "id": "epD-XvEVnFc",
+      "title": "On The Journey Video Podcast (April 2022)",
+      "duration": "PT10M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "35",
+      "publishedAt": "2022-03-31T15:10:29Z"
+    },
+    "392-W1TCihc": {
+      "id": "392-W1TCihc",
+      "title": "2019 OHDSI Korea Symposium, Session 4: Sharing the Int'l Experience from the Asian-Pacific Region",
+      "duration": "PT48M29S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "36",
+      "publishedAt": "2020-02-22T15:36:19Z"
+    },
+    "103i2bfGRQw": {
+      "id": "103i2bfGRQw",
+      "title": "On The Journey Video Podcast (August 2021)",
+      "duration": "PT5M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "21",
+      "publishedAt": "2021-10-01T02:47:11Z"
+    },
+    "RJD9A46I7zs": {
+      "id": "RJD9A46I7zs",
+      "title": "OHDSI Feature: LEGEND Hypertension Study Published By Lancet",
+      "duration": "PT2M21S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "663",
+      "publishedAt": "2019-10-24T22:33:25Z"
+    },
+    "b4wlH9jBM70": {
+      "id": "b4wlH9jBM70",
+      "title": "ETL Breakout Discussion (March 2 OHDSI Community Call)",
+      "duration": "PT43M31S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "99",
+      "publishedAt": "2021-03-02T20:29:39Z"
+    },
+    "E_klNJS9fEw": {
+      "id": "E_klNJS9fEw",
+      "title": "2018 OHDSI Patient Level Prediction Tutorial (3 of 6)",
+      "duration": "PT1H25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "177",
+      "publishedAt": "2019-02-12T20:07:26Z"
+    },
+    "oEZDGuM040E": {
+      "id": "oEZDGuM040E",
+      "title": "OHDSI2021 Preview: Generating Reliable Evidence Plenary, Closing, Collaborator Showcase (Day 4)",
+      "duration": "PT51S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "91",
+      "publishedAt": "2021-08-23T19:13:18Z"
+    },
+    "DBAZHQ-dE5c": {
+      "id": "DBAZHQ-dE5c",
+      "title": "OHDSI Study: Covid19 pandemic impacts on mental health related conditions via multi-database network",
+      "duration": "PT4M37S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "90",
+      "publishedAt": "2021-04-07T18:00:13Z"
+    },
+    "h2twteX6PuQ": {
+      "id": "h2twteX6PuQ",
+      "title": "2017 OHDSI Symposium - Safety Surveillance (Jon Duke)",
+      "duration": "PT20M59S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "69",
+      "publishedAt": "2017-10-31T21:34:20Z"
+    },
+    "kAZ9VHRI2Z4": {
+      "id": "kAZ9VHRI2Z4",
+      "title": "Project SCYLLA Presentation (Daniel Prieto-Alhambra, 2/23/21 OHDSI Community Call)",
+      "duration": "PT12M44S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "87",
+      "publishedAt": "2021-02-23T18:51:58Z"
+    },
+    "9R7J1TtNrSA": {
+      "id": "9R7J1TtNrSA",
+      "title": "HADES Unit-Test-A-Thon Report (July 27 Community Call)",
+      "duration": "PT15M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "87",
+      "publishedAt": "2021-07-27T18:05:12Z"
+    },
+    "SI9bCR0ovgM": {
+      "id": "SI9bCR0ovgM",
+      "title": "2020 Asia-Pacific Symposium Opening Presentation",
+      "duration": "PT27M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "86",
+      "publishedAt": "2020-12-10T14:43:41Z"
+    },
+    "DDOjH7vZS0E": {
+      "id": "DDOjH7vZS0E",
+      "title": "OHDSI Study Update: Alpha-1 blocker for Palliating Inflammatory injury Severity (APIS) study",
+      "duration": "PT5M35S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "85",
+      "publishedAt": "2021-04-07T18:06:20Z"
+    },
+    "MwuMrGuzbwU": {
+      "id": "MwuMrGuzbwU",
+      "title": "OHDSI2021 Day 2 Panel: The Journey To Reliable Evidence",
+      "duration": "PT41M18S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "81",
+      "publishedAt": "2021-09-17T03:23:31Z"
+    },
+    "_ybOlruCDWs": {
+      "id": "_ybOlruCDWs",
+      "title": "OHDSI Network Study Updates (April 6 OHDSI Community Call)",
+      "duration": "PT47M23S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "77",
+      "publishedAt": "2021-04-06T18:39:22Z"
+    },
+    "msAcIFYPmT8": {
+      "id": "msAcIFYPmT8",
+      "title": "OHDSI Professional Development Breakout: Statistical Methods",
+      "duration": "PT41M11S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "59",
+      "publishedAt": "2021-06-15T18:25:23Z"
+    },
+    "7stIXSEAH4w": {
+      "id": "7stIXSEAH4w",
+      "title": "The concept of anchoring in observational study design and its influence (Anna Ostropolets)",
+      "duration": "PT9M48S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "74",
+      "publishedAt": "2021-11-30T19:37:13Z"
+    },
+    "VcmeaBZ1XLQ": {
+      "id": "VcmeaBZ1XLQ",
+      "title": "OHDSI Meet And Greet (July 6 Community Call)",
+      "duration": "PT50M1S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "54",
+      "publishedAt": "2021-07-06T19:05:26Z"
+    },
+    "eDaK5k8aJ1c": {
+      "id": "eDaK5k8aJ1c",
+      "title": "Psychiatry Workgroup Update (Mar. 9, 2021 OHDSI Community Call)",
+      "duration": "PT7M33S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "49",
+      "publishedAt": "2021-03-09T19:58:09Z"
+    },
+    "wZkMp6IeOvs": {
+      "id": "wZkMp6IeOvs",
+      "title": "OHDSI Website Tour (presentation by Craig Sachson during Sept. 21 Community Call)",
+      "duration": "PT18M36S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "44",
+      "publishedAt": "2021-09-21T18:38:12Z"
+    },
+    "j5FlSAgriZw": {
+      "id": "j5FlSAgriZw",
+      "title": "2018 OHDSI Population-Level Estimation Tutorial (6 of 6)",
+      "duration": "PT13M4S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "35",
+      "publishedAt": "2019-02-21T18:12:22Z"
+    },
+    "S1LGjiSyXpY": {
+      "id": "S1LGjiSyXpY",
+      "title": "Meet The Community (part of the Sept. 21 Welcome to OHDSI Community Call)",
+      "duration": "PT13M",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "40",
+      "publishedAt": "2021-09-21T20:08:17Z"
+    },
+    "ItRyGR3J8bs": {
+      "id": "ItRyGR3J8bs",
+      "title": "2020 Asia-Pacific Symposium State of the Community Presentation",
+      "duration": "PT26M2S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "28",
+      "publishedAt": "2020-12-10T18:03:47Z"
+    },
+    "wVm-IWFlZGQ": {
+      "id": "wVm-IWFlZGQ",
+      "title": "Redefining Polypharmacy: A Longitudinal Study in Routinely Collected Data (Leena Elhussein \u2022\u00a0Nov 16)",
+      "duration": "PT6M13S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "47",
+      "publishedAt": "2021-11-16T19:47:29Z"
+    },
+    "Vid8LOBc4mw": {
+      "id": "Vid8LOBc4mw",
+      "title": "2020 Asia-Pacific Symposium Regional Breakouts: Japan",
+      "duration": "PT2H26M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "52",
+      "publishedAt": "2020-12-16T13:47:05Z"
+    },
+    "uBHLyuc_YFg": {
+      "id": "uBHLyuc_YFg",
+      "title": "OHDSI Microsoft Teams Overview (Patrick Ryan, 2/9/21 OHDSI Community Call)",
+      "duration": "PT4M48S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "41",
+      "publishedAt": "2021-02-09T20:06:08Z"
+    },
+    "VjXeBwO_BxI": {
+      "id": "VjXeBwO_BxI",
+      "title": "OHDSI DevCon Introduction (Paul Nagy, Mar. 15 Community Call)",
+      "duration": "PT50S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "52",
+      "publishedAt": "2022-03-19T16:08:15Z"
+    },
+    "X3_zRF0WQhY": {
+      "id": "X3_zRF0WQhY",
+      "title": "Community Panel: Where are we on the journey right now? How did we get here?",
+      "duration": "PT56M37S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "66",
+      "publishedAt": "2016-10-31T21:12:57Z"
+    },
+    "P25Z88X5Ems": {
+      "id": "P25Z88X5Ems",
+      "title": "On The Journey Video Podcast (June 2021)",
+      "duration": "PT7M19S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "62",
+      "publishedAt": "2021-05-29T14:29:21Z"
+    },
+    "T97JtllZpMI": {
+      "id": "T97JtllZpMI",
+      "title": "Health Equity Research Brainstorm (June 22 OHDSI Community Call)",
+      "duration": "PT44M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "60",
+      "publishedAt": "2021-06-22T17:47:37Z"
+    },
+    "w7fAOMj-DDk": {
+      "id": "w7fAOMj-DDk",
+      "title": "Local Impact of OHDSI: Stanford (Presentation by Alison Callahan/Jose Posada, Apr 20 Community Call)",
+      "duration": "PT12M53S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "60",
+      "publishedAt": "2021-04-20T18:18:42Z"
+    },
+    "tAZvUAC_XH4": {
+      "id": "tAZvUAC_XH4",
+      "title": "OHDSI Study: MSKAI- Musculoskeletal adverse events following hormonal treatment for breast cancer",
+      "duration": "PT6M7S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "57",
+      "publishedAt": "2021-04-07T17:59:41Z"
+    },
+    "XRXgtHTUBJI": {
+      "id": "XRXgtHTUBJI",
+      "title": "Women of OHDSI Workgroup Update (July 20 Community Call)",
+      "duration": "PT11M49S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "56",
+      "publishedAt": "2021-07-20T17:39:31Z"
+    },
+    "U7VXOkRPH44": {
+      "id": "U7VXOkRPH44",
+      "title": "Health Equity Visualizations (July 27 Community Call)",
+      "duration": "PT21M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "46",
+      "publishedAt": "2021-07-27T18:01:21Z"
+    },
+    "mmVu5nvRD8s": {
+      "id": "mmVu5nvRD8s",
+      "title": "OHDSI US 2019: 6D - OHDSI-enabled distributed network analysis for clinical trial feasibility",
+      "duration": "PT8M2S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "44",
+      "publishedAt": "2019-11-18T14:49:39Z"
+    },
+    "e-cQDsFSJxQ": {
+      "id": "e-cQDsFSJxQ",
+      "title": "2020 Asia-Pacific Symposium Community In Action Panel",
+      "duration": "PT1H54S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "38",
+      "publishedAt": "2020-12-10T15:30:08Z"
+    },
+    "_dc3G221KxU": {
+      "id": "_dc3G221KxU",
+      "title": "Latin America Workgroup Update (July 20 Community Call)",
+      "duration": "PT8M38S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "40",
+      "publishedAt": "2021-07-20T17:28:41Z"
+    },
+    "-JPaimmIL_o": {
+      "id": "-JPaimmIL_o",
+      "title": "Jan. 19 OHDSI Call - Methods Research Opportunities in Patient-Level Prediction Breakout Session",
+      "duration": "PT38M56S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "47",
+      "publishedAt": "2021-01-19T21:55:35Z"
+    },
+    "Ag_2WR-vZNA": {
+      "id": "Ag_2WR-vZNA",
+      "title": "Open Source Community Workgroup Introduction Announcement (Adam Black \u2022 Feb. 8 Community Call)",
+      "duration": "PT3M5S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "38",
+      "publishedAt": "2022-02-08T18:53:52Z"
+    },
+    "V4JBs58tLuQ": {
+      "id": "V4JBs58tLuQ",
+      "title": "On The Journey Video Podcast (July 2021)",
+      "duration": "PT5M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "48",
+      "publishedAt": "2021-06-26T22:12:47Z"
+    },
+    "iTGu7FAF28I": {
+      "id": "iTGu7FAF28I",
+      "title": "themisUnits",
+      "duration": "PT6M33S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "24",
+      "publishedAt": "2018-03-27T15:53:37Z"
+    },
+    "70eQTBm9zn8": {
+      "id": "70eQTBm9zn8",
+      "title": "Education Workgroup Update (July 20 Community Call)",
+      "duration": "PT7M46S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "50",
+      "publishedAt": "2021-07-20T17:13:29Z"
+    },
+    "KuDT4JZf8p8": {
+      "id": "KuDT4JZf8p8",
+      "title": "Future Collaboration Opportunities in Methods Research Breakout (Nov. 2 OHDSI Community Call)",
+      "duration": "PT43M40S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "38",
+      "publishedAt": "2021-11-02T18:39:44Z"
+    },
+    "N3TmV2zdmec": {
+      "id": "N3TmV2zdmec",
+      "title": "March 2021 OHDSI Challenge Description",
+      "duration": "PT4M56S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "47",
+      "publishedAt": "2021-03-05T19:00:12Z"
+    },
+    "9LUt9vN65vo": {
+      "id": "9LUt9vN65vo",
+      "title": "10-Minute Tutorials: PHOEBE (Anna Ostropolets, June 8 OHDSI Community Call)",
+      "duration": "PT15M12S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "195",
+      "publishedAt": "2021-06-08T17:56:37Z"
+    },
+    "3xnigU5H1gU": {
+      "id": "3xnigU5H1gU",
+      "title": "Gold or Lead? Adjudicating Differences between CDM Data and Chart Reviews (Kimberley Dickinson)",
+      "duration": "PT8M37S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "44",
+      "publishedAt": "2021-11-30T19:38:49Z"
+    },
+    "HkOZOOO_G8c": {
+      "id": "HkOZOOO_G8c",
+      "title": "Hydroxychloroquine Safety Profile Co-Leads Discuss Findings, Impact, OHDSI Collaboration",
+      "duration": "PT2M19S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "235",
+      "publishedAt": "2020-08-24T16:59:03Z"
+    },
+    "RXLIbaJewLI": {
+      "id": "RXLIbaJewLI",
+      "title": "2019 OHDSI Korea Symposium, CDM/Vocabulary Tutorial (Part 2)",
+      "duration": "PT2H42M5S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "358",
+      "publishedAt": "2020-02-26T12:46:09Z"
+    },
+    "lB8I_kmBThs": {
+      "id": "lB8I_kmBThs",
+      "title": "2020 Asia-Pacific Symposium Regional Breakouts: Singapore",
+      "duration": "PT2H26M22S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "62",
+      "publishedAt": "2020-12-12T07:14:46Z"
+    },
+    "9DVXUwFbogo": {
+      "id": "9DVXUwFbogo",
+      "title": "2019 OHDSI Tutorials -\u00a0Population-Level Estimation (1 of 4)",
+      "duration": "PT1H42M16S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "412",
+      "publishedAt": "2019-11-07T21:26:51Z"
+    },
+    "XFqm9EniZ4U": {
+      "id": "XFqm9EniZ4U",
+      "title": "The LEGEND Initiative (Oct. 19 Community Call)",
+      "duration": "PT53M11S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "190",
+      "publishedAt": "2021-10-19T17:57:15Z"
+    },
+    "aWa1abm2ri4": {
+      "id": "aWa1abm2ri4",
+      "title": "2020 Asia-Pacific Symposium Regional Breakouts: Korea",
+      "duration": "PT2H6M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "70",
+      "publishedAt": "2020-12-11T21:53:19Z"
+    },
+    "fD9W0VY1W0U": {
+      "id": "fD9W0VY1W0U",
+      "title": "2018 OMOP Common Data Model and Standardized Vocabularies Tutorial (4 of 5)",
+      "duration": "PT2H11M44S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "1485",
+      "publishedAt": "2018-11-09T22:27:03Z"
+    },
+    "KSYwdblTleo": {
+      "id": "KSYwdblTleo",
+      "title": "Open-Source Governance Workshop, Part 1 (Nov. 29, 2021)",
+      "duration": "PT1H40M13S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "129",
+      "publishedAt": "2021-11-29T21:06:05Z"
+    },
+    "M_TBCFHzRBg": {
+      "id": "M_TBCFHzRBg",
+      "title": "OHDSI US 2019: 5 - Stakeholder Panel: What has been done? Where should we go? How can we get there?",
+      "duration": "PT31M25S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "123",
+      "publishedAt": "2019-10-08T19:30:00Z"
+    },
+    "RoKnioGMzeE": {
+      "id": "RoKnioGMzeE",
+      "title": "2019 OHDSI Tutorials -\u00a0Extraction, Transformation, and Load Process (ETL) (3 of 3)",
+      "duration": "PT43M57S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "1171",
+      "publishedAt": "2019-11-18T17:26:37Z"
+    },
+    "gzKNjnYrx38": {
+      "id": "gzKNjnYrx38",
+      "title": "Demo: OMOP CDM v5.4 Release (Clair Blacketer \u2022 Nov. 9 OHDSI Community Call)",
+      "duration": "PT13M53S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "288",
+      "publishedAt": "2021-11-09T19:17:54Z"
+    },
+    "sCtju83YT4g": {
+      "id": "sCtju83YT4g",
+      "title": "The OHDSI Center at the Roux Institute at Northeastern University (Presentation by Kristin Kostka)",
+      "duration": "PT9M56S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "139",
+      "publishedAt": "2021-08-25T20:12:23Z"
+    },
+    "rNvp39LoCkQ": {
+      "id": "rNvp39LoCkQ",
+      "title": "2 The Observational Health Data Sciences and Informatics OHDSI Initiative",
+      "duration": "PT32M26S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "162",
+      "publishedAt": "2019-09-12T17:26:36Z"
+    },
+    "dFAWZmZv0yw": {
+      "id": "dFAWZmZv0yw",
+      "title": "Use OHDSI Tools to Quickly Generate Insights from OMOP CDM, Halloween Style (Oct. 26 Community Call)",
+      "duration": "PT52M1S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "311",
+      "publishedAt": "2021-10-26T18:45:07Z"
+    },
+    "-vOHft8Vf84": {
+      "id": "-vOHft8Vf84",
+      "title": "6 Adopting the OMOP Common Data Model to Enable Standardized Analytics",
+      "duration": "PT37M37S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "303",
+      "publishedAt": "2019-09-12T19:42:21Z"
+    },
+    "GvQ2VX0kAqI": {
+      "id": "GvQ2VX0kAqI",
+      "title": "OHDSI Debate: Keep vocabularies up-to-date vs align the network on a common vocabulary version.",
+      "duration": "PT25M52S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "123",
+      "publishedAt": "2021-05-11T19:54:30Z"
+    },
+    "ylL2pFrJyDQ": {
+      "id": "ylL2pFrJyDQ",
+      "title": "2018 OHDSI Population-Level Estimation Tutorial (4 of 6)",
+      "duration": "PT1H13M17S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "22",
+      "viewCount": "179",
+      "publishedAt": "2019-02-21T16:52:37Z"
+    },
+    "kN312iOShgU": {
+      "id": "kN312iOShgU",
+      "title": "COVID19 Final Call \u2022 Introduction (1)",
+      "duration": "PT19M40S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "101",
+      "publishedAt": "2020-04-03T20:22:29Z"
+    },
+    "j3DnFKeI-oM": {
+      "id": "j3DnFKeI-oM",
+      "title": "OHDSI2021 Day 1 Panel: OHDSI's Impact On The COVID-19 Pandemic",
+      "duration": "PT1H27S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "116",
+      "publishedAt": "2021-09-16T19:55:31Z"
+    },
+    "Nx1veyeWPP8": {
+      "id": "Nx1veyeWPP8",
+      "title": "2019 Women of OHDSI Leadership Forum",
+      "duration": "PT1H22M31S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "83",
+      "publishedAt": "2019-12-10T17:37:10Z"
+    },
+    "AFCQqYKZR90": {
+      "id": "AFCQqYKZR90",
+      "title": "Common Data Model Workgroup Update (Clair Blacketer \u2022 Feb. 15 Community Call)",
+      "duration": "PT12M",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "314",
+      "publishedAt": "2022-02-15T18:22:37Z"
+    },
+    "VFmzoeah_hU": {
+      "id": "VFmzoeah_hU",
+      "title": "2019 OHDSI Korea Symposium, Session 3: National Perspectives on Bio-Health IT in Korea",
+      "duration": "PT1H32M41S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "50",
+      "publishedAt": "2020-02-22T02:54:41Z"
+    },
+    "Er3B8OMgegE": {
+      "id": "Er3B8OMgegE",
+      "title": "2019 OHDSI Korea Symposium, Patient Level Prediction",
+      "duration": "PT3H57M4S",
+      "channelId": "UC2RFIQnptl-nk8GbjFfqztw",
+      "channelTitle": "OHDSI",
+      "categoryId": "28",
+      "viewCount": "119",
+      "publishedAt": "2020-03-02T16:11:17Z"
+    }
+  }
+}

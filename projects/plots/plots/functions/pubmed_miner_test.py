@@ -1,6 +1,6 @@
 import pytest
-from plots.services.db import get_db
 
+from plots.services.db import get_db
 from plots.functions.events import DatabaseTrigger
 from plots.services.pubmed import PubmedArticle
 from . import pubmed_miner

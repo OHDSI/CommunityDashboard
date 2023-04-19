@@ -9,6 +9,8 @@ from plots.services.pubmed import Pubmed, PubmedBioPython
 from plots.services.google_scholar import GoogleScholarBase, GoogleScholar
 from plots.services.nlp import Nlp, NlpSpacy
 from plots.services.umls import Umls, UmlsNih
+from plots.services.youtube import YouTube, YouTubeGapi
+from plots.services.youtube_transcript import YouTubeTranscript, YouTubeTranscriptPyPi
 
 _dash_app = None
 def create_app(
@@ -16,7 +18,9 @@ def create_app(
     PubmedClass:Type[Pubmed]=PubmedBioPython,
     GoogleScholarClass:Type[GoogleScholarBase]=GoogleScholar,
     NlpClass:Type[Nlp]=NlpSpacy,
-    UmlsClass:Type[Umls]=UmlsNih
+    UmlsClass:Type[Umls]=UmlsNih,
+    YouTubeClass:Type[YouTube]=YouTubeGapi,
+    YouTubeTranscriptClass:Type[YouTubeTranscript]=YouTubeTranscriptPyPi,
 ):
     global _dash_app
     
@@ -27,12 +31,15 @@ def create_app(
     app.config['GoogleScholar'] = GoogleScholarClass
     app.config['Nlp'] = NlpClass
     app.config['Umls'] = UmlsClass
+    app.config['YouTube'] = YouTubeClass
+    app.config['YouTubeTranscript'] = YouTubeTranscriptClass
     load_dotenv()
     app.config['ENTREZ_EMAIL'] = os.environ.get('ENTREZ_EMAIL')
     app.config['SERPAPI_KEY'] = os.environ.get('SERPAPI_KEY')
     app.config['UMLS_API'] = os.environ.get('UMLS_API')
     app.config['LOG_LEVEL'] = os.environ.get('LOG_LEVEL', 'INFO')
     app.config['USE_SPACY'] = os.environ.get('USE_SPACY', False) != False
+    app.config['YOUTUBE_API_KEY'] = os.environ.get('YOUTUBE_API_KEY')
 
     dictConfig({
         'version': 1,
