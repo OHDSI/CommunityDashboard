@@ -1,4 +1,5 @@
 from datetime import datetime
+from time import sleep
 
 from plots.services.db import get_db, asdict
 from plots.services.youtube import get_youtube
@@ -29,31 +30,53 @@ def youtube_details_created_transcript(u):
             'id': video_id,
             'transcript': transcript
         })
-        db.updateById('youTubeJoined', video_id, {
-            'transcript': transcript
-        })
 
 def youtube_nlp_cron():
     db = get_db()
-    nlp = None
-    for r in db.find('youTubeJoined'):
-        if not 'umls' in r.data:
-            c = ' '.join(t['text'] for t in r.data['transcript'])
-            if not nlp:
-                print('loading model')
-                nlp = get_nlp()
-                print('model loaded')
-            print(f'parsing {r.id}')
-            nlp_doc = asdict(nlp.nlpDocument(c))
-            db.updateById('youTubeJoined', r.id, {'umls': nlp_doc})
-            nlp_doc['id'] = r.data['id']
-            db.replaceById('youTubeUmls', r.id, nlp_doc)
+    print('loading model')
+    nlp = get_nlp()
+    print('model loaded')
+    complete = False
+    while not complete:
+        try:
+            complete = _retry_scan(db, nlp)
+        except Exception as e: # Catches db timeout error.
+            print(f'retrying {e}')
+            sleep(2)
+
+def _retry_scan(db, nlp):
+    for y in db.find('youTubeTranscript'):
+        if not 'umls' in y.data:
+            print(f'parsing {y.id}')
+            try:
+                c = ' '.join(t['text'] for t in y.data['transcript'])
+                nlp_doc = asdict(nlp.nlpDocument(c))
+                nlp_doc['id'] = y.id
+                db.replaceById('youTubeUmls', y.id, nlp_doc)
+                db.updateById('youTubeTranscript', y.id, {
+                    'umls': nlp_doc
+                })
+            except Exception as e:
+                print(f'failed to parse umls {y.id} {e}')
+    return True
             
 def youtube_umls_created_snomed(u):
     db = get_db()
     umlsSearch = get_umls()
     video_id = u['value']['fields']['id']['stringValue']
-    ents = [{'text': e['text']['stringValue'], 'start_char': e['start_char']['integerValue'], 'end_char': e['end_char']['integerValue']} for e in u['value']['fields']['ents']['arrayValue']['values']]
+    ents = []
+    try:
+        umls_ents = u['value']['fields']['ents']['arrayValue']
+        if 'values' in umls_ents:
+            ents = [
+                {
+                    'text': e['mapValue']['fields']['text']['stringValue'], 
+                    'start_char': e['mapValue']['fields']['start_char']['integerValue'], 
+                    'end_char': e['mapValue']['fields']['end_char']['integerValue']
+                } for e in umls_ents['values']
+            ]
+    except KeyError as e:
+        print(f'Failed to parse {video_id} {e} {u}')
+        return
     snomed = [{'text': umlsSearch.find(e['text']), 'start_char': e['start_char'], 'end_char': e['end_char']} for e in ents]
-    # db.replaceById('youTubeSnomed', video_id, {'ents': snomed})
     db.updateById('youTubeJoined', video_id, {'snomed': {'ents': snomed}})

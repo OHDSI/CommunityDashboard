@@ -10,7 +10,7 @@ def test_youtube_details_fixture(app):
     db.init_db()
 
     youtube_miner.youtube_details_cron()
-    assert len(list(db.find('youtubeJoined'))) > 0
+    assert len(list(db.find('youTubeJoined'))) > 0
 
     db.export_fixture('youTubeJoined', 'youTubeJoined.json')
 
