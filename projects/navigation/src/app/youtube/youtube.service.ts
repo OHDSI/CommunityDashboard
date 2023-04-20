@@ -30,7 +30,7 @@ export interface YouTube {
   [key: string]: TableFieldValue,
   id?: string,
   "title": string,
-  "duration": string,
+  "duration"?: string,
   "publishedAt": string,
   "viewCount": string,
   "snomed"?: {
@@ -115,7 +115,7 @@ export class YouTubeServiceWithCountsSummary implements TableDataService<YouTube
           ys.sort((a, b) => d3.ascending(a.publishedAt, b.publishedAt)), 
           (v: YouTube[]) => {
             return v.reduce((acc, y) => {
-              const h = inHours(td.parse(y.duration))
+              const h = y.duration ? inHours(td.parse(y.duration)) : 0
               const views = +y.viewCount
               acc.contentHours += h
               acc.hoursWatched += h * views
