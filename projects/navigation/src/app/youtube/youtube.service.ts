@@ -115,7 +115,6 @@ export class YouTubeServiceWithCountsSummary implements TableDataService<YouTube
           ys.sort((a, b) => d3.ascending(a.publishedAt, b.publishedAt)), 
           (v: YouTube[]) => {
             return v.reduce((acc, y) => {
-              console.log(y, y.duration)
               const h = y.duration ? inHours(td.parse(y.duration)) : 0
               const views = +y.viewCount
               acc.contentHours += h
