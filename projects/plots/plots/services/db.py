@@ -108,6 +108,8 @@ class SqliteDb(Db):
         self._init_table('nlp')
         self._init_table('umls')
         self._init_table('pubmedJoined')
+        self._init_table('youTubeJoined')
+        self._init_table('youTubeTranscript')
 
     def _init_table(self, path):
         self.session.execute(f'DROP TABLE IF EXISTS {path};')
@@ -147,6 +149,10 @@ class SqliteDb(Db):
         return Row(row['id'], json.loads(row))
 
     def replaceById(self, path: str, id, data):
+        if '/' in path:
+            c, d, s = path.split('/')
+            path = f'{c}_{s}'
+            self._init_table(path)
         self.session.execute(
             f'INSERT INTO {path} (id, json) VALUES (?, ?) ON CONFLICT(id) DO UPDATE SET json=excluded.json;',
             [id, json.dumps(data)]

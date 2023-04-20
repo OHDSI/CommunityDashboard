@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-  <table mat-table class="full-width" matSort aria-label="Elements">
+  <table mat-table class="full-width" matSort matSortActive="publishedAt" matSortDirection="desc" aria-label="Elements">
 
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
@@ -26,7 +26,7 @@
     <ng-container matColumnDef="termFreq">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>SNOMED Terms (n)</th>
       <td mat-cell *matCellDef="let row">
-        <a>{{row.termFreq}}</a>
+        <a>{{formatSnomed(row)}}</a>
       </td>
     </ng-container>
     

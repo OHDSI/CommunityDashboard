@@ -4,25 +4,42 @@ import { combineLatest, map, Observable, shareReplay } from 'rxjs';
 import * as td from 'tinyduration'
 import * as d3 from 'd3';
 
+// export interface YouTube {
+//   // https://stackoverflow.com/questions/70956050/how-do-i-declare-object-value-type-without-declaring-key-type
+//   [key: string]: TableFieldValue,
+//   id?: string,
+//   "title": string,
+//   "duration": string,
+//   "channelId": string,
+//   "channelTitle": string,
+//   "categoryId": string,
+//   "publishedAt": string,
+//   "counts": {
+//     "checkedOn": string,
+//     "viewCount": string,
+//   }[]
+//   "lastChecked": string,
+//   "snomedIDs": string[],
+//   "snomedNames": string[],
+//   "termFreq": string,
+//   "latestViewCount": number,
+// }
+
 export interface YouTube {
   // https://stackoverflow.com/questions/70956050/how-do-i-declare-object-value-type-without-declaring-key-type
   [key: string]: TableFieldValue,
   id?: string,
   "title": string,
   "duration": string,
-  "channelId": string,
-  "channelTitle": string,
-  "categoryId": string,
   "publishedAt": string,
-  "counts": {
-    "checkedOn": string,
-    "viewCount": string,
-  }[]
-  "lastChecked": string,
-  "snomedIDs": string[],
-  "snomedNames": string[],
-  "termFreq": string,
-  "latestViewCount": number,
+  "viewCount": string,
+  "snomed"?: {
+    "ents": {
+      "text": string,
+      "start_char": string,
+      "end_char": string
+    }[]
+  },
 }
 
 export interface YouTubeException {
@@ -47,7 +64,7 @@ export class YouTubeService extends DocsTableDataService<YouTube> {
   constructor(
     @Inject('DocsToken') docs: Docs
   ) {
-    super({docs, path: 'youtube', idField: 'id'})
+    super({docs, path: 'youTubeJoined', idField: 'id'})
   }
 }
 
@@ -99,7 +116,7 @@ export class YouTubeServiceWithCountsSummary implements TableDataService<YouTube
           (v: YouTube[]) => {
             return v.reduce((acc, y) => {
               const h = inHours(td.parse(y.duration))
-              const views = +y.counts.sort((a, b) => d3.descending(a.checkedOn, b.checkedOn))[0].viewCount
+              const views = +y.viewCount
               acc.contentHours += h
               acc.hoursWatched += h * views
               return acc
@@ -164,7 +181,7 @@ class YouTubeTransformedDb extends IndexedDbDocs {
         return ys.filter(y => y.id && !filtered.includes(y.id))
       }),
       map(ys => ({'/youtubeWithCountSummary': ys?.reduce((acc, y) => {
-        acc[y.id!] = {...y, latestViewCount: latestViewCount(y.counts) }
+        acc[y.id!] = {...y, latestViewCount: y.viewCount }
         return acc
       }, {} as {[key: string]: YouTube}) ?? {} })),
       shareReplay(1)
@@ -175,8 +192,4 @@ class YouTubeTransformedDb extends IndexedDbDocs {
 
 function inHours(d: td.Duration) {
   return (d.days ?? 0 * 24) + (d.hours ?? 0) + (d.minutes ?? 0)/60 + (d.seconds ?? 0)/3600
-}
-
-function latestViewCount(counts: YouTube['counts']) {
-  return +counts.sort((a, b) => d3.descending(a.checkedOn, b.checkedOn))[0]['viewCount']
 }

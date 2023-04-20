@@ -42,4 +42,8 @@ export class YouTubeTableComponent implements AfterViewInit {
     this.table.dataSource = this.dataSource;
   }
 
+  formatSnomed(y: YouTube): string {
+    return y.snomed?.ents.map(e => e.text).join(', ') ?? ''
+  }
+
 }

@@ -6,6 +6,7 @@ import pubmedExportsJson from '../../../../test/exports/pubmedJoined.json'
 import publicationsManualJson from '../../../../test/exports/publicationsManual.json'
 import publicationExceptionJson from '../../../../test/exports/publication-exception.json'
 import youtubeExceptionExportsJson from '../../../../test/exports/youtube-exceptions.json'
+import youTubeJoinedJson from '../../../../test/exports/youTubeJoined.json'
 import { of } from 'rxjs'
 import { FUNDING_FIXTURE } from './funding-fixture';
 
@@ -19,6 +20,7 @@ export const FIXTURES: FixtureIndex = {
   ...parseExport(youtubeExceptionExportsJson),
   ...parseExport(publicationsManualJson),
   ...parseExport(publicationExceptionJson),
+  ...parseExport(youTubeJoinedJson),
   '/funding': records(FUNDING_FIXTURE),
 }
 
