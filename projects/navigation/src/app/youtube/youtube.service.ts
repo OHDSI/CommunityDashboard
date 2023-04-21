@@ -1,6 +1,6 @@
 import { ErrorHandler, Inject, Injectable } from '@angular/core';
-import { Docs, DocsTableDataService, DocsToken, IndexedDbDocs, TableDataService, TableFieldValue, TableQuery } from '@community-dashboard/rest';
-import { combineLatest, map, Observable, shareReplay, tap } from 'rxjs';
+import { Docs, DocsTableDataService, IndexedDbDocs, TableDataService, TableFieldValue, TableQuery } from '@community-dashboard/rest';
+import { combineLatest, map, Observable, shareReplay } from 'rxjs';
 import * as td from 'tinyduration'
 import * as d3 from 'd3';
 
@@ -156,8 +156,6 @@ export class YouTubeServiceWithCountsSummary implements TableDataService<YouTube
     )
   }
 }
-
-console.log("hello")
 
 @Injectable({
   providedIn: 'root'
