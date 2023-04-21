@@ -1,6 +1,6 @@
 import { ErrorHandler, Inject, Injectable } from '@angular/core';
 import { Docs, DocsTableDataService, DocsToken, IndexedDbDocs, TableDataService, TableFieldValue, TableQuery } from '@community-dashboard/rest';
-import { combineLatest, map, Observable, shareReplay } from 'rxjs';
+import { combineLatest, map, Observable, shareReplay, tap } from 'rxjs';
 import * as td from 'tinyduration'
 import * as d3 from 'd3';
 
@@ -157,6 +157,8 @@ export class YouTubeServiceWithCountsSummary implements TableDataService<YouTube
   }
 }
 
+console.log("hello")
+
 @Injectable({
   providedIn: 'root'
 })
@@ -178,7 +180,7 @@ class YouTubeTransformedDb extends IndexedDbDocs {
           return []
         }
         const filtered = es.map(e => e.youtubeId)
-        return ys.filter(y => y.id && !filtered.includes(y.id))
+        return ys.filter(y => y.id && y.publishedAt && !filtered.includes(y.id))
       }),
       map(ys => ({'/youtubeWithCountSummary': ys?.reduce((acc, y) => {
         acc[y.id!] = {...y, latestViewCount: y.viewCount }
