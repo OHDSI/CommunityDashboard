@@ -5,17 +5,13 @@ The Community Dashboard is a full stack app for tracking and connecting the acti
 This repo contains multiple "projects" as `yarn` [workspaces](https://yarnpkg.com/features/workspaces):
 - The `navigation` project implements the 
   client side Community Dashboard components as an Angular component library.
-- The `functions` implements the core "back end" logic of the application
-  including data access and some API integration.
-- The `plots` Python package is a Flask app 
-  for backend services that rely on the Python ecosystem
-  (for ML for ex.) or are expected to be maintained
-  primarily by data scientists (who might prefer using Python).
+- The `plots` Python package implements core back end logic.
   - Serving of plotly generated visualizations.
   - Service layer for the following API miners.
     - Youtube Data API to search and track statistics on OHDSI videos
     - PubMed Entrez API to identify and track publications 
     - Serpapi Wrapper for Google Scholar to pull citation statistics
+    - GitHub for parsing network study readmes.
 - The `development` [devcontainer](https://containers.dev)
   template provides a consistent,
   prebuilt environment for developers described below.

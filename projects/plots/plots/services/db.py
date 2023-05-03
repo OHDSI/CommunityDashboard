@@ -110,6 +110,7 @@ class SqliteDb(Db):
         self._init_table('pubmedJoined')
         self._init_table('youTubeJoined')
         self._init_table('youTubeTranscript')
+        self._init_table('communityDashboardRepoReadmeSummaries')
 
     def _init_table(self, path):
         self.session.execute(f'DROP TABLE IF EXISTS {path};')
