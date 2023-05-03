@@ -1,5 +1,6 @@
 # CommunityDashboard
 The Community Dashboard is a full stack app for tracking and connecting the activities of the OHDSI community. The goal of the dashboard is help our community identify how members can see the OHDSI eco-system as an interconnected system to make a larger impact. 
+ 
 
 # Repo Layout
 This repo contains multiple "projects" as `yarn` [workspaces](https://yarnpkg.com/features/workspaces):
