@@ -4,7 +4,7 @@ The Community Dashboard is a full stack app for tracking and connecting the acti
 
 # Repo Layout
 This repo contains multiple "projects" as `yarn` [workspaces](https://yarnpkg.com/features/workspaces):
-- The `navigation` project implements the 
+- The `navigation` project implements the
   client side Community Dashboard components as an Angular component library.
 - The `plots` Python package implements core back end logic.
   - Serving of plotly generated visualizations.
