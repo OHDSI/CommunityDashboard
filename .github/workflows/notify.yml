@@ -6,6 +6,7 @@ on:
   push:
     branches:
       live
+      dev
   release:
     types: [published]
 jobs:
