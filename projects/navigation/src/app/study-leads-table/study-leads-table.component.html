@@ -31,7 +31,7 @@
   </table>
 
   <mat-paginator #paginator
-      [length]="(count)"
+      [length]="count|async"
       [pageIndex]="0"
       [pageSize]="5"
       aria-label="Select page">

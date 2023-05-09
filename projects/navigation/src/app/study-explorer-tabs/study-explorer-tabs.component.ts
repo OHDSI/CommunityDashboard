@@ -9,7 +9,7 @@ import * as d3 from "d3"
 import { combineLatest, debounceTime, from, merge, startWith, Subscription } from 'rxjs';
 import { StudyExceptionsTableComponent } from '../study-exceptions-table/study-exceptions-table.component';
 import { StudyLeadsTableComponent } from '../study-leads-table/study-leads-table.component';
-import { StudyLeadsService } from '../study-leads-table/study-leads.service';
+import { StudyLead, StudyLeadsService } from '../study-leads-table/study-leads.service';
 import { EXCEPTIONS } from '../study-exceptions-table/study-exceptions.service';
 import { StudyPipelineService, StudyPromotion } from '../study-pipeline.service';
 import { StudyExceptionSummariesService } from '../study-exceptions-table/study-exception-summaries.service';
@@ -85,6 +85,13 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
       this.tabs.selectedTabChange,
       this.inputs.pipe(startWith(null))
     ]).subscribe(([ss, _]) => {this.renderStudyPipeline(ss)})
+    combineLatest([
+      this.studyLeadsService.valueChanges({
+        orderBy: [['completed', 'desc']],
+        limit: 5,
+      }),
+      this.tabs.selectedTabChange
+    ]).subscribe(([ls, _]) => {this.renderStudyLeads(ls)})
   }
 
   inputs = merge(
@@ -141,6 +148,18 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  renderStudyLeads(ls: StudyLead[] | null) {
+    if (!ls) {
+      return
+    }
+    if (this.studyLeadsPlot?.nativeElement) {
+      const names = ls.map(l => l.name)
+      this.studyLeadsPlot.nativeElement.replaceChildren(
+        this._barXPlot(ls, this.studyLeadMetrics, 'Count', this.studyLeadMetrics, names, 'name')
+      )
+    }
+  }
+
   renderPlots() {
 
     if (this.countsPlot) {
@@ -162,24 +181,6 @@ export class StudyExplorerTabsComponent implements AfterViewInit, OnDestroy {
           if(this.timelineCountsPlot.nativeElement) {
             this.timelineCountsPlot.nativeElement?.replaceChildren(
               this._timelinePlot(tl)
-            )
-          }
-        }
-      })
-    }
-
-    if (this.studyLeadsPlot) {
-      this.studyLeadsService.find({
-        filter: {
-          limit: 5,
-          order: ['completed desc']
-        }
-      }).subscribe({
-        next: (studyLeads) => {
-          const names = studyLeads.map(l => l.name)
-          if (this.studyLeadsPlot) {
-            this.studyLeadsPlot.nativeElement.replaceChildren(
-              this._barXPlot(studyLeads, this.studyLeadMetrics, 'Count', this.studyLeadMetrics, names, 'name')
             )
           }
         }

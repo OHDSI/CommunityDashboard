@@ -14,7 +14,7 @@ def test_youtube_details_fixture(app):
 
     db.export_fixture('youTubeJoined', 'youTubeJoined.json')
 
-# @pytest.mark.skip('Integration test. Run to regenerate test fixture.')
+@pytest.mark.skip('Integration test. Run to regenerate test fixture.')
 def test_youtube_transcript_fixture(app):
     db = get_db()
     db.init_db()

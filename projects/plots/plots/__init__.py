@@ -11,6 +11,7 @@ from plots.services.nlp import Nlp, NlpSpacy
 from plots.services.umls import Umls, UmlsNih
 from plots.services.youtube import YouTube, YouTubeGapi
 from plots.services.youtube_transcript import YouTubeTranscript, YouTubeTranscriptPyPi
+from plots.services.github import GitHub, GitHubGhApi
 
 _dash_app = None
 def create_app(
@@ -21,6 +22,7 @@ def create_app(
     UmlsClass:Type[Umls]=UmlsNih,
     YouTubeClass:Type[YouTube]=YouTubeGapi,
     YouTubeTranscriptClass:Type[YouTubeTranscript]=YouTubeTranscriptPyPi,
+    GitHubClass:Type[GitHub]=GitHubGhApi
 ):
     global _dash_app
     
@@ -33,6 +35,7 @@ def create_app(
     app.config['Umls'] = UmlsClass
     app.config['YouTube'] = YouTubeClass
     app.config['YouTubeTranscript'] = YouTubeTranscriptClass
+    app.config['GitHub'] = GitHubClass
     load_dotenv()
     app.config['ENTREZ_EMAIL'] = os.environ.get('ENTREZ_EMAIL')
     app.config['SERPAPI_KEY'] = os.environ.get('SERPAPI_KEY')
@@ -40,6 +43,7 @@ def create_app(
     app.config['LOG_LEVEL'] = os.environ.get('LOG_LEVEL', 'INFO')
     app.config['USE_SPACY'] = os.environ.get('USE_SPACY', False) != False
     app.config['YOUTUBE_API_KEY'] = os.environ.get('YOUTUBE_API_KEY')
+    app.config['GH_PAT'] = os.environ.get('GH_PAT')
 
     dictConfig({
         'version': 1,

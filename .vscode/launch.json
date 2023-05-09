@@ -49,6 +49,19 @@
       "args": ["-m", "focus"],
       "jinja": true,
       "justMyCode": true  
-    }
+    },
+    {
+      "name": "migrate",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "program": "test/migrate_pubmed.py",
+      "console": "integratedTerminal",
+      "env": {
+        "PLOTS_ENV": "development",
+      },
+      "jinja": true,
+      "justMyCode": true  
+    },
   ]
 }

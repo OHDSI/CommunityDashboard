@@ -19,4 +19,5 @@ Flask-Cors==3.0.10
 python-dotenv==0.21.1
 spacy == 3.4.4
 scispacy == 0.5.1
+ghapi==1.0.3
 # https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bc5cdr_md-0.5.1.tar.gz

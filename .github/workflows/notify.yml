@@ -5,7 +5,8 @@ name: Notify the world of a release.
 on:
   push:
     branches:
-      live
+      - live
+      - dev
   release:
     types: [published]
 jobs:

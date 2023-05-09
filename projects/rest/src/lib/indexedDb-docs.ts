@@ -107,23 +107,37 @@ export class IndexedDbDocs implements Docs {
     path: string,
     doc: TableData,
   }): Observable<void> {
-    throw new Error('not implemented')
+    return this.params.tables.pipe(
+      first(),
+      map(ts => {
+        const [collection, id] = this.parsePath(params.path)
+        const t = this._getTableOrThrow(ts, collection)
+        const n = {...params.doc, id}
+        t[id] = n
+      }),
+      tap(_ => this.changes.next({}))
+    )
   }
 
   deleteById(params: {
     path: string,
   }): Observable<void> {
-    const segments = params.path.split('/')
-    const path = segments.slice(0, segments.length - 1).join('/')
-    const id = segments[segments.length - 1]
+    const [collection, id] = this.parsePath(params.path)
     return this.params.tables.pipe(
       first(),
-      map(ts => this._getTableOrThrow(ts, path)),
+      map(ts => this._getTableOrThrow(ts, collection)),
       map((t) => {
         delete t[id]
       }),
       tap(_ => this.changes.next({}))
     )
+  }
+
+  parsePath(path: string): [string, string] {
+    const segments = path.split('/')
+    const collection = segments.slice(0, segments.length - 1).join('/')
+    const id = segments[segments.length - 1]
+    return [collection, id]
   }
 
   _getTableOrThrow(tables: {[key: string]: {[key: string]: unknown}}, path: string, scope?: string) {
