@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
-import { TableDataSourceLegacy as TableDataSource  } from '@community-dashboard/rest';
+import { TableDataSource } from '@community-dashboard/rest';
 import { StudyLead, StudyLeadsService } from './study-leads.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class StudyLeadsTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<StudyLead>;
 
   dataSource: TableDataSource<StudyLead> = new TableDataSource(this.studyLeadsService)
-  count: number | null = null
+  count = this.studyLeadsService.count()
 
   @Input()
   displayedColumns: string[] = ["name", "active", "completed"]
@@ -38,7 +38,6 @@ export class StudyLeadsTableComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this.studyLeadsService.count().subscribe(c => this.count = c)
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
