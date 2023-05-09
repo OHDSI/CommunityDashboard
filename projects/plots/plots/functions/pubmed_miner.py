@@ -1,4 +1,3 @@
-from time import sleep
 from typing import List
 from plots.services.db import get_db, asdict
 from plots.services.pubmed import get_pubmed, PubmedArticle
