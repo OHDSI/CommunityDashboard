@@ -38,8 +38,10 @@ def get_github() -> GitHub:
 
 class GitHubGhApi(GitHub):
 
-    def __init__(self):
-        self.api = GhApi(token=current_app.config['GH_PAT'])
+    def __init__(self, app=None):
+        if not app:
+            app = current_app
+        self.api = GhApi(token=app.config['GH_PAT'])
 
     def repos_list_for_org(self) -> Iterable[Repo]:
         for r in self.api.repos.list_for_org(ORG):
