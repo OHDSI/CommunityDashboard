@@ -39,8 +39,10 @@ def tx(legacy):
 
 collections = None
 with open('test/missingpubs.txt') as fd:
+    pubmed = dict(tx(json.loads(l)) for l in fd)
     collections = {
-        'pubmed': dict(tx(json.loads(l)) for l in fd)
+        'pubmed': pubmed,
+        'pubmedJoined': {k: {'pubmed': v} for k, v in pubmed.items()}
     }
 with open('test/migrate_pubmed.json', 'w') as fd:
     json.dump(collections, fd, indent=2)
