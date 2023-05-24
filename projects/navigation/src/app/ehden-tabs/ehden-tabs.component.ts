@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { IframePlotComponent } from '../iframe-plot/iframe-plot.component';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest, startWith } from 'rxjs';
 import { EhdenService } from '../ehden/ehden.service';
 import { renderPlot } from '../ehden/ehden-users-annually-plot';
 
@@ -20,13 +20,18 @@ import { renderPlot } from '../ehden/ehden-users-annually-plot';
 })
 export class EhdenTabsComponent {
   @ViewChild('ehdenUsersAnnuallyPlot', {read: ElementRef}) ehdenUsersAnnuallyPlot!: ElementRef
+  @ViewChild(MatTabGroup) tabs!: MatTabGroup
+
 
   constructor(
     private ehdenService: EhdenService
   ){}
 
   ngAfterViewInit(): void {
-    this.ehdenServiceSubscription = this.ehdenService.valueChanges().subscribe(es => {
+    this.ehdenServiceSubscription = combineLatest([
+      this.ehdenService.valueChanges(),
+      this.tabs.selectedTabChange.pipe(startWith(null))
+    ]).subscribe(([es, _]) => {
       if (!es) {
         this.ehdenUsersAnnuallyPlot.nativeElement.replaceChildren(null)
         return
