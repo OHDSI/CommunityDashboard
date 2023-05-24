@@ -1,10 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { IframePlotComponent } from '../iframe-plot/iframe-plot.component';
 import { YouTubeServiceWithCountsSummary } from '../youtube/youtube.service';
 import { renderPlot } from '../youtube/youtube-annually-plot';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest, startWith } from 'rxjs';
 
 
 @Component({
@@ -20,13 +20,18 @@ import { Subscription } from 'rxjs';
 })
 export class YouTubeTabsComponent {
   @ViewChild('youTubeAnnualPlot', {read: ElementRef}) youTubeAnnualPlot!: ElementRef
+  @ViewChild(MatTabGroup) tabs!: MatTabGroup
+
 
   constructor(
     private youTubeService: YouTubeServiceWithCountsSummary
   ){}
 
   ngAfterViewInit(): void {
-    this.youTubeServiceSubscription = this.youTubeService.annually().subscribe(ys => 
+    this.youTubeServiceSubscription = combineLatest([
+      this.youTubeService.annually(),
+      this.tabs.selectedTabChange.pipe(startWith(null))
+    ]).subscribe(([ys, _]) => 
       this.youTubeAnnualPlot.nativeElement.replaceChildren(renderPlot(ys))
     )
   }
