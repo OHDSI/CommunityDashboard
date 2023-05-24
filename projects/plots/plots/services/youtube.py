@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-from collections.abc import Iterable
-from typing import List, NamedTuple, Union
+from typing import List, NamedTuple, Union, Iterable
 from flask import current_app, g
 import googleapiclient.discovery
 

@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-from collections.abc import Iterable
-from typing import List, NamedTuple, Union
+from typing import List, NamedTuple, Union, Iterable
 from Bio import Entrez, Medline #http://biopython.org/DIST/docs/tutorial/Tutorial.html#sec%3Aentrez-specialized-parsers
 from flask import current_app, g
 from ratelimit import sleep_and_retry, limits

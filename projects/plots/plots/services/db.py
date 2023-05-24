@@ -2,11 +2,10 @@ import json
 import logging
 import os
 import sqlite3
-from typing import NamedTuple, TypeVar, Union
+from typing import NamedTuple, TypeVar, Union, Iterable
 import click
 from flask import g, current_app
 from abc import ABC, abstractmethod
-from collections.abc import Iterable
 
 PROJECT_TEST_DIR = os.path.join(os.path.dirname(__file__), '../test')
 DATA_TEST_DIR = os.path.join(os.path.dirname(__file__), '../../../../test/exports')

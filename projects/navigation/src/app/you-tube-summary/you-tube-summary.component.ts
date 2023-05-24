@@ -46,9 +46,8 @@ export class YouTubeSummaryComponent {
   ){}
 
   ngAfterViewInit(): void {
-    const PLOT_HEIGHT = 300
     this.youTubeServiceSubscription = this.youTubeService.annually().subscribe(ys => 
-      this.plot.nativeElement.replaceChildren(renderPlot(ys, PLOT_HEIGHT))
+      this.plot.nativeElement.replaceChildren(renderPlot(ys))
     )
   }
 

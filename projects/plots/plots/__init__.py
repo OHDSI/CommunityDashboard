@@ -2,7 +2,10 @@ from typing import Type
 from flask import Flask
 import os
 from logging.config import dictConfig
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+except ModuleNotFoundError:
+    pass
 
 from plots.services.db import Db, SqliteDb
 from plots.services.pubmed import Pubmed, PubmedBioPython
@@ -13,7 +16,6 @@ from plots.services.youtube import YouTube, YouTubeGapi
 from plots.services.youtube_transcript import YouTubeTranscript, YouTubeTranscriptPyPi
 from plots.services.github import GitHub, GitHubGhApi
 
-_dash_app = None
 def create_app(
     DbClass:Type[Db]=SqliteDb,
     PubmedClass:Type[Pubmed]=PubmedBioPython,
@@ -24,7 +26,6 @@ def create_app(
     YouTubeTranscriptClass:Type[YouTubeTranscript]=YouTubeTranscriptPyPi,
     GitHubClass:Type[GitHub]=GitHubGhApi
 ):
-    global _dash_app
     
     app = Flask(__name__)
 
@@ -64,26 +65,4 @@ def create_app(
     from plots.services import db
     db.init_app(app)
 
-    from flask_cors import CORS
-    CORS(app)
-
-    from plots.blueprints import youtube_routes, ehden_routes
-    app.register_blueprint(youtube_routes.bp)
-    app.register_blueprint(ehden_routes.bp)
-
-    import dash_bootstrap_components as dbc
-    from dash import Dash, html
-    import dash
-    _dash_app = Dash(
-        __name__,
-        use_pages=True, server=app, 
-        external_stylesheets=[dbc.themes.BOOTSTRAP],
-        # apparent bug with dash
-        suppress_callback_exceptions=True,
-    )
-    _dash_app.layout = html.Div([dash.page_container])
-
     return app
-
-def get_dash_app():
-    return _dash_app
