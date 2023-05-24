@@ -9,3 +9,12 @@
 .not-full-height {
   height: calc(100% - 1px);
 }
+
+.youtube-tabs-plot {
+  height: 100%;
+
+}
+
+::ng-deep .youtube-tabs-plot svg {
+  max-height: 100%;
+}

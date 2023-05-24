@@ -62,7 +62,7 @@ export function renderPlot(ys: YouTubeAnnualSummary[], height?: number) {
 
   const svg = d3.create("svg")
     .attr("viewBox", [0, 0, width, height])
-    .attr('style', 'height: 100%;')
+    // .attr('style', 'height: 100%;')
 
   svg.append("g")
       .attr("fill", "steelblue")

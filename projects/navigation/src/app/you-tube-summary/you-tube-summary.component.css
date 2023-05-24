@@ -1,0 +1,13 @@
+.youtube-plot-aspect {
+  aspect-ratio: 640 / 400;
+  min-width: 0;
+  min-height: 0;
+}
+
+.min-height {
+  min-height: 0;
+}
+
+::ng-deep .youtube-plot-aspect svg {
+  max-height: 100%;
+}

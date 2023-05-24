@@ -3,7 +3,7 @@
     <mat-card-title>YouTube</mat-card-title>
     <mat-card-subtitle>Summary</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content class="full-height flex-container" [class.flex-direction-column]="orientation == 'vertical'">
+  <mat-card-content class="full-height flex-container min-height" [class.flex-direction-column]="orientation == 'vertical'">
     <mat-list *ngIf="orientation == 'horizontal'; else verticalMetrics" class="fit-content metrics">
       <mat-list-item style="min-width: 175px">
         <span matListItemTitle class="metric">{{videosPublished|async}}</span>
@@ -27,7 +27,7 @@
       </div>
     </ng-template>
     <!-- <app-iframe-plot  path="plots/youtube-annual" class="flex-grow"></app-iframe-plot> -->
-    <div #plot></div>
+    <div #plot class="youtube-plot-aspect"></div>
   </mat-card-content>
   <mat-card-actions>
     <a mat-stroked-button color="accent" routerLink="youtube">

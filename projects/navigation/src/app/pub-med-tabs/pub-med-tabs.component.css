@@ -9,3 +9,12 @@
 .not-full-height {
   height: calc(100% - 1px);
 }
+
+.pubmed-tabs-plot {
+  height: 100%;
+
+}
+
+::ng-deep .pubmed-tabs-plot svg {
+  max-height: 100%;
+}
