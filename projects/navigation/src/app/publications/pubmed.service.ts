@@ -145,7 +145,7 @@ export class PubmedService extends DocsTableDataService<Publication> {
           return 0
         }
         const authors = ps.reduce((acc, p) => {
-          p.fullAuthorEdited
+          p.fullAuthorEdited.split(', ').forEach(a => acc.add(a))
           return acc
         }, new Set())
         return authors.size
