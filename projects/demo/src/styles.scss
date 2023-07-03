@@ -1,0 +1,10 @@
+@use '@angular/material' as mat;
+@use '../../../../commonshcs-angular/projects/commonshcs-angular/src/styles' as styles;
+
+.toolbar {
+  background: mat.get-color-from-palette(styles.$primary) !important;
+}
+
+.hamburger {
+    color: mat.get-color-from-palette(styles.$accent) !important;
+  }

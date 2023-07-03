@@ -1,0 +1,7 @@
+.hero {
+  display: flex;
+}
+
+.headline {
+  margin-right: -100px;
+}

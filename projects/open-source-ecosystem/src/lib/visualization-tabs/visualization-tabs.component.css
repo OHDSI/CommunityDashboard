@@ -1,0 +1,17 @@
+.tabs {
+  height: 300px;
+  width: 400px;
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+}
+
+.carousel-navigate {
+  visibility: hidden;
+}
+
+.carousel:hover .carousel-navigate {
+  visibility: visible;
+}

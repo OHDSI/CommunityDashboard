@@ -1,0 +1,22 @@
+<mat-toolbar class="toolbar">
+  <div class="breadcrumb">
+    <button
+      class="hamburger"
+      type="button"
+      color="accent"
+      aria-label="Toggle side navigation"
+      mat-icon-button
+      (click)="toggleSideNavigation()"
+    >
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <button mat-button class="home mat-headline-5" routerLink="/">
+      Community Dashboard
+    </button>
+  </div>
+  <div class="account"></div>
+</mat-toolbar>
+
+<div class="content" [class.content-small]="smallOrSmaller|async">
+  <ng-content></ng-content>
+</div>

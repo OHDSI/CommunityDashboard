@@ -1,0 +1,26 @@
+.toolbar {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+}
+
+.home {
+  margin: 0;
+}
+
+.perseus-logo {
+  height: 20px;
+}
+
+.content {
+  margin: 128px 64px 64px 64px;
+}
+
+.content-small {
+  margin: 128px 16px 16px 16px;
+}

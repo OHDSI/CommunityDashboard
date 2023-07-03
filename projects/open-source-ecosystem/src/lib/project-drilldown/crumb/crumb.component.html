@@ -1,0 +1,8 @@
+<ul class="crumb-trail">
+  <li class="crumb pull-left" [class.crumb-navigate]="!!crumb" (click)="backToProjects()">
+    OHDSI Open Source Ecosystem
+  </li>
+  <li class="crumb pull-left" *ngIf="crumb">
+    {{crumb}}
+  </li>
+</ul>

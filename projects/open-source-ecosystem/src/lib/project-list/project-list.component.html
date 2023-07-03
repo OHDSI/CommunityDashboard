@@ -1,0 +1,41 @@
+<lib-project-search></lib-project-search>
+<div *ngIf="!projectSearchComponent?.searchControl?.value">
+  <h2 class="mat-headline-2">
+    Featured Projects
+  </h2>
+  <mat-grid-list cols="2" rowHeight="2:1" gutterSize="16px">
+    <mat-grid-tile *ngFor="let p of (featuredProjects|async)">
+      <lib-project-card [project]="p" class="project-card"></lib-project-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <h2 class="mat-headline-2 project-callout">
+    Most Active
+  </h2>
+  <mat-grid-list cols="2" rowHeight="2:1" gutterSize="16px">
+    <mat-grid-tile *ngFor="let p of (mostActiveProjects|async)">
+      <lib-project-card [project]="p" class="project-card"></lib-project-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <h2 class="mat-headline-2 project-callout">
+    All Projects
+  </h2>
+</div>
+<table mat-table matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="selectable-row"
+      (click)="drillDown(row)">
+  </tr>
+</table>
+<mat-paginator #paginator
+  [length]="count|async"
+  [pageIndex]="0"
+  [pageSize]="20"
+  aria-label="Select page"
+>
+</mat-paginator>
