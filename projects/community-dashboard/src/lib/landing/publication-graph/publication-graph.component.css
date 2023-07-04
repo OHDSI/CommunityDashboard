@@ -1,0 +1,28 @@
+.svg {
+  width: 100%;
+}
+
+::ng-deep .links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+}
+
+p {
+   text-align: left;
+   vertical-align: top;
+   margin-top: 0;
+}
+
+tr {
+   vertical-align: top;
+}

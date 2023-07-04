@@ -1,0 +1,11 @@
+.hero {
+  display: flex;
+}
+
+.headline {
+  margin-top: 100px;
+}
+
+.project-list {
+  width: 100%;
+}

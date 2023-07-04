@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('@community-dashboard/open-source-ecosystem').then(mod => mod.OpenSourceEcosystemModule)
+    loadChildren: () => import('projects/community-dashboard/src/public-api').then(mod => mod.CommunityDashboardModule)
   },
 ];
 

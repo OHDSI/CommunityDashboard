@@ -16,6 +16,7 @@ import { Inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -57,6 +58,7 @@ export class ProjectListComponent implements AfterViewInit, OnDestroy {
     @Inject('SearchService') private searchService: SearchService,
     @Inject('DocsService')private docsService: DocsService,
     private router: Router,
+    private route: ActivatedRoute,
   ){}
 
   ngAfterViewInit(): void {
@@ -97,7 +99,7 @@ export class ProjectListComponent implements AfterViewInit, OnDestroy {
   }
 
   drillDown(row: Project) {
-    this.router.navigate(['project', row.id], {})
+    this.router.navigate(['project', row.id], {relativeTo: this.route})
   }
 
 }

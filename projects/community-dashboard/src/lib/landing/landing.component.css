@@ -1,0 +1,91 @@
+.hero {
+  height: 600px;
+  width: 100%;
+  background: linear-gradient(90deg, #D95B00 0%, #D65A00 4.70%, #D25800 8.90%, #CF5700 12.80%, #CA5500 16.56%, #C55300 20.37%, #BF5000 24.40%, #B84D00 28.83%, #AF4A00 33.84%, #A54600 39.60%, #9A4100 46.30%, #8E3B00 54.10%, #7F3500 63.20%, #6F2E00 73.76%, #5C2700 85.97%, #471E00 100%);
+}
+
+.hero-margin {
+  position: absolute;
+  z-index: 1;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 75px;
+}
+
+.headline-row {
+  margin: 0;
+}
+
+.hero-headline {
+  position: relative;
+  top: -40px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  color: white;
+}
+
+.publication-graph {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 900px;
+}
+
+.fragments {
+  margin-top: -30px !important;
+  position: relative;
+  margin: 1em;
+  overflow: hidden;
+  width: 504px;
+  color: white;
+}
+
+.fragments ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: -1px;
+  list-style: none;
+  /* margin: 0; */
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+.fragments li {
+  flex-grow: 1;
+  flex-basis: auto;
+  margin: .25em 0;
+  padding: 0 1em;
+  text-align: center;
+  border-left: 1px solid #ccc;
+}
+
+.fragment-button {
+  color: var(--accent-100) !important;
+  font-size: 18px;
+  padding: 0;
+}
+
+.brief {
+  margin-top: -30px;
+  width: 450px;
+  font-size: 18px;
+  color: rgb(0,0,0,.8);
+  line-height: 24px;
+}
+
+.explore {
+  font-size: 18px;
+  margin-top: 8px;
+}
+
+.block-justify-right {
+  justify-content: flex-end;
+}

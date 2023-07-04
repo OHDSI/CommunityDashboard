@@ -41,6 +41,6 @@ export class CrumbComponent implements OnInit, OnDestroy {
   }
 
   backToProjects() {
-    this.router.navigate(['../..'])
+    this.router.navigate(['../..'], {relativeTo: this.route})
   }
 }

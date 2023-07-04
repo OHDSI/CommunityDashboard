@@ -15,16 +15,17 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "paths": {
       "@angular/*": [
         "../commonshcs-angular/node_modules/@angular/*",
       ],
-      "@community-dashboard/open-source-ecosystem": [
-        "./projects/open-source-ecosystem/src/public-api.ts"
-      ],
       "@commonshcs-angular": [
         "../commonshcs-angular/projects/commonshcs-angular/src/public-api.ts"
-      ]
+      ],
+      "@community-dashboard": [
+        "projects/community-dashboard/src/public-api.ts"
+      ],
     },
     "importHelpers": true,
     "target": "ES2022",

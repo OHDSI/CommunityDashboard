@@ -2,6 +2,7 @@
   position: fixed;
   z-index: 99;
   top: 0;
+  background-color: rgba(0, 0, 0, 0) !important;
 }
 
 .breadcrumb {
@@ -13,14 +14,14 @@
   margin: 0;
 }
 
-.perseus-logo {
-  height: 20px;
+.home {
+  display: none;
 }
 
 .content {
-  margin: 128px 64px 64px 64px;
+  /* margin: 128px 64px 64px 64px; */
 }
 
 .content-small {
-  margin: 128px 16px 16px 16px;
+  /* margin: 128px 16px 16px 16px; */
 }

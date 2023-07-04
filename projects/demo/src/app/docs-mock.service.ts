@@ -1,30 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CollectionPaths, IndexedDbDocs, TableData } from '@commonshcs-angular';
+import { CollectionPaths, IndexedDbDocs } from '@commonshcs-angular';
 import { BehaviorSubject } from 'rxjs'
+import * as project from '../../test/demo/project.json'
 
 const demo = {
-  'project': {
-    'Common Data Model': {
-      id: 'Common Data Model',
-      featured: true,
-      active: true,
-    },
-    'Hades': {
-      id: 'Hades',
-      featured: true,
-      active: true,
-    },
-    'Atlas': {
-      id: 'Atlas',
-      featured: true,
-      active: true,
-    },
-    'Perseus': {
-      id: 'Perseus',
-      featured: true,
-      active: true,
-    },
-  }
+  'project': project
 }
 
 const fixture = demo

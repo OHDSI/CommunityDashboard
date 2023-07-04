@@ -1,0 +1,22 @@
+{
+  "Common Data Model": {
+    "id": "Common Data Model",
+    "featured": true,
+    "active": true
+  },
+  "Hades": {
+    "id": "Hades",
+    "featured": true,
+    "active": true
+  },
+  "Atlas": {
+    "id": "Atlas",
+    "featured": true,
+    "active": true
+  },
+  "Perseus": {
+    "id": "Perseus",
+    "featured": true,
+    "active": true
+  }
+}
