@@ -1,0 +1,27 @@
+<h3 class="mat-headline-5 checklist-headline">Quickstart Activities</h3>
+<mat-stepper orientation="vertical" [linear]="true" #stepper>
+  <mat-step [stepControl]="onboardingFormGroup" [completed]="true" [editable]="false">
+    <ng-template matStepLabel>Onboarding</ng-template>
+  </mat-step>
+  <mat-step [stepControl]="vocabularyFormGroup">
+    <ng-template matStepLabel>Vocabulary Mapping</ng-template>
+    
+    <div #analystActivities>
+      Analyst Activities
+      <mat-list>
+        <mat-list-item>
+          <mat-icon matListItemIcon>check_box_outline_blank</mat-icon>
+          <div matListItemTitle>Configure vocabularies.</div>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon matListItemIcon>check_box_outline_blank</mat-icon>
+          <div matListItemTitle>Custom mappings.</div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Data Diagnostics</ng-template>
+  </mat-step>
+</mat-stepper>
+

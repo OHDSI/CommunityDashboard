@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { VisualizationTabsComponent } from './visualization-tabs/visualization-tabs.component';
+import { VisualizationTabsComponent } from '../visualization-tabs/visualization-tabs.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 
 @Component({

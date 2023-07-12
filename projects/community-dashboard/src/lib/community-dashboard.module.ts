@@ -11,6 +11,10 @@ const routes: Routes = [
       path: 'open-source-ecosystem',
       loadChildren: () => import('./open-source-ecosystem/open-source-ecosystem.module').then(mod => mod.OpenSourceEcosystemModule)
     },
+    {
+      path: 'network-studies',
+      loadChildren: () => import('./network-studies/network-studies.module').then(mod => mod.NetworkStudiesModule)
+    },
   ];
 
 @NgModule({

@@ -3,6 +3,7 @@ import { PublicationGraphComponent } from './publication-graph/publication-graph
 import { MatButtonModule } from '@angular/material/button'; 
 import { MatIconModule } from '@angular/material/icon'; 
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'lib-landing',
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
     PublicationGraphComponent,
     MatButtonModule,
     MatIconModule,
+    RouterModule,
     CommonModule,
   ]
 })

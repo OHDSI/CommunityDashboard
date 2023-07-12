@@ -27,11 +27,21 @@
   color: white;
 }
 
-.publication-graph {
+.publication-sticky-container {
   position: absolute;
   right: 0;
   top: 0;
   width: 900px;
+  height: 1350px;
+}
+
+.publication-graph {
+  position: sticky;
+  top: 0;
+}
+
+.publications {
+  height: 600px;
 }
 
 .fragments {
@@ -88,4 +98,19 @@
 
 .block-justify-right {
   justify-content: flex-end;
+}
+
+.scrim {
+  max-width: 1024px;
+  min-width: 1024px;
+  position: relative;
+  margin: auto;
+  background: var(--background-light);
+}
+
+.surface {
+  position: fixed;
+  background: var(--background-dark);
+  height: 100%;
+  width: 100%;
 }

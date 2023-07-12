@@ -1,0 +1,58 @@
+.crumb-navigate {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.subheading {
+  padding-top: 0;
+  margin-top: -64px;
+}
+
+.status-headline {
+  display: flex;
+  gap: 16px;
+}
+
+.leads {
+  display: flex;
+}
+
+.muted {
+  opacity: 0.6;
+}
+
+.categories {
+  justify-content: space-around;
+}
+
+.category {
+  margin-bottom: 16px;
+}
+
+.sidenav {
+  display: flex;
+}
+
+.checklist {
+  min-width: 300px;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-left-color: rgba(0, 0, 0, 0.12);
+  margin-top: -14px;
+}
+
+.summary {
+  gap: 24px;
+}
+
+.summary-headline {
+  display: flex;
+  gap: 8px;
+  align-items: baseline
+}
+
+.category-chip {
+  max-width: 120px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

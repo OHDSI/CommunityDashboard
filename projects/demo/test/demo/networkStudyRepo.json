@@ -1,0 +1,4208 @@
+{
+  "CoverAge": {
+    "watchersCount": 0,
+    "name": "CoverAge",
+    "updatedAt": "2020-11-06T14:04:31Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-level Prediction"
+        ],
+        "protocol": null,
+        "endDate": "-",
+        "studyType": [
+          "Cohort study"
+        ],
+        "title": "The Covid Age Study",
+        "results": "-",
+        "startDate": "15 September 2020",
+        "status": "Started",
+        "publications": "-",
+        "tags": [
+          "COVID-19",
+          "ohdsi-studies"
+        ],
+        "studyLeads": [
+          "Sara Khalid",
+          "Jenna Reps",
+          "Daniel Prieto-Alhambra"
+        ]
+      },
+      "author": {
+        "date": "2020-11-06T14:04:18Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "9f6e8968b186a9c3d56f64313d71171c5bb8d194"
+    }
+  },
+  "HIRC_Thyroid2ndCancer": {
+    "watchersCount": 0,
+    "name": "HIRC_Thyroid2ndCancer",
+    "updatedAt": "2022-04-12T02:35:18Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "thyroidCxSPM",
+        "results": null,
+        "startDate": null,
+        "status": null,
+        "studyLeads": null,
+        "publications": null,
+        "tags": null
+      },
+      "author": {
+        "date": "2022-04-12T02:35:00Z",
+        "name": "bdj5051",
+        "email": "43019260+bdj5051@users.noreply.github.com"
+      },
+      "sha": "469a7a9eff46949a0a3a7f4489b025d4f95ffe94"
+    }
+  },
+  "IbdCharacterization": {
+    "watchersCount": 1,
+    "name": "IbdCharacterization",
+    "updatedAt": "2022-06-28T13:37:35Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[Word Doc](https://github.com/ohdsi-studies/IbdCharacterization/blob/master/documents/Protocol%20IBD%20Characterisation%20V1.7.docx)",
+        "endDate": "Sep 1, 2022",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Characterization of Inflammatory Bowel Disease Patient Cohorts",
+        "results": "[Shiny app](https://data.ohdsi.org/IbdCharacterization/)",
+        "startDate": "Mar 1, 2022",
+        "studyLeads": [
+          "Chen Yanover"
+        ],
+        "status": "Repo Created",
+        "tags": [
+          "OHDSI",
+          "IBD",
+          "Crohn's disease",
+          "Ulcerative colitis"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2022-07-31T10:25:00Z",
+        "name": "cyanover",
+        "email": "54309990+cyanover@users.noreply.github.com"
+      },
+      "sha": "3d3993ed08ffdcc1d54117554d5e3339c9be4015"
+    }
+  },
+  "DistributedLMM": {
+    "watchersCount": 1,
+    "name": "DistributedLMM",
+    "updatedAt": "2022-11-18T02:59:43Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "[Here](https://github.com/ohdsi-studies/DistributedLMM/blob/master/extras/Lossless%20Distributed%20Linear%20Mixed%20Model.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Applying the Lossless Distributed Linear Mixed Model to integrate heterogeneous COVID-19 hospitalization data across the OHDSI Network ",
+        "results": "-",
+        "startDate": "Aug 12, 2020",
+        "tags": [
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Jenna Reps",
+          "Yong Chen"
+        ],
+        "publications": "-",
+        "status": "Started"
+      },
+      "author": {
+        "date": "2021-06-17T02:14:42Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "8b99736126044c38f4ccf0c54f47ba9e8216f8e8"
+    }
+  },
+  "HERACharacterization": {
+    "watchersCount": 8,
+    "name": "HERACharacterization",
+    "updatedAt": "2023-01-24T19:01:26Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "Health Equity Research Assessment (HERA) Characterization",
+        "results": null,
+        "startDate": null,
+        "publications": null,
+        "studyLeads": null,
+        "tags": null,
+        "status": null
+      },
+      "author": {
+        "date": "2021-10-18T07:25:39Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "7f0a96c49e442799e81eec4ffaf2cb76a5e9ea15"
+    }
+  },
+  "FeatureSelectionComparison": {
+    "watchersCount": 1,
+    "name": "FeatureSelectionComparison",
+    "updatedAt": "2021-12-13T15:52:47Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "[Click Here](https://ohdsi-studies.github.io/FeatureSelectionComparison/docs/Protocol.html)",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research",
+          "Clinical Application"
+        ],
+        "title": "Comparison of different feature selection pipelines for creating parsimonious patient-level prediction models",
+        "results": "-",
+        "startDate": "2021-11-15",
+        "tags": [
+          "Feature Selection"
+        ],
+        "status": "Started",
+        "studyLeads": [
+          "Jose Posada",
+          "Aniek Markus",
+          "Ross Williams",
+          "Jenna Reps"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2021-12-13T15:52:42Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "baeb96dfd5ac03ccb973ba78fc297de613b653a7"
+    }
+  },
+  "ConceptPrevalence": {
+    "watchersCount": 3,
+    "name": "ConceptPrevalence",
+    "updatedAt": "2023-06-29T23:03:22Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[Word file](https://github.com/ohdsi-studies/ConceptPrevalence/extras/ConceptPrevalenceStudyProtocol_v1.0.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Investigating Concept Heterogeneity and Granularity in the OHDSI Network",
+        "results": "-",
+        "startDate": "March 15, 2019",
+        "status": "Design Finalized",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Anna Ostropolets"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2020-02-28T21:04:16Z",
+        "name": "Anna Ostropolets",
+        "email": "anna.ostropolets@odysseusinc.com"
+      },
+      "sha": "01cdb142bf2da987190f2ab0f93111df727d12ac"
+    }
+  },
+  "TramadolVsCodeineForHipFracture": {
+    "watchersCount": 0,
+    "name": "TramadolVsCodeineForHipFracture",
+    "updatedAt": "2022-04-28T12:24:26Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Protocol - Tramadol vs Codeine and Risk of Hip Fracture](https://github.com/ohdsi-studies/TramadolVsCodeineForHipFracture/blob/master/Protocol%20-%20Tramadol%20Codeine%20and%20Risk%20of%20Hip%20Fracture%20-%20Amendment.docx)",
+        "endDate": "July 9, 2022",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Comparing the Estimated Risk of Hip Fracture Among Subjects Exposed to Tramadol as Compared to Subjects Exposed to Codeine",
+        "results": "N/A",
+        "startDate": "Feb 19, 2020",
+        "studyLeads": [
+          "Erica A Voss"
+        ],
+        "publications": "Voss, E. A., Ali, S. R., Singh, A., Rijnbeek, P. R., Schuemie, M. J., & Fife, D. (2022). Hip Fracture Risk After Treatment with Tramadol or Codeine: An Observational Study. Drug safety, 45(7), 791–807. [https://doi.org/10.1007/s40264-022-01198-9](https://doi.org/10.1007/s40264-022-01198-9)",
+        "status": "Complete",
+        "tags": [
+          "tramadol",
+          "codeine",
+          "hip fracture"
+        ]
+      },
+      "author": {
+        "date": "2022-07-22T13:14:22Z",
+        "name": "ericaVoss",
+        "email": "evoss3@its.jnj.com"
+      },
+      "sha": "2593c509cbdd7db22798da214254fdd0cd3a6072"
+    }
+  },
+  "MentalHealthEquity": {
+    "watchersCount": 8,
+    "name": "MentalHealthEquity",
+    "updatedAt": "2023-03-14T16:24:38Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "N/A",
+        "endDate": "N/A",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Assessing Health Equity in Mental Healthcare Delivery Using a Federated Network Research Model",
+        "results": "N/A",
+        "startDate": "September 16, 2021",
+        "status": "Started",
+        "tags": [
+          "Mental Health",
+          "Equity",
+          "Depression",
+          "Bipolar Disorder",
+          "Suicide",
+          "Characterization"
+        ],
+        "studyLeads": [
+          "Jacob S. Zelko"
+        ],
+        "publications": "N/A"
+      },
+      "author": {
+        "date": "2023-01-23T16:49:44Z",
+        "name": "TheCedarPrince",
+        "email": "jacobszelko@gmail.com"
+      },
+      "sha": "93540e6c685fcda455aca3875e7c3628d54947e9"
+    }
+  },
+  "Cervello": {
+    "watchersCount": 4,
+    "name": "Cervello",
+    "updatedAt": "2023-02-21T13:25:08Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[pdf Doc](https://github.com/ohdsi-studies/Cervello/blob/master/documents/OHDSI%20Protocol%20COVID%20mental%20health_drug%20V2.2.pdf)",
+        "endDate": "15th February 2021",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Covid-19 pandEmic impacts on mental health Related conditions Via multi-database nEtwork: a LongitutinaL Observational study (CERVELLO)",
+        "results": "[Shiny app](https://data.ohdsi.org/cervelloDiagnostics/)",
+        "startDate": "21st January, 2021",
+        "publications": "[Rates of Antipsychotic Drug Prescribing Among People Living With Dementia During the COVID-19 Pandemic](https://jamanetwork.com/journals/jamapsychiatry/fullarticle/2800310)",
+        "status": "Results Available",
+        "studyLeads": [
+          "Carmen Olga Torre",
+          "Hao Luo"
+        ],
+        "tags": [
+          "psychiatryWG",
+          "mental-health",
+          "COVID-19"
+        ]
+      },
+      "author": {
+        "date": "2023-03-13T17:10:11Z",
+        "name": "carmenOT",
+        "email": "61690547+carmenOT@users.noreply.github.com"
+      },
+      "sha": "24ee16adfdb122568a67d653dc1efe4966356837"
+    }
+  },
+  "PioneerWatchfulWaiting": {
+    "watchersCount": 6,
+    "name": "PioneerWatchfulWaiting",
+    "updatedAt": "2022-04-25T09:33:09Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[RQ2_OHDSI_FINAL.pdf](https://github.com/ohdsi-studies/PioneerWatchfulWaiting/blob/master/extras/Protocol_RQ2_OHDSI_FINAL.pdf)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Long term outcomes of prostate cancer patients undergoing non-interventional management",
+        "results": "[Shiny App: Characterization Study](https://pioneer-shiny.hzdr.de/PioneerWatchfulWaiting/)",
+        "startDate": "March 9, 2021",
+        "studyLeads": [
+          "Giorgio Gandaglia"
+        ],
+        "status": null,
+        "publications": "[Published research protocol](https://doi.org/10.21203/rs.3.pex-1468/v1)",
+        "tags": [
+          "cancer"
+        ]
+      },
+      "author": {
+        "date": "2022-05-24T10:26:37Z",
+        "name": "bdemeulder",
+        "email": "bdemeulder@users.noreply.github.com"
+      },
+      "sha": "b87c0b1caf438659215e20af9a1ec824c286e85e"
+    }
+  },
+  "HIVTreatmentPathways": {
+    "watchersCount": 2,
+    "name": "HIVTreatmentPathways",
+    "updatedAt": "2023-02-10T16:38:35Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[HIV Treatment Pathway](https://github.com/ohdsi-studies/HIVTreatmentPathways/blob/master/documents/HIV_TP_OHDSI_StudyProtocolTemplateV4.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Characterizing Patterns in Antiretroviral Therapy for Individuals with Human Immunodeficiency Virus (HIV)",
+        "results": "-",
+        "startDate": "January 2023",
+        "tags": [
+          "OHDSI",
+          "HIV",
+          "Antiretroviral Therapy"
+        ],
+        "studyLeads": [
+          "Raechel Davis"
+        ],
+        "publications": "-",
+        "status": "Repo Created"
+      },
+      "author": {
+        "date": "2023-02-10T17:32:31Z",
+        "name": "raecheldavis",
+        "email": "97139078+raecheldavis@users.noreply.github.com"
+      },
+      "sha": "640a4f0b51d8fb87d512d9cf62c697357c92601f"
+    }
+  },
+  "SvvEhden": {
+    "watchersCount": 0,
+    "name": "SvvEhden",
+    "updatedAt": "2023-05-04T07:54:07Z",
+    "latestReadme": {
+      "summary": null,
+      "author": {
+        "date": "2023-05-04T07:53:04Z",
+        "name": "Sara Vidlin",
+        "email": "sara.vidlin@who-umc.org"
+      },
+      "sha": "0e3d231da3569ae968ddb611be21b28288312ca9"
+    }
+  },
+  "EhdenRaDmardsEstimation": {
+    "watchersCount": 1,
+    "name": "EhdenRaDmardsEstimation",
+    "updatedAt": "2020-12-09T22:09:29Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "DMARDs comparative safety in RA (EHDEN Study-a-thon Barcelona 2020)",
+        "results": "[Shiny app](https://data.ohdsi.org/EhdenRaDmardsEstimation/)",
+        "startDate": "January 13, 2020",
+        "status": "Results Available",
+        "studyLeads": [
+          "Jamie Weaver",
+          "Ed Burn"
+        ],
+        "publications": "-",
+        "tags": [
+          "EHDEN"
+        ]
+      },
+      "author": {
+        "date": "2020-04-09T14:47:46Z",
+        "name": "Jamie Weaver",
+        "email": "jweave17@its.jnj.com"
+      },
+      "sha": "b6a3c482be29780e026329fcc351bdceb9226d7e"
+    }
+  },
+  "Covid19Icarius": {
+    "watchersCount": 3,
+    "name": "Covid19Icarius",
+    "updatedAt": "2021-04-08T23:24:12Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[PDF](https://github.com/ohdsi-studies/Covid19Icarius/blob/master/Documents/COVID19_ACE_ARB_Protocol_Version_1_2.pdf)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "OHDSI COVID-19 Studyathon: International coronavirus disease (COVID) - angiotensin converting enzyme (ACE) Receptor Inhibition Utilization and Safety (ICARIUS) studies: susceptibility and severity",
+        "results": "[Shiny app](https://data.ohdsi.org/IcariusSusceptibility/)",
+        "startDate": "March 26, 2020",
+        "status": "Design Finalized",
+        "publications": "-",
+        "studyLeads": [
+          "Marc A. Suchard",
+          "Seng Chan You",
+          "Mitchell M. Conover"
+        ],
+        "tags": [
+          "Study-a-thon",
+          "COVID-19"
+        ]
+      },
+      "author": {
+        "date": "2020-06-05T13:45:48Z",
+        "name": "Marc Suchard",
+        "email": "msuchard@ucla.edu"
+      },
+      "sha": "77e8176adbfa6ba62126ba427afbad780404ff03"
+    }
+  },
+  "EhdenRaDrugUtilization": {
+    "watchersCount": 2,
+    "name": "EhdenRaDrugUtilization",
+    "updatedAt": "2021-07-12T19:59:12Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Rheumatoid arthritis (RA) Drug Utilization 2020 (EHDEN Study-a-thon Barcelona 2020)",
+        "results": "https://data.ohdsi.org/EhdenRaDrugUtilization/",
+        "startDate": "January 12, 2020",
+        "publications": "-",
+        "status": "Results Available",
+        "tags": [
+          "Rheumatoid arthritis",
+          "Drug Utilization",
+          "EHDEN"
+        ],
+        "studyLeads": [
+          "Anthony G. Sena"
+        ]
+      },
+      "author": {
+        "date": "2021-07-07T16:02:30Z",
+        "name": "Anthony Sena",
+        "email": "asena5@its.jnj.com"
+      },
+      "sha": "03c65960e7e79427bc28eeb35e34feee6cd02c8b"
+    }
+  },
+  "MethodsLibraryPleEvaluation": {
+    "watchersCount": 7,
+    "name": "MethodsLibraryPleEvaluation",
+    "updatedAt": "2023-01-27T00:49:38Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[",
+        "endDate": "August 1, 2019",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "OHDSI Evaluation of Population-Level Estimation Methods",
+        "results": "[MethodEvalViewer](https://data.ohdsi.org/MethodEvalViewer/)",
+        "startDate": "November 1, 2018",
+        "tags": [
+          "-"
+        ],
+        "status": "Complete",
+        "publications": "[How Confident Are We About Observational Findings in Health Care: A Benchmark Study](https://doi.org/10.1162/99608f92.147cc28e)",
+        "studyLeads": [
+          "Martijn Schuemie"
+        ]
+      },
+      "author": {
+        "date": "2020-02-04T04:51:05Z",
+        "name": "Schuemie",
+        "email": "MSCHUEMI@its.jnj.com"
+      },
+      "sha": "03cf7464cdaaaaa12419021b72ba98ba8a310839"
+    }
+  },
+  "CancerTxPathway": {
+    "watchersCount": 1,
+    "name": "CancerTxPathway",
+    "updatedAt": "2020-03-12T09:04:52Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Clinical characterization of cancer treatment using the Oncology CDM",
+        "results": "-",
+        "startDate": "Februrary 25, 2020",
+        "tags": [
+          "OHDSI-Korea",
+          "FEEDER-NET",
+          "Oncology WG"
+        ],
+        "status": "Repo Created",
+        "publications": "-",
+        "studyLeads": [
+          "Hokyun Jeon",
+          "Seng Chan You"
+        ]
+      },
+      "author": {
+        "date": "2020-03-09T15:09:08Z",
+        "name": "neal1202",
+        "email": "47546151+neal1202@users.noreply.github.com"
+      },
+      "sha": "e72fea56d38a9cfe1acca47e05f82c1d1e0c5094"
+    }
+  },
+  "Covid19PredictionStudies": {
+    "watchersCount": 10,
+    "name": "Covid19PredictionStudies",
+    "updatedAt": "2021-07-04T15:22:24Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "[Word docment](https://github.com/ohdsi-studies/Covid19PredictionStudies/blob/master/HospitalizationInSymptomaticPatients/docs/PLP_protocol_Q1%2BQ2_20200329.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Development and validation of complex and simple patient-level prediction models for predicting various outcomes in COVID patients: a rapid network study to inform the management of COVID-19",
+        "results": "[Simple Models](http://evidence.ohdsi.org:3838/Covid19CoverPrediction/) - [C19 Validation](http://evidence.ohdsi.org:3838/C19validation/)",
+        "startDate": "Mar 26, 2020",
+        "status": "Results Available",
+        "publications": "[Simple Models](https://www.medrxiv.org/content/10.1101/2020.05.26.20112649v4) - [C19 Validation](https://www.medrxiv.org/content/10.1101/2020.06.15.20130328v1)",
+        "studyLeads": [
+          "Jenna Reps",
+          "Ross Williams",
+          "Peter Rijnbeek"
+        ],
+        "tags": [
+          "Study-a-thon",
+          "COVID-19"
+        ]
+      },
+      "author": {
+        "date": "2020-08-17T01:32:30Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "af65b1fc84c04c14956acbbf5541e6d29e571ec5"
+    }
+  },
+  "CervelloPrevalence": {
+    "watchersCount": 0,
+    "name": "CervelloPrevalence",
+    "updatedAt": "2022-03-29T16:58:04Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[PDF](https://github.com/YiChai18/CERVELLOPrevalence/tree/main/Protocol)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "CERVELLOPrevalence",
+        "results": "-",
+        "startDate": "1st September, 2021",
+        "status": "Started",
+        "tags": [
+          "OHDSI",
+          "psychiatryWG",
+          "mental-health",
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Hao Luo",
+          "PhD",
+          "The University of Hong Kong"
+        ],
+        "publications": null
+      },
+      "author": {
+        "date": "2022-03-12T11:34:16Z",
+        "name": "Yi Chai",
+        "email": "100761582+YiChai18@users.noreply.github.com"
+      },
+      "sha": "56d85f91a3ce9e4c805c8b756d4a73c5710bda08"
+    }
+  },
+  "EvaluatingCardinalityMatching": {
+    "watchersCount": 1,
+    "name": "EvaluatingCardinalityMatching",
+    "updatedAt": "2021-05-25T03:27:11Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Protocol PDF]( https://github.com/ohdsi-studies/EvaluatingCardinalityMatching/tree/master/Protocol)",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Comparison of Cardinality Matching and Propensity Score Matching",
+        "results": "-",
+        "startDate": "March 1, 2020",
+        "status": "Results Available",
+        "publications": "-",
+        "tags": [
+          "Cardinality Matching"
+        ],
+        "studyLeads": [
+          "Stephen Fortin"
+        ]
+      },
+      "author": {
+        "date": "2020-07-20T12:10:38Z",
+        "name": "sfortin1",
+        "email": "60408862+sfortin1@users.noreply.github.com"
+      },
+      "sha": "04804c59b12a5426d506a5ac32e27015cb50aa22"
+    }
+  },
+  "EhdenRaPrediction": {
+    "watchersCount": 0,
+    "name": "EhdenRaPrediction",
+    "updatedAt": "2023-07-09T14:46:34Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient Level Prediction"
+        ],
+        "protocol": "[",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Development and external validation of prediction models for adverse health outcomes in rheumatoid arthritis: a multinational real-world cohort analysis (EHDEN Study-a-thon Barcelona 2020)",
+        "results": "[",
+        "startDate": "January 16, 2020",
+        "status": "Started",
+        "tags": [
+          "EHDEN"
+        ],
+        "studyLeads": [
+          "Cynthia Yang",
+          "Ross Williams"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2021-09-09T12:25:07Z",
+        "name": "cyang-emc",
+        "email": "c.yang@erasmusmc.nl"
+      },
+      "sha": "408347f43218324176274f1601c48c79c5cd3815"
+    }
+  },
+  "TicagrelorVsClopidogrel": {
+    "watchersCount": 1,
+    "name": "TicagrelorVsClopidogrel",
+    "updatedAt": "2021-10-09T03:00:22Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[",
+        "endDate": "",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Ticagrelor Vs Clopidogrel",
+        "results": "[EvidenceExplorer](https://data.ohdsi.org/TicagrelorVsClopidogrel/)",
+        "startDate": "December 11, 2018",
+        "tags": [
+          "-"
+        ],
+        "status": "Results Available",
+        "studyLeads": [
+          "Seng Chan You"
+        ],
+        "publications": ""
+      },
+      "author": {
+        "date": "2020-05-13T12:15:40Z",
+        "name": "chandryou",
+        "email": "applegna@gmail.com"
+      },
+      "sha": "ce79787dc2370fbeb18f4e9002bf8040f1f41245"
+    }
+  },
+  "COVID19CancerBaselineCharacterization": {
+    "watchersCount": 1,
+    "name": "COVID19CancerBaselineCharacterization",
+    "updatedAt": "2020-04-28T03:43:17Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical application"
+        ],
+        "title": "Baseline Characteristics of COVID-19 in Cancer Patients ",
+        "results": "-",
+        "startDate": "April 7, 2020",
+        "tags": [
+          "COVID-19",
+          "Oncology"
+        ],
+        "status": "Repo Created",
+        "studyLeads": [
+          "Talita Duarte-Salles",
+          "Shilpa Ratwani"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2020-04-28T03:43:14Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "0631e7d767ece6463392e383656e290c77d962f9"
+    }
+  },
+  "PCE": {
+    "watchersCount": 3,
+    "name": "PCE",
+    "updatedAt": "2021-02-11T14:23:17Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "Coming Soon",
+        "endDate": "2020-11-01",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Pooled cohort equation model validation study",
+        "results": "[View Results](https://data.ohdsi.org/PCEvalidation/)",
+        "startDate": "2020-10-01",
+        "studyLeads": [
+          "Jenna Reps",
+          "Peter Rijnbeek"
+        ],
+        "publications": "Coming Soon",
+        "status": "Design Finalized",
+        "tags": [
+          "OHDSI 2020 Study-a-thon"
+        ]
+      },
+      "author": {
+        "date": "2020-12-10T14:34:10Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "7d69337ae17e5a39789ec4f2235668f908657d5b"
+    }
+  },
+  "BipolarMisclassificationValidation": {
+    "watchersCount": 4,
+    "name": "BipolarMisclassificationValidation",
+    "updatedAt": "2023-07-07T10:45:02Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "[Protocol](https://github.com/ohdsi-studies/BipolarMisclassificationValidation/blob/master/documents/ProtocolBipolarInMDD.docx)",
+        "endDate": "April 30, 2020",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "External Validation of Model Predicting Bipolar Misdiagnosed as MDD",
+        "results": "-",
+        "startDate": "Jan 1, 2020",
+        "status": "Design Finalized",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Jenna Reps",
+          "Christophe Lambert"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2020-07-10T17:19:30Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "441fae07fef60705584537e23ebf48f46d0f96dc"
+    }
+  },
+  "PhenotypeLibraryDiagnostics": {
+    "watchersCount": 1,
+    "name": "PhenotypeLibraryDiagnostics",
+    "updatedAt": "2022-10-26T17:19:27Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Phenotype Library Diagnostics",
+        "results": "[Phenotype Library](https://data.ohdsi.org/PhenotypeLibrary/)",
+        "startDate": "October 8, 2020",
+        "studyLeads": [
+          "Gowtham Rao"
+        ],
+        "publications": "-",
+        "tags": [
+          "-"
+        ],
+        "status": "Results Available"
+      },
+      "author": {
+        "date": "2020-10-19T05:17:39Z",
+        "name": "schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "80addbe11e91445cc6846521630cbed1f5669c2c"
+    }
+  },
+  "PhenotypePhebruary": {
+    "watchersCount": 1,
+    "name": "PhenotypePhebruary",
+    "updatedAt": "2022-02-08T16:47:27Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "phenotypePhebruary",
+        "results": null,
+        "startDate": null,
+        "tags": null,
+        "publications": null,
+        "studyLeads": null,
+        "status": null
+      },
+      "author": {
+        "date": "2022-02-02T13:03:42Z",
+        "name": "Gowtham Rao",
+        "email": "rao@ohdsi.org"
+      },
+      "sha": "07261c9c900d3f2602e1b0269f288c49cd7c3332"
+    }
+  },
+  "ProstateCancerCVDRisk": {
+    "watchersCount": 0,
+    "name": "ProstateCancerCVDRisk",
+    "updatedAt": "2023-02-28T20:41:22Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Estimation (Comparative Cohort)",
+          "Characterization"
+        ],
+        "protocol": null,
+        "endDate": "8/1/2021",
+        "studyType": [
+          "Clinical Research"
+        ],
+        "title": null,
+        "results": "-",
+        "startDate": "11/27/2019",
+        "tags": [
+          "prostate cancer",
+          "castration-resistant prostate cancer",
+          "antiandrogens",
+          "aberaterone",
+          "enzalutamide",
+          "cardiovascular",
+          "safety",
+          "heart failure",
+          "acute myocardial infarction",
+          "ischemic stroke"
+        ],
+        "studyLeads": [
+          "Mitchell M. Conover"
+        ],
+        "publications": "TBD",
+        "status": "Started"
+      },
+      "author": {
+        "date": "2023-02-28T20:41:09Z",
+        "name": "Mitch Conover",
+        "email": "mconove1@its.jnj.com"
+      },
+      "sha": "079bc178d6b449256a7a72f27a26001b77bf479f"
+    }
+  },
+  "BreastCancerBetweenScreen": {
+    "watchersCount": 3,
+    "name": "BreastCancerBetweenScreen",
+    "updatedAt": "2023-04-13T00:32:25Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "[Protocol](https://github.com/ohdsi-studies/BreastCancerBetweenScreen/blob/master/documents/protocolWoo2019.docx)",
+        "endDate": "Sep 16, 2019",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Predicting breast cancer within 3 years of a negative mammography",
+        "results": "[Shiny App](https://data.ohdsi.org/WoO2019/)",
+        "startDate": "Aug 9, 2019",
+        "status": "Complete",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Maura Beaton",
+          "Jill Hardin",
+          "Kristin Kostka",
+          "Anna Ostropolets",
+          "Jenna Reps",
+          "Erica Voss"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-03-24T18:37:37Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "f88331d6fe5ebfbbb2e89f3f6d98efca4236d885"
+    }
+  },
+  "CovidSeverityPrediction": {
+    "watchersCount": 1,
+    "name": "CovidSeverityPrediction",
+    "updatedAt": "2020-03-20T04:51:02Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Prediction of clinical outcome in patients with COVID-19 based on their past medical history",
+        "results": "-",
+        "startDate": "March 9, 2020",
+        "publications": "-",
+        "tags": [
+          "Study-a-thon",
+          "COVID-19"
+        ],
+        "status": "Started",
+        "studyLeads": [
+          "Seng Chan You"
+        ]
+      },
+      "author": {
+        "date": "2020-03-19T23:20:02Z",
+        "name": "chandryou",
+        "email": "applegna@gmail.com"
+      },
+      "sha": "7c926d4116c5ab733758ee75826c32cb4d6c5399"
+    }
+  },
+  "DoacsWarfarinSub": {
+    "watchersCount": 0,
+    "name": "DoacsWarfarinSub",
+    "updatedAt": "2020-12-15T15:02:17Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[PDF](https://github.com/ohdsi-studies/DoacsWarfarinSub/tree/master/Protocol)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Comparative Risk Assessment of Severe Uterine Bleeding Following Exposure to Direct Oral Anticoagulants: A Network Study Across Four Observational Databases in the United States",
+        "results": "[Shiny app](https://data.ohdsi.org/DoacsWarfarinSub/)",
+        "startDate": "April 13, 2020",
+        "status": "Results Available",
+        "publications": "-",
+        "studyLeads": [
+          "James Weaver"
+        ],
+        "tags": [
+          "DOACs"
+        ]
+      },
+      "author": {
+        "date": "2020-12-15T15:01:54Z",
+        "name": "Jamie Weaver",
+        "email": "jweave17@its.jnj.com"
+      },
+      "sha": "3d596c7ac57810dfd2da0be005bcc19eb3957738"
+    }
+  },
+  "Glp1ClrdEstimation": {
+    "watchersCount": 1,
+    "name": "Glp1ClrdEstimation",
+    "updatedAt": "2022-06-20T17:34:17Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Estimation"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research",
+          "Clinical Application"
+        ],
+        "title": "The journey to reliable evidence: evaluating reliability of observational research findings via assessment of repeatability, reproducibility, replicability, generalizability, robustness, and calibration.",
+        "results": "-",
+        "startDate": "August 17, 2021",
+        "status": "Repo Created",
+        "tags": [
+          "GLP1",
+          "DPP4",
+          "diabetes",
+          "CLRD",
+          "Athma",
+          "COPD"
+        ],
+        "studyLeads": [
+          "Mitch Conover"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2021-09-06T05:13:59Z",
+        "name": "Mitch Conover",
+        "email": "mconove1@its.jnj.com"
+      },
+      "sha": "096043035a262ea5943ea5e51ee8649dd90c09a9"
+    }
+  },
+  "StudyRepoTemplate": {
+    "watchersCount": 4,
+    "name": "StudyRepoTemplate",
+    "updatedAt": "2023-03-20T17:22:26Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "StudyRepoTemplate",
+        "results": null,
+        "startDate": null,
+        "status": "Repo Created",
+        "tags": null,
+        "studyLeads": null,
+        "publications": null
+      },
+      "author": {
+        "date": "2020-06-25T13:58:19Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "d1b9cdf9aa1dcccbc78cd254d57176257bbfc03e"
+    }
+  },
+  "PredictionCovariateLookback": {
+    "watchersCount": 0,
+    "name": "PredictionCovariateLookback",
+    "updatedAt": "2021-04-23T13:53:01Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Prediction Covariate Lookback",
+        "results": "-",
+        "startDate": "June 2019",
+        "status": "Repo Created",
+        "studyLeads": [
+          "Jill Hardin"
+        ],
+        "publications": "-",
+        "tags": [
+          "-"
+        ]
+      },
+      "author": {
+        "date": "2021-01-13T20:49:34Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "94f47bd0f66362472c43f0bafe320f367f3d0b44"
+    }
+  },
+  "validationInContext": {
+    "watchersCount": 0,
+    "name": "validationInContext",
+    "updatedAt": "2021-12-08T19:44:02Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Prediction"
+        ],
+        "protocol": "-",
+        "endDate": "Jun 13, 2021",
+        "studyType": [
+          "Methods",
+          "Clinical Application"
+        ],
+        "title": "Putting External Validation Performance of Major Bleeding Risk Models into Context",
+        "results": "-",
+        "startDate": "Feb 22, 2018",
+        "status": "Repo Created",
+        "studyLeads": [
+          "Clair Blacketer"
+        ],
+        "tags": [
+          "Patient Level Prediction"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2022-03-29T07:31:19Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "c769764177f081a04775a420e4265a54efeb926e"
+    }
+  },
+  "EhdenRaPredictionValidation": {
+    "watchersCount": 0,
+    "name": "EhdenRaPredictionValidation",
+    "updatedAt": "2020-01-17T08:22:21Z",
+    "latestReadme": {
+      "summary": null,
+      "author": {
+        "date": "2020-01-17T08:20:53Z",
+        "name": "Anthony Sena",
+        "email": "asena5@its.jnj.com"
+      },
+      "sha": "39e574789da2d7c231081917d49fbad39d244915"
+    }
+  },
+  "EhdenCovidUseCase": {
+    "watchersCount": 2,
+    "name": "EhdenCovidUseCase",
+    "updatedAt": "2022-10-24T12:17:09Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Estimation"
+        ],
+        "protocol": "[EHDEN Use Case Protocol.pdf](https://github.com/ohdsi-studies/EhdenCovidUseCase/blob/Minus-Criteria-1/documents/EHDEN%20Use%20Case%20Protocol.pdf)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": null,
+        "results": "-",
+        "startDate": "-",
+        "status": null,
+        "tags": [
+          "OHDSI",
+          "COVID-19"
+        ],
+        "publications": null,
+        "studyLeads": [
+          "-"
+        ]
+      },
+      "author": {
+        "date": "2022-10-27T16:04:12Z",
+        "name": "christinaread",
+        "email": "106094278+christinaread@users.noreply.github.com"
+      },
+      "sha": "7e2e9b335f6f8f4ac5d066184c5dad882b402190"
+    }
+  },
+  "Covid19VaccinePrediction": {
+    "watchersCount": 1,
+    "name": "Covid19VaccinePrediction",
+    "updatedAt": "2021-08-05T16:12:01Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "[Click Here](https://ohdsi-studies.github.io/Covid19VaccinePrediction/Protocol.html)",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research",
+          "Clinical Application"
+        ],
+        "title": "Evaluating the Sensitivity Of Prediction Model Development and Performance Due To Phenotypes Applied To COVID-19 VACCINES",
+        "results": "-",
+        "startDate": "2021-03-21",
+        "studyLeads": [
+          "Jenna Reps"
+        ],
+        "publications": "-",
+        "status": "Started",
+        "tags": [
+          "COVID-19"
+        ]
+      },
+      "author": {
+        "date": "2021-04-02T06:33:18Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "0c901d3644bc8f99454b74ff79947d9f392c79c3"
+    }
+  },
+  "NephrologyHealthEquity": {
+    "watchersCount": 0,
+    "name": "NephrologyHealthEquity",
+    "updatedAt": "2022-11-10T21:10:47Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "- [IRB Protocol_NCD(timeliness to nephrology care) (1).docx](https://github.com/asb163/super-duper-nephro/files/9983172/IRB.Protocol_NCD.timeliness.to.nephrology.care.1.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": null,
+        "results": "-",
+        "startDate": "July 13, 2022",
+        "publications": "-",
+        "tags": [
+          "Chronic Kidney Disease"
+        ],
+        "status": "Started",
+        "studyLeads": [
+          "Tom White",
+          "MD",
+          "MS",
+          "MA",
+          "CHIE"
+        ]
+      },
+      "author": {
+        "date": "2022-11-16T20:58:28Z",
+        "name": "asb163",
+        "email": "117757814+asb163@users.noreply.github.com"
+      },
+      "sha": "e6c92e7c0c3a3c5234430af10a5615460e5878a3"
+    }
+  },
+  "TkrPredictSimple": {
+    "watchersCount": 0,
+    "name": "TkrPredictSimple",
+    "updatedAt": "2020-09-09T15:33:25Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "[Link](https://github.com/OHDSI/StudyProtocols/blob/master/UkaTkaSafetyEffectiveness/documents/OHDSI%20Oxford%20PLE%20Protocol%2030dec2018.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Predicting 90-day mortality following total knee replacement",
+        "results": "[Link](https://data.ohdsi.org/TKROutcomesExplorer/)",
+        "startDate": "Dec 16, 2018",
+        "publications": "-",
+        "tags": [
+          "Study-a-thon",
+          "COVID-19"
+        ],
+        "status": "Started",
+        "studyLeads": [
+          "Jenna Reps",
+          "Ross Williams"
+        ]
+      },
+      "author": {
+        "date": "2020-09-04T12:11:52Z",
+        "name": "Ross D. Williams",
+        "email": "34747165+rossdwilliams@users.noreply.github.com"
+      },
+      "sha": "4f0b973ff9b7c7afda868d04ef766f6d8e396cb5"
+    }
+  },
+  "ReproducibilityRayJAMA2021": {
+    "watchersCount": 0,
+    "name": "ReproducibilityRayJAMA2021",
+    "updatedAt": "2022-12-15T00:02:47Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population Level Estimation"
+        ],
+        "protocol": "DRAFT",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Reproducibility_Ray JAMA2021\r",
+        "results": "-",
+        "startDate": "April 2022",
+        "publications": "-",
+        "tags": [
+          "Reproducibility"
+        ],
+        "studyLeads": [
+          "Asieh Golozar"
+        ],
+        "status": "Started"
+      },
+      "author": {
+        "date": "2022-12-14T14:21:41Z",
+        "name": "Martin Lavallee",
+        "email": "44976592+mdlavallee92@users.noreply.github.com"
+      },
+      "sha": "e8bebaeb4666ceede0abf6e8c966e83b6d183d67"
+    }
+  },
+  "PORPOISE": {
+    "watchersCount": 2,
+    "name": "PORPOISE",
+    "updatedAt": "2023-01-16T10:19:08Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": null,
+        "results": null,
+        "startDate": null,
+        "status": null,
+        "tags": null,
+        "studyLeads": null,
+        "publications": null
+      },
+      "author": {
+        "date": "2023-04-13T21:03:10Z",
+        "name": "nbehzad",
+        "email": "b.naderalvojoud@gmail.com"
+      },
+      "sha": "3824c5c2a76e95431b449ba124550af360cf30cd"
+    }
+  },
+  "Corazon": {
+    "watchersCount": 2,
+    "name": "Corazon",
+    "updatedAt": "2022-08-17T17:28:41Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Word Doc](https://github.com/ohdsi-studies/Corazon/blob/master/documents/OHDSI%20Protocol%20CORAZON%20V2.1_clean.docx)",
+        "endDate": "12/2020",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "OHDSI Comparative effectiveness and safety of direct ORal Anticoagulants in patients with atrial fibrillation: a standardiZed Observational data Network study (CORAZON)",
+        "results": "",
+        "startDate": "22/09/2020",
+        "tags": [
+          "OHDSI",
+          "DOAC",
+          "AF"
+        ],
+        "status": "Complete",
+        "publications": "[HERE](https://www.acpjournals.org/doi/10.7326/M22-0511)",
+        "studyLeads": [
+          "Wallis CY Lau"
+        ]
+      },
+      "author": {
+        "date": "2023-02-21T13:20:09Z",
+        "name": "carmenOT",
+        "email": "61690547+carmenOT@users.noreply.github.com"
+      },
+      "sha": "0eca1812c2c5e1bf1cd7dfda21a22b05f0568304"
+    }
+  },
+  "SmallSampleEstimationEvaluation": {
+    "watchersCount": 0,
+    "name": "SmallSampleEstimationEvaluation",
+    "updatedAt": "2023-03-16T17:02:58Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Small-Sample Comparative-Effect Estimation Evaluation",
+        "results": "-",
+        "startDate": "December 3, 2020",
+        "status": "Started",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Martijn Schuemie"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-06-08T07:28:21Z",
+        "name": "schuemie",
+        "email": "Admin_mschuemi@its.jnj.com"
+      },
+      "sha": "c14b65372a5b4e2cbda3c4522d0664a4d766bf76"
+    }
+  },
+  "EumaeusCovid19Vaccines": {
+    "watchersCount": 0,
+    "name": "EumaeusCovid19Vaccines",
+    "updatedAt": "2021-07-06T10:08:59Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Evaluating Use of Methods for Adverse Event Under Surveillance (EUMAEUS) for COVID-19 Vaccines",
+        "results": "-",
+        "startDate": "July 6, 2021",
+        "publications": "-",
+        "status": "Started",
+        "studyLeads": [
+          "Martijn Schuemie"
+        ],
+        "tags": [
+          "-"
+        ]
+      },
+      "author": {
+        "date": "2021-07-06T10:08:56Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "1bca22aacc166ca67a6a463c2f2452e7d5fedd0d"
+    }
+  },
+  "DeepLearningComparison": {
+    "watchersCount": 2,
+    "name": "DeepLearningComparison",
+    "updatedAt": "2023-07-03T10:19:30Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Deep Learning Comparison",
+        "results": "-",
+        "startDate": "-",
+        "status": "Repo Created",
+        "tags": [
+          "Deep Learning"
+        ],
+        "studyLeads": [
+          "-"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-01-24T15:17:52Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "5fc858869f28c3984b0a277fb4fb5e3ec08c39ed"
+    }
+  },
+  "Covid19HospitalizationCharacterization": {
+    "watchersCount": 9,
+    "name": "Covid19HospitalizationCharacterization",
+    "updatedAt": "2021-02-09T18:24:29Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[Word Doc](https://github.com/ohdsi-studies/Covid19HospitalizationCharacterization/blob/master/documents/Protocol_COVID-19%20Hospitalization%20Characterisation_V1.1.docx)",
+        "endDate": "April 9, 2020",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Clinical Characterization of Patients Hospitalized with COVID-19 and Influenza\r",
+        "results": "[Shiny app](http://evidence.ohdsi.org:3838/Covid19CharacterizationHospitalization/)",
+        "startDate": "March 16, 2020",
+        "status": "Results Available",
+        "studyLeads": [
+          "Edward Burn",
+          "Seng Chan You"
+        ],
+        "tags": [
+          "OHDSI",
+          "Study-a-thon",
+          "COVID-19"
+        ],
+        "publications": "[MedRxiv](https://www.medrxiv.org/content/10.1101/2020.04.22.20074336v1)"
+      },
+      "author": {
+        "date": "2020-05-13T03:09:31Z",
+        "name": "Kristin Kostka",
+        "email": "44622115+kmkostka@users.noreply.github.com"
+      },
+      "sha": "bb735572e0a2f0a2fe7bdd68f8c6eb6a112d0514"
+    }
+  },
+  "DMCharacterizationAP": {
+    "watchersCount": 1,
+    "name": "DMCharacterizationAP",
+    "updatedAt": "2020-02-12T13:07:59Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Characterization of DM in the OHDSI-AP network",
+        "results": "-",
+        "startDate": "-",
+        "status": "Repo Created",
+        "publications": "-",
+        "tags": [
+          "OHDSI-AP"
+        ],
+        "studyLeads": [
+          "OHDSI-AP"
+        ]
+      },
+      "author": {
+        "date": "2020-02-12T08:54:26Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "11f1bbc2dba6a2dfe99b1115da729e8bdb004e47"
+    }
+  },
+  "Covid19VaccineAesiIncidenceCharacterization": {
+    "watchersCount": 0,
+    "name": "Covid19VaccineAesiIncidenceCharacterization",
+    "updatedAt": "2022-02-13T12:49:28Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[pdf file](https://github.com/ohdsi-studies/Covid19VaccineAesiIncidenceCharacterization/raw/master/extras/Vaccine_safety_sensitivity_protocol.pdf)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Calculating the background rates of adverse events of special interest (AESI) for the COVID vaccines",
+        "results": "-",
+        "startDate": "-",
+        "studyLeads": [
+          "George Hripcsak",
+          "Patrick Ryan",
+          "Marc Suchard"
+        ],
+        "publications": "-",
+        "tags": [
+          "COVID-19"
+        ],
+        "status": "Design Finalized"
+      },
+      "author": {
+        "date": "2021-04-02T06:58:09Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "275359842d1846c7d94fda7062422fb74400cc54"
+    }
+  },
+  "Covid19PPIandH2RA": {
+    "watchersCount": 0,
+    "name": "Covid19PPIandH2RA",
+    "updatedAt": "2020-11-24T00:38:45Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Protocol](https://github.com/ohdsi-studies/Covid19PPIandH2RA/blob/master/documents/Covid19PPIandH2RA_Protocol.docx)",
+        "endDate": "",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Incidence of COVID-19 and complication of COVID-19 between PPI users and H2RA users",
+        "results": "",
+        "startDate": "",
+        "status": "Design Finalized",
+        "tags": [
+          "OHDSI-Korea",
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Jimyung Park",
+          "Seung In Seo"
+        ],
+        "publications": ""
+      },
+      "author": {
+        "date": "2020-11-21T04:05:38Z",
+        "name": "chandryou",
+        "email": "applegna@gmail.com"
+      },
+      "sha": "a7c6d49c60add46ced491a07554c7e1184cb3226"
+    }
+  },
+  "AlcoholicLiverDisease": {
+    "watchersCount": 0,
+    "name": "AlcoholicLiverDisease",
+    "updatedAt": "2021-09-13T14:40:20Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization",
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Here](https://github.com/ohdsi-studies/AlcoholicLiverDisease/blob/master/documents/Protocol.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Alcoholic Liver Disease (ALD): Medication and clinical parameters associated with course of disease",
+        "results": "-",
+        "startDate": "-",
+        "status": "Started",
+        "tags": [
+          "Liver",
+          "Alcoholic liver disease",
+          "Drug",
+          "Gender"
+        ],
+        "publications": "-",
+        "studyLeads": [
+          "Prof. Dr. Dr. Andreas Teufel",
+          "Medical Faculty Mannheim",
+          "Heidelberg University",
+          "Germany"
+        ]
+      },
+      "author": {
+        "date": "2021-09-13T14:33:29Z",
+        "name": "titzel",
+        "email": "Timo.Itzel@medma.uni-heidelberg.de"
+      },
+      "sha": "135db6613d90455232f8cfa60c79d362f19ef6bc"
+    }
+  },
+  "MusculoskeletalAEsAfterAIs": {
+    "watchersCount": 1,
+    "name": "MusculoskeletalAEsAfterAIs",
+    "updatedAt": "2022-11-25T18:47:22Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization & Population Level Estimation"
+        ],
+        "protocol": "[EU PAS 38362](http://www.encepp.eu/encepp/viewResource.htm?id=38363)",
+        "endDate": "1st May 2021",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "MSKAI- Musculoskeletal adverse events following hormonal treatment for breast cancer",
+        "results": "",
+        "startDate": "1st December 2020",
+        "studyLeads": [
+          "Jenny Lane"
+        ],
+        "status": "Started",
+        "publications": "",
+        "tags": [
+          "OHDSI"
+        ]
+      },
+      "author": {
+        "date": "2021-09-09T00:31:15Z",
+        "name": "Jennifer Lane",
+        "email": "42356905+jennifercelane@users.noreply.github.com"
+      },
+      "sha": "fd660aa41a9931788f31062ff241a71e3545eae9"
+    }
+  },
+  "PsmVsCm": {
+    "watchersCount": 1,
+    "name": "PsmVsCm",
+    "updatedAt": "2021-09-27T13:26:29Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Methods"
+        ],
+        "title": "[Propensity score matching versus cardinality matching]",
+        "results": "-",
+        "startDate": "-",
+        "tags": [
+          "-"
+        ],
+        "publications": "-",
+        "status": "Results Available",
+        "studyLeads": [
+          "Stephen Fortin"
+        ]
+      },
+      "author": {
+        "date": "2021-09-27T13:26:26Z",
+        "name": "sfortin1",
+        "email": "60408862+sfortin1@users.noreply.github.com"
+      },
+      "sha": "3adbeefaf85985d5105fac0daf1700672a385bf0"
+    }
+  },
+  "Covid19EstimationHydroxychloroquine2": {
+    "watchersCount": 1,
+    "name": "Covid19EstimationHydroxychloroquine2",
+    "updatedAt": "2022-03-29T08:04:09Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[PDF (as filed with PASS)](https://github.com/ohdsi-studies/Covid19EstimationHydroxychloroquine2/tree/master/documents)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "OHDSI COVID-19 Studyathon: Hydroxychloroquine population-level effect estimation 2",
+        "results": "[Shiny app](https://data.ohdsi.org/Covid19EstimationHydroxychloroquine2/)",
+        "startDate": "May 31, 2020",
+        "publications": "-",
+        "status": "Results Available",
+        "tags": [
+          "Study-a-thon",
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Jennifer Lane",
+          "James Weaver"
+        ]
+      },
+      "author": {
+        "date": "2020-07-24T15:18:27Z",
+        "name": "Jamie Weaver",
+        "email": "jweave17@its.jnj.com"
+      },
+      "sha": "9d5ef0eef55802a9c1832538981c48d656ea27c6"
+    }
+  },
+  "LegendT2dm": {
+    "watchersCount": 7,
+    "name": "LegendT2dm",
+    "updatedAt": "2023-03-22T17:45:44Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[HTML document](https://ohdsi-studies.github.io/LegendT2dm/Protocol.html)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Large-scale Evidence Generation and Evaluation across a Network of Databases for Type 2 Diabetes Mellitus (LEGEND-T2DM)",
+        "results": "-",
+        "startDate": "1 November 2021",
+        "status": "Results Available",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Marc A. Suchard"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-02-09T23:57:25Z",
+        "name": "fanbu1995",
+        "email": "fb75@duke.edu"
+      },
+      "sha": "c0d6369ddd4f4fb9938cf2c5e6298da14e951c30"
+    }
+  },
+  "OT2DSI": {
+    "watchersCount": 0,
+    "name": "OT2DSI",
+    "updatedAt": "2021-11-09T08:16:21Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[documents](https://github.com/ohdsi-studies/OT2DSI/tree/master/documents/)",
+        "endDate": "March 18, 2021",
+        "studyType": [
+          "Clinical application"
+        ],
+        "title": "OT2DSI: Observational study of type 2 diabetes and its complications: a chronological overview using the OHDSI network",
+        "results": "-",
+        "startDate": "May 22, 2020",
+        "status": "Design Finalized",
+        "studyLeads": [
+          "David Vizcaya",
+          "George Argyriou"
+        ],
+        "tags": [
+          "Type 2 Diabetes",
+          "Pathways",
+          "Characterization"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2021-11-09T08:16:18Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "e6edf5ca6536dd5ec241c17e1318c465d3c3e7e4"
+    }
+  },
+  "MddAfterBbValidation": {
+    "watchersCount": 1,
+    "name": "MddAfterBbValidation",
+    "updatedAt": "2021-04-29T23:53:36Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "[Protocol](https://github.com/ohdsi-studies/MddAfterBbValidation/blob/master/documents/MddAfterBbProtocol.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Prediction of incident major depressive disorder in cardiovascular patients using beta blockers",
+        "results": "-",
+        "startDate": "Sep 28, 2020",
+        "status": "Started",
+        "publications": "-",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Suho Jin",
+          "Seng Chan You"
+        ]
+      },
+      "author": {
+        "date": "2020-09-29T06:09:33Z",
+        "name": "Suho_Jin",
+        "email": "61301385+jshsh7553@users.noreply.github.com"
+      },
+      "sha": "2f66c29f8cc7b63572a46ee71f27b7bb1f25dc43"
+    }
+  },
+  "MultipleSclerosisBiologicsPml": {
+    "watchersCount": 0,
+    "name": "MultipleSclerosisBiologicsPml",
+    "updatedAt": "2023-04-02T23:55:00Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Characterization study"
+        ],
+        "title": null,
+        "results": "-",
+        "startDate": "28-03-2023",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Thamir Alshammari"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-04-18T14:40:30Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "3adcdcbc55e946c065fb148c19ada12f2ddb3b12"
+    }
+  },
+  "Dippin": {
+    "watchersCount": 0,
+    "name": "Dippin",
+    "updatedAt": "2022-09-01T07:18:31Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "",
+        "endDate": "",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "DIPPIN: studies to investigate Drug-drug Interaction of Proton Pump Inhibitor N other drugs",
+        "results": "",
+        "startDate": "September 1, 2022",
+        "status": "Started",
+        "publications": "",
+        "studyLeads": [
+          "Seng Chan You",
+          "Seung In Seo"
+        ],
+        "tags": [
+          "OHDSI-Korea",
+          "FEEDER-NET"
+        ]
+      },
+      "author": {
+        "date": "2022-09-01T05:15:05Z",
+        "name": "chandryou",
+        "email": "applegna@gmail.com"
+      },
+      "sha": "756b192d0a9fc7d4488af616a81390161dd95e55"
+    }
+  },
+  "Medon": {
+    "watchersCount": 1,
+    "name": "Medon",
+    "updatedAt": "2021-10-14T12:42:05Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[HTML document](https://ohdsi-studies.github.io/Medon/Protocol.html)",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Methods Evaluation of Durability in a Observational Network (MEDON)",
+        "results": "-",
+        "startDate": "October 14, 2021",
+        "status": "Started",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "-"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2021-10-14T12:41:58Z",
+        "name": "schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "1bab5e4cf389cbe13190e8e29af68a7ef1e89c03"
+    }
+  },
+  "VaccineEffectivenessEvaluation": {
+    "watchersCount": 1,
+    "name": "VaccineEffectivenessEvaluation",
+    "updatedAt": "2021-03-10T15:57:55Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Evaluating Use of Methods for Vaccine Effectiveness",
+        "results": "-",
+        "startDate": "February 19, 2021",
+        "publications": "-",
+        "studyLeads": [
+          "Marc Suchard"
+        ],
+        "tags": [
+          "-"
+        ],
+        "status": "Started"
+      },
+      "author": {
+        "date": "2021-02-26T05:55:17Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "4de8bf940eb277e9595adaf7ebc58d39217f8775"
+    }
+  },
+  "Covid19EstimationHydroxychloroquine": {
+    "watchersCount": 7,
+    "name": "Covid19EstimationHydroxychloroquine",
+    "updatedAt": "2021-09-27T08:30:37Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[PDF (as filed with PASS)](https://github.com/ohdsi-studies/Covid19EstimationHydroxychloroquine/blob/master/documents/OHDSI%20COVID-19%20Studyathon_PLE_HCQ_Protocol_v1.4.pdf)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "OHDSI COVID-19 Studyathon: Hydroxychloroquine population-level effect estimation",
+        "results": "[Shiny app](https://data.ohdsi.org/Covid19EstimationHydroxychloroquine/)",
+        "startDate": "March 26, 2020",
+        "publications": "-",
+        "status": "Complete",
+        "studyLeads": [
+          "Jennifer Lane",
+          "James Weaver"
+        ],
+        "tags": [
+          "Study-a-thon",
+          "COVID-19"
+        ]
+      },
+      "author": {
+        "date": "2020-10-28T18:40:56Z",
+        "name": "Jamie Weaver",
+        "email": "jweave17@its.jnj.com"
+      },
+      "sha": "d5ab703f48bec9aede5542f530b34a4260b67abf"
+    }
+  },
+  "ScyllaCharacterization": {
+    "watchersCount": 2,
+    "name": "ScyllaCharacterization",
+    "updatedAt": "2021-04-22T15:09:25Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[PDF](https://www.ohdsi.org/wp-content/uploads/2020/05/OHDSI-SCYLLA-PLE-COVID-effectiveness-protocol-v1.0-final-with-appendix.pdf)",
+        "endDate": "TBD",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Project Sc(y)lla Characterization: SARS-Cov-2 Large-scale Longitudinal Analyses on the comparative safety and effectiveness of treatments under evaluation for COVID-19 across an international observational data network",
+        "results": "[Shiny app](https://data.ohdsi.org/ScyllaCharacterization/)",
+        "startDate": "TBD",
+        "publications": "-",
+        "status": "Design Finalized",
+        "studyLeads": [
+          "Daniel Prieto-Alhambra",
+          "Patrick Ryan"
+        ],
+        "tags": [
+          "OHDSI",
+          "Study-a-thon",
+          "COVID-19"
+        ]
+      },
+      "author": {
+        "date": "2021-04-07T09:25:58Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "3d253d5631c86c949f57988c71b2bedd2379515d"
+    }
+  },
+  "RanitidineCancerRisk": {
+    "watchersCount": 5,
+    "name": "RanitidineCancerRisk",
+    "updatedAt": "2022-05-16T08:10:21Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Protocol](https://github.com/ohdsi-studies/RanitidineCancerRisk/blob/master/documents/)",
+        "endDate": "",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Cancer Risk between H2 blockers",
+        "results": "",
+        "startDate": "January 31, 2020",
+        "studyLeads": [
+          "Seng Chan You",
+          "Seung In Seo",
+          "Chan Hyuk Park"
+        ],
+        "tags": [
+          "OHDSI-Korea",
+          "FEEDER-NET"
+        ],
+        "publications": "",
+        "status": "Design Finalized"
+      },
+      "author": {
+        "date": "2021-04-07T02:57:33Z",
+        "name": "chandryou",
+        "email": "applegna@gmail.com"
+      },
+      "sha": "a976806e2322b2ea8523985f3ebb43635bdf4da3"
+    }
+  },
+  "ExternalValidation": {
+    "watchersCount": 0,
+    "name": "ExternalValidation",
+    "updatedAt": "2022-09-08T13:46:59Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "-"
+        ],
+        "title": "[Study title]",
+        "results": "-",
+        "startDate": "-",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "-"
+        ],
+        "status": "Repo Created",
+        "publications": "-"
+      },
+      "author": {
+        "date": "2022-09-08T13:47:00Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "227ad8ebb1a07299da48d259074e2e1bfaa6c499"
+    }
+  },
+  "Covid19SubjectsAesiIncidenceRate": {
+    "watchersCount": 2,
+    "name": "Covid19SubjectsAesiIncidenceRate",
+    "updatedAt": "2022-06-26T08:50:18Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[AESIs in COVID-19 Subjects Protocol](https://ohdsi-studies.github.io/Covid19SubjectsAesiIncidenceRate/Protocol.html)",
+        "endDate": "April 4, 2023",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Adverse Events of Special Interest within COVID-19 Subjects",
+        "results": "[https://data.ohdsi.org/Covid19SubjectsAesiIncidenceRate/](https://data.ohdsi.org/Covid19SubjectsAesiIncidenceRate/)",
+        "startDate": "November 2, 2021",
+        "status": "Complete",
+        "tags": [
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Erica A Voss"
+        ],
+        "publications": "Voss, E. A., Shoaibi, A., Yin Hui Lai, L., Blacketer, C., Alshammari, T., Makadia, R., Haynes, K., Sena, A. G., Rao, G., van Sandijk, S., Fraboulet, C., Boyer, L., Le Carrour, T., Horban, S., Morales, D. R., Martínez Roldán, J., Ramírez-Anguita, J. M., Mayer, M. A., de Wilde, M., John, L. H., … Ryan, P. B. (2023). Contextualising adverse events of special interest to characterise the baseline incidence rates in 24 million patients with COVID-19 across 26 databases: a multinational retrospective cohort study. EClinicalMedicine, 58, 101932. [https://doi.org/10.1016/j.eclinm.2023.101932](https://doi.org/10.1016/j.eclinm.2023.101932)"
+      },
+      "author": {
+        "date": "2023-04-18T13:33:30Z",
+        "name": "ericaVoss",
+        "email": "evoss3@its.jnj.com"
+      },
+      "sha": "3f33eb722838d55dfe9e9ec8bd84d3e39aad41bd"
+    }
+  },
+  "IntraVitrealCx": {
+    "watchersCount": 0,
+    "name": "IntraVitrealCx",
+    "updatedAt": "2020-01-16T05:14:19Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "",
+        "endDate": "",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Complication of intravitreous injection",
+        "results": "",
+        "startDate": "January 13, 2020",
+        "tags": [
+          "OHDSI-Korea",
+          "FEEDER-NET"
+        ],
+        "publications": "",
+        "status": "Started",
+        "studyLeads": [
+          "박상준",
+          "문용석"
+        ]
+      },
+      "author": {
+        "date": "2020-01-16T05:14:17Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "5fb9f9ff028df1a60bd30c27e51574b1429a9d18"
+    }
+  },
+  "OutcomeMisclassificationSysRev": {
+    "watchersCount": 0,
+    "name": "OutcomeMisclassificationSysRev",
+    "updatedAt": "2021-11-17T15:24:19Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Protocol](https://ohdsi-studies.github.io/OutcomeMisclassificationSysRev/protocol.html)",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Systematic review of outcome misclassification correction in pharmacoepidemiology",
+        "results": "-",
+        "startDate": "1 November 2021",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "James Weaver"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2021-11-09T08:10:07Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "99a8fcc07b4b977c2d095c2b4dcdce0857aabe9e"
+    }
+  },
+  "TofacitinibSafetyinRA": {
+    "watchersCount": 0,
+    "name": "TofacitinibSafetyinRA",
+    "updatedAt": "2020-06-19T17:09:43Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Final Protocol](https://github.com/ohdsi-studies/TofacitinibSafetyinRA/blob/master/Overall%20Documentation/OHDSI%20F2F%20protocol%20v2.2.docx)",
+        "endDate": "June 30, 2020",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "(OHDSI Community Face-to-Face Study-a-thon 2018) Predicting randomized clinical trial results with real-world evidence: A case study in the comparative safety of tofacitinib, adalimumab and etanercept in patients with rheumatoid arthritis",
+        "results": "In progress",
+        "startDate": "May 2, 2018",
+        "tags": [
+          "F2F",
+          "Rheumatoid Arthritis",
+          "drug safety",
+          "tofacitinib",
+          "etanercept",
+          "adalimumab",
+          "Xeljanz",
+          "Enbrel",
+          "Humira"
+        ],
+        "status": "Design Finalized",
+        "studyLeads": [
+          "Bridget Wang"
+        ],
+        "publications": "TBD"
+      },
+      "author": {
+        "date": "2020-06-19T17:09:39Z",
+        "name": "Kristin Kostka",
+        "email": "44622115+kmkostka@users.noreply.github.com"
+      },
+      "sha": "33cb4f3a3bc3f6469ff88cba9782d7434b169398"
+    }
+  },
+  "PlpMeasurementFeasability": {
+    "watchersCount": 0,
+    "name": "PlpMeasurementFeasability",
+    "updatedAt": "2023-06-16T21:14:45Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": null,
+        "endDate": null,
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Incorporating Measurement Values into Patient-Level Prediction with Missing Entries: a Feasibility Study",
+        "results": "-",
+        "startDate": null,
+        "status": "Repo Created",
+        "tags": [
+          "Bayesian Inference",
+          "Missing Imputation",
+          "Data Standardization",
+          "Measurement Feasability"
+        ],
+        "studyLeads": [
+          "-"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-06-16T20:53:52Z",
+        "name": "ElenaW0703",
+        "email": "120523258+ElenaW0703@users.noreply.github.com"
+      },
+      "sha": "24ebc2eb5fe6ba926c6d245bdd2f47d7cd63fb91"
+    }
+  },
+  "StrokeRiskInApUsers": {
+    "watchersCount": 0,
+    "name": "StrokeRiskInApUsers",
+    "updatedAt": "2021-04-07T20:32:47Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Protocol](https://github.com/ohdsi-studies/StrokeRiskInElderlyApUsers/tree/master/documents)",
+        "endDate": "July 31, 2019",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Stroke Risk among Elderly and non-Elderly Users of Typical vs. Atypical Antipsychotics: A Real-World Study from a US Health Insurance Claims Database",
+        "results": "[StrokeRiskInElderlyApUsers](https://data.ohdsi.org/StrokeRiskInElderlyApUsers/), [StrokeRiskInNonElderlyApUsers](https://data.ohdsi.org/StrokeRiskInNonElderlyApUsers/)",
+        "startDate": "December 29, 2018",
+        "publications": "-",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Dan Fife",
+          "Clair Blacketer",
+          "Karl Knight",
+          "James Weaver"
+        ],
+        "status": "Complete"
+      },
+      "author": {
+        "date": "2021-04-07T20:31:25Z",
+        "name": "Jamie Weaver",
+        "email": "jamieweaver@gmail.com"
+      },
+      "sha": "50e0efdb41528812fd0c36633f7f8821f813054b"
+    }
+  },
+  "Covid19VaccineAesiIncidenceRate": {
+    "watchersCount": 1,
+    "name": "Covid19VaccineAesiIncidenceRate",
+    "updatedAt": "2021-10-03T12:55:40Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[[Vaccine_safety_sensitivity_protocol_BEST_v2]](https://github.com/ohdsi-studies/Covid19VaccineAesiIncidenceRate/blob/master/extras/Protocol/Vaccine_safety_sensitivity_protocol_BEST_v2.1_06292021.docx)",
+        "endDate": "July 30th 2021",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Calculating the background rates of adverse events of special interest (AESI) for the COVID vaccines",
+        "results": "-",
+        "startDate": "June 16th 2021",
+        "publications": "-",
+        "tags": [
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "OHDSI Covid Vaccine Safety Workgroup"
+        ],
+        "status": "Design Finalized"
+      },
+      "author": {
+        "date": "2021-06-29T14:36:56Z",
+        "name": "Gowtham Rao",
+        "email": "rao@ohdsi.org"
+      },
+      "sha": "45bdfb226c620e7d4986b5fb3061db925c2cab4d"
+    }
+  },
+  "DeadModel": {
+    "watchersCount": 1,
+    "name": "DeadModel",
+    "updatedAt": "2020-08-17T01:36:29Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "-",
+        "endDate": "April 1, 2018",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Identifying the DEAD: Development and Validation of a Patient-Level Model to Predict Death Status in Population-Level Claims Data",
+        "results": "[Shiny App](http://data.ohdsi.org/DeadImputation/)",
+        "startDate": "Jan 1, 2018",
+        "tags": [
+          "-"
+        ],
+        "publications": "[Paper](https://link.springer.com/article/10.1007/s40264-019-00827-0)",
+        "status": "Complete",
+        "studyLeads": [
+          "Jenna Reps"
+        ]
+      },
+      "author": {
+        "date": "2020-08-17T01:36:25Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "c76c72fb387853868febf31027eaa39c46db5f8d"
+    }
+  },
+  "PredictionHealthEquity": {
+    "watchersCount": 0,
+    "name": "PredictionHealthEquity",
+    "updatedAt": "2022-01-07T12:41:17Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research",
+          "Clinical Application"
+        ],
+        "title": "Are existing prediction models biased?",
+        "results": "-",
+        "startDate": "2021-11-15",
+        "studyLeads": [
+          "Ross Williams"
+        ],
+        "publications": "-",
+        "status": "Started",
+        "tags": [
+          "Health Equity"
+        ]
+      },
+      "author": {
+        "date": "2021-12-14T19:32:48Z",
+        "name": "Ross D. Williams",
+        "email": "34747165+rossdwilliams@users.noreply.github.com"
+      },
+      "sha": "bcae8e9a6b646d7b7ad5e1b22c19d2583c73f05d"
+    }
+  },
+  "AntiVegfKidneyFailure": {
+    "watchersCount": 2,
+    "name": "AntiVegfKidneyFailure",
+    "updatedAt": "2023-05-09T03:24:00Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Population-level estimation"
+        ],
+        "title": "Risk of kidney failure associated with intravitreal anti-vascular endothelial growth factor exposure",
+        "results": "-",
+        "startDate": "28-03-2023",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Cindy X. Cai"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-03-28T16:12:37Z",
+        "name": "Marc Suchard",
+        "email": "msuchard@ucla.edu"
+      },
+      "sha": "2bd7fd04db8761dee1be59571161e2ebcf3b12c5"
+    }
+  },
+  "IUDEHREstimationStudy": {
+    "watchersCount": 0,
+    "name": "IUDEHREstimationStudy",
+    "updatedAt": "2022-10-05T19:33:19Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[Word file](https://github.com/ohdsi-studies/IUDEHREstimationStudy/blob/master/documents/IUD%20Cervical%20Neoplasms%20Estimation%20Protocol.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Relative Risk of Cervical Neoplasms Associated with Copper and Levonorgestrel Secreting Intrauterine Devices: Real World Evidence from the OHDSI Network",
+        "results": "-",
+        "startDate": "September 23, 2019",
+        "publications": "-",
+        "studyLeads": [
+          "Matthew Spotnitz"
+        ],
+        "tags": [
+          "iud"
+        ],
+        "status": "Design Finalized"
+      },
+      "author": {
+        "date": "2022-10-10T14:29:41Z",
+        "name": "mattspotnitz",
+        "email": "43792067+mattspotnitz@users.noreply.github.com"
+      },
+      "sha": "d1431f38249143579ef5f3447e10319b3b31701d"
+    }
+  },
+  "LegendHtnTrueMonotherapy": {
+    "watchersCount": 0,
+    "name": "LegendHtnTrueMonotherapy",
+    "updatedAt": "2022-01-26T03:08:31Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "LEGENDHTNTrueMonotherapy\r",
+        "results": null,
+        "startDate": null,
+        "status": null,
+        "publications": null,
+        "studyLeads": null,
+        "tags": null
+      },
+      "author": {
+        "date": "2022-01-26T01:51:51Z",
+        "name": "Tara Anand",
+        "email": "ta2432@Taras-DBMI-MacBook-Pro.local"
+      },
+      "sha": "3139af7d6c06b6cca91cfdfea0e74afeb883ade1"
+    }
+  },
+  "CHAPTER": {
+    "watchersCount": 0,
+    "name": "CHAPTER",
+    "updatedAt": "2023-04-06T02:13:59Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "-",
+        "endDate": "TBD",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "CHAPTER (Characterization of Health by OHDSI Asia-Pacific chapter to identify Temporal Effect of the Pandemic)",
+        "results": "-",
+        "startDate": "2021. Dec.",
+        "status": "Repo Created",
+        "tags": [
+          "OHDSI-AP",
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Seng Chan You"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2022-10-26T23:50:26Z",
+        "name": "Seng Chan You",
+        "email": "applegna@gmail.com"
+      },
+      "sha": "8ee18d2806bb6aafd932652e753241c112af91d8"
+    }
+  },
+  "Covid19DrugRepurposing": {
+    "watchersCount": 1,
+    "name": "Covid19DrugRepurposing",
+    "updatedAt": "2023-05-23T16:04:59Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Evaluation of Existing Drugs for Treatment of COVID-19",
+        "results": "-",
+        "startDate": "March 19, 2020",
+        "status": "Started",
+        "tags": [
+          "Study-a-thon",
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Martijn Schuemie",
+          "Daniel Prieto-Alhambra"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2020-03-19T08:18:54Z",
+        "name": "Schuemie",
+        "email": "MSCHUEMI@its.jnj.com"
+      },
+      "sha": "da40825f5f3831ea1603b20f56cf1e5485216422"
+    }
+  },
+  "RisankizumabCerebrovascularAccident": {
+    "watchersCount": 0,
+    "name": "RisankizumabCerebrovascularAccident",
+    "updatedAt": "2023-04-01T11:53:28Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation: Comparative Safety"
+        ],
+        "protocol": "https://ohdsi-studies.github.io/RisankizumabCerebrovascularAccident/Documents/Protocol.html",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Risk of Cerebrovascular Accident and Major Adverse Cardiovascular Events associated with Risankizumab for Psoriasis",
+        "results": "-",
+        "startDate": "28-03-2023",
+        "status": "Started",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Zenas Yiu"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-04-02T21:52:06Z",
+        "name": "Zenas Yiu",
+        "email": "zenas.yiu@manchester.ac.uk"
+      },
+      "sha": "6467627a2b1d6b0ba46c3ee343b75979a3ac710e"
+    }
+  },
+  "MotherInfantLinkEval": {
+    "watchersCount": 0,
+    "name": "MotherInfantLinkEval",
+    "updatedAt": "2022-11-14T17:15:13Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "Development and evaluation of an algorithm to link mothers and infants in two US commercial healthcare claims databases",
+        "results": null,
+        "startDate": null,
+        "studyLeads": null,
+        "publications": null,
+        "tags": null,
+        "status": "Results Available"
+      },
+      "author": {
+        "date": "2022-11-14T17:34:18Z",
+        "name": "Jamie Weaver",
+        "email": "jamieweaver@gmail.com"
+      },
+      "sha": "bc533e1add40235b17dfbd1ab40176da2dc83d16"
+    }
+  },
+  "dGEMcovid": {
+    "watchersCount": 2,
+    "name": "dGEMcovid",
+    "updatedAt": "2022-05-24T15:27:35Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "[Here](https://github.com/ohdsi-studies/dGEMcovid/blob/master/extras/dGEM_Decentralized_Algorithm_for_Generalized_Linear_Mixed_Model_v0.3.docx)",
+        "endDate": "month year",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "dGEM (Decentralized Algorithm for Generalized Linear Mixed Effects Model)",
+        "results": "-",
+        "startDate": "April 2022",
+        "status": "Design Finalized",
+        "tags": [
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Jiayi Tong"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-05-02T21:16:46Z",
+        "name": "Jessie Tong",
+        "email": "Jiayi.Tong@pennmedicine.upenn.edu"
+      },
+      "sha": "3f435d450b50c2a68b941899c6c45b1221083e71"
+    }
+  },
+  "RcriCohortDiagnostics": {
+    "watchersCount": 0,
+    "name": "RcriCohortDiagnostics",
+    "updatedAt": "2021-04-02T07:01:45Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "PROTEUS Cohort Diagnostics RCRI study",
+        "results": "-",
+        "startDate": "October 21, 2020",
+        "publications": "-",
+        "status": "Repo Created",
+        "tags": [
+          "PROTEUS",
+          "Study-a-thon"
+        ],
+        "studyLeads": [
+          "Gowtham Rao"
+        ]
+      },
+      "author": {
+        "date": "2021-04-02T07:01:42Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "46306cb03ce93cad78fed1112498c1880383217f"
+    }
+  },
+  "BiasInAcetaminophenStudies": {
+    "watchersCount": 0,
+    "name": "BiasInAcetaminophenStudies",
+    "updatedAt": "2020-05-11T09:46:08Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[",
+        "endDate": "October 20, 2019",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Quantifying Bias in Epidemiological Studies on the Association Between Acetaminophen and Cancer ",
+        "results": "-",
+        "startDate": "September 10, 2019",
+        "studyLeads": [
+          "Martijn Schuemie"
+        ],
+        "publications": "-",
+        "status": "Complete",
+        "tags": [
+          "-"
+        ]
+      },
+      "author": {
+        "date": "2020-05-11T09:44:28Z",
+        "name": "Schuemie",
+        "email": "MSCHUEMI@its.jnj.com"
+      },
+      "sha": "3b9a3ed3edfc0bba49c5358faaad13ce3e632c5f"
+    }
+  },
+  "lungCancerPrognostic": {
+    "watchersCount": 0,
+    "name": "lungCancerPrognostic",
+    "updatedAt": "2022-08-04T20:28:39Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "-",
+        "endDate": "Aug 2022",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Lung Cancer Prognostic",
+        "results": "-",
+        "startDate": "2020",
+        "status": "Results Available",
+        "publications": "-",
+        "tags": [
+          "PatientLevelPrediction"
+        ],
+        "studyLeads": [
+          "Urmila Chandran",
+          "Jenna Reps"
+        ]
+      },
+      "author": {
+        "date": "2022-08-09T01:46:38Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "3f9373211585210255059c83b7dea0a326b700cd"
+    }
+  },
+  "DesignatedMedicalEvents": {
+    "watchersCount": 0,
+    "name": "DesignatedMedicalEvents",
+    "updatedAt": "2023-02-09T02:28:42Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "-"
+        ],
+        "title": "[Study title]",
+        "results": "-",
+        "startDate": "-",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "-"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-02-09T02:28:45Z",
+        "name": "Patrick Ryan",
+        "email": "ryan@ohdsi.org"
+      },
+      "sha": "3fee570976d63f999b8dfc60af62f31737e63d66"
+    }
+  },
+  "EmptyStudyRepository": {
+    "watchersCount": 1,
+    "name": "EmptyStudyRepository",
+    "updatedAt": "2020-10-13T04:36:38Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "-"
+        ],
+        "title": "[Study title]",
+        "results": "-",
+        "startDate": "-",
+        "studyLeads": [
+          "-"
+        ],
+        "status": "Repo Created",
+        "publications": "-",
+        "tags": [
+          "-"
+        ]
+      },
+      "author": {
+        "date": "2020-01-13T13:08:40Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "40a19ce3da119f536ef49e9846873ae297b37b7d"
+    }
+  },
+  "FluoroquinoloneAorticAneurysm": {
+    "watchersCount": 1,
+    "name": "FluoroquinoloneAorticAneurysm",
+    "updatedAt": "2023-05-02T17:54:02Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "-"
+        ],
+        "title": "Is fluoroquinolone use associated with the development of aortic aneurysms and aortic dissections: Protocol for an OHDSI Network Study",
+        "results": "-",
+        "startDate": "28-03-2023",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Jack Janetzki",
+          "Nicole Pratt",
+          "Seng Chan You",
+          "Seonji Kim",
+          "Jung Ho Kim",
+          "Jung Ah Lee",
+          "Patrick Ryan"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-04-18T14:41:01Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "42ea9e7a05744815bed5c39b9e8cfecdfde48fbd"
+    }
+  },
+  "BrazilMappings": {
+    "watchersCount": 0,
+    "name": "BrazilMappings",
+    "updatedAt": "2022-06-29T15:53:42Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "-"
+        ],
+        "title": "[Study title]",
+        "results": "-",
+        "startDate": "-",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "-"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2022-06-29T15:53:44Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "43756824bc703760e211b9e26547ac67e9e0b00b"
+    }
+  },
+  "Covid19EstimationFamotidine": {
+    "watchersCount": 0,
+    "name": "Covid19EstimationFamotidine",
+    "updatedAt": "2020-10-12T20:09:29Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "PDF available [here](https://github.com/ohdsi-studies/Covid19EstimationFamotidine/tree/master/Protocol)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Comparative Cohort Study of Famotidine in Hospitalized COVID-19 Patients",
+        "results": "-",
+        "startDate": "June 1, 2020",
+        "tags": [
+          "COVID-19",
+          "Famotidine"
+        ],
+        "status": "Results Available",
+        "studyLeads": [
+          "Azza Shoaibi"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2020-07-23T16:31:40Z",
+        "name": "sfortin1",
+        "email": "60408862+sfortin1@users.noreply.github.com"
+      },
+      "sha": "445453cdc615a520043f8e8a2dd5b3bbd140f382"
+    }
+  },
+  "Covid19VaccineAesiDiagnostics": {
+    "watchersCount": 1,
+    "name": "Covid19VaccineAesiDiagnostics",
+    "updatedAt": "2021-09-02T21:30:38Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "Covid19VaccineAesiDiagnostics",
+        "results": null,
+        "startDate": null,
+        "status": null,
+        "tags": null,
+        "studyLeads": null,
+        "publications": null
+      },
+      "author": {
+        "date": "2021-06-29T16:45:25Z",
+        "name": "Gowtham Rao",
+        "email": "rao@ohdsi.org"
+      },
+      "sha": "ad74363a5b95a4661be5782557e8e317156354c7"
+    }
+  },
+  "CovariateImbalanceDiagnosticsEvaluation": {
+    "watchersCount": 0,
+    "name": "CovariateImbalanceDiagnosticsEvaluation",
+    "updatedAt": "2021-06-15T05:11:25Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Estimation"
+        ],
+        "protocol": "[Protocol Archived in OHDSI Teams PLE/PLP Workgroup](https://teams.microsoft.com/l/file/2815E112-0AAD-4D55-9A47-26D09C8AEBF1?tenantId=a30f0094-9120-4aab-ba4c-e5509023b2d5&fileType=docx&objectUrl=https%3A%2F%2Fohdsiorg.sharepoint.com%2Fsites%2FWorkgroup-Population-levelestimation%2FShared%20Documents%2FCovariate%20balance%20in%20small%20exposure%20cohorts%2FPLEPLP_Protocol_CovariateImbalanceMethods_v2%20(OHDSI%20Approved).docx&baseUrl=https%3A%2F%2Fohdsiorg.sharepoint.com%2Fsites%2FWorkgroup-Population-levelestimation&serviceName=teams&threadId=19:acb7d7a525a84e3b8ee64916575eaac3@thread.tacv2&groupId=2c8a0043-7d40-4641-849d-abaef81f1042)",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "[Study title]",
+        "results": "-",
+        "startDate": "February 11, 2021",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "publications": "-",
+        "studyLeads": [
+          "Mitch Conover"
+        ]
+      },
+      "author": {
+        "date": "2021-05-20T14:42:24Z",
+        "name": "Mitch Conover",
+        "email": "mconove1@its.jnj.com"
+      },
+      "sha": "b95a2228d930e184349d8712ab1788d2b0c707fd"
+    }
+  },
+  "DeconfounderEvaluation": {
+    "watchersCount": 0,
+    "name": "DeconfounderEvaluation",
+    "updatedAt": "2020-11-30T14:03:23Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Empirical Evaluation of the Deconfounder",
+        "results": "-",
+        "startDate": "November 30, 2020",
+        "publications": "-",
+        "studyLeads": [
+          "Martijn Schuemie"
+        ],
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ]
+      },
+      "author": {
+        "date": "2020-11-30T14:03:20Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "cd75cca97e514cd9d9815343dc5b947044d4e989"
+    }
+  },
+  "CovidDeath": {
+    "watchersCount": 0,
+    "name": "CovidDeath",
+    "updatedAt": "2021-04-12T23:21:07Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Predicting death due to COVID-19",
+        "results": "[Shiny App](https://data.ohdsi.org/CovidDeathPrediction/)",
+        "startDate": "Nov 1, 2020",
+        "status": "Started",
+        "tags": [
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Jenna Reps"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2020-11-16T16:53:23Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "4b745a2bc9f5dd1f60e919f700546d2a3622418d"
+    }
+  },
+  "PhenotypePhebruaryCapr": {
+    "watchersCount": 3,
+    "name": "PhenotypePhebruaryCapr",
+    "updatedAt": "2022-06-03T20:19:11Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": null,
+        "results": null,
+        "startDate": null,
+        "publications": null,
+        "status": null,
+        "tags": null,
+        "studyLeads": null
+      },
+      "author": {
+        "date": "2022-02-10T21:50:17Z",
+        "name": "mdlavallee92",
+        "email": "lavalleema@mymail.vcu.edu"
+      },
+      "sha": "58e622cbfe3889d5033d7ff0c4344cc50a4cc182"
+    }
+  },
+  "Covid19CohortEvaluation": {
+    "watchersCount": 1,
+    "name": "Covid19CohortEvaluation",
+    "updatedAt": "2020-05-19T13:28:36Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "Covid19CohortEvaluation",
+        "results": null,
+        "startDate": null,
+        "studyLeads": null,
+        "status": null,
+        "tags": null,
+        "publications": null
+      },
+      "author": {
+        "date": "2020-03-25T07:47:08Z",
+        "name": "Schuemie",
+        "email": "MSCHUEMI@its.jnj.com"
+      },
+      "sha": "50b3254b856a8e696794f1bcc982d3eddae914c3"
+    }
+  },
+  "ensemblePlp": {
+    "watchersCount": 0,
+    "name": "ensemblePlp",
+    "updatedAt": "2022-04-20T16:45:26Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "-"
+        ],
+        "title": "[Study title]",
+        "results": "-",
+        "startDate": "-",
+        "tags": [
+          "-"
+        ],
+        "status": "Repo Created",
+        "studyLeads": [
+          "-"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2022-04-18T16:36:09Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "54c436d2d063fe7a7b53c5ceb49aa38a161b8e48"
+    }
+  },
+  "PhenotypePhebruary2023": {
+    "watchersCount": 0,
+    "name": "PhenotypePhebruary2023",
+    "updatedAt": "2023-02-07T22:47:55Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "phenotypePhebruary2023",
+        "results": null,
+        "startDate": null,
+        "status": null,
+        "publications": null,
+        "tags": null,
+        "studyLeads": null
+      },
+      "author": {
+        "date": "2023-02-07T22:47:46Z",
+        "name": "Gowtham Rao",
+        "email": "rao@ohdsi.org"
+      },
+      "sha": "c1b78cd6e239319d940b06c4690974a00c2b54df"
+    }
+  },
+  "Ceeamos": {
+    "watchersCount": 1,
+    "name": "Ceeamos",
+    "updatedAt": "2022-11-08T13:23:26Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization & Population Level Estimation"
+        ],
+        "protocol": "[protocol](https://github.com/ohdsi-studies/Ceeamos/tree/master/CEEAMOS/documents)",
+        "endDate": "",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": null,
+        "results": null,
+        "startDate": "29 March 2021",
+        "publications": "",
+        "studyLeads": [
+          "SC You",
+          "DY Lee"
+        ],
+        "tags": [
+          "OHDSI"
+        ],
+        "status": null
+      },
+      "author": {
+        "date": "2021-08-31T02:22:20Z",
+        "name": "dongyun909",
+        "email": "57935387+dongyun909@users.noreply.github.com"
+      },
+      "sha": "9d02676489a9137af13dc762dbb091b16b8cec30"
+    }
+  },
+  "RCRI": {
+    "watchersCount": 0,
+    "name": "RCRI",
+    "updatedAt": "2021-03-15T13:55:43Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "Coming Soon",
+        "endDate": "2020-11-01",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "RCRI model validation study",
+        "results": "[Click here](http://data.ohdsi.org/RCRIvalidation)",
+        "startDate": "2020-10-01",
+        "status": "Results Available",
+        "studyLeads": [
+          "Jenna Reps",
+          "Peter Rijnbeek"
+        ],
+        "publications": "Coming Soon",
+        "tags": [
+          "OHDSI 2020 Study-a-thon"
+        ]
+      },
+      "author": {
+        "date": "2021-03-15T13:55:32Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "970e5964abc4110cd98bb6e22d6b1c7a612c9356"
+    }
+  },
+  "UtiPhenotype": {
+    "watchersCount": 0,
+    "name": "UtiPhenotype",
+    "updatedAt": "2021-08-30T13:46:19Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "-"
+        ],
+        "title": "[Study title]",
+        "results": "-",
+        "startDate": "-",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "-"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2021-08-30T13:46:17Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "66dbefa325aaa70b4dcb1b89440af89376ce4d9f"
+    }
+  },
+  "CovidPhenotype": {
+    "watchersCount": 0,
+    "name": "CovidPhenotype",
+    "updatedAt": "2021-10-21T11:50:32Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "covidPhenotype",
+        "results": null,
+        "startDate": null,
+        "status": null,
+        "tags": null,
+        "studyLeads": null,
+        "publications": null
+      },
+      "author": {
+        "date": "2021-10-08T15:38:31Z",
+        "name": "Gowtham Rao",
+        "email": "rao@ohdsi.org"
+      },
+      "sha": "7f38d8e503410488ca73b6927077d700acacd6ed"
+    }
+  },
+  "AesiIncidenceCorrection": {
+    "watchersCount": 0,
+    "name": "AesiIncidenceCorrection",
+    "updatedAt": "2023-06-02T20:41:17Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[Protocol TODO](https://data.ohdsi.org)",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Covid-19 vaccine adverse events of special interest incidence correction",
+        "results": "[Explorer TODO](https://data.ohdsi.org)",
+        "startDate": "19 March 2023",
+        "status": "Repo Created",
+        "tags": [
+          "Phenotype error correction"
+        ],
+        "studyLeads": [
+          "James Weaver"
+        ],
+        "publications": "TODO"
+      },
+      "author": {
+        "date": "2023-03-19T19:14:58Z",
+        "name": "Jamie Weaver",
+        "email": "jamieweaver@gmail.com"
+      },
+      "sha": "f7aea39a02ec8702637c02193e6590684dcb550a"
+    }
+  },
+  "Covid19TestCharacterization": {
+    "watchersCount": 0,
+    "name": "Covid19TestCharacterization",
+    "updatedAt": "2020-06-22T10:01:38Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "[Google Doc](https://drive.google.com/drive/folders/1sSrKmNjLAaStWyfZjUlzY97HxcTqrMNW)",
+        "endDate": "",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Characteristics and outcomes of individuals tested for SARS-CoV-2",
+        "results": "",
+        "startDate": "April 4, 2020",
+        "status": "Design Finalized",
+        "tags": [
+          "OHDSI",
+          "Study-a-thon",
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Asieh Golozar",
+          "Seng Chan You"
+        ],
+        "publications": ""
+      },
+      "author": {
+        "date": "2020-06-22T10:01:35Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "c0b95e61d0fce1d3de1a5e7ef87cc79f99784f1e"
+    }
+  },
+  "PceCohortDiagnostics": {
+    "watchersCount": 1,
+    "name": "PceCohortDiagnostics",
+    "updatedAt": "2020-10-28T13:58:01Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Characterization"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application to support prediction study"
+        ],
+        "title": "PROTEUS Cohort Diagnostics PCE study",
+        "results": "-",
+        "startDate": "October 21, 2020",
+        "status": "Repo Created",
+        "tags": [
+          "PROTEUS OHDSI Studyathon 2020"
+        ],
+        "studyLeads": [
+          "Gowtham Rao"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2020-10-21T20:53:12Z",
+        "name": "Gowtham Rao",
+        "email": "gowthamrao@gmail.com"
+      },
+      "sha": "72f891624e1103115b0cda40ac2bccd78c1a7340"
+    }
+  },
+  "Covid19SusceptibilityAlphaBlockers": {
+    "watchersCount": 1,
+    "name": "Covid19SusceptibilityAlphaBlockers",
+    "updatedAt": "2021-12-23T21:18:10Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[PDF](https://github.com/ohdsi-studies/Covid19SusceptibilityAlphaBlockers/blob/master/Documents/alpha_blocker_study_protocol.pdf)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "OHDSI COVID-19 Studyathon: Alpha-1 blocker for Palliating Inflammatory injury Severity (APIS) study",
+        "results": "-",
+        "startDate": "July 7th, 2020",
+        "tags": [
+          "Study-a-thon",
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Aki Nishimura",
+          "Daniel Prieto Alhambra",
+          "Marc A. Suchard"
+        ],
+        "status": "Design Finalized",
+        "publications": "-"
+      },
+      "author": {
+        "date": "2020-07-11T13:14:14Z",
+        "name": "Marc Suchard",
+        "email": "msuchard@ucla.edu"
+      },
+      "sha": "ef69b10882e3026b8b90a2609e83b93ed3331bc8"
+    }
+  },
+  "QbaEvaluation": {
+    "watchersCount": 0,
+    "name": "QbaEvaluation",
+    "updatedAt": "2023-02-19T12:04:43Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Protocol](https://ohdsi-studies.github.io/QbaEvaluation/protocol.html)",
+        "endDate": "-",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Quantitative bias analysis for outcome phenotype error correction in comparative effect estimation: an empirical and synthetic evaluation",
+        "results": "[Explorer](https://data.ohdsi.org/QbaEvaluation)",
+        "startDate": "1 January 2022",
+        "status": "Results Available",
+        "tags": [
+          "QBA"
+        ],
+        "studyLeads": [
+          "James Weaver"
+        ],
+        "publications": "TODO"
+      },
+      "author": {
+        "date": "2023-05-18T16:31:59Z",
+        "name": "Jamie Weaver",
+        "email": "jamieweaver@gmail.com"
+      },
+      "sha": "acb763ecb4f6e8d1619dab052fac58aa9b55dd7d"
+    }
+  },
+  "AnticoagInBioValve": {
+    "watchersCount": 0,
+    "name": "AnticoagInBioValve",
+    "updatedAt": "2021-01-15T08:36:22Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "",
+        "endDate": "",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Comparative effectiveness and safety of anticoagulation strategies in patients undergoing open heart surgery using bioprosthetic valves",
+        "results": "",
+        "startDate": "",
+        "studyLeads": [
+          "Seng Chan You",
+          "Makoto Mori",
+          "Harlan Krumholz"
+        ],
+        "publications": "",
+        "status": "Started",
+        "tags": [
+          "OHDSI"
+        ]
+      },
+      "author": {
+        "date": "2021-01-15T08:36:19Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "78e1f4b1e214fa88af9666ed0ec227ef2df9876c"
+    }
+  },
+  "Covid19EstimationIl6JakInhibitors": {
+    "watchersCount": 0,
+    "name": "Covid19EstimationIl6JakInhibitors",
+    "updatedAt": "2020-06-22T09:43:42Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "OHDSI COVID-19 Studyathon: Il6 and JAK inhibitors population-level effect estimation",
+        "results": "[Evidence Explorer](https://data.ohdsi.org/Covid19EstimationIl6JakInhibitors/)",
+        "startDate": "March 26, 2020",
+        "status": "Started",
+        "publications": "-",
+        "studyLeads": [
+          "Daniel Prieto-Alhambra"
+        ],
+        "tags": [
+          "Study-a-thon",
+          "COVID-19"
+        ]
+      },
+      "author": {
+        "date": "2020-06-22T09:43:37Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "d010dae8dce9e9530825599d24a00a0c08d6230a"
+    }
+  },
+  "MesalaminePrednisolone": {
+    "watchersCount": 0,
+    "name": "MesalaminePrednisolone",
+    "updatedAt": "2022-09-09T13:43:42Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "-"
+        ],
+        "title": "[Study title]",
+        "results": "-",
+        "startDate": "-",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "-"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2022-09-09T13:43:44Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "7db6ff1346f269d22ddc4b392e6d13f302e8d18e"
+    }
+  },
+  "Troy": {
+    "watchersCount": 0,
+    "name": "Troy",
+    "updatedAt": "2022-10-13T01:23:27Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Protocol](https://github.com/dr-you-group/Troy/blob/master/documents/TROY_Protocol_v0.2.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Trials Replication through Observational study by Yonsei (TROY)",
+        "results": "-",
+        "startDate": "1 January 2022",
+        "studyLeads": [
+          "Kyung Won Kim"
+        ],
+        "publications": "-",
+        "status": null,
+        "tags": [
+          "-"
+        ]
+      },
+      "author": {
+        "date": "2022-05-15T07:31:12Z",
+        "name": "Jaehyeong Cho",
+        "email": "boyinai03@gmail.com"
+      },
+      "sha": "be6ed5be8bc9d5a8e55197ac154d68f4e7059bc4"
+    }
+  },
+  "ExistingStrokeRiskExternalValidation": {
+    "watchersCount": 1,
+    "name": "ExistingStrokeRiskExternalValidation",
+    "updatedAt": "2023-04-06T13:15:27Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "-",
+        "endDate": "Feb 20, 2019",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "Proof of concept demonstrating the utilization of the OHDSI data network to perform external model validation of existing stroke models",
+        "results": "-",
+        "startDate": "Jan 1, 2019",
+        "status": "Complete",
+        "tags": [
+          "External validation"
+        ],
+        "studyLeads": [
+          "Jenna Reps"
+        ],
+        "publications": "[Here](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-020-00991-3)"
+      },
+      "author": {
+        "date": "2020-08-17T01:35:40Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "8857f63843f733744f2344149b56f4b53f91dd34"
+    }
+  },
+  "PhenotypeParkinsonsDisease": {
+    "watchersCount": 0,
+    "name": "PhenotypeParkinsonsDisease",
+    "updatedAt": "2023-02-09T12:58:42Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "PhenotypeParkinsonsDisease",
+        "results": null,
+        "startDate": null,
+        "publications": null,
+        "studyLeads": null,
+        "status": null,
+        "tags": null
+      },
+      "author": {
+        "date": "2023-02-09T12:58:31Z",
+        "name": "Gowtham Rao",
+        "email": "rao@ohdsi.org"
+      },
+      "sha": "8fdf9545bcf0547c0df0d0f8e7e4d3d5ce7ff6b5"
+    }
+  },
+  "SosTest1": {
+    "watchersCount": 0,
+    "name": "SosTest1",
+    "updatedAt": "2023-06-09T16:26:48Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Population-level estimation"
+        ],
+        "title": "Estimating the comparative risk of kidney failure associated with intravitreal anti-vascular endothelial growth factor exposure in patients with blinding diseases ",
+        "results": "-",
+        "startDate": "28-03-2023",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Cindy Cai"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-03-28T15:51:15Z",
+        "name": "Marc Suchard",
+        "email": "msuchard@ucla.edu"
+      },
+      "sha": "b970ecc0883ffe2f8429bddee026eb39051b1de2"
+    }
+  },
+  "OLGLMM-COVID": {
+    "watchersCount": 0,
+    "name": "OLGLMM-COVID",
+    "updatedAt": "2023-05-16T02:09:27Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "[Here](https://github.com/ohdsi-studies/OLGLMM-COVID/blob/master/extras/protocol.docx)",
+        "endDate": "month year",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "olglmmCovid <add more>",
+        "results": "-",
+        "startDate": "June 2023",
+        "status": "Started",
+        "tags": [
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "Jiayi Tong"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-05-16T02:09:22Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "bdf529256def5aad2affaa4a3cb305979acbff9d"
+    }
+  },
+  "ApPhenotypeEvaluation": {
+    "watchersCount": 0,
+    "name": "ApPhenotypeEvaluation",
+    "updatedAt": "2022-10-01T01:42:31Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "Acute pancreatitis phenotype evaluation",
+        "results": null,
+        "startDate": null,
+        "studyLeads": null,
+        "status": "Results Available",
+        "publications": null,
+        "tags": null
+      },
+      "author": {
+        "date": "2022-10-17T22:56:23Z",
+        "name": "Jamie Weaver",
+        "email": "jamieweaver@gmail.com"
+      },
+      "sha": "ab7fed26d246b06bdd7d5283966b806d00d60d60"
+    }
+  },
+  "ScyllaEstimation": {
+    "watchersCount": 1,
+    "name": "ScyllaEstimation",
+    "updatedAt": "2020-12-18T06:14:21Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "",
+        "endDate": "TBD",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Project Sc(y)lla Estimation: SARS-Cov-2 Large-scale Longitudinal Analyses on the comparative safety and effectiveness of treatments under evaluation for COVID-19 across an international observational data network",
+        "results": "https://data.ohdsi.org/ScyllaEstimation/",
+        "startDate": "TBD",
+        "status": "Design Finalized",
+        "publications": "-",
+        "tags": [
+          "OHDSI",
+          "Study-a-thon",
+          "COVID-19"
+        ],
+        "studyLeads": [
+          "George Hripcsak",
+          "Daniel Prieto-Alhambra",
+          "Patrick Ryan",
+          "Peter Rijnbeck",
+          "Marc Suchard"
+        ]
+      },
+      "author": {
+        "date": "2020-12-07T10:00:14Z",
+        "name": "Schuemie",
+        "email": "MSCHUEMI@its.jnj.com"
+      },
+      "sha": "993c1dfec39e9f711f2de459ebf7dac16afd7d4f"
+    }
+  },
+  "CauseSpecificMortality": {
+    "watchersCount": 0,
+    "name": "CauseSpecificMortality",
+    "updatedAt": "2020-02-19T07:11:57Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Cause-specific mortality prediction",
+        "results": "-",
+        "startDate": "June 1, 2019",
+        "status": "Design Finalized",
+        "studyLeads": [
+          "Chungsoo Kim"
+        ],
+        "publications": "-",
+        "tags": [
+          "-"
+        ]
+      },
+      "author": {
+        "date": "2020-02-19T07:11:53Z",
+        "name": "Kim Chungsoo",
+        "email": "42205861+ted9219@users.noreply.github.com"
+      },
+      "sha": "c29355c3f78caeebc1dfb67f7132367a5b3e899e"
+    }
+  },
+  "IedPhenotype": {
+    "watchersCount": 0,
+    "name": "IedPhenotype",
+    "updatedAt": "2021-08-30T13:47:27Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "-"
+        ],
+        "title": "[Study title]",
+        "results": "-",
+        "startDate": "-",
+        "publications": "-",
+        "studyLeads": [
+          "-"
+        ],
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ]
+      },
+      "author": {
+        "date": "2021-08-30T13:47:24Z",
+        "name": "Martijn Schuemie",
+        "email": "schuemie@ohdsi.org"
+      },
+      "sha": "ae8f5ed7d231dacf66917c77f23a6f9a525a7756"
+    }
+  },
+  "Covid19VaccineEffectiveness": {
+    "watchersCount": 0,
+    "name": "Covid19VaccineEffectiveness",
+    "updatedAt": "2021-07-15T18:21:35Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Population-Level Estimation"
+        ],
+        "protocol": "[Protocol](https://github.com/ohdsi-studies/Covid19VaccineEffectiveness/blob/Covid19VaccineEffectiveness/OHDSI_covid_vaccine_effectiveness_study_v1.docx)",
+        "endDate": "-",
+        "studyType": [
+          "Clinical Application"
+        ],
+        "title": "Comparative-effectiveness Research on Immunization Used for SARS-CoV-2 (CRIUS)",
+        "results": "-",
+        "startDate": "April 01, 2021",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "Anna Ostropolets and George Hripcsak"
+        ],
+        "publications": "-",
+        "status": "Started"
+      },
+      "author": {
+        "date": "2021-07-15T18:21:31Z",
+        "name": "Anna Ostropolets",
+        "email": "anna.ostropolets@odysseusinc.com"
+      },
+      "sha": "f6863b38c2d10c5458700b794320248c173a2d15"
+    }
+  },
+  "PASC": {
+    "watchersCount": 0,
+    "name": "PASC",
+    "updatedAt": "2022-08-19T14:49:31Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "Patient-Level Prediction"
+        ],
+        "protocol": "-",
+        "endDate": "10 2022",
+        "studyType": [
+          "Methods Research"
+        ],
+        "title": "ODAP-B Long COVID",
+        "results": "-",
+        "startDate": "08 2022",
+        "tags": [
+          "-"
+        ],
+        "status": "Repo Created",
+        "publications": "-",
+        "studyLeads": [
+          "Jiayi Tong"
+        ]
+      },
+      "author": {
+        "date": "2022-08-19T15:58:08Z",
+        "name": "jreps",
+        "email": "jreps@its.jnj.com"
+      },
+      "sha": "db1ebb55ab630307e1c06c91f090caae729d000a"
+    }
+  },
+  "PhenotypeStElevatedMyocaridalInfarction": {
+    "watchersCount": 0,
+    "name": "PhenotypeStElevatedMyocaridalInfarction",
+    "updatedAt": "2023-02-14T23:47:52Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": [
+          "-"
+        ],
+        "protocol": "-",
+        "endDate": "-",
+        "studyType": [
+          "-"
+        ],
+        "title": "[Study title]",
+        "results": "-",
+        "startDate": "-",
+        "status": "Repo Created",
+        "tags": [
+          "-"
+        ],
+        "studyLeads": [
+          "-"
+        ],
+        "publications": "-"
+      },
+      "author": {
+        "date": "2023-02-14T23:47:54Z",
+        "name": "Patrick Ryan",
+        "email": "ryan@ohdsi.org"
+      },
+      "sha": "e126aa21ba519f81a6cd5857b5664ed984a35e87"
+    }
+  },
+  "ConceptCooccurrence": {
+    "watchersCount": 0,
+    "name": "ConceptCooccurrence",
+    "updatedAt": "2023-04-11T21:32:32Z",
+    "latestReadme": {
+      "summary": {
+        "useCases": null,
+        "protocol": null,
+        "endDate": null,
+        "studyType": null,
+        "title": "StudyRepoTemplate",
+        "results": null,
+        "startDate": null,
+        "status": "Repo Created",
+        "tags": null,
+        "studyLeads": null,
+        "publications": null
+      },
+      "author": {
+        "date": "2023-04-11T21:32:28Z",
+        "name": "Marc Suchard",
+        "email": "msuchard@ucla.edu"
+      },
+      "sha": "fbbd1e8560fdbccfa92ffcd12b331767d3d6b0a5"
+    }
+  }
+}

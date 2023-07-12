@@ -1,0 +1,13 @@
+<mat-card class="card"
+  (mouseover)="elevate()" 
+  (mouseout)="noelevate()" 
+  [class.elevate]="elevateClass"
+>
+  <mat-card-content>
+    <div class="avatar">
+      <mat-icon>face</mat-icon>
+      {{lead}}
+    </div>
+  </mat-card-content>
+</mat-card>
+

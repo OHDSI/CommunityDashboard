@@ -1,0 +1,122 @@
+<ul class="crumb-trail">
+  <li class="crumb pull-left" [class.crumb-navigate]="!!crumb" (click)="backToNetworkStudyList()">
+    Network Studies
+  </li>
+  <li class="crumb pull-left" *ngIf="crumb|async">
+    {{crumb|async}}
+  </li>
+</ul>
+
+<div *ngFor="let repo of [repo|async]" class="sidenav">
+
+  <div class="main">
+    <div class="block">
+      <div class="status-headline">
+        <h1 class="mat-headline-3">{{repo?.name}}</h1>
+        <mat-chip>
+          <mat-icon matChipAvatar>start</mat-icon>
+          {{repo?.latestReadme?.summary?.status}}
+        </mat-chip>
+      </div>
+    </div>
+    <div class="block subheading">
+      <div>
+        <div class="muted">Watchers Count: {{repo?.watchersCount}}</div>
+        <div class="leads">
+          <div *ngFor="let l of repo?.latestReadme?.summary?.studyLeads">
+            <lib-study-lead [lead]="l"></lib-study-lead>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="block categories">
+      <div>
+        <h3 class="mat-headline-4 category">Study Type</h3>
+        <mat-form-field>
+          <mat-chip-grid #chipGrid >
+            <mat-chip-row *ngFor="let t of repo?.latestReadme?.summary?.studyType" (removed)="removeStudyType(t)">
+              <div class="category-chip">{{t}}</div>
+              <button matChipRemove aria-label="'remove ' + t">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input placeholder="Add Study Type" #studyTypeInput [formControl]="studyTypeControl"
+            [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addStudyType($event)"
+          />
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedStudyType($event)">
+            <mat-option *ngFor="let possibleType of possibleTypesFiltered | async" [value]="possibleType">
+              {{possibleType}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div>
+        <h3 class="mat-headline-4 category">Use Cases</h3>
+        <mat-form-field>
+          <mat-chip-grid #chipGridUseCases >
+            <mat-chip-row
+              *ngFor="let t of repo?.latestReadme?.summary?.useCases" 
+              (removed)="removeStudyType(t)"
+            >
+              <div class="category-chip">{{t}}</div>
+              <button matChipRemove aria-label="'remove ' + t">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input placeholder="Add Use Case" #studyTypeInput [formControl]="studyTypeControl"
+            [matChipInputFor]="chipGridUseCases" [matAutocomplete]="autoUseCases"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addStudyType($event)"
+          />
+          <mat-autocomplete #autoUseCases="matAutocomplete" (optionSelected)="selectedStudyType($event)">
+            <mat-option *ngFor="let possibleType of possibleTypesFiltered | async" [value]="possibleType">
+              {{possibleType}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div>
+        <h3 class="mat-headline-4 category">Tags</h3>
+        <mat-form-field>
+          <mat-chip-grid #chipGridTags >
+            <mat-chip-row *ngFor="let t of repo?.latestReadme?.summary?.tags" (removed)="removeStudyType(t)">
+              <div class="category-chip">{{t}}</div>
+              <button matChipRemove aria-label="'remove ' + t">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input placeholder="Add Tag" #tagsInput [formControl]="studyTypeControl"
+            [matChipInputFor]="chipGridTags" [matAutocomplete]="autoTags"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addStudyType($event)"
+          />
+          <mat-autocomplete #autoTags="matAutocomplete" (optionSelected)="selectedStudyType($event)">
+            <mat-option *ngFor="let possibleType of possibleTypesFiltered | async" [value]="possibleType">
+              {{possibleType}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="block summary">
+      <div class="summary-headline">
+        <h3 class="mat-headline-5">Summary</h3>
+        <button mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+      <div>
+        <p>TODO: parse body of README</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+    </div>
+  </div>
+
+  <lib-network-study-checklist class="checklist"></lib-network-study-checklist>
+</div>
+

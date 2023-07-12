@@ -1,0 +1,9 @@
+<mat-card class="card"
+  (mouseover)="elevate()" 
+  (mouseout)="noelevate()" 
+  [class.elevate]="elevateClass"
+>
+  <mat-card-content>
+    {{networkStudyRepo.name}}
+  </mat-card-content>
+</mat-card>
