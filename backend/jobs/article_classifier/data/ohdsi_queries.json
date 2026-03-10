@@ -1,0 +1,54 @@
+{
+  "topic_name": "ohdsi",
+  "generated": "2026-02-24",
+  "method": "query_learner",
+  "input_stats": {
+    "n_positives": 704,
+    "n_negatives": 491
+  },
+  "parameters": {
+    "target_recall": 0.9,
+    "max_queries": 15,
+    "min_author_articles": 10
+  },
+  "queries": [
+    {
+      "name": "Q01: brand terms",
+      "query": "omop OR partnership OR cdm OR informatics",
+      "strategy": "brand",
+      "matches": 484,
+      "new_matches": 484,
+      "cumulative_recall": 68.8
+    },
+    {
+      "name": "Q02: gap: database",
+      "query": "\"database\" AND (\"drug\" OR \"effects\" OR \"large\")",
+      "strategy": "gap_recovery",
+      "matches": 244,
+      "new_matches": 96,
+      "cumulative_recall": 82.4
+    },
+    {
+      "name": "Q03: gap: records",
+      "query": "\"records\" AND (\"databases\" OR \"database\" OR \"electronic health\")",
+      "strategy": "gap_recovery",
+      "matches": 309,
+      "new_matches": 46,
+      "cumulative_recall": 88.9
+    },
+    {
+      "name": "Q04: gap: outcome",
+      "query": "\"outcome\" AND (\"databases\" OR \"drug\" OR \"database\")",
+      "strategy": "gap_recovery",
+      "matches": 328,
+      "new_matches": 22,
+      "cumulative_recall": 92.0
+    }
+  ],
+  "recall_metrics": {
+    "queries_only": 0.9205,
+    "with_authors": 0.9886,
+    "gap_count": 56,
+    "uncatchable_count": 8
+  }
+}

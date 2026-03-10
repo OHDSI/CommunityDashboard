@@ -1,0 +1,182 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Node.js / Next.js
+node_modules/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+tsconfig.tsbuildinfo
+
+# Environment variables
+*.env
+.env.*
+!.env.example
+!.env.production.example
+
+# ML model binaries (large, not for version control)
+backend/models/
+backend/jobs/article_classifier/models/
+
+# Article classifier data — ignore intermediate artifacts, whitelist production files
+backend/jobs/article_classifier/data/processed/
+backend/jobs/article_classifier/data/*.csv
+backend/jobs/article_classifier/data/*.parquet
+backend/jobs/article_classifier/data/*.pkl
+backend/jobs/article_classifier/data/*.bib
+backend/jobs/article_classifier/data/enriched/*
+!backend/jobs/article_classifier/data/enriched/positive_enriched.json
+!backend/jobs/article_classifier/data/enriched/negative_enriched.json
+!backend/jobs/article_classifier/data/enriched/citation_graph.json
+!backend/jobs/article_classifier/data/enriched/calibrated_thresholds.json
+
+# Evaluation scripts (local only, not for public repo)
+backend/jobs/article_classifier/ablate_*.py
+backend/jobs/article_classifier/audit_*.py
+backend/jobs/article_classifier/calibrate_*.py
+backend/jobs/article_classifier/curate_*.py
+backend/jobs/article_classifier/enrich_*.py
+backend/jobs/article_classifier/evaluate_*.py
+backend/jobs/article_classifier/export_*.py
+backend/jobs/article_classifier/run_baselines.py
+backend/jobs/article_classifier/claudedocs/
+
+# Logs
+*.log
+logs/
+log/
+pipeline_progress.json
+pipeline.log
+
+# Test scripts and outputs (dev-only, not committed)
+backend/scripts/test_*.py
+backend/scripts/*_test.py
+backend/scripts/sandbox*.py
+backend/scripts/debug*.py
+backend/scripts/tmp*.py
+backend/jobs/test_*.py
+backend/test_*.py
+test_output/
+**/test-results/
+
+# Archived scripts
+backend/scripts/_archive_*/
+
+# Docker and infrastructure
+docker-compose.override.yml
+volumes/
+*_data/
+/data/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+!migrations/*.sql
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# OS files
+.DS_Store
+._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# Temporary files
+tmp/
+temp/
+cache/
+*.tmp
+*.temp
+*.bak
+*.backup*
+*.old
+*.orig
+celerybeat-schedule
+celerybeat.pid
+
+# Deployment artifacts
+deployment_package.*
+
+# Generated documentation
+docs/
+backend/docs/
+
+# Frontend artifacts
+frontend/*.png
+public/uploads/
+static/uploads/
+
+# Monitoring and profiling
+*.prof
+*.lprof
+.nox/
+.tox/
+
+# Security — never commit
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+private/
+secrets/
+credentials/
+
+# Large data files
+*.tar.gz
+*.zip
+*.rar
+*.7z
+*.gz
+*.bz2
+
+# ML training artifacts
+checkpoints/
+tensorboard/
+wandb/
+mlruns/
+
+# Elasticsearch backups (may contain production data / PII)
+es_backup/
+elasticsearch/backup/
+postgresql/backup/
+redis/backup/
+
+# Project-specific
+CLAUDE.md
+.claude/
+.mcp.json
+backend/**/quick_test_results.json

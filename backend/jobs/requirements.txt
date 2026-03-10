@@ -1,0 +1,5 @@
+# Additional dependencies for jobs pipeline
+# (packages also in backend/requirements.txt are omitted — they're installed first)
+
+# Text processing (used by wiki_scraper/doc_processor.py)
+nltk>=3.8.0

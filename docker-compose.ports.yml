@@ -1,0 +1,21 @@
+# Port mappings for production deployment with system nginx.
+# Used alongside docker-compose.prod.yml when NOT using the Docker nginx container.
+#
+# Usage:
+#   docker compose -f docker-compose.prod.yml -f docker-compose.ports.yml up -d
+services:
+  frontend:
+    ports:
+      - "3000:3000"
+  backend:
+    ports:
+      - "8000:8000"
+  elasticsearch:
+    ports:
+      - "9200:9200"
+  postgresql:
+    ports:
+      - "5432:5432"
+  redis:
+    ports:
+      - "6379:6379"

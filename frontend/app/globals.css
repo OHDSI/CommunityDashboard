@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* OHDSI Brand Colors - Official Blue and Gold */
+    --ohdsi-blue: 210 100% 40%;            /* #0066cc - OHDSI Blue */
+    --ohdsi-blue-light: 210 100% 50%;      /* #3399ff - Light Blue */
+    --ohdsi-blue-dark: 210 100% 30%;       /* #004499 - Dark Blue */
+    --ohdsi-gold: 45 100% 50%;             /* #ffcc00 - OHDSI Gold */
+    --ohdsi-gold-light: 45 100% 60%;       /* #ffdb4d - Light Gold */
+    --ohdsi-gold-dark: 45 100% 40%;        /* #cc9900 - Dark Gold */
+    
+    /* Primary uses blue, accent uses gold */
+    --ohdsi-primary: 210 100% 40%;         /* OHDSI Blue as primary */
+    --ohdsi-primary-light: 210 100% 50%;   
+    --ohdsi-primary-dark: 210 100% 30%;
+    
+    /* Neutral Palette with subtle blue tint */
+    --background: 210 20% 98%;             /* #fafbfc - Subtle gray-blue background */
+    --foreground: 216 28% 11%;             /* #1f2937 - Dark text */
+    
+    /* Card and Surface Colors */
+    --card: 0 0% 100%;                     /* Pure white for cards */
+    --card-foreground: 216 28% 11%;        /* Dark text on cards */
+    --popover: 0 0% 100%;                  /* White popovers */
+    --popover-foreground: 216 28% 11%;     
+    
+    /* Primary Actions */
+    --primary: 210 100% 40%;               /* OHDSI Blue */
+    --primary-foreground: 0 0% 100%;       /* White text on primary */
+    
+    /* Secondary Elements */
+    --secondary: 210 15% 96%;              /* Light gray-blue */
+    --secondary-foreground: 216 25% 27%;   /* Dark gray text */
+    
+    /* Muted Elements */
+    --muted: 210 15% 96%;                  /* Light backgrounds */
+    --muted-foreground: 215 16% 47%;       /* Muted text color */
+    
+    /* Accent Color - Using Gold */
+    --accent: 45 100% 50%;                 /* OHDSI Gold accent */
+    --accent-foreground: 216 28% 11%;
+    
+    /* Semantic Colors */
+    --destructive: 0 84% 53%;              /* Red for errors */
+    --destructive-foreground: 0 0% 100%;
+    --success: 158 64% 35%;                /* Green for success */
+    --success-foreground: 0 0% 100%;
+    --warning: 35 92% 45%;                 /* Amber for warnings */
+    --warning-foreground: 0 0% 100%;
+    --info: 195 90% 36%;                   /* Cyan for info */
+    --info-foreground: 0 0% 100%;
+    
+    /* Borders and Inputs */
+    --border: 214 18% 89%;                 /* Light gray borders */
+    --input: 214 18% 89%;                  /* Input borders */
+    --ring: 193 100% 38%;                  /* Focus ring - OHDSI teal */
+    
+    /* Border Radius */
+    --radius: 0.75rem;                     /* 12px - More modern radius */
+    
+    /* Chart Colors */
+    --chart-1: 193 100% 38%;               /* OHDSI Teal */
+    --chart-2: 195 90% 45%;                /* Cyan */
+    --chart-3: 201 96% 42%;                /* Blue */
+    --chart-4: 262 85% 62%;                /* Purple */
+    --chart-5: 330 81% 60%;                /* Pink */
+    --chart-6: 35 92% 50%;                 /* Amber */
+    --chart-7: 158 64% 45%;                /* Emerald */
+    --chart-8: 258 90% 66%;                /* Violet */
+  }
+
+  .dark {
+    /* Dark mode with OHDSI colors */
+    --background: 216 28% 7%;              /* Very dark blue-gray */
+    --foreground: 210 20% 98%;             /* Light text */
+    
+    --card: 216 25% 9%;                    /* Slightly elevated dark */
+    --card-foreground: 210 20% 98%;
+    --popover: 216 25% 9%;
+    --popover-foreground: 210 20% 98%;
+    
+    --primary: 193 100% 46%;               /* Brighter teal for dark mode */
+    --primary-foreground: 216 28% 11%;
+    
+    --secondary: 217 20% 15%;              /* Dark blue-gray */
+    --secondary-foreground: 210 20% 98%;
+    
+    --muted: 217 20% 15%;
+    --muted-foreground: 215 15% 65%;
+    
+    --accent: 193 100% 38%;
+    --accent-foreground: 210 20% 98%;
+    
+    --destructive: 0 75% 45%;
+    --destructive-foreground: 210 20% 98%;
+    --success: 158 64% 42%;
+    --success-foreground: 210 20% 98%;
+    --warning: 35 92% 52%;
+    --warning-foreground: 216 28% 11%;
+    --info: 195 90% 48%;
+    --info-foreground: 210 20% 98%;
+    
+    --border: 217 20% 18%;
+    --input: 217 20% 18%;
+    --ring: 193 100% 46%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: "opsz" 32;
+  }
+}
+
+/* Typography System */
+@layer utilities {
+  /* Font Weights */
+  .font-display {
+    @apply font-bold tracking-tight;
+  }
+  
+  /* Text Sizes with Line Heights */
+  .text-display {
+    @apply text-6xl leading-tight font-bold tracking-tight;
+  }
+  
+  .text-h1 {
+    @apply text-4xl leading-tight font-semibold;
+  }
+  
+  .text-h2 {
+    @apply text-3xl leading-snug font-semibold;
+  }
+  
+  .text-h3 {
+    @apply text-2xl leading-normal font-semibold;
+  }
+  
+  .text-h4 {
+    @apply text-xl leading-normal font-medium;
+  }
+  
+  .text-h5 {
+    @apply text-lg leading-normal font-medium;
+  }
+  
+  .text-body-lg {
+    @apply text-lg leading-relaxed;
+  }
+  
+  .text-body {
+    @apply text-base leading-normal;
+  }
+  
+  .text-body-sm {
+    @apply text-sm leading-normal;
+  }
+  
+  .text-caption {
+    @apply text-xs font-medium tracking-wide;
+  }
+  
+  .text-overline {
+    @apply text-xs font-semibold tracking-wider uppercase;
+  }
+}
+
+/* Component Styles */
+@layer components {
+  /* Card Hover Effects */
+  .card-hover {
+    @apply transition-all duration-200 ease-out hover:shadow-md hover:-translate-y-0.5;
+  }
+  
+  /* Button Base Styles */
+  .btn-primary-gradient {
+    background: linear-gradient(135deg, hsl(var(--ohdsi-primary)), hsl(var(--ohdsi-primary-dark)));
+    @apply text-white shadow-sm hover:shadow-md transition-all duration-200;
+  }
+  
+  /* Focus Styles */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+  
+  /* Loading Animation */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .skeleton {
+    @apply animate-pulse bg-gradient-to-r from-muted via-muted/50 to-muted bg-[length:200%_100%];
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "timestamp": "2026-02-24 21:32:51",
+  "methodology": "split-sample: 50% OOF for threshold search, 50% for honest reporting",
+  "n_articles": 1195,
+  "n_positive": 704,
+  "n_negative": 491,
+  "n_search_split": 597,
+  "n_report_split": 598,
+  "calibrated_thresholds": {
+    "auto_approve": 0.64,
+    "priority_review": 0.355,
+    "auto_reject": 0.07,
+    "method": "precision_0.99_npv_0.99_split_sample",
+    "calibration_date": "2026-02-24"
+  },
+  "quality_metrics_search": {
+    "note": "Optimistic \u2014 thresholds were optimized on this split",
+    "auto_approve_precision": 0.9905,
+    "auto_approve_recall": 0.8892,
+    "auto_reject_npv": 0.9938,
+    "auto_reject_specificity": 0.6531
+  },
+  "quality_metrics_honest": {
+    "note": "Honest \u2014 held-out split not used for threshold search",
+    "auto_approve_precision": 0.9817,
+    "auto_approve_recall": 0.9148,
+    "auto_reject_npv": 1.0
+  },
+  "routing_distribution": {
+    "honest_report_split": {
+      "auto_approved": {
+        "count": 328,
+        "pct": 54.8,
+        "true_positive": 322,
+        "false_positive": 6
+      },
+      "high_priority_review": {
+        "count": 33,
+        "pct": 5.5,
+        "true_positive": 23,
+        "false_positive": 10
+      },
+      "low_priority_review": {
+        "count": 70,
+        "pct": 11.7,
+        "true_positive": 7,
+        "false_positive": 63
+      },
+      "auto_rejected": {
+        "count": 167,
+        "pct": 27.9,
+        "true_negative": 167,
+        "false_negative": 0
+      }
+    },
+    "search_split": {
+      "auto_approved": {
+        "count": 316,
+        "pct": 52.9,
+        "true_positive": 313,
+        "false_positive": 3
+      },
+      "high_priority_review": {
+        "count": 42,
+        "pct": 7.0,
+        "true_positive": 26,
+        "false_positive": 16
+      },
+      "low_priority_review": {
+        "count": 78,
+        "pct": 13.1,
+        "true_positive": 12,
+        "false_positive": 66
+      },
+      "auto_rejected": {
+        "count": 161,
+        "pct": 27.0,
+        "true_negative": 160,
+        "false_negative": 1
+      }
+    },
+    "old_thresholds": {
+      "auto_approved": {
+        "count": 313,
+        "pct": 52.3,
+        "true_positive": 308,
+        "false_positive": 5
+      },
+      "high_priority_review": {
+        "count": 37,
+        "pct": 6.2,
+        "true_positive": 32,
+        "false_positive": 5
+      },
+      "low_priority_review": {
+        "count": 13,
+        "pct": 2.2,
+        "true_positive": 5,
+        "false_positive": 8
+      },
+      "auto_rejected": {
+        "count": 235,
+        "pct": 39.3,
+        "true_negative": 228,
+        "false_negative": 7
+      }
+    }
+  },
+  "old_thresholds": {
+    "auto_approve": 0.7,
+    "priority_review": 0.5,
+    "auto_reject": 0.3
+  }
+}
