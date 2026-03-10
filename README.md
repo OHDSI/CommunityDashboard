@@ -2,14 +2,16 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
+**Live at [dash.ohdsi.org](https://dash.ohdsi.org)**
+
 An intelligent content discovery and classification platform for the [OHDSI](https://ohdsi.org/) (Observational Health Data Sciences and Informatics) community. This system automatically fetches, classifies, and manages research articles and community content, providing a comprehensive pipeline for content curation.
 
 ## Quick Start
 
 ```bash
 # Clone the repository
-git clone https://github.com/OHDSI/ohdsi-dashboard.git
-cd ohdsi-dashboard
+git clone https://github.com/OHDSI/CommunityDashboard.git
+cd CommunityDashboard
 
 # Copy and configure environment
 cp .env.example .env
